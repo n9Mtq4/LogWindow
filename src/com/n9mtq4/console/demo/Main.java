@@ -24,8 +24,8 @@ public class Main {
 	
 	public static void main(String[] args) {
 		
-		MyParser myParser = new MyParser();
-		new Console(myParser);
+		Console c = new Console();
+		c.linkListener(new MyListener());
 		
 	}
 	

@@ -15,10 +15,23 @@
 
 package com.n9mtq4.console.demo;
 
-import com.n9mtq4.console.lib.ConsoleParser;
+import com.n9mtq4.console.lib.ConsoleActionEvent;
+import com.n9mtq4.console.lib.ConsoleListener;
+
+import java.awt.*;
 
 /**
  * Created by Will on 10/20/14.
  */
-public class MyParser extends ConsoleParser {
+public class MyListener extends ConsoleListener {
+	
+	@Override
+	public void actionPreformed(ConsoleActionEvent e) {
+		
+		if (e.getCommand().contains("hi")) {
+			e.getSource().println("Hello", Color.CYAN);
+		}
+		
+	}
+	
 }
