@@ -15,33 +15,27 @@
 
 package com.n9mtq4.console.lib;
 
-import java.awt.*;
 import java.util.ArrayList;
 
 /**
  * Created by Will on 10/20/14.
  */
-public class ConsoleParser {
+public abstract class ConsoleListener {
 	
 	private ArrayList<Console> linkedConsoles;
 	
-	public ConsoleParser() {
+	public ConsoleListener() {
 		linkedConsoles = new ArrayList<Console>();
 		initModules();
 	}
 	
-	public void process(Console c, String text) {
-		
-		if (text.equals("hi")) {
-			c.println("hi", Color.GREEN);
-		}
-		
-	}
+	public abstract void actionPreformed(ConsoleActionEvent e);
 	
 	public void push(String text) {
 		
+		ConsoleCommand command = new ConsoleCommand(text);
 		for (Console c : linkedConsoles) {
-			this.process(c, text);
+			this.actionPreformed(new ConsoleActionEvent(c, command));
 		}
 		
 	}
@@ -52,18 +46,18 @@ public class ConsoleParser {
 	
 	public void linkConsole(Console console) {
 		
-		if (!linkedConsoles.contains(console) || !console.getLinkedParsers().contains(this)) {
+		if (!linkedConsoles.contains(console) || !console.getLinkedListeners().contains(this)) {
 			linkedConsoles.add(console);
-			console.linkParser(this);
+			console.linkListener(this);
 		}
 		
 	}
 	
 	public void unlinkConsole(Console console) {
 		
-		if (linkedConsoles.contains(console) || console.getLinkedParsers().contains(this)) {
+		if (linkedConsoles.contains(console) || console.getLinkedListeners().contains(this)) {
 			linkedConsoles.remove(console);
-			console.unlinkParser(this);
+			console.unlinkListener(this);
 		}
 		
 	}

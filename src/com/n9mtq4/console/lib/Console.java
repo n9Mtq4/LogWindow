@@ -30,7 +30,7 @@ import java.util.ArrayList;
  */
 public class Console {
 	
-	private ArrayList<ConsoleParser> linkedParsers;
+	private ArrayList<ConsoleListener> linkedListeners;
 	private JFrame frame;
 	private NTextArea area;
 	private JTextField field;
@@ -39,14 +39,14 @@ public class Console {
 	private int historyIndex;
 	
 	public Console() {
-		linkedParsers = new ArrayList<ConsoleParser>();
+		linkedListeners = new ArrayList<ConsoleListener>();
 		history = new ArrayList<String>();
 		gui();
 	}
 	
-	public Console(ConsoleParser parser) {
-		linkedParsers = new ArrayList<ConsoleParser>();
-		linkParser(parser);
+	public Console(ConsoleListener parser) {
+		linkedListeners = new ArrayList<ConsoleListener>();
+		linkListener(parser);
 		history = new ArrayList<String>();
 		gui();
 	}
@@ -126,7 +126,7 @@ public class Console {
 	
 	private void push(String text) {
 		
-		for (ConsoleParser p : linkedParsers) {
+		for (ConsoleListener p : linkedListeners) {
 			
 			p.push(text);
 			
@@ -134,19 +134,19 @@ public class Console {
 		
 	}
 	
-	public void linkParser(ConsoleParser parser) {
+	public void linkListener(ConsoleListener parser) {
 		
-		if (!linkedParsers.contains(parser) || !parser.getLinkedConsoles().contains(this)) {
-			linkedParsers.add(parser);
+		if (!linkedListeners.contains(parser) || !parser.getLinkedConsoles().contains(this)) {
+			linkedListeners.add(parser);
 			parser.linkConsole(this);
 		}
 		
 	}
 	
-	public void unlinkParser(ConsoleParser parser) {
+	public void unlinkListener(ConsoleListener parser) {
 		
-		if (linkedParsers.contains(parser) || parser.getLinkedConsoles().contains(this)) {
-			linkedParsers.remove(parser);
+		if (linkedListeners.contains(parser) || parser.getLinkedConsoles().contains(this)) {
+			linkedListeners.remove(parser);
 			parser.unlinkConsole(this);
 		}
 		
@@ -216,7 +216,7 @@ public class Console {
 		this.historyIndex = historyIndex;
 	}
 
-	public ArrayList<ConsoleParser> getLinkedParsers() {
-		return linkedParsers;
+	public ArrayList<ConsoleListener> getLinkedListeners() {
+		return linkedListeners;
 	}
 }
