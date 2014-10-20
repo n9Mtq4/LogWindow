@@ -16,6 +16,10 @@
 package com.n9mtq4.console.demo;
 
 import com.n9mtq4.console.lib.Console;
+import com.n9mtq4.console.lib.ConsoleActionEvent;
+import com.n9mtq4.console.lib.ConsoleListener;
+
+import java.awt.*;
 
 /**
  * Created by Will on 10/20/14.
@@ -25,7 +29,25 @@ public class Main {
 	public static void main(String[] args) {
 		
 		Console c = new Console();
-		c.linkListener(new MyListener());
+		
+		c.addConsoleListener(new ConsoleListener() {
+			@Override
+			public void actionPreformed(ConsoleActionEvent e) {
+				if (e.getCommand().getText().equalsIgnoreCase("hello world")) {
+					e.getConsole().print("[World]: ", Color.ORANGE);
+					e.getConsole().println("Hello!");
+				}
+			}
+		});
+		
+		new ConsoleListener() {
+			@Override
+			public void actionPreformed(ConsoleActionEvent e) {
+				if (e.getCommand().getText().equalsIgnoreCase("hi")) {
+					e.getConsole().println("Hi!", Color.MAGENTA);
+				}
+			}
+		}.addToConsole(c);
 		
 	}
 	
