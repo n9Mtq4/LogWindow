@@ -44,9 +44,9 @@ public class Console {
 		gui();
 	}
 	
-	public Console(ConsoleListener parser) {
+	public Console(ConsoleListener listener) {
 		linkedListeners = new ArrayList<ConsoleListener>();
-		linkListener(parser);
+		addConsoleListener(listener);
 		history = new ArrayList<String>();
 		gui();
 	}
@@ -134,20 +134,20 @@ public class Console {
 		
 	}
 	
-	public void linkListener(ConsoleListener parser) {
+	public void addConsoleListener(ConsoleListener listener) {
 		
-		if (!linkedListeners.contains(parser) || !parser.getLinkedConsoles().contains(this)) {
-			linkedListeners.add(parser);
-			parser.linkConsole(this);
+		if (!linkedListeners.contains(listener) || !listener.getLinkedConsoles().contains(this)) {
+			linkedListeners.add(listener);
+			listener.addToConsole(this);
 		}
 		
 	}
 	
-	public void unlinkListener(ConsoleListener parser) {
+	public void removeConsoleListener(ConsoleListener listener) {
 		
-		if (linkedListeners.contains(parser) || parser.getLinkedConsoles().contains(this)) {
-			linkedListeners.remove(parser);
-			parser.unlinkConsole(this);
+		if (linkedListeners.contains(listener) || listener.getLinkedConsoles().contains(this)) {
+			linkedListeners.remove(listener);
+			listener.removeFromConsole(this);
 		}
 		
 	}

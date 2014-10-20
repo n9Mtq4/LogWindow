@@ -20,16 +20,16 @@ package com.n9mtq4.console.lib;
  */
 public class ConsoleActionEvent {
 	
-	private Console source;
+	private Console console;
 	private ConsoleCommand command;
 	
 	public ConsoleActionEvent(Console console, ConsoleCommand command) {
-		this.source = console;
+		this.console = console;
 		this.command = command;
 	}
 	
-	public Console getSource() {
-		return source;
+	public Console getConsole() {
+		return console;
 	}
 	
 	public ConsoleCommand getCommand() {

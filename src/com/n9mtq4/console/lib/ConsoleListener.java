@@ -44,20 +44,20 @@ public abstract class ConsoleListener {
 		
 	}
 	
-	public void linkConsole(Console console) {
+	public void addToConsole(Console console) {
 		
 		if (!linkedConsoles.contains(console) || !console.getLinkedListeners().contains(this)) {
 			linkedConsoles.add(console);
-			console.linkListener(this);
+			console.addConsoleListener(this);
 		}
 		
 	}
 	
-	public void unlinkConsole(Console console) {
+	public void removeFromConsole(Console console) {
 		
 		if (linkedConsoles.contains(console) || console.getLinkedListeners().contains(this)) {
 			linkedConsoles.remove(console);
-			console.unlinkListener(this);
+			console.removeConsoleListener(this);
 		}
 		
 	}

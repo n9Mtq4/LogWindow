@@ -29,7 +29,7 @@ public class MyListener extends ConsoleListener {
 	public void actionPreformed(ConsoleActionEvent e) {
 		
 		if (e.getCommand().contains("hi")) {
-			e.getSource().println("Hello", Color.CYAN);
+			e.getConsole().println("Hello", Color.CYAN);
 		}
 		
 	}
