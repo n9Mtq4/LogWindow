@@ -30,7 +30,7 @@ import java.util.ArrayList;
  */
 public class Console {
 	
-	private ConsoleParser parser;
+	private ArrayList<ConsoleParser> linkedParsers;
 	private JFrame frame;
 	private NTextArea area;
 	private JTextField field;
@@ -38,8 +38,15 @@ public class Console {
 	private ArrayList<String> history;
 	private int historyIndex;
 	
+	public Console() {
+		linkedParsers = new ArrayList<ConsoleParser>();
+		history = new ArrayList<String>();
+		gui();
+	}
+	
 	public Console(ConsoleParser parser) {
-		parser.linkConsole(this);
+		linkedParsers = new ArrayList<ConsoleParser>();
+		linkParser(parser);
 		history = new ArrayList<String>();
 		gui();
 	}
@@ -105,8 +112,44 @@ public class Console {
 			source.setText("");
 			history.add(text);
 			historyIndex = history.size();
-			parser.push(text);
+			input(text);
+			push(text);
 		}
+	}
+	
+	private void input(String text) {
+		
+		print("[INPUT]: ", Color.BLUE);
+		println(text);
+		
+	}
+	
+	private void push(String text) {
+		
+		for (ConsoleParser p : linkedParsers) {
+			
+			p.push(text);
+			
+		}
+		
+	}
+	
+	public void linkParser(ConsoleParser parser) {
+		
+		if (!linkedParsers.contains(parser) || !parser.getLinkedConsoles().contains(this)) {
+			linkedParsers.add(parser);
+			parser.linkConsole(this);
+		}
+		
+	}
+	
+	public void unlinkParser(ConsoleParser parser) {
+		
+		if (linkedParsers.contains(parser) || parser.getLinkedConsoles().contains(this)) {
+			linkedParsers.remove(parser);
+			parser.unlinkConsole(this);
+		}
+		
 	}
 	
 	public void println(String text) {
@@ -123,14 +166,6 @@ public class Console {
 	
 	public void print(String text, Color color) {
 		area.append(text, color);
-	}
-	
-	public ConsoleParser getParser() {
-		return parser;
-	}
-	
-	public void setParser(ConsoleParser parser) {
-		this.parser = parser;
 	}
 	
 	public JFrame getFrame() {
@@ -180,5 +215,8 @@ public class Console {
 	public void setHistoryIndex(int historyIndex) {
 		this.historyIndex = historyIndex;
 	}
-	
+
+	public ArrayList<ConsoleParser> getLinkedParsers() {
+		return linkedParsers;
+	}
 }
