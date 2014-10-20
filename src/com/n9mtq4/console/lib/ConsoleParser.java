@@ -15,8 +15,6 @@
 
 package com.n9mtq4.console.lib;
 
-import com.n9mtq4.console.lib.modules.ConsoleModule;
-
 import java.awt.*;
 import java.util.ArrayList;
 
@@ -26,24 +24,24 @@ import java.util.ArrayList;
 public class ConsoleParser {
 	
 	private ArrayList<Console> linkedConsoles;
-	private ArrayList<ConsoleModule> modules;
 	
 	public ConsoleParser() {
 		linkedConsoles = new ArrayList<Console>();
-		modules = new ArrayList<ConsoleModule>();
 		initModules();
+	}
+	
+	public void process(Console c, String text) {
+		
+		if (text.equals("hi")) {
+			c.println("hi", Color.GREEN);
+		}
+		
 	}
 	
 	public void push(String text) {
 		
 		for (Console c : linkedConsoles) {
-			c.print("[INPUT]: ", Color.BLUE);
-			c.println(text);
-			for (ConsoleModule m : modules) {
-				if (m.push(text)) {
-					break;
-				}
-			}
+			this.process(c, text);
 		}
 		
 	}
@@ -54,14 +52,23 @@ public class ConsoleParser {
 	
 	public void linkConsole(Console console) {
 		
-		linkedConsoles.add(console);
+		if (!linkedConsoles.contains(console) || !console.getLinkedParsers().contains(this)) {
+			linkedConsoles.add(console);
+			console.linkParser(this);
+		}
 		
 	}
 	
 	public void unlinkConsole(Console console) {
 		
-		linkedConsoles.remove(console);
+		if (linkedConsoles.contains(console) || console.getLinkedParsers().contains(this)) {
+			linkedConsoles.remove(console);
+			console.unlinkParser(this);
+		}
 		
 	}
-	
+
+	public ArrayList<Console> getLinkedConsoles() {
+		return linkedConsoles;
+	}
 }
