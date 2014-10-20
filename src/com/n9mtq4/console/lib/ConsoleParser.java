@@ -25,28 +25,42 @@ import java.util.ArrayList;
  */
 public class ConsoleParser {
 	
-	private Console parent;
+	private ArrayList<Console> linkedConsoles;
 	private ArrayList<ConsoleModule> modules;
 	
-	public ConsoleParser(Console parent) {
-		this.parent = parent;
+	public ConsoleParser() {
+		linkedConsoles = new ArrayList<Console>();
 		modules = new ArrayList<ConsoleModule>();
 		initModules();
 	}
 	
 	public void push(String text) {
 		
-		parent.print("[INPUT]: ", Color.BLUE);
-		parent.println(text);
-		for (ConsoleModule m : modules) {
-			if (m.push(text)) {
-				break;
+		for (Console c : linkedConsoles) {
+			c.print("[INPUT]: ", Color.BLUE);
+			c.println(text);
+			for (ConsoleModule m : modules) {
+				if (m.push(text)) {
+					break;
+				}
 			}
 		}
 		
 	}
 	
 	private void initModules() {
+		
+	}
+	
+	public void linkConsole(Console console) {
+		
+		linkedConsoles.add(console);
+		
+	}
+	
+	public void unlinkConsole(Console console) {
+		
+		linkedConsoles.remove(console);
 		
 	}
 	

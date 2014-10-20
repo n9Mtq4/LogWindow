@@ -38,6 +38,12 @@ public class Console {
 	private ArrayList<String> history;
 	private int historyIndex;
 	
+	public Console(ConsoleParser parser) {
+		parser.linkConsole(this);
+		history = new ArrayList<String>();
+		gui();
+	}
+	
 	private void gui() {
 		
 		frame = new JFrame("Console");
@@ -52,7 +58,7 @@ public class Console {
 		frame.add(scrollArea, BorderLayout.CENTER);
 		frame.add(field, BorderLayout.SOUTH);
 		
-		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.pack();
 		frame.setSize(360, 240);
 		frame.setLocationRelativeTo(null);
