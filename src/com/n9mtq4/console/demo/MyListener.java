@@ -28,8 +28,9 @@ public class MyListener extends ConsoleListener {
 	@Override
 	public void actionPreformed(ConsoleActionEvent e) {
 		
-		if (e.getCommand().contains("hi")) {
-			e.getConsole().println("Hello", Color.CYAN);
+		if (e.getCommand().trim().equalsIgnoreCase("hello world")) {
+			e.getConsole().print("[WORLD]: ", Color.ORANGE);
+			e.getConsole().println("Hello!");
 		}
 		
 	}
