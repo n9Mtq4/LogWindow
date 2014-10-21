@@ -15,6 +15,8 @@
 
 package com.n9mtq4.console.lib;
 
+import com.n9mtq4.console.lib.modules.ModuleHistory;
+import com.n9mtq4.console.lib.modules.ModuleInput;
 import com.n9mtq4.console.lib.parts.NTextArea;
 
 import javax.swing.*;
@@ -103,6 +105,11 @@ public class Console {
 			}
 		});
 		
+	}
+	
+	public void addDefaultListeners() {
+		this.addConsoleListener(new ModuleInput());
+		this.addConsoleListener(new ModuleHistory());
 	}
 	
 	private void onFieldEnter(ActionEvent e) {
