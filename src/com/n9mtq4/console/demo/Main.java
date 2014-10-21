@@ -16,10 +16,7 @@
 package com.n9mtq4.console.demo;
 
 import com.n9mtq4.console.lib.Console;
-import com.n9mtq4.console.lib.ConsoleActionEvent;
-import com.n9mtq4.console.lib.ConsoleListener;
-
-import java.awt.*;
+import com.n9mtq4.console.lib.modules.ModuleAddListener;
 
 /**
  * Created by Will on 10/20/14.
@@ -34,16 +31,7 @@ public class Main {
 //		new MyListener().addToConsole(c); // this works
 //		c.addConsoleListener(new MyListener()); // this works too!
 		c.addConsoleListener(new MyListener());
-		
-//		you can also define listeners without making a new class
-		new ConsoleListener() {
-			@Override
-			public void actionPreformed(ConsoleActionEvent e) {
-				if (e.getCommand().contains("hi")) {
-					e.getConsole().println("Hello!", Color.BLUE);
-				}
-			}
-		}.addToConsole(c); // don't forget to add it
+		new ModuleAddListener().addToConsole(c);
 		
 	}
 	
