@@ -54,6 +54,21 @@ public class ConsoleCommand {
 		
 	}
 	
+	public String getWordsStartingFrom(int startIndex) {
+		String before = getText();
+		String cache = before;
+		for (int word = 0; word <= startIndex; word++) {
+			try {
+				int iofs = cache.indexOf(" ");
+				String sub = cache.substring(iofs + 1);
+				cache = sub;
+			}catch (StringIndexOutOfBoundsException e) {
+				return null;
+			}
+		}
+		return cache;
+	}
+	
 	public boolean contains(@NotNull CharSequence c) {
 		return text.contains(c);
 	}
