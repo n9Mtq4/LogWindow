@@ -23,6 +23,7 @@ import com.sun.istack.internal.NotNull;
 public class ConsoleCommand {
 	
 	private String text;
+	private String[] tokens;
 	
 	public ConsoleCommand(String text) {
 		this.text = text;
@@ -30,6 +31,26 @@ public class ConsoleCommand {
 	}
 	
 	private void init() {
+		
+		tokens = text.split(" ");
+		
+	}
+	
+	public String getArg(int  i) {
+		
+		return tokens[i];
+		
+	}
+	
+	public String trim() {
+		
+		return text.trim();
+		
+	}
+	
+	public boolean startsWith(String s) {
+		
+		return text.startsWith(s);
 		
 	}
 	
@@ -39,6 +60,12 @@ public class ConsoleCommand {
 	
 	public String getText() {
 		return text;
+	}
+	
+	public int getLength() {
+		
+		return tokens.length;
+		
 	}
 	
 }
