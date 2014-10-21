@@ -15,30 +15,22 @@
 
 package com.n9mtq4.console.lib.modules;
 
-import com.n9mtq4.console.lib.Console;
+import com.n9mtq4.console.lib.ConsoleActionEvent;
+import com.n9mtq4.console.lib.ConsoleListener;
+
+import java.awt.*;
 
 /**
  * Created by Will on 10/20/14.
  */
-public abstract class ConsoleModule {
+public class ModuleInput extends ConsoleListener {
 	
-	private Console parent;
-	
-	public ConsoleModule(Console parent) {
-		this.parent = parent;
-	}
-	
-	public boolean push(String text) {
+	@Override
+	public void actionPreformed(ConsoleActionEvent e) {
 		
-		init(text);
-		return process(text);
+		e.getConsole().print("[INPUT]: ", Color.BLUE);
+		e.getConsole().println(e.getCommand().getText());
 		
 	}
-	
-	private void init(String text) {
-		
-	}
-	
-	public abstract boolean process(String text);
 	
 }
