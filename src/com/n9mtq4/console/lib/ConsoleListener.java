@@ -25,8 +25,9 @@ public abstract class ConsoleListener {
 	private ArrayList<Console> linkedConsoles;
 	
 	public ConsoleListener() {
+		
 		linkedConsoles = new ArrayList<Console>();
-		initModules();
+		
 	}
 	
 	public abstract void actionPreformed(ConsoleActionEvent e);
@@ -37,10 +38,6 @@ public abstract class ConsoleListener {
 		for (Console c : linkedConsoles) {
 			this.actionPreformed(new ConsoleActionEvent(c, command));
 		}
-		
-	}
-	
-	private void initModules() {
 		
 	}
 	
@@ -61,8 +58,9 @@ public abstract class ConsoleListener {
 		}
 		
 	}
-
+	
 	public ArrayList<Console> getLinkedConsoles() {
 		return linkedConsoles;
 	}
+	
 }
