@@ -112,16 +112,8 @@ public class Console {
 			source.setText("");
 			history.add(text);
 			historyIndex = history.size();
-			input(text);
 			push(text);
 		}
-	}
-	
-	private void input(String text) {
-		
-		print("[INPUT]: ", Color.BLUE);
-		println(text);
-		
 	}
 	
 	private void push(String text) {
