@@ -29,25 +29,21 @@ public class Main {
 	public static void main(String[] args) {
 		
 		Console c = new Console();
+		c.addDefaultListeners(); //adds history and echos the input you type
 		
-		c.addConsoleListener(new ConsoleListener() {
-			@Override
-			public void actionPreformed(ConsoleActionEvent e) {
-				if (e.getCommand().getText().equalsIgnoreCase("hello world")) {
-					e.getConsole().print("[World]: ", Color.ORANGE);
-					e.getConsole().println("Hello!");
-				}
-			}
-		});
+//		new MyListener().addToConsole(c); // this works
+//		c.addConsoleListener(new MyListener()); // this works too!
+		c.addConsoleListener(new MyListener());
 		
+//		you can also define listeners without making a new class
 		new ConsoleListener() {
 			@Override
 			public void actionPreformed(ConsoleActionEvent e) {
-				if (e.getCommand().getText().equalsIgnoreCase("hi")) {
-					e.getConsole().println("Hi!", Color.MAGENTA);
+				if (e.getCommand().contains("hi")) {
+					e.getConsole().println("Hello!", Color.BLUE);
 				}
 			}
-		}.addToConsole(c);
+		}.addToConsole(c); // don't forget to add it
 		
 	}
 	
