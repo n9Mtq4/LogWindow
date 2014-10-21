@@ -15,6 +15,7 @@
 
 package com.n9mtq4.console.lib;
 
+import com.n9mtq4.console.lib.modules.ModuleAddListener;
 import com.n9mtq4.console.lib.modules.ModuleHistory;
 import com.n9mtq4.console.lib.modules.ModuleInput;
 import com.n9mtq4.console.lib.parts.NTextArea;
@@ -49,6 +50,7 @@ public class Console {
 	public Console(ConsoleListener listener) {
 		linkedListeners = new ArrayList<ConsoleListener>();
 		addConsoleListener(listener);
+		initMandatoryListeners();
 		history = new ArrayList<String>();
 		gui();
 	}
@@ -104,6 +106,12 @@ public class Console {
 			public void keyReleased(KeyEvent keyEvent) {
 			}
 		});
+		
+	}
+	
+	public void initMandatoryListeners() {
+		
+		this.addConsoleListener(new ModuleAddListener());
 		
 	}
 	
