@@ -15,7 +15,7 @@
 
 package com.n9mtq4.console.lib;
 
-import com.n9mtq4.console.lib.modules.ModuleAddListener;
+import com.n9mtq4.console.lib.modules.ModuleListener;
 import com.n9mtq4.console.lib.modules.ModuleHistory;
 import com.n9mtq4.console.lib.modules.ModuleInput;
 import com.n9mtq4.console.lib.parts.NTextArea;
@@ -43,14 +43,15 @@ public class Console {
 	
 	public Console() {
 		linkedListeners = new ArrayList<ConsoleListener>();
+		initMandatoryListeners();
 		history = new ArrayList<String>();
 		gui();
 	}
 	
 	public Console(ConsoleListener listener) {
 		linkedListeners = new ArrayList<ConsoleListener>();
-		addConsoleListener(listener);
 		initMandatoryListeners();
+		addListener(listener);
 		history = new ArrayList<String>();
 		gui();
 	}
@@ -111,13 +112,13 @@ public class Console {
 	
 	public void initMandatoryListeners() {
 		
-		this.addConsoleListener(new ModuleAddListener());
+		this.addListener(new ModuleListener());
 		
 	}
 	
 	public void addDefaultListeners() {
-		this.addConsoleListener(new ModuleInput());
-		this.addConsoleListener(new ModuleHistory());
+		this.addListener(new ModuleInput());
+		this.addListener(new ModuleHistory());
 	}
 	
 	private void onFieldEnter(ActionEvent e) {
@@ -141,7 +142,40 @@ public class Console {
 		
 	}
 	
-	public void addConsoleListener(ConsoleListener listener) {
+	public void removeListenerByName(String name) {
+		
+		for (ConsoleListener l : linkedListeners) {
+			
+			if (l.getClass().getName().equals(name)) {
+				removeListener(l);
+				break;
+			}
+			
+		}
+		
+	}
+	
+	public void removeListenersByName(String name) {
+		
+		for (ConsoleListener l : linkedListeners) {
+			
+			if (l.getClass().getName().equals(name)) {
+				removeListener(l);
+			}
+			
+		}
+		
+	}
+	
+	public void removeAllListeners() {
+		
+		for (ConsoleListener l : linkedListeners) {
+			removeListener(l);
+		}
+		
+	}
+	
+	public void addListener(ConsoleListener listener) {
 		
 		if (!linkedListeners.contains(listener) || !listener.getLinkedConsoles().contains(this)) {
 			linkedListeners.add(listener);
@@ -150,7 +184,7 @@ public class Console {
 		
 	}
 	
-	public void removeConsoleListener(ConsoleListener listener) {
+	public void removeListener(ConsoleListener listener) {
 		
 		if (linkedListeners.contains(listener) || listener.getLinkedConsoles().contains(this)) {
 			linkedListeners.remove(listener);
@@ -226,4 +260,5 @@ public class Console {
 	public ArrayList<ConsoleListener> getLinkedListeners() {
 		return linkedListeners;
 	}
+	
 }
