@@ -73,6 +73,13 @@ public class ModuleListener extends ConsoleListener {
 					
 					final Console e2 = e.getConsole();
 					final String name = e.getCommand().getArg(2);
+					
+					if (name.equals(this.getClass().getName())) {
+						e2.print("[ERROR]: ", Color.RED);
+						e2.println("you can't remove " + this.getClass().getName());
+						return;
+					}
+					
 					new Thread(new Runnable() {
 						@Override
 						public void run() {
@@ -93,6 +100,13 @@ public class ModuleListener extends ConsoleListener {
 					
 					final Console e2 = e.getConsole();
 					final String name = e.getCommand().getArg(2);
+					
+					if (name.equals(this.getClass().getName())) {
+						e2.print("[ERROR]: ", Color.RED);
+						e2.println("you can't remove " + this.getClass().getName());
+						return;
+					}
+					
 					new Thread(new Runnable() {
 						@Override
 						public void run() {
