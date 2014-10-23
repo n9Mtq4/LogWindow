@@ -15,25 +15,19 @@
 
 package com.n9mtq4.console.lib.modules;
 
-import com.n9mtq4.console.lib.Console;
 import com.n9mtq4.console.lib.ConsoleActionEvent;
 import com.n9mtq4.console.lib.ConsoleListener;
 
-import java.awt.*;
-
 /**
- * Created by Will on 10/21/14.
+ * Created by Will on 10/22/14.
  */
-public class ModuleNewConsole extends ConsoleListener {
+public class ModuleDeleteConsole extends ConsoleListener {
 	
 	@Override
 	public void actionPreformed(ConsoleActionEvent e) {
 		
-		if (e.getCommand().trim().equalsIgnoreCase("new console")) {
-			
-			e.getConsole().println("Opening console", Color.BLUE);
-			Console c = new Console();
-			
+		if (e.getCommand().trim().equalsIgnoreCase("exit")) {
+			e.getConsole().getFrame().dispose();
 		}
 		
 	}
