@@ -43,7 +43,7 @@ public abstract class ConsoleListener {
 	
 	public void addToConsole(Console console) {
 		
-		if (!linkedConsoles.contains(console) || !console.getLinkedListeners().contains(this)) {
+		if (!linkedConsoles.contains(console) || !console.getListeners().contains(this)) {
 			linkedConsoles.add(console);
 			console.addListener(this);
 		}
@@ -52,7 +52,7 @@ public abstract class ConsoleListener {
 	
 	public void removeFromConsole(Console console) {
 		
-		if (linkedConsoles.contains(console) || console.getLinkedListeners().contains(this)) {
+		if (linkedConsoles.contains(console) || console.getListeners().contains(this)) {
 			linkedConsoles.remove(console);
 			console.removeListener(this);
 		}
