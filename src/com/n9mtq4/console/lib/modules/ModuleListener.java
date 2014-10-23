@@ -15,7 +15,6 @@
 
 package com.n9mtq4.console.lib.modules;
 
-import com.n9mtq4.console.lib.Console;
 import com.n9mtq4.console.lib.ConsoleActionEvent;
 import com.n9mtq4.console.lib.ConsoleListener;
 
@@ -34,9 +33,19 @@ public class ModuleListener extends ConsoleListener {
 			if (e.getCommand().getLength() == 2) {
 				
 				if (e.getCommand().getArg(1).equalsIgnoreCase("list")) {
-					for (ConsoleListener l : e.getConsole().getLinkedListeners()) {
+					for (ConsoleListener l : e.getConsole().getListeners()) {
 						e.getConsole().println(l.getClass().getName(), Color.MAGENTA);
 					}
+				}else if (e.getCommand().getArg(1).equalsIgnoreCase("adddefaults")) {
+					
+					e.getConsole().print("[OUT]: ", Color.BLUE);
+					e.getConsole().println("adding...");
+					
+					e.getConsole().addDefaultListeners();
+					
+					e.getConsole().print("[OUT]: ", Color.BLUE);
+					e.getConsole().println("done adding default listeners");
+					
 				}
 				
 			}else if (e.getCommand().getLength() == 3) {
@@ -44,25 +53,16 @@ public class ModuleListener extends ConsoleListener {
 				if (e.getCommand().getArg(1).equalsIgnoreCase("add")) {
 					
 					try {
-						final Class<?> clazz = Class.forName(e.getCommand().getArg(2));
-						final Object clazz1 = clazz.newInstance();
-						final Console e2 = e.getConsole();
+						Class<?> clazz = Class.forName(e.getCommand().getArg(2));
+						Object clazz1 = clazz.newInstance();
 						
-						new Thread(new Runnable() {
-							@Override
-							public void run() {
-								e2.print("[OUT]: ", Color.BLUE);
-								e2.println("adding...");
-								try {
-									Thread.sleep(1000);
-								}catch (InterruptedException e1) {
-									e1.printStackTrace();
-								}
-								e2.addListener((ConsoleListener) clazz1);
-								e2.print("[OUT]: ", Color.BLUE);
-								e2.println("Done adding: " + clazz1.getClass().getName());
-							}
-						}).start();
+						e.getConsole().print("[OUT]: ", Color.BLUE);
+						e.getConsole().println("adding...");
+						
+						e.getConsole().addListener((ConsoleListener) clazz1);
+						
+						e.getConsole().print("[OUT]: ", Color.BLUE);
+						e.getConsole().println("done adding: " + clazz.getName());
 						
 					}catch (Exception e1) {
 						e.getConsole().print("[ERROR]: ", Color.RED);
@@ -71,57 +71,39 @@ public class ModuleListener extends ConsoleListener {
 					
 				}else if (e.getCommand().getArg(1).equalsIgnoreCase("remove")) {
 					
-					final Console e2 = e.getConsole();
-					final String name = e.getCommand().getArg(2);
+					String name = e.getCommand().getArg(2);
 					
 					if (name.equals(this.getClass().getName())) {
-						e2.print("[ERROR]: ", Color.RED);
-						e2.println("you can't remove " + this.getClass().getName());
+						e.getConsole().print("[ERROR]: ", Color.RED);
+						e.getConsole().println("you can't remove " + this.getClass().getName());
 						return;
 					}
 					
-					new Thread(new Runnable() {
-						@Override
-						public void run() {
-							e2.print("[OUT]: ", Color.BLUE);
-							e2.println("removing...");
-							try {
-								Thread.sleep(1000);
-							}catch (InterruptedException e1) {
-								e1.printStackTrace();
-							}
-							e2.removeListenerByName(name);
-							e2.print("[OUT]: ", Color.BLUE);
-							e2.println("Done removing: " + name);
-						}
-					}).start();
+					e.getConsole().print("[OUT]: ", Color.BLUE);
+					e.getConsole().println("removing...");
+					
+					e.getConsole().removeListenerByName(name);
+					
+					e.getConsole().print("[OUT]: ", Color.BLUE);
+					e.getConsole().println("Done removing: " + name);
 					
 				}else if (e.getCommand().getArg(1).equalsIgnoreCase("removeall")) {
 					
-					final Console e2 = e.getConsole();
-					final String name = e.getCommand().getArg(2);
+					String name = e.getCommand().getArg(2);
 					
 					if (name.equals(this.getClass().getName())) {
-						e2.print("[ERROR]: ", Color.RED);
-						e2.println("you can't remove " + this.getClass().getName());
+						e.getConsole().print("[ERROR]: ", Color.RED);
+						e.getConsole().println("you can't remove " + this.getClass().getName());
 						return;
 					}
 					
-					new Thread(new Runnable() {
-						@Override
-						public void run() {
-							e2.print("[OUT]: ", Color.BLUE);
-							e2.println("removing all instances...");
-							try {
-								Thread.sleep(1000);
-							}catch (InterruptedException e1) {
-								e1.printStackTrace();
-							}
-							e2.removeListenersByName(name);
-							e2.print("[OUT]: ", Color.BLUE);
-							e2.println("Done removing all instances: " + name);
-						}
-					}).start();
+					e.getConsole().print("[OUT]: ", Color.BLUE);
+					e.getConsole().println("removing all instances...");
+					
+					e.getConsole().removeListenersByName(name);
+					
+					e.getConsole().print("[OUT]: ", Color.BLUE);
+					e.getConsole().println("Done removing all instances: " + name);
 					
 				}
 				
