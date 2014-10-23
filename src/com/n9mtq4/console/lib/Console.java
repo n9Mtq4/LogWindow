@@ -27,13 +27,14 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
+import java.util.ConcurrentModificationException;
 
 /**
  * Created by Will on 10/20/14.
  */
 public class Console {
 	
-	private ArrayList<ConsoleListener> linkedListeners;
+	private ArrayList<ConsoleListener> listeners;
 	private JFrame frame;
 	private NTextArea area;
 	private JTextField field;
@@ -42,14 +43,14 @@ public class Console {
 	private int historyIndex;
 	
 	public Console() {
-		linkedListeners = new ArrayList<ConsoleListener>();
+		listeners = new ArrayList<ConsoleListener>();
 		initMandatoryListeners();
 		history = new ArrayList<String>();
 		gui();
 	}
 	
 	public Console(ConsoleListener listener) {
-		linkedListeners = new ArrayList<ConsoleListener>();
+		listeners = new ArrayList<ConsoleListener>();
 		initMandatoryListeners();
 		addListener(listener);
 		history = new ArrayList<String>();
@@ -134,9 +135,11 @@ public class Console {
 	
 	private void push(String text) {
 		
-		for (ConsoleListener p : linkedListeners) {
-			
-			p.push(text);
+		try {
+			for (ConsoleListener p : listeners) {
+				p.push(text);
+			}
+		}catch (ConcurrentModificationException e) {
 			
 		}
 		
@@ -144,7 +147,7 @@ public class Console {
 	
 	public void removeListenerByName(String name) {
 		
-		for (ConsoleListener l : linkedListeners) {
+		for (ConsoleListener l : listeners) {
 			
 			if (l.getClass().getName().equals(name)) {
 				removeListener(l);
@@ -157,7 +160,7 @@ public class Console {
 	
 	public void removeListenersByName(String name) {
 		
-		for (ConsoleListener l : linkedListeners) {
+		for (ConsoleListener l : listeners) {
 			
 			if (l.getClass().getName().equals(name)) {
 				removeListener(l);
@@ -169,7 +172,7 @@ public class Console {
 	
 	public void removeAllListeners() {
 		
-		for (ConsoleListener l : linkedListeners) {
+		for (ConsoleListener l : listeners) {
 			removeListener(l);
 		}
 		
@@ -177,8 +180,8 @@ public class Console {
 	
 	public void addListener(ConsoleListener listener) {
 		
-		if (!linkedListeners.contains(listener) || !listener.getLinkedConsoles().contains(this)) {
-			linkedListeners.add(listener);
+		if (!listeners.contains(listener) || !listener.getLinkedConsoles().contains(this)) {
+			listeners.add(listener);
 			listener.addToConsole(this);
 		}
 		
@@ -186,8 +189,8 @@ public class Console {
 	
 	public void removeListener(ConsoleListener listener) {
 		
-		if (linkedListeners.contains(listener) || listener.getLinkedConsoles().contains(this)) {
-			linkedListeners.remove(listener);
+		if (listeners.contains(listener) || listener.getLinkedConsoles().contains(this)) {
+			listeners.remove(listener);
 			listener.removeFromConsole(this);
 		}
 		
@@ -257,8 +260,8 @@ public class Console {
 		this.historyIndex = historyIndex;
 	}
 
-	public ArrayList<ConsoleListener> getLinkedListeners() {
-		return linkedListeners;
+	public ArrayList<ConsoleListener> getListeners() {
+		return listeners;
 	}
 	
 }
