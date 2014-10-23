@@ -15,8 +15,7 @@
 
 package com.n9mtq4.console.lib.modules;
 
-import com.n9mtq4.console.lib.ConsoleActionEvent;
-import com.n9mtq4.console.lib.ConsoleListener;
+import com.n9mtq4.console.lib.*;
 
 import java.awt.*;
 
@@ -24,6 +23,16 @@ import java.awt.*;
  * Created by Will on 10/21/14.
  */
 public class ModuleListener extends ConsoleListener {
+	
+	@Override
+	public void onEnable(EnableActionEvent e) {
+		
+	}
+	
+	@Override
+	public void actionTab(TabActionEvent e) {
+		
+	}
 	
 	@Override
 	public void actionPreformed(ConsoleActionEvent e) {
@@ -110,6 +119,11 @@ public class ModuleListener extends ConsoleListener {
 			}
 			
 		}
+		
+	}
+	
+	@Override
+	public void onDisable(DisableActionEvent e) {
 		
 	}
 	

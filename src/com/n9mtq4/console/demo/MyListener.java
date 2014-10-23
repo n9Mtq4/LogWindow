@@ -15,8 +15,7 @@
 
 package com.n9mtq4.console.demo;
 
-import com.n9mtq4.console.lib.ConsoleActionEvent;
-import com.n9mtq4.console.lib.ConsoleListener;
+import com.n9mtq4.console.lib.*;
 
 import java.awt.*;
 
@@ -26,12 +25,27 @@ import java.awt.*;
 public class MyListener extends ConsoleListener {
 	
 	@Override
+	public void onEnable(EnableActionEvent e) {
+		
+	}
+	
+	@Override
+	public void actionTab(TabActionEvent e) {
+		
+	}
+	
+	@Override
 	public void actionPreformed(ConsoleActionEvent e) {
 		
 		if (e.getCommand().trim().equalsIgnoreCase("hello world")) {
 			e.getConsole().print("[WORLD]: ", Color.ORANGE);
 			e.getConsole().println("Hello!");
 		}
+		
+	}
+	
+	@Override
+	public void onDisable(DisableActionEvent e) {
 		
 	}
 	

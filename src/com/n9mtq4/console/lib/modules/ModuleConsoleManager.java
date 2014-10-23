@@ -15,14 +15,22 @@
 
 package com.n9mtq4.console.lib.modules;
 
-import com.n9mtq4.console.lib.Console;
-import com.n9mtq4.console.lib.ConsoleActionEvent;
-import com.n9mtq4.console.lib.ConsoleListener;
+import com.n9mtq4.console.lib.*;
 
 /**
  * Created by Will on 10/22/14.
  */
 public class ModuleConsoleManager extends ConsoleListener {
+	
+	@Override
+	public void onEnable(EnableActionEvent e) {
+		
+	}
+	
+	@Override
+	public void actionTab(TabActionEvent e) {
+		
+	}
 	
 	@Override
 	public void actionPreformed(ConsoleActionEvent e) {
@@ -43,6 +51,11 @@ public class ModuleConsoleManager extends ConsoleListener {
 			}
 			
 		}
+		
+	}
+	
+	@Override
+	public void onDisable(DisableActionEvent e) {
 		
 	}
 	

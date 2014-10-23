@@ -15,8 +15,7 @@
 
 package com.n9mtq4.console.lib.modules;
 
-import com.n9mtq4.console.lib.ConsoleActionEvent;
-import com.n9mtq4.console.lib.ConsoleListener;
+import com.n9mtq4.console.lib.*;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -25,6 +24,16 @@ import java.util.ArrayList;
  * Created by Will on 10/20/14.
  */
 public class ModuleHistory extends ConsoleListener {
+	
+	@Override
+	public void onEnable(EnableActionEvent e) {
+		
+	}
+	
+	@Override
+	public void actionTab(TabActionEvent e) {
+		
+	}
 	
 	@Override
 	public void actionPreformed(ConsoleActionEvent e) {
@@ -46,6 +55,11 @@ public class ModuleHistory extends ConsoleListener {
 			}
 			
 		}
+		
+	}
+	
+	@Override
+	public void onDisable(DisableActionEvent e) {
 		
 	}
 	

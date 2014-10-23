@@ -30,7 +30,10 @@ public abstract class ConsoleListener {
 		
 	}
 	
+	public abstract void onEnable(EnableActionEvent e);
+	public abstract void actionTab(TabActionEvent e);
 	public abstract void actionPreformed(ConsoleActionEvent e);
+	public abstract void onDisable(DisableActionEvent e);
 	
 	public void push(String text) {
 		
@@ -39,6 +42,13 @@ public abstract class ConsoleListener {
 			this.actionPreformed(new ConsoleActionEvent(c, command));
 		}
 		
+	}
+	
+	public void tab() {
+		TabCommand tabCommand = new TabCommand();
+		for (Console c : linkedConsoles) {
+			this.actionTab(new TabActionEvent(c, tabCommand));
+		}
 	}
 	
 	public void addToConsole(Console console) {

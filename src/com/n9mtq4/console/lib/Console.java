@@ -102,6 +102,8 @@ public class Console {
 						field.setText(history.get(historyIndex));
 						field.setCaretPosition(field.getText().length());
 					}
+				}else if (keyEvent.getKeyCode() == KeyEvent.VK_TAB) {
+					tab();
 				}
 			}
 			@Override
@@ -145,6 +147,17 @@ public class Console {
 		
 	}
 	
+	private void tab() {
+		
+		try {
+			for (ConsoleListener p : listeners) {
+				p.tab();
+			}
+		}catch (ConcurrentModificationException e) {
+		}
+		
+	}
+	
 	public void removeListenerByName(String name) {
 		
 		for (ConsoleListener l : listeners) {
@@ -182,6 +195,7 @@ public class Console {
 		
 		if (!listeners.contains(listener) || !listener.getLinkedConsoles().contains(this)) {
 			listeners.add(listener);
+			listener.onEnable(new EnableActionEvent(this));
 			listener.addToConsole(this);
 		}
 		
@@ -191,6 +205,7 @@ public class Console {
 		
 		if (listeners.contains(listener) || listener.getLinkedConsoles().contains(this)) {
 			listeners.remove(listener);
+			listener.onDisable(new DisableActionEvent(this));
 			listener.removeFromConsole(this);
 		}
 		

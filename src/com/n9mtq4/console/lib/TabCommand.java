@@ -13,37 +13,10 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.n9mtq4.console.lib.modules;
-
-import com.n9mtq4.console.lib.*;
+package com.n9mtq4.console.lib;
 
 /**
- * Created by Will on 10/22/14.
+ * Created by Will on 10/23/14.
  */
-public class ModuleDeleteConsole extends ConsoleListener {
-	
-	@Override
-	public void onEnable(EnableActionEvent e) {
-		
-	}
-	
-	@Override
-	public void actionTab(TabActionEvent e) {
-		
-	}
-	
-	@Override
-	public void actionPreformed(ConsoleActionEvent e) {
-		
-		if (e.getCommand().trim().equalsIgnoreCase("exit")) {
-			e.getConsole().getFrame().dispose();
-		}
-		
-	}
-	
-	@Override
-	public void onDisable(DisableActionEvent e) {
-		
-	}
-	
+public class TabCommand {
 }
