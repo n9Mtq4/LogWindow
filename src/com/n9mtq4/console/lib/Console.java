@@ -227,6 +227,22 @@ public class Console {
 		area.append(text, color);
 	}
 	
+	public ConsoleListener getListenerByName(String name) {
+		
+		for (ConsoleListener l : listeners) {
+			
+			if (l.getClass().getName().equalsIgnoreCase(name)) {
+				
+				return l;
+				
+			}
+			
+		}
+		
+		return null;
+		
+	}
+	
 	public JFrame getFrame() {
 		return frame;
 	}
