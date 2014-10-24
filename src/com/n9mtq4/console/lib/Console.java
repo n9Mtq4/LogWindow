@@ -15,6 +15,7 @@
 
 package com.n9mtq4.console.lib;
 
+import com.n9mtq4.console.lib.modules.ModuleJarLoader;
 import com.n9mtq4.console.lib.modules.ModuleListener;
 import com.n9mtq4.console.lib.modules.ModuleHistory;
 import com.n9mtq4.console.lib.modules.ModuleInput;
@@ -116,6 +117,7 @@ public class Console {
 	public void initMandatoryListeners() {
 		
 		this.addListener(new ModuleListener());
+		this.addListener(new ModuleJarLoader());
 		
 	}
 	
@@ -205,8 +207,8 @@ public class Console {
 		
 		if (listeners.contains(listener) || listener.getLinkedConsoles().contains(this)) {
 			listeners.remove(listener);
-			listener.onDisable(new DisableActionEvent(this));
 			listener.removeFromConsole(this);
+			listener.onDisable(new DisableActionEvent(this));
 		}
 		
 	}
