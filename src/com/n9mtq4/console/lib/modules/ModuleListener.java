@@ -82,12 +82,6 @@ public class ModuleListener extends ConsoleListener {
 					
 					String name = e.getCommand().getArg(2);
 					
-					if (name.equals(this.getClass().getName())) {
-						e.getConsole().print("[ERROR]: ", Color.RED);
-						e.getConsole().println("you can't remove " + this.getClass().getName());
-						return;
-					}
-					
 					e.getConsole().print("[OUT]: ", Color.BLUE);
 					e.getConsole().println("removing...");
 					
@@ -99,12 +93,6 @@ public class ModuleListener extends ConsoleListener {
 				}else if (e.getCommand().getArg(1).equalsIgnoreCase("removeall")) {
 					
 					String name = e.getCommand().getArg(2);
-					
-					if (name.equals(this.getClass().getName())) {
-						e.getConsole().print("[ERROR]: ", Color.RED);
-						e.getConsole().println("you can't remove " + this.getClass().getName());
-						return;
-					}
 					
 					e.getConsole().print("[OUT]: ", Color.BLUE);
 					e.getConsole().println("removing all instances...");
@@ -124,6 +112,10 @@ public class ModuleListener extends ConsoleListener {
 	
 	@Override
 	public void onDisable(DisableActionEvent e) {
+		
+		e.getConsole().addListener(this);
+		e.getConsole().print("[ERROR]: ", Color.RED);
+		e.getConsole().println("you can't remove " + this.getClass().getName());
 		
 	}
 	
