@@ -15,10 +15,7 @@
 
 package com.n9mtq4.console.lib;
 
-import com.n9mtq4.console.lib.modules.ModuleJarLoader;
-import com.n9mtq4.console.lib.modules.ModuleListener;
-import com.n9mtq4.console.lib.modules.ModuleHistory;
-import com.n9mtq4.console.lib.modules.ModuleInput;
+import com.n9mtq4.console.lib.modules.*;
 import com.n9mtq4.console.lib.parts.NTextArea;
 
 import javax.swing.*;
@@ -210,6 +207,12 @@ public class Console {
 			listener.removeFromConsole(this);
 			listener.onDisable(new DisableActionEvent(this));
 		}
+		
+	}
+	
+	public void loadPlugins() {
+		
+		ModulePluginManager.loadPluginsToConsole(this);
 		
 	}
 	
