@@ -56,7 +56,6 @@ public class ModulePluginManager extends ConsoleListener {
 	public static void loadPluginsToConsole(Console c) {
 		
 		File folder = new File("plugins");
-		System.out.println(folder.getAbsolutePath());
 		if (!folder.exists()) {
 			return;
 		}
