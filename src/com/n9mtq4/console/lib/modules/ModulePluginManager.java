@@ -41,7 +41,7 @@ public class ModulePluginManager extends ConsoleListener {
 	@Override
 	public void actionPreformed(ConsoleActionEvent e) {
 		
-		if (e.getCommand().equals("loadPlugins")) {
+		if (e.getCommand().trim().equals("loadPlugins")) {
 			e.getConsole().println("loading plugins");
 			loadPluginsToConsole(e.getConsole());
 		}
@@ -58,7 +58,6 @@ public class ModulePluginManager extends ConsoleListener {
 		File folder = new File("plugins");
 		System.out.println(folder.getAbsolutePath());
 		if (!folder.exists()) {
-			System.out.println("breaking");
 			return;
 		}
 		File[] children = folder.listFiles();
@@ -66,7 +65,6 @@ public class ModulePluginManager extends ConsoleListener {
 			if (f.getAbsolutePath().trim().endsWith(".jar")) {
 				
 				String name = f.getName().substring(0, f.getName().lastIndexOf(".jar")).trim();
-				System.out.println(name);
 				
 				if (new File("plugins/" + name + ".txt").exists()) {
 					try {
