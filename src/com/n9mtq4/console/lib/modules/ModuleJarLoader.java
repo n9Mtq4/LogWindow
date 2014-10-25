@@ -47,7 +47,7 @@ public class ModuleJarLoader extends ConsoleListener {
 			String filePath = e.getCommand().getText().substring(e.getCommand().getText().indexOf("jarloader ") + "jarloader ".length());
 			File jarFile = new File(filePath);
 			if (!jarFile.exists()) {
-				e.getConsole().println("[ERROR]: " + jarFile.getPath() + " doesn;t exist");
+				e.getConsole().println("[ERROR]: " + jarFile.getPath() + " doesn't exist");
 				return;
 			}
 			e.getConsole().println("Adding jar file: " + jarFile, Color.BLUE);
@@ -72,11 +72,6 @@ public class ModuleJarLoader extends ConsoleListener {
 	}
 	
 	private static final Class[] parameters = new Class[] {URL.class};
-	
-	private static void addFile(String s) throws IOException {
-		File f = new File(s);
-		addFile(f);
-	}
 	
 	private static void addFile(File f) throws IOException {
 		addURL(f.toURI().toURL());
