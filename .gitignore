@@ -1,4 +1,5 @@
 .idea/
+plugins/*
 out/
 .DS_Store
 console.iml
