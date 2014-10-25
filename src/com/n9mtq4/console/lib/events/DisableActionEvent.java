@@ -13,27 +13,29 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.n9mtq4.console.lib;
+package com.n9mtq4.console.lib.events;
+
+import com.n9mtq4.console.lib.Console;
 
 /**
- * Created by Will on 10/20/14.
+ * Created by Will on 10/23/14.
  */
-public class ConsoleActionEvent {
+public class DisableActionEvent {
 	
 	private Console console;
-	private ConsoleCommand command;
 	
-	public ConsoleActionEvent(Console console, ConsoleCommand command) {
+	public DisableActionEvent(Console console) {
+		
 		this.console = console;
-		this.command = command;
+		
 	}
 	
 	public Console getConsole() {
 		return console;
 	}
 	
-	public ConsoleCommand getCommand() {
-		return command;
+	public void setConsole(Console console) {
+		this.console = console;
 	}
 	
 }

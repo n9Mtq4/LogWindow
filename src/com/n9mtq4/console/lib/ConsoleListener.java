@@ -15,6 +15,11 @@
 
 package com.n9mtq4.console.lib;
 
+import com.n9mtq4.console.lib.events.ConsoleActionEvent;
+import com.n9mtq4.console.lib.events.DisableActionEvent;
+import com.n9mtq4.console.lib.events.EnableActionEvent;
+import com.n9mtq4.console.lib.events.TabActionEvent;
+
 import java.util.ArrayList;
 
 /**
