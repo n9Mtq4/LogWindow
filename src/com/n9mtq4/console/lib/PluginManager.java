@@ -94,11 +94,11 @@ public class PluginManager {
 	
 	private static final Class[] parameters = new Class[] {URL.class};
 	
-	private static void addFile(File f) throws IOException {
+	public static void addFile(File f) throws IOException {
 		addURL(f.toURI().toURL());
 	}
 	
-	private static void addURL(URL u) throws IOException {
+	public static void addURL(URL u) throws IOException {
 		URLClassLoader sysloader = (URLClassLoader) ClassLoader.getSystemClassLoader();
 		Class sysclass = URLClassLoader.class;
 		try {

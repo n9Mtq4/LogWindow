@@ -15,7 +15,8 @@
 
 package com.n9mtq4.console.lib.modules;
 
-import com.n9mtq4.console.lib.*;
+import com.n9mtq4.console.lib.ConsoleListener;
+import com.n9mtq4.console.lib.PluginManager;
 import com.n9mtq4.console.lib.events.ConsoleActionEvent;
 import com.n9mtq4.console.lib.events.DisableActionEvent;
 import com.n9mtq4.console.lib.events.EnableActionEvent;
@@ -24,9 +25,6 @@ import com.n9mtq4.console.lib.events.TabActionEvent;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.Method;
-import java.net.URL;
-import java.net.URLClassLoader;
 
 /**
  * Created by Will on 10/24/14.
@@ -56,7 +54,7 @@ public class ModuleJarLoader extends ConsoleListener {
 			}
 			e.getConsole().println("Adding jar file: " + jarFile, Color.BLUE);
 			try {
-				addFile(jarFile);
+				PluginManager.addFile(jarFile);
 			}catch (IOException e1) {
 				e.getConsole().println("[ERROR]: " + e1.toString(), Color.RED);
 			}
@@ -72,27 +70,6 @@ public class ModuleJarLoader extends ConsoleListener {
 		e.getConsole().addListener(this);
 		e.getConsole().print("[ERROR]: ", Color.RED);
 		e.getConsole().println("you can't remove " + this.getClass().getName());
-		
-	}
-	
-	private static final Class[] parameters = new Class[] {URL.class};
-	
-	private static void addFile(File f) throws IOException {
-		addURL(f.toURI().toURL());
-	}
-	
-	private static void addURL(URL u) throws IOException {
-		URLClassLoader sysloader = (URLClassLoader) ClassLoader.getSystemClassLoader();
-		Class sysclass = URLClassLoader.class;
-		
-		try {
-			Method method = sysclass.getDeclaredMethod("addURL", parameters);
-			method.setAccessible(true);
-			method.invoke(sysloader, new Object[] {u});
-		}catch (Throwable t) {
-			t.printStackTrace();
-			throw new IOException("Error, could not add URL to system classloader");
-		}
 		
 	}
 	
