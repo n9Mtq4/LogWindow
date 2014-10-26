@@ -79,6 +79,16 @@ public class ModuleListener extends ConsoleListener {
 					e.getConsole().print("[OUT]: ", Color.BLUE);
 					e.getConsole().println("done removing duplicate listeners");
 					
+				}else if (e.getCommand().getArg(1).equalsIgnoreCase("removeall")) {
+					
+					e.getConsole().print("[OUT]: ", Color.BLUE);
+					e.getConsole().println("removing all listeners...");
+					
+					e.getConsole().removeAllListeners();
+					
+					e.getConsole().print("[OUT]: ", Color.BLUE);
+					e.getConsole().println("done removing all listeners");
+					
 				}
 				
 			}else if (e.getCommand().getLength() == 3) {
@@ -114,7 +124,7 @@ public class ModuleListener extends ConsoleListener {
 					e.getConsole().print("[OUT]: ", Color.BLUE);
 					e.getConsole().println("Done removing: " + name);
 					
-				}else if (e.getCommand().getArg(1).equalsIgnoreCase("removeall")) {
+				}else if (e.getCommand().getArg(1).equalsIgnoreCase("removeallof")) {
 					
 					String name = e.getCommand().getArg(2);
 					
