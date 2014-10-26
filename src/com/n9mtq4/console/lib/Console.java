@@ -113,7 +113,7 @@ public class Console {
 		
 	}
 	
-	public void initMandatoryListeners() {
+	private void initMandatoryListeners() {
 		
 		this.addListener(new ModuleListener());
 		this.addListener(new ModuleJarLoader());
