@@ -214,7 +214,7 @@ public class Console {
 	
 	public void loadPlugins() {
 		
-		ModulePluginManager.loadPluginsToConsole(this);
+		PluginManager.loadPluginsToConsole(this, PluginManager.DEFAULT_PLUGIN_FOLDER);
 		
 	}
 	
