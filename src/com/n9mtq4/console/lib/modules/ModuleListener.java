@@ -22,6 +22,7 @@ import com.n9mtq4.console.lib.events.EnableActionEvent;
 import com.n9mtq4.console.lib.events.TabActionEvent;
 
 import java.awt.*;
+import java.util.ArrayList;
 
 /**
  * Created by Will on 10/21/14.
@@ -58,6 +59,25 @@ public class ModuleListener extends ConsoleListener {
 					
 					e.getConsole().print("[OUT]: ", Color.BLUE);
 					e.getConsole().println("done adding default listeners");
+					
+				}else if (e.getCommand().getArg(1).equalsIgnoreCase("removeduplicates")) {
+					
+					e.getConsole().print("[OUT]: ", Color.BLUE);
+					e.getConsole().println("removing duplicates...");
+					ArrayList<String> duplicateNames = new ArrayList<String>();
+					ArrayList<String> namesAlready = new ArrayList<String>();
+					for (ConsoleListener l : e.getConsole().getListeners()) {
+						String name = l.getClass().getName();
+						if (namesAlready.contains(name)) {
+							duplicateNames.add(name);
+						}
+						namesAlready.add(name);
+					}
+					for (String s : duplicateNames) {
+						e.getConsole().removeListenerByName(s);
+					}
+					e.getConsole().print("[OUT]: ", Color.BLUE);
+					e.getConsole().println("done removing duplicate listeners");
 					
 				}
 				
