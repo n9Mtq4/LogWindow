@@ -3,3 +3,4 @@ plugins/*
 out/
 .DS_Store
 console.iml
+ConsoleWindow.jar
