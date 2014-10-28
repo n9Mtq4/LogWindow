@@ -74,7 +74,7 @@ public class ModuleListener extends ConsoleListener {
 						namesAlready.add(name);
 					}
 					for (String s : duplicateNames) {
-						e.getConsole().removeListenerByName(s);
+						e.getConsole().removeListenerByName(s, DisableActionEvent.USER_CLOSE);
 					}
 					e.getConsole().print("[OUT]: ", Color.BLUE);
 					e.getConsole().println("done removing duplicate listeners");
@@ -119,7 +119,7 @@ public class ModuleListener extends ConsoleListener {
 					e.getConsole().print("[OUT]: ", Color.BLUE);
 					e.getConsole().println("removing...");
 					
-					e.getConsole().removeListenerByName(name);
+					e.getConsole().removeListenerByName(name, DisableActionEvent.USER_CLOSE);
 					
 					e.getConsole().print("[OUT]: ", Color.BLUE);
 					e.getConsole().println("Done removing: " + name);
@@ -131,7 +131,7 @@ public class ModuleListener extends ConsoleListener {
 					e.getConsole().print("[OUT]: ", Color.BLUE);
 					e.getConsole().println("removing all instances...");
 					
-					e.getConsole().removeListenersByName(name);
+					e.getConsole().removeListenersByName(name, DisableActionEvent.USER_CLOSE);
 					
 					e.getConsole().print("[OUT]: ", Color.BLUE);
 					e.getConsole().println("Done removing all instances: " + name);
