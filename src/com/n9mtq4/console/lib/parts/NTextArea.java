@@ -54,10 +54,6 @@ public class NTextArea extends JTextPane {
 		this.replaceSelection(msg);
 		super.setEditable(edit);
 		
-		if (len > maxLength) {
-			this.setText(this.getText().substring(maxLength / 2));
-		}
-		
 	}
 	
 	public boolean isUserEditable() {
