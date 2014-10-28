@@ -29,6 +29,7 @@ import java.net.URLClassLoader;
 public class PluginManager {
 	
 	public static String DEFAULT_PLUGIN_FOLDER = "plugins/";
+	private static final Class[] parameters = new Class[] {URL.class};
 	
 	public static void loadPluginsToConsole(Console c, String location) {
 		
@@ -93,8 +94,6 @@ public class PluginManager {
 			return "";
 		}
 	}
-	
-	private static final Class[] parameters = new Class[] {URL.class};
 	
 	public static void addFile(File f) throws IOException {
 		addURL(f.toURI().toURL());
