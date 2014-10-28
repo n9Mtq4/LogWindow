@@ -25,6 +25,7 @@ import java.awt.*;
 public class NTextArea extends JTextPane {
 	
 	private boolean userEditable;
+	private int maxLength;
 	
 	public NTextArea() {
 		this.userEditable = false;
@@ -33,6 +34,7 @@ public class NTextArea extends JTextPane {
 	public NTextArea(StyledDocument styledDocument) {
 		super(styledDocument);
 		this.userEditable = false;
+		this.maxLength = 3000;
 	}
 	
 	public void append(String msg, Color c) {
@@ -51,6 +53,11 @@ public class NTextArea extends JTextPane {
 		this.setCharacterAttributes(aset, false);
 		this.replaceSelection(msg);
 		super.setEditable(edit);
+		
+		if (len > maxLength) {
+			this.setText(this.getText().substring(maxLength / 2));
+		}
+		
 	}
 	
 	public boolean isUserEditable() {
@@ -62,6 +69,14 @@ public class NTextArea extends JTextPane {
 		if (!userEditable) {
 			setEditable(false);
 		}
+	}
+	
+	public int getMaxLength() {
+		return maxLength;
+	}
+	
+	public void setMaxLength(int maxLength) {
+		this.maxLength = maxLength;
 	}
 	
 }
