@@ -232,6 +232,12 @@ public class Console {
 		
 	}
 	
+	public void loadPlugins(String filePath) {
+		
+		PluginManager.loadPluginsToConsole(this, filePath);
+		
+	}
+	
 	public void loadPlugins() {
 		
 		PluginManager.loadPluginsToConsole(this, PluginManager.DEFAULT_PLUGIN_FOLDER);
