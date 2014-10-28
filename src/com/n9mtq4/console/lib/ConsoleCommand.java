@@ -57,7 +57,7 @@ public class ConsoleCommand {
 	public String getWordsStartingFrom(int startIndex) {
 		String before = getText();
 		String cache = before;
-		for (int word = 0; word <= startIndex; word++) {
+		for (int word = 0; word < startIndex; word++) {
 			try {
 				int iofs = cache.indexOf(" ");
 				String sub = cache.substring(iofs + 1);
