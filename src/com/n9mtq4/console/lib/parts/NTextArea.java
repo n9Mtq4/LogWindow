@@ -46,6 +46,8 @@ public class NTextArea extends JTextPane {
 		aset = sc.addAttribute(aset, StyleConstants.FontFamily, "Lucida Console");
 		aset = sc.addAttribute(aset, StyleConstants.Alignment, StyleConstants.ALIGN_JUSTIFIED);
 		
+		int len = this.getDocument().getLength();
+		this.setCaretPosition(len);
 		this.setCharacterAttributes(aset, false);
 		this.replaceSelection(msg);
 		super.setEditable(edit);
