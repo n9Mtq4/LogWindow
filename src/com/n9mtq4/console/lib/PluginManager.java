@@ -56,12 +56,14 @@ public class PluginManager {
 					String text = loadStringFromFile(location + name + ".txt");
 					String[] tokens = text.split("\n");
 					for (String t : tokens) {
-						try {
-							Class<?> clazz = Class.forName(t);
-							ConsoleListener clazz1 = (ConsoleListener) clazz.newInstance();
-							c.addListener(clazz1);
-						}catch (Exception e) {
-							e.printStackTrace();
+						if (!t.startsWith("# ")) {
+							try {
+								Class<?> clazz = Class.forName(t);
+								ConsoleListener clazz1 = (ConsoleListener) clazz.newInstance();
+								c.addListener(clazz1);
+							}catch (Exception e) {
+								e.printStackTrace();
+							}
 						}
 					}
 					
