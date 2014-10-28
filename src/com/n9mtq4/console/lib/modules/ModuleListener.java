@@ -147,9 +147,11 @@ public class ModuleListener extends ConsoleListener {
 	@Override
 	public void onDisable(DisableActionEvent e) {
 		
-		e.getConsole().addListener(this);
-		e.getConsole().print("[ERROR]: ", Color.RED);
-		e.getConsole().println("you can't remove " + this.getClass().getName());
+		if (e.getType() != DisableActionEvent.WINDOW_CLOSE) {
+			e.getConsole().addListener(this);
+			e.getConsole().print("[ERROR]: ", Color.RED);
+			e.getConsole().println("you can't remove " + this.getClass().getName());
+		}
 		
 	}
 	
