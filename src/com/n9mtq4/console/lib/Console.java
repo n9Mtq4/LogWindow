@@ -17,15 +17,15 @@ package com.n9mtq4.console.lib;
 
 import com.n9mtq4.console.lib.events.DisableActionEvent;
 import com.n9mtq4.console.lib.events.EnableActionEvent;
-import com.n9mtq4.console.lib.modules.*;
+import com.n9mtq4.console.lib.modules.ModuleHistory;
+import com.n9mtq4.console.lib.modules.ModuleInput;
+import com.n9mtq4.console.lib.modules.ModuleJarLoader;
+import com.n9mtq4.console.lib.modules.ModuleListener;
 import com.n9mtq4.console.lib.parts.NTextArea;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.ConcurrentModificationException;
 
@@ -76,6 +76,8 @@ public class Console {
 		frame.setSize(360, 240);
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(true);
+		
+		frame.addWindowListener(new ConsoleWindowListener(this));
 		
 		field.requestFocus();
 		field.addActionListener(new ActionListener() {
@@ -161,6 +163,12 @@ public class Console {
 	
 	public void removeListenerByName(String name) {
 		
+		removeListenerByName(name, DisableActionEvent.NOT_SPECIFIED);
+		
+	}
+	
+	public void removeListenerByName(String name, int type) {
+		
 		for (ConsoleListener l : listeners) {
 			
 			if (l.getClass().getName().equals(name)) {
@@ -174,10 +182,16 @@ public class Console {
 	
 	public void removeListenersByName(String name) {
 		
+		removeListenersByName(name, DisableActionEvent.NOT_SPECIFIED);
+		
+	}
+	
+	public void removeListenersByName(String name, int type) {
+		
 		for (ConsoleListener l : listeners) {
 			
 			if (l.getClass().getName().equals(name)) {
-				removeListener(l);
+				removeListener(l, type);
 			}
 			
 		}
@@ -204,10 +218,16 @@ public class Console {
 	
 	public void removeListener(ConsoleListener listener) {
 		
+		removeListener(listener, DisableActionEvent.NOT_SPECIFIED);
+		
+	}
+	
+	public void removeListener(ConsoleListener listener, int type) {
+		
 		if (listeners.contains(listener) || listener.getLinkedConsoles().contains(this)) {
 			listeners.remove(listener);
 			listener.removeFromConsole(this);
-			listener.onDisable(new DisableActionEvent(this));
+			listener.onDisable(new DisableActionEvent(this, type));
 		}
 		
 	}

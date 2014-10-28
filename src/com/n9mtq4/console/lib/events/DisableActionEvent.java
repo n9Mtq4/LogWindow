@@ -22,11 +22,18 @@ import com.n9mtq4.console.lib.Console;
  */
 public class DisableActionEvent {
 	
-	private Console console;
+	public static int NOT_SPECIFIED = -1;
+	public static int WINDOW_CLOSE = 0;
+	public static int CODE_CLOSE = 1;
+	public static int USER_CLOSE = 2;
 	
-	public DisableActionEvent(Console console) {
+	private Console console;
+	private int type;
+	
+	public DisableActionEvent(Console console, int type) {
 		
 		this.console = console;
+		this.type = type;
 		
 	}
 	
@@ -34,8 +41,8 @@ public class DisableActionEvent {
 		return console;
 	}
 	
-	public void setConsole(Console console) {
-		this.console = console;
+	public int getType() {
+		return type;
 	}
 	
 }
