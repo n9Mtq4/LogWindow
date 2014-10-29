@@ -147,15 +147,16 @@ public class Console {
 		
 		try {
 			for (ConsoleListener p : listeners) {
-				p.push(text);
+				try {
+					p.push(text);
+				}catch (Exception e) {
+					StringWriter sw = new StringWriter();
+					PrintWriter pw = new PrintWriter(sw);
+					e.printStackTrace(pw);
+					this.println(sw.toString(), Color.RED);
+				}
 			}
-		}catch (Exception e) {
-			
-			StringWriter sw = new StringWriter();
-			PrintWriter pw = new PrintWriter(sw);
-			e.printStackTrace(pw);
-			this.println(sw.toString(), Color.RED);
-			
+		}catch (ConcurrentModificationException e1) {
 		}
 		
 	}
