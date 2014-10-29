@@ -13,14 +13,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.n9mtq4.console.demo;
+package com.n9mtq4.debug;
 
 import com.n9mtq4.console.lib.Console;
 
 /**
- * Created by Will on 10/20/14.
+ * Created by Will on 10/29/14.
  */
-public class Main {
+public class PluginConsole {
 	
 	public static void main(String[] args) {
 		

@@ -13,43 +13,18 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.n9mtq4.console.demo;
+package com.n9mtq4.debug;
 
-import com.n9mtq4.console.lib.*;
-import com.n9mtq4.console.lib.events.ConsoleActionEvent;
-import com.n9mtq4.console.lib.events.DisableActionEvent;
-import com.n9mtq4.console.lib.events.EnableActionEvent;
-import com.n9mtq4.console.lib.events.TabActionEvent;
-
-import java.awt.*;
+import com.n9mtq4.console.lib.Console;
 
 /**
- * Created by Will on 10/20/14.
+ * Created by Will on 10/29/14.
  */
-public class MyListener extends ConsoleListener {
+public class RawConsole {
 	
-	@Override
-	public void onEnable(EnableActionEvent e) {
+	public static void main(String[] args) {
 		
-	}
-	
-	@Override
-	public void actionTab(TabActionEvent e) {
-		
-	}
-	
-	@Override
-	public void actionPreformed(ConsoleActionEvent e) {
-		
-		if (e.getCommand().trim().equalsIgnoreCase("hello world")) {
-			e.getConsole().print("[WORLD]: ", Color.ORANGE);
-			e.getConsole().println("Hello!");
-		}
-		
-	}
-	
-	@Override
-	public void onDisable(DisableActionEvent e) {
+		Console c = new Console();
 		
 	}
 	
