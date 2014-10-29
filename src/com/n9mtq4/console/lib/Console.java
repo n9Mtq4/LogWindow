@@ -25,7 +25,12 @@ import com.n9mtq4.console.lib.parts.NTextArea;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.ConcurrentModificationException;
 
@@ -144,7 +149,12 @@ public class Console {
 			for (ConsoleListener p : listeners) {
 				p.push(text);
 			}
-		}catch (ConcurrentModificationException e) {
+		}catch (Exception e) {
+			
+			StringWriter sw = new StringWriter();
+			PrintWriter pw = new PrintWriter(sw);
+			e.printStackTrace(pw);
+			this.println(sw.toString(), Color.RED);
 			
 		}
 		
