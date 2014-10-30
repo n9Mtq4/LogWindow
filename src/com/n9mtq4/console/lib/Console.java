@@ -41,6 +41,7 @@ public class Console {
 	
 	private ArrayList<ConsoleListener> listeners;
 	private JFrame frame;
+	private JPanel nowrapPanel;
 	private NTextArea area;
 	private JTextField field;
 	private JScrollPane scrollArea;
@@ -68,8 +69,9 @@ public class Console {
 		
 		area = new NTextArea();
 		area.setUserEditable(false);
-		field = new JTextField();
-		scrollArea = new JScrollPane(area);
+		nowrapPanel = new JPanel(new BorderLayout());
+		nowrapPanel.add(area);
+		scrollArea = new JScrollPane(nowrapPanel);
 		scrollArea.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 		scrollArea.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		
