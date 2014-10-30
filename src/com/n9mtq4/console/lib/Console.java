@@ -369,4 +369,24 @@ public class Console {
 		return listeners;
 	}
 	
+	public void setListeners(ArrayList<ConsoleListener> listeners) {
+		this.listeners = listeners;
+	}
+	
+	public JPanel getNoWrapPanel() {
+		return noWrapPanel;
+	}
+	
+	public void setNoWrapPanel(JPanel noWrapPanel) {
+		this.noWrapPanel = noWrapPanel;
+	}
+	
+	public StdoutRedirect getStdoutRedirect() {
+		return stdoutRedirect;
+	}
+	
+	public void setStdoutRedirect(StdoutRedirect stdoutRedirect) {
+		this.stdoutRedirect = stdoutRedirect;
+	}
+	
 }
