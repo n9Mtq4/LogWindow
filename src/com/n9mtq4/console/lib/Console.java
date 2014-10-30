@@ -48,6 +48,7 @@ public class Console {
 	private JScrollPane scrollArea;
 	private ArrayList<String> history;
 	private int historyIndex;
+	private StdoutRedirect stdoutRedirect;
 	
 	public Console() {
 		listeners = new ArrayList<ConsoleListener>();
@@ -145,6 +146,30 @@ public class Console {
 			historyIndex = history.size();
 			push(text);
 		}
+	}
+	
+	public void redirectStdoutOff() {
+		
+		if (stdoutRedirect == null) {
+			stdoutRedirect = new StdoutRedirect(this);
+		}
+		stdoutRedirect.turnOff();
+		
+	}
+	
+	public void redirectStdoutOn() {
+		
+		redirectStdoutOn(false);
+		
+	}
+	
+	public void redirectStdoutOn(boolean debug) {
+		
+		if (stdoutRedirect == null) {
+			stdoutRedirect = new StdoutRedirect(this);
+		}
+		stdoutRedirect.turnOn(debug);
+		
 	}
 	
 	private void push(String text) {
