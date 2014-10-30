@@ -183,6 +183,7 @@ public class Console {
 					PrintWriter pw = new PrintWriter(sw);
 					e.printStackTrace(pw);
 					this.println(sw.toString(), Color.RED);
+					e.printStackTrace();
 				}
 			}
 		}catch (ConcurrentModificationException e1) {
@@ -389,7 +390,7 @@ public class Console {
 	public void setHistoryIndex(int historyIndex) {
 		this.historyIndex = historyIndex;
 	}
-
+	
 	public ArrayList<ConsoleListener> getListeners() {
 		return listeners;
 	}
