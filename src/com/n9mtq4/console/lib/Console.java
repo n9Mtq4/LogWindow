@@ -29,6 +29,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.File;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.ArrayList;
@@ -75,6 +76,7 @@ public class Console {
 		scrollArea.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 		scrollArea.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
 		
+		field = new JTextField();
 		frame.add(scrollArea, BorderLayout.CENTER);
 		frame.add(field, BorderLayout.SOUTH);
 		
@@ -257,12 +259,38 @@ public class Console {
 		
 	}
 	
+	public void printlnImage(File file) {
+		
+		printImage(file.getAbsolutePath());
+		print("\n");
+		
+	}
+	
+	public void printlnImage(String filePath) {
+		
+		printImage(filePath);
+		print("\n");
+		
+	}
+	
 	public void println(String text) {
 		print(text + "\n");
 	}
 	
 	public void println(String text, Color color) {
 		print(text + "\n", color);
+	}
+	
+	public void printImage(File file) {
+		
+		printImage(file.getPath());
+		
+	}
+	
+	public void printImage(String filePath) {
+		
+		area.appendPicture(filePath);
+		
 	}
 	
 	public void print(String text) {

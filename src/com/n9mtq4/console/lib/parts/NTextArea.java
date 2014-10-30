@@ -56,6 +56,14 @@ public class NTextArea extends JTextPane {
 		
 	}
 	
+	public void appendPicture(String filePath) {
+		
+		int len = this.getDocument().getLength();
+		this.setCaretPosition(len);
+		this.insertIcon(new ImageIcon(filePath));
+		
+	}
+	
 	public boolean isUserEditable() {
 		return userEditable;
 	}
