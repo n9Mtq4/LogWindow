@@ -57,6 +57,15 @@ public class Console {
 		gui();
 	}
 	
+	public Console(boolean gui) {
+		
+		listeners = new ArrayList<ConsoleListener>();
+		initMandatoryListeners();
+		history = new ArrayList<String>();
+		if (gui) gui();
+		
+	}
+	
 	public Console() {
 		listeners = new ArrayList<ConsoleListener>();
 		initMandatoryListeners();
