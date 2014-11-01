@@ -152,6 +152,7 @@ public class Console {
 		this.addListener(new ModulePluginManager());
 		this.addListener(new ModuleConsoleManager());
 		this.addListener(new ModuleHistory());
+		this.addListener(new ModuleStdoutRedirect());
 	}
 	
 	private void onFieldEnter(ActionEvent e) {
