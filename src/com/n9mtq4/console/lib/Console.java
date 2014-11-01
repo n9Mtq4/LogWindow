@@ -49,6 +49,14 @@ public class Console {
 	private int historyIndex;
 	private StdoutRedirect stdoutRedirect;
 	
+	public Console(String pluginDirectory) {
+		listeners = new ArrayList<ConsoleListener>();
+		initMandatoryListeners();
+		history = new ArrayList<String>();
+		this.loadPlugins(pluginDirectory);
+		gui();
+	}
+	
 	public Console() {
 		listeners = new ArrayList<ConsoleListener>();
 		initMandatoryListeners();
