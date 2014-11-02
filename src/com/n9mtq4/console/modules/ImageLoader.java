@@ -13,18 +13,20 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.n9mtq4.console.lib.modules;
+package com.n9mtq4.console.modules;
 
 import com.n9mtq4.console.lib.ConsoleListener;
-import com.n9mtq4.console.lib.events.ConsoleActionEvent;
-import com.n9mtq4.console.lib.events.DisableActionEvent;
-import com.n9mtq4.console.lib.events.EnableActionEvent;
-import com.n9mtq4.console.lib.events.TabActionEvent;
+import com.n9mtq4.console.lib.events.*;
 
 /**
  * Created by Will on 10/31/14.
  */
-public class ModuleImageLoader extends ConsoleListener {
+public class ImageLoader extends ConsoleListener {
+	
+	@Override
+	public void onAddition(AdditionActionEvent e) {
+		
+	}
 	
 	@Override
 	public void onEnable(EnableActionEvent e) {
@@ -50,6 +52,11 @@ public class ModuleImageLoader extends ConsoleListener {
 	
 	@Override
 	public void onDisable(DisableActionEvent e) {
+		
+	}
+	
+	@Override
+	public void onRemoval(RemovalActionEvent e) {
 		
 	}
 	
