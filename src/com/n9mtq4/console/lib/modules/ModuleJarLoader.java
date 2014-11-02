@@ -70,7 +70,7 @@ public class ModuleJarLoader extends ConsoleListener {
 	public void onDisable(DisableActionEvent e) {
 		
 		if (e.getType() != DisableActionEvent.WINDOW_CLOSE) {
-			e.getConsole().addListener(this);
+			e.getConsole().enableListener(this);
 			e.getConsole().print("[ERROR]: ", Color.RED);
 			e.getConsole().println("you can't disable " + this.getClass().getName());
 		}
