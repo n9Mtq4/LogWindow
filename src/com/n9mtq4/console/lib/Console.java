@@ -168,10 +168,7 @@ public class Console {
 	
 	public void redirectStdoutOff() {
 		
-		if (stdoutRedirect == null) {
-			stdoutRedirect = new StdoutRedirect(this);
-		}
-		stdoutRedirect.turnOff();
+		if (stdoutRedirect != null) stdoutRedirect.turnOff();
 		
 	}
 	
