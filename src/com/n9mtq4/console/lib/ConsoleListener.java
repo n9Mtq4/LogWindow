@@ -15,10 +15,7 @@
 
 package com.n9mtq4.console.lib;
 
-import com.n9mtq4.console.lib.events.ConsoleActionEvent;
-import com.n9mtq4.console.lib.events.DisableActionEvent;
-import com.n9mtq4.console.lib.events.EnableActionEvent;
-import com.n9mtq4.console.lib.events.TabActionEvent;
+import com.n9mtq4.console.lib.events.*;
 
 import java.util.ArrayList;
 
@@ -28,17 +25,21 @@ import java.util.ArrayList;
 public abstract class ConsoleListener {
 	
 	private ArrayList<Console> linkedConsoles;
+	private boolean enabled;
 	
 	public ConsoleListener() {
 		
 		linkedConsoles = new ArrayList<Console>();
+		enabled = true;
 		
 	}
 	
+	public abstract void onAddition(AdditionActionEvent e);
 	public abstract void onEnable(EnableActionEvent e);
 	public abstract void actionTab(TabActionEvent e);
 	public abstract void actionPreformed(ConsoleActionEvent e);
 	public abstract void onDisable(DisableActionEvent e);
+	public abstract void onRemoval(RemovalActionEvent e);
 	
 	public void push(String text) {
 		
@@ -74,8 +75,22 @@ public abstract class ConsoleListener {
 		
 	}
 	
+	public void toggleEnabled() {
+		
+		this.enabled = !this.enabled;
+		
+	}
+	
 	public ArrayList<Console> getLinkedConsoles() {
 		return linkedConsoles;
+	}
+	
+	public boolean isEnabled() {
+		return enabled;
+	}
+	
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
 	}
 	
 }
