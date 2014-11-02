@@ -15,8 +15,10 @@
 
 package com.n9mtq4.console.lib;
 
+import com.n9mtq4.console.lib.events.AdditionActionEvent;
 import com.n9mtq4.console.lib.events.DisableActionEvent;
 import com.n9mtq4.console.lib.events.EnableActionEvent;
+import com.n9mtq4.console.lib.events.RemovalActionEvent;
 import com.n9mtq4.console.lib.managers.PluginManager;
 import com.n9mtq4.console.lib.managers.StdoutRedirect;
 import com.n9mtq4.console.lib.modules.*;
@@ -192,7 +194,9 @@ public class Console {
 		try {
 			for (ConsoleListener p : listeners) {
 				try {
-					p.push(text);
+					if (p.isEnabled()) {
+						p.push(text);
+					}
 				}catch (Exception e) {
 					StringWriter sw = new StringWriter();
 					PrintWriter pw = new PrintWriter(sw);
@@ -210,16 +214,124 @@ public class Console {
 		
 		try {
 			for (ConsoleListener p : listeners) {
-				p.tab();
+				if (p.isEnabled()) {
+					p.tab();
+				}
 			}
 		}catch (ConcurrentModificationException e) {
 		}
 		
 	}
 	
+	public void enableAllListeners() {
+		
+		for (ConsoleListener l : listeners) {
+			
+			enableListener(l);
+			
+		}
+		
+	}
+	
+	public void enableListenersByName(String name) {
+		
+		for (ConsoleListener l : listeners) {
+			
+			if (l.getClass().getName().equals(name)) {
+				enableListener(l);
+			}
+			
+		}
+		
+	}
+	
+	public void enableListenerByName(String name) {
+		
+		for (ConsoleListener l : listeners) {
+			
+			if (l.getClass().getName().equals(name)) {
+				enableListener(l);
+				break;
+			}
+			
+		}
+		
+	}
+	
+	public void enableListener(ConsoleListener listener) {
+		
+		if (!listener.isEnabled()) {
+			listener.setEnabled(true);
+			listener.onEnable(new EnableActionEvent(this));
+		}
+		
+	}
+	
+	public void disableAllListeners() {
+		
+		disableAllListeners(DisableActionEvent.NOT_SPECIFIED);
+		
+	}
+	
+	public void disableAllListeners(int type) {
+		
+		for (ConsoleListener l : listeners) {
+			
+			disableListener(l, type);
+			
+		}
+		
+	}
+	
+	public void disableListenersByName(String name, int type) {
+		
+		for (ConsoleListener l : listeners) {
+			
+			if (l.getClass().getName().equals(name)) {
+				disableListener(l, type);
+			}
+			
+		}
+		
+	}
+	
+	public void disableListenerByName(String name) {
+		
+		disableListenerByName(name, DisableActionEvent.NOT_SPECIFIED);
+		
+	}
+	
+	public void disableListenerByName(String name, int type) {
+		
+		for (ConsoleListener l : listeners) {
+			
+			if (l.getClass().getName().equals(name)) {
+				disableListener(l, type);
+				break;
+			}
+			
+		}
+		
+	}
+	
+	public void disableListener(ConsoleListener listener) {
+		
+		disableListener(listener, DisableActionEvent.NOT_SPECIFIED);
+		
+	}
+	
+	public void disableListener(ConsoleListener listener, int type) {
+		
+		if (listener.isEnabled()) {
+			listener.setEnabled(false);
+			listener.onDisable(new DisableActionEvent(this, type));
+		}
+		
+	}
+	
 	public void removeListenerByName(String name) {
 		
-		removeListenerByName(name, DisableActionEvent.NOT_SPECIFIED);
+		removeListenerByName(name, RemovalActionEvent.NOT_SPECIFIED);
 		
 	}
 	
@@ -238,7 +350,7 @@ public class Console {
 	
 	public void removeListenersByName(String name) {
 		
-		removeListenersByName(name, DisableActionEvent.NOT_SPECIFIED);
+		removeListenersByName(name, RemovalActionEvent.NOT_SPECIFIED);
 		
 	}
 	
@@ -254,11 +366,17 @@ public class Console {
 		
 	}
 	
-	public void removeAllListeners() {
+	public void removeAllListeners(int type) {
 		
 		for (ConsoleListener l : listeners) {
-			removeListener(l);
+			removeListener(l, type);
 		}
+		
+	}
+	
+	public void removeAllListeners() {
+		
+		removeAllListeners(RemovalActionEvent.NOT_SPECIFIED);
 		
 	}
 	
@@ -266,7 +384,7 @@ public class Console {
 		
 		if (!listeners.contains(listener) || !listener.getLinkedConsoles().contains(this)) {
 			listeners.add(listener);
-			listener.onEnable(new EnableActionEvent(this));
+			listener.onAddition(new AdditionActionEvent(this));
 			listener.addToConsole(this);
 		}
 		
@@ -274,7 +392,7 @@ public class Console {
 	
 	public void removeListener(ConsoleListener listener) {
 		
-		removeListener(listener, DisableActionEvent.NOT_SPECIFIED);
+		removeListener(listener, RemovalActionEvent.NOT_SPECIFIED);
 		
 	}
 	
@@ -284,6 +402,7 @@ public class Console {
 			listeners.remove(listener);
 			listener.removeFromConsole(this);
 			listener.onDisable(new DisableActionEvent(this, type));
+			listener.onRemoval(new RemovalActionEvent(this, type));
 		}
 		
 	}
