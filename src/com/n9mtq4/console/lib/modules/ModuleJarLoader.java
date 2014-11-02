@@ -16,11 +16,8 @@
 package com.n9mtq4.console.lib.modules;
 
 import com.n9mtq4.console.lib.ConsoleListener;
+import com.n9mtq4.console.lib.events.*;
 import com.n9mtq4.console.lib.managers.PluginManager;
-import com.n9mtq4.console.lib.events.ConsoleActionEvent;
-import com.n9mtq4.console.lib.events.DisableActionEvent;
-import com.n9mtq4.console.lib.events.EnableActionEvent;
-import com.n9mtq4.console.lib.events.TabActionEvent;
 
 import java.awt.*;
 import java.io.File;
@@ -30,6 +27,11 @@ import java.io.IOException;
  * Created by Will on 10/24/14.
  */
 public class ModuleJarLoader extends ConsoleListener {
+	
+	@Override
+	public void onAddition(AdditionActionEvent e) {
+		
+	}
 	
 	@Override
 	public void onEnable(EnableActionEvent e) {
@@ -66,6 +68,17 @@ public class ModuleJarLoader extends ConsoleListener {
 	
 	@Override
 	public void onDisable(DisableActionEvent e) {
+		
+		if (e.getType() != DisableActionEvent.WINDOW_CLOSE) {
+			e.getConsole().addListener(this);
+			e.getConsole().print("[ERROR]: ", Color.RED);
+			e.getConsole().println("you can't disable " + this.getClass().getName());
+		}
+		
+	}
+	
+	@Override
+	public void onRemoval(RemovalActionEvent e) {
 		
 		if (e.getType() != DisableActionEvent.WINDOW_CLOSE) {
 			e.getConsole().addListener(this);
