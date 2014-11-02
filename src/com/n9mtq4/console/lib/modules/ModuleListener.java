@@ -16,10 +16,6 @@
 package com.n9mtq4.console.lib.modules;
 
 import com.n9mtq4.console.lib.*;
-import com.n9mtq4.console.lib.events.ConsoleActionEvent;
-import com.n9mtq4.console.lib.events.DisableActionEvent;
-import com.n9mtq4.console.lib.events.EnableActionEvent;
-import com.n9mtq4.console.lib.events.TabActionEvent;
 import com.n9mtq4.console.lib.events.*;
 
 import java.awt.*;
@@ -54,7 +50,7 @@ public class ModuleListener extends ConsoleListener {
 				
 				if (e.getCommand().getArg(1).equalsIgnoreCase("list")) {
 					for (ConsoleListener l : e.getConsole().getListeners()) {
-						e.getConsole().println(l.getClass().getName(), Color.MAGENTA);
+						e.getConsole().println(l.getClass().getName(), l.isEnabled() ? Color.GREEN : Color.RED);
 					}
 				}else if (e.getCommand().getArg(1).equalsIgnoreCase("adddefaults")) {
 					
@@ -80,7 +76,7 @@ public class ModuleListener extends ConsoleListener {
 						namesAlready.add(name);
 					}
 					for (String s : duplicateNames) {
-						e.getConsole().removeListenerByName(s, DisableActionEvent.USER_CLOSE);
+						e.getConsole().removeListenerByName(s, RemovalActionEvent.USER_CLOSE);
 					}
 					e.getConsole().print("[OUT]: ", Color.BLUE);
 					e.getConsole().println("done removing duplicate listeners");
@@ -90,10 +86,39 @@ public class ModuleListener extends ConsoleListener {
 					e.getConsole().print("[OUT]: ", Color.BLUE);
 					e.getConsole().println("removing all listeners...");
 					
-					e.getConsole().removeAllListeners();
+					e.getConsole().removeAllListeners(RemovalActionEvent.USER_CLOSE);
 					
 					e.getConsole().print("[OUT]: ", Color.BLUE);
 					e.getConsole().println("done removing all listeners");
+					
+				}else if (e.getCommand().getArg(1).equalsIgnoreCase("disableduplicates")) {
+					
+					e.getConsole().print("[OUT]: ", Color.BLUE);
+					e.getConsole().println("disabling duplicates...");
+					ArrayList<String> duplicateNames = new ArrayList<String>();
+					ArrayList<String> namesAlready = new ArrayList<String>();
+					for (ConsoleListener l : e.getConsole().getListeners()) {
+						String name = l.getClass().getName();
+						if (namesAlready.contains(name)) {
+							duplicateNames.add(name);
+						}
+						namesAlready.add(name);
+					}
+					for (String s : duplicateNames) {
+						e.getConsole().disableListenerByName(s, DisableActionEvent.USER_CLOSE);
+					}
+					e.getConsole().print("[OUT]: ", Color.BLUE);
+					e.getConsole().println("done disabling duplicate listeners");
+					
+				}else if (e.getCommand().getArg(1).equalsIgnoreCase("disableall")) {
+					
+					e.getConsole().print("[OUT]: ", Color.BLUE);
+					e.getConsole().println("disabling all listeners...");
+					
+					e.getConsole().disableAllListeners(DisableActionEvent.USER_CLOSE);
+					
+					e.getConsole().print("[OUT]: ", Color.BLUE);
+					e.getConsole().println("done disabling all listeners");
 					
 				}
 				
@@ -125,7 +150,7 @@ public class ModuleListener extends ConsoleListener {
 					e.getConsole().print("[OUT]: ", Color.BLUE);
 					e.getConsole().println("removing...");
 					
-					e.getConsole().removeListenerByName(name, DisableActionEvent.USER_CLOSE);
+					e.getConsole().removeListenerByName(name, RemovalActionEvent.USER_CLOSE);
 					
 					e.getConsole().print("[OUT]: ", Color.BLUE);
 					e.getConsole().println("Done removing: " + name);
@@ -137,10 +162,53 @@ public class ModuleListener extends ConsoleListener {
 					e.getConsole().print("[OUT]: ", Color.BLUE);
 					e.getConsole().println("removing all instances...");
 					
-					e.getConsole().removeListenersByName(name, DisableActionEvent.USER_CLOSE);
+					e.getConsole().removeListenersByName(name, RemovalActionEvent.USER_CLOSE);
 					
 					e.getConsole().print("[OUT]: ", Color.BLUE);
 					e.getConsole().println("Done removing all instances: " + name);
+					
+				}else if (e.getCommand().getArg(1).equalsIgnoreCase("enable")) {
+					
+					try {
+						Class<?> clazz = Class.forName(e.getCommand().getArg(2));
+						Object clazz1 = clazz.newInstance();
+						
+						e.getConsole().print("[OUT]: ", Color.BLUE);
+						e.getConsole().println("enabling...");
+						
+						e.getConsole().enableListener((ConsoleListener) clazz1);
+						
+						e.getConsole().print("[OUT]: ", Color.BLUE);
+						e.getConsole().println("done enabling: " + clazz.getName());
+						
+					}catch (Exception e1) {
+						e.getConsole().print("[ERROR]: ", Color.RED);
+						e.getConsole().println(e1.toString());
+					}
+					
+				}else if (e.getCommand().getArg(1).equalsIgnoreCase("disable")) {
+					
+					String name = e.getCommand().getArg(2);
+					
+					e.getConsole().print("[OUT]: ", Color.BLUE);
+					e.getConsole().println("disabling...");
+					
+					e.getConsole().disableListenerByName(name, DisableActionEvent.USER_CLOSE);
+					
+					e.getConsole().print("[OUT]: ", Color.BLUE);
+					e.getConsole().println("Done disabling: " + name);
+					
+				}else if (e.getCommand().getArg(1).equalsIgnoreCase("disableallof")) {
+					
+					String name = e.getCommand().getArg(2);
+					
+					e.getConsole().print("[OUT]: ", Color.BLUE);
+					e.getConsole().println("disabling all instances...");
+					
+					e.getConsole().disableListenersByName(name, DisableActionEvent.USER_CLOSE);
+					
+					e.getConsole().print("[OUT]: ", Color.BLUE);
+					e.getConsole().println("Done disabling all instances: " + name);
 					
 				}
 				
