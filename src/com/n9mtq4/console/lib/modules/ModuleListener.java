@@ -20,6 +20,7 @@ import com.n9mtq4.console.lib.events.ConsoleActionEvent;
 import com.n9mtq4.console.lib.events.DisableActionEvent;
 import com.n9mtq4.console.lib.events.EnableActionEvent;
 import com.n9mtq4.console.lib.events.TabActionEvent;
+import com.n9mtq4.console.lib.events.*;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -28,6 +29,11 @@ import java.util.ArrayList;
  * Created by Will on 10/21/14.
  */
 public class ModuleListener extends ConsoleListener {
+	
+	@Override
+	public void onAddition(AdditionActionEvent e) {
+		
+	}
 	
 	@Override
 	public void onEnable(EnableActionEvent e) {
@@ -146,6 +152,17 @@ public class ModuleListener extends ConsoleListener {
 	
 	@Override
 	public void onDisable(DisableActionEvent e) {
+		
+		if (e.getType() != DisableActionEvent.WINDOW_CLOSE) {
+			e.getConsole().addListener(this);
+			e.getConsole().print("[ERROR]: ", Color.RED);
+			e.getConsole().println("you can't disable " + this.getClass().getName());
+		}
+		
+	}
+	
+	@Override
+	public void onRemoval(RemovalActionEvent e) {
 		
 		if (e.getType() != DisableActionEvent.WINDOW_CLOSE) {
 			e.getConsole().addListener(this);
