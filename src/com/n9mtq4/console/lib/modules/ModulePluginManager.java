@@ -16,16 +16,18 @@
 package com.n9mtq4.console.lib.modules;
 
 import com.n9mtq4.console.lib.ConsoleListener;
+import com.n9mtq4.console.lib.events.*;
 import com.n9mtq4.console.lib.managers.PluginManager;
-import com.n9mtq4.console.lib.events.ConsoleActionEvent;
-import com.n9mtq4.console.lib.events.DisableActionEvent;
-import com.n9mtq4.console.lib.events.EnableActionEvent;
-import com.n9mtq4.console.lib.events.TabActionEvent;
 
 /**
  * Created by Will on 10/24/14.
  */
 public class ModulePluginManager extends ConsoleListener {
+	
+	@Override
+	public void onAddition(AdditionActionEvent e) {
+		
+	}
 	
 	@Override
 	public void onEnable(EnableActionEvent e) {
@@ -50,6 +52,11 @@ public class ModulePluginManager extends ConsoleListener {
 	
 	@Override
 	public void onDisable(DisableActionEvent e) {
+		
+	}
+	
+	@Override
+	public void onRemoval(RemovalActionEvent e) {
 		
 	}
 	

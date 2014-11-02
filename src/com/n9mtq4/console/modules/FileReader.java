@@ -16,10 +16,7 @@
 package com.n9mtq4.console.modules;
 
 import com.n9mtq4.console.lib.ConsoleListener;
-import com.n9mtq4.console.lib.events.ConsoleActionEvent;
-import com.n9mtq4.console.lib.events.DisableActionEvent;
-import com.n9mtq4.console.lib.events.EnableActionEvent;
-import com.n9mtq4.console.lib.events.TabActionEvent;
+import com.n9mtq4.console.lib.events.*;
 
 import java.awt.*;
 import java.io.BufferedReader;
@@ -29,6 +26,11 @@ import java.io.File;
  * Created by Will on 10/27/14.
  */
 public class FileReader extends ConsoleListener {
+	
+	@Override
+	public void onAddition(AdditionActionEvent e) {
+		
+	}
 	
 	@Override
 	public void onEnable(EnableActionEvent e) {
@@ -80,6 +82,11 @@ public class FileReader extends ConsoleListener {
 	
 	@Override
 	public void onDisable(DisableActionEvent e) {
+		
+	}
+	
+	@Override
+	public void onRemoval(RemovalActionEvent e) {
 		
 	}
 	
