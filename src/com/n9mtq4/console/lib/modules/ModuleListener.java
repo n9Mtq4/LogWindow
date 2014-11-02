@@ -170,21 +170,33 @@ public class ModuleListener extends ConsoleListener {
 				}else if (e.getCommand().getArg(1).equalsIgnoreCase("enable")) {
 					
 					try {
-						Class<?> clazz = Class.forName(e.getCommand().getArg(2));
-						Object clazz1 = clazz.newInstance();
+						
+						String name = e.getCommand().getArg(2);
 						
 						e.getConsole().print("[OUT]: ", Color.BLUE);
 						e.getConsole().println("enabling...");
 						
-						e.getConsole().enableListener((ConsoleListener) clazz1);
+						e.getConsole().enableListenerByName(name);
 						
 						e.getConsole().print("[OUT]: ", Color.BLUE);
-						e.getConsole().println("done enabling: " + clazz.getName());
+						e.getConsole().println("done enabling: " + name);
 						
 					}catch (Exception e1) {
 						e.getConsole().print("[ERROR]: ", Color.RED);
 						e.getConsole().println(e1.toString());
 					}
+					
+				}else if (e.getCommand().getArg(1).equalsIgnoreCase("enableallof")) {
+					
+					String name = e.getCommand().getArg(2);
+					
+					e.getConsole().print("[OUT]: ", Color.BLUE);
+					e.getConsole().println("enabling all instances...");
+					
+					e.getConsole().enableListenersByName(name);
+					
+					e.getConsole().print("[OUT]: ", Color.BLUE);
+					e.getConsole().println("Done enabling all instances: " + name);
 					
 				}else if (e.getCommand().getArg(1).equalsIgnoreCase("disable")) {
 					
