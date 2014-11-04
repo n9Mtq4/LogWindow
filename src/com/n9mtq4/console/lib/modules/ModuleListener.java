@@ -49,8 +49,11 @@ public class ModuleListener extends ConsoleListener {
 			if (e.getCommand().getLength() == 2) {
 				
 				if (e.getCommand().getArg(1).equalsIgnoreCase("list")) {
+					int i = 0;
 					for (ConsoleListener l : e.getConsole().getListeners()) {
+						e.getConsole().print("[" + i + "]: ");
 						e.getConsole().println(l.getClass().getName(), l.isEnabled() ? Color.GREEN : Color.RED);
+						i++;
 					}
 				}else if (e.getCommand().getArg(1).equalsIgnoreCase("adddefaults")) {
 					
@@ -150,10 +153,20 @@ public class ModuleListener extends ConsoleListener {
 					e.getConsole().print("[OUT]: ", Color.BLUE);
 					e.getConsole().println("removing...");
 					
-					e.getConsole().removeListenerByName(name, RemovalActionEvent.USER_CLOSE);
-					
-					e.getConsole().print("[OUT]: ", Color.BLUE);
-					e.getConsole().println("Done removing: " + name);
+					ConsoleListener l = e.getConsole().getListener(name);
+					if (l != null) {
+						
+						e.getConsole().removeListener(l, RemovalActionEvent.USER_CLOSE);
+						
+						e.getConsole().print("[OUT]: ", Color.BLUE);
+						e.getConsole().println("Done removing: " + l.getClass().getName());
+						
+					}else {
+						
+						e.getConsole().print("[OUT]: ", Color.BLUE);
+						e.getConsole().println(name + " isn't a valid listener");
+						
+					}
 					
 				}else if (e.getCommand().getArg(1).equalsIgnoreCase("removeallof")) {
 					
@@ -176,10 +189,20 @@ public class ModuleListener extends ConsoleListener {
 						e.getConsole().print("[OUT]: ", Color.BLUE);
 						e.getConsole().println("enabling...");
 						
-						e.getConsole().enableListenerByName(name);
-						
-						e.getConsole().print("[OUT]: ", Color.BLUE);
-						e.getConsole().println("done enabling: " + name);
+						ConsoleListener l = e.getConsole().getListener(name);
+						if (l != null) {
+							
+							e.getConsole().enableListener(l);
+							
+							e.getConsole().print("[OUT]: ", Color.BLUE);
+							e.getConsole().println("done enabling: " + l.getClass().getName());
+							
+						}else {
+							
+							e.getConsole().print("[OUT]: ", Color.BLUE);
+							e.getConsole().println(name + " isn't a valid listener");
+							
+						}
 						
 					}catch (Exception e1) {
 						e.getConsole().print("[ERROR]: ", Color.RED);
@@ -205,10 +228,20 @@ public class ModuleListener extends ConsoleListener {
 					e.getConsole().print("[OUT]: ", Color.BLUE);
 					e.getConsole().println("disabling...");
 					
-					e.getConsole().disableListenerByName(name, DisableActionEvent.USER_CLOSE);
-					
-					e.getConsole().print("[OUT]: ", Color.BLUE);
-					e.getConsole().println("Done disabling: " + name);
+					ConsoleListener l = e.getConsole().getListener(name);
+					if (l != null) {
+						
+						e.getConsole().disableListener(l, DisableActionEvent.USER_CLOSE);
+						
+						e.getConsole().print("[OUT]: ", Color.BLUE);
+						e.getConsole().println("Done disabling: " + l.getClass().getName());
+						
+					}else {
+						
+						e.getConsole().print("[OUT]: ", Color.BLUE);
+						e.getConsole().println(name + " isn't a valid listener");
+						
+					}
 					
 				}else if (e.getCommand().getArg(1).equalsIgnoreCase("disableallof")) {
 					
