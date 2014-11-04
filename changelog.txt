@@ -1,0 +1,117 @@
+80002d4 (HEAD, origin/master, master) shortcuts to enable/disable remove listeners
+ba8de0a get listeners from name/index
+600d885 Log module
+6143d65 many bug fixes
+ceebec2 ant-disable fix
+d2f6d24 API 2.0.0
+e926890 implemented disable & enable
+dbb8fc0 update for new api & new ant-remove
+2e70e45 update for new api & new ant-remove
+094263b updated for new api & refactor
+942dfd0 updated modules to work with new api
+1b6bc6c Add and remove events
+67abb0b implementation of enable and disable
+6170547 Support for disabling and enabling modules
+823b6cb changed standard redirect off behavior
+9e193c6 added StdoutRedirect to default modules
+e7321f6 option to not display gui
+6f58457 API 1.3.5
+9403c4d Load plugins to console from constructor
+fb0f78b Image loader module
+36dad11 API 1.3.4
+00706bb added a printstacktrace
+e23075d updated default listeners
+8fbf192 implementation of stdout redirect
+506e068 refactor
+bdc09ed more getters/setters
+107acff Module to implement Standard out
+b6254c1 refactor
+9028d1a Manager to redirect standard out
+f61d6f8 Moved PluginManager to managers
+ed6757d Image support
+8e0dffa text area doesn't word wrap
+b286b61 changed exception handling
+a38b7ac handles exceptions for actionPerformed
+9dafc1e rewrote development main method
+b73f0a4 load plugins from folder
+aabcd21 refactor
+3e662f4 1.3.0
+e1a9752 Changed behavior of getWordsStartingFrom
+dc24986 Bug fix
+6783b75 API 1.2.1
+50049c7 API 1.2.0
+525c78a Comments on txt file stating plugin classes
+51eb117 added a max number of characters
+6390609 re-added caret position
+c0410ae removes if window is closing
+36e4f48 broadcasts disable type
+207d9d3 broadcasts onDisable when window closes
+488d054 removed exit: now console delete
+06111ea File Reader in included modules
+654932a remove all listeners to listener module
+2e686ef Performance improvement
+ab10a3d API 1.1.0
+5dfcbcd removed ConsoleWindow
+97a7aa5 moved jarloader to PluginManager
+c7dc802 conformation message after loading plugins
+78bb986 remove duplicates
+8180262 Separated plugin loader and listener
+0984ec4 some more info now (not much more)
+62569d2 Build/API 1.0.2
+a246f58 changed public to private
+132af5d Build/API 1.0.0
+1385800 refactor
+7ee648d removed debug println
+7885e06 Build/API 0.2.1
+a8a4a50 removed debug System.out.printlns
+31e4724 Fixed typo
+86aa54f ./plugins/ support
+6b67d68 loads plugins
+6e4b39a Plugin loading when it starts
+2a0a2f4 ignores plugins folder
+961b5b5 Fixed onDisable Event iterator
+3297bf4 Build/API 0.2
+65ce53f Module to load jar files into LogWindow
+b390e4a reworked way of not being able to remove module
+684de29 Get listener from its package and class name
+74de96e Added tab, enable, and disable events
+c29d420 Just adds the console
+3500b09 Added a module for exiting
+14d1492 reworked listener module
+591cccd console manager (replaces new console)
+486ab9b refactor
+e617e72 refactor
+0857713 Added check so you can't remove this Module
+72b5f9c rewrote listener module
+784f972 refactoring
+14f8d35 Module for adding listeners from console
+06303d1 Module for new console windows
+9ee00f0 Clean up
+068516a More to API
+f01c6ba Added required listeners
+1115d59 Cleaned up demo
+2cb8c0e Compiled jar
+3498319 History listener module
+70a862c User echoing listener module
+203abdf More api onto ConsoleCommand
+3754f1c History and user echo are now listener modules
+fc9f08b Removed echoing of user input
+ff1adf5 Demo console with comments
+99880f2 Demo hello world listener
+36ce9a0 meta-inf for building jar
+8e7e41f Demonstrates both ways to add listeners
+9a5ea30 Minor refactoring
+0bf602e commit ConsoleActionEvent
+03cec98 commit ConsoleCommand
+dd15a8f Updated demo code
+ecd6da6 Renamed ConsoleParser to ConsoleListener
+1cf5eb9 Consoles can iterate through multiple parsers
+7711c88 Parsers can listen on multiple consoles
+c7267c3 Support for multiple parsers on one console
+333eb7f Demo example
+d7f862b Base modules class
+5b49e73 Iterates through modules
+72c1e2c Console Window
+c6dcb20 JTextArea with color support
+0a3c015 GNUv3 license
+1ece06d Initial commit
