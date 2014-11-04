@@ -223,6 +223,27 @@ public class Console {
 		
 	}
 	
+	public ConsoleListener[] getListenersByName(String name) {
+		
+		ArrayList<ConsoleListener> list = new ArrayList<ConsoleListener>();
+		for (ConsoleListener l : listeners) {
+			
+			if (l.getClass().getName().equalsIgnoreCase(name)) {
+				
+				list.add(l);
+				
+			}
+			
+		}
+		
+		if (list.size() > 0) {
+			return (ConsoleListener[]) list.toArray();
+		}else {
+			return null;
+		}
+		
+	}
+	
 	public void enableAllListeners() {
 		
 		for (ConsoleListener l : listeners) {
@@ -459,6 +480,27 @@ public class Console {
 	
 	public void print(String text, Color color) {
 		area.append(text, color);
+	}
+	
+	public ConsoleListener getListener(String identifier) {
+		
+		try {
+			int i = Integer.parseInt(identifier);
+			try {
+				return getListenerByIndex(i);
+			}catch (Exception e1) {
+				return null;
+			}
+		}catch (NumberFormatException e) {
+			return getListenerByName(identifier);
+		}
+		
+	}
+	
+	public ConsoleListener getListenerByIndex(int index) {
+		
+		return listeners.get(index);
+		
 	}
 	
 	public ConsoleListener getListenerByName(String name) {
