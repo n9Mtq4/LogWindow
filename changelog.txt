@@ -1,4 +1,6 @@
-80002d4 (HEAD, origin/master, master) shortcuts to enable/disable remove listeners
+a3b7435 (HEAD, origin/master, master) changelog module
+df10c1e changelog support
+80002d4 shortcuts to enable/disable remove listeners
 ba8de0a get listeners from name/index
 600d885 Log module
 6143d65 many bug fixes
