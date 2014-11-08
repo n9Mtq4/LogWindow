@@ -389,8 +389,16 @@ public class Console {
 	
 	public void removeAllListeners(int type) {
 		
-		for (ConsoleListener l : listeners) {
-			removeListener(l, type);
+		while ((listeners = getListeners()).size() > 0) {
+			try {
+				for (ConsoleListener l : listeners) {
+					
+					removeListener(l, type);
+					
+				}
+			}catch (ConcurrentModificationException e) {
+				
+			}
 		}
 		
 	}
