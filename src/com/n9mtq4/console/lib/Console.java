@@ -104,6 +104,8 @@ public class Console {
 		frame.setSize(360, 240);
 		frame.setLocationRelativeTo(null);
 		frame.setVisible(show);
+		frame.setSize(360, 240);
+		frame.setLocationRelativeTo(null);
 		
 		frame.addWindowListener(new ConsoleWindowListener(this));
 		
