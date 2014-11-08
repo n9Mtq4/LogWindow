@@ -255,6 +255,14 @@ public class ModuleListener extends ConsoleListener {
 					e.getConsole().print("[OUT]: ", Color.BLUE);
 					e.getConsole().println("Done disabling all instances: " + name);
 					
+				}else if (e.getCommand().getArg(1).equalsIgnoreCase("listconsoles")) {
+					
+					String name = e.getCommand().getArg(2);
+					ConsoleListener l = e.getConsole().getListener(name);
+					for (Console c : l.getLinkedConsoles()) {
+						e.getConsole().println(c.getClass().getName() + ": " + c.getFrame().getTitle());
+					}
+					
 				}
 				
 			}
