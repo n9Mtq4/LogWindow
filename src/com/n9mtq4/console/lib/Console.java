@@ -389,9 +389,11 @@ public class Console {
 	
 	public void removeAllListeners(int type) {
 		
-		while ((listeners = getListeners()).size() > 0) {
+		int i = getListeners().size();
+		int c = 0;
+		while (getListeners().size() > 0 && i > c) {
 			try {
-				for (ConsoleListener l : listeners) {
+				for (ConsoleListener l : getListeners()) {
 					
 					removeListener(l, type);
 					
@@ -399,6 +401,7 @@ public class Console {
 			}catch (ConcurrentModificationException e) {
 				
 			}
+			c++;
 		}
 		
 	}
