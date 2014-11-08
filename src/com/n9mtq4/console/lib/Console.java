@@ -56,7 +56,7 @@ public class Console {
 		initMandatoryListeners();
 		history = new ArrayList<String>();
 		this.loadPlugins(pluginDirectory);
-		gui();
+		gui(true);
 	}
 	
 	public Console(boolean gui) {
@@ -64,7 +64,7 @@ public class Console {
 		listeners = new ArrayList<ConsoleListener>();
 		initMandatoryListeners();
 		history = new ArrayList<String>();
-		if (gui) gui();
+		gui(gui);
 		
 	}
 	
@@ -72,7 +72,7 @@ public class Console {
 		listeners = new ArrayList<ConsoleListener>();
 		initMandatoryListeners();
 		history = new ArrayList<String>();
-		gui();
+		gui(true);
 	}
 	
 	public Console(ConsoleListener listener) {
@@ -80,10 +80,10 @@ public class Console {
 		initMandatoryListeners();
 		addListener(listener);
 		history = new ArrayList<String>();
-		gui();
+		gui(true);
 	}
 	
-	private void gui() {
+	private void gui(boolean show) {
 		
 		frame = new JFrame("Console");
 		
@@ -103,7 +103,7 @@ public class Console {
 		frame.pack();
 		frame.setSize(360, 240);
 		frame.setLocationRelativeTo(null);
-		frame.setVisible(true);
+		frame.setVisible(show);
 		
 		frame.addWindowListener(new ConsoleWindowListener(this));
 		
