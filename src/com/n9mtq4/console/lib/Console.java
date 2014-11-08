@@ -417,6 +417,7 @@ public class Console {
 		if (!listeners.contains(listener) || !listener.getLinkedConsoles().contains(this)) {
 			listeners.add(listener);
 			listener.onAddition(new AdditionActionEvent(this));
+			listener.onEnable(new EnableActionEvent(this));
 			listener.addToConsole(this);
 		}
 		
