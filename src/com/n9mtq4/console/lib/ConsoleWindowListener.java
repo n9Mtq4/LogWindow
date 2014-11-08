@@ -15,11 +15,12 @@
 
 package com.n9mtq4.console.lib;
 
-import com.n9mtq4.console.lib.events.DisableActionEvent;
+import com.n9mtq4.console.lib.events.RemovalActionEvent;
 
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.util.ArrayList;
+import java.util.ConcurrentModificationException;
 
 /**
  * Created by Will on 10/28/14.
@@ -42,11 +43,17 @@ public class ConsoleWindowListener implements WindowListener {
 	@Override
 	public void windowClosing(WindowEvent windowEvent) {
 		
-		ArrayList<ConsoleListener> listeners = console.getListeners();
-		for (ConsoleListener l : listeners) {
-			
-			l.onDisable(new DisableActionEvent(console, DisableActionEvent.WINDOW_CLOSE));
-			
+		ArrayList<ConsoleListener> listeners;
+		while ((listeners = console.getListeners()).size() > 0) {
+			try {
+				for (ConsoleListener l : listeners) {
+					
+					console.removeListener(l, RemovalActionEvent.WINDOW_CLOSE);
+					
+				}
+			}catch (ConcurrentModificationException e) {
+				
+			}
 		}
 		
 	}
