@@ -1,4 +1,8 @@
-df8a4f9 (HEAD, origin/master, master) calls onEnable when adding listener
+b7a98ad (HEAD, origin/master, master) Major improvements to wrapper
+93a1aa8 jar to launch bare console from API
+94d2b2c gui fix for JDK1.8 on mac
+751c024 API 2.2.7
+df8a4f9 calls onEnable when adding listener
 0127585 actually fixed removeAllListeners
 1843d5c Console without gui will now init components
 17d1c2e Debug class for testing >1 consoles on listener
