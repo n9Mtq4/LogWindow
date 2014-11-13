@@ -1,4 +1,7 @@
-b7a98ad (HEAD, origin/master, master) Major improvements to wrapper
+1296af9 (HEAD, origin/master, master) Migrated to ConsoleWrapper to launch
+4e8df7b API 2.2.12
+54ed8b3 API 2.2.11
+b7a98ad Major improvements to wrapper
 93a1aa8 jar to launch bare console from API
 94d2b2c gui fix for JDK1.8 on mac
 751c024 API 2.2.7
