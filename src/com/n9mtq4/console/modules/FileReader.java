@@ -66,10 +66,10 @@ public class FileReader extends ConsoleListener {
 						}
 						String everything = sb.toString();
 						br.close();
-						e.getConsole().println(everything);
+						e.getBaseConsole().println(everything);
 					}catch (Exception e1) {
-						e.getConsole().print("[ERROR]: ", Color.RED);
-						e.getConsole().println(e1.toString());
+						e.getBaseConsole().print("[ERROR]: ", Color.RED);
+						e.getBaseConsole().println(e1.toString());
 					}
 					
 				}

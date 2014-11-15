@@ -15,7 +15,7 @@
 
 package com.n9mtq4.console.lib.events;
 
-import com.n9mtq4.console.lib.Console;
+import com.n9mtq4.console.lib.BaseConsole;
 import com.n9mtq4.console.lib.ConsoleCommand;
 
 /**
@@ -23,16 +23,16 @@ import com.n9mtq4.console.lib.ConsoleCommand;
  */
 public class ConsoleActionEvent {
 	
-	private Console console;
+	private BaseConsole baseConsole;
 	private ConsoleCommand command;
 	
-	public ConsoleActionEvent(Console console, ConsoleCommand command) {
-		this.console = console;
+	public ConsoleActionEvent(BaseConsole baseConsole, ConsoleCommand command) {
+		this.baseConsole = baseConsole;
 		this.command = command;
 	}
 	
-	public Console getConsole() {
-		return console;
+	public BaseConsole getBaseConsole() {
+		return baseConsole;
 	}
 	
 	public ConsoleCommand getCommand() {

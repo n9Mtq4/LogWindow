@@ -27,11 +27,11 @@ import java.util.ConcurrentModificationException;
  */
 public class ConsoleWindowListener implements WindowListener {
 	
-	private Console console;
+	private BaseConsole baseConsole;
 	
-	public ConsoleWindowListener(Console c) {
+	public ConsoleWindowListener(BaseConsole c) {
 		
-		this.console = c;
+		this.baseConsole = c;
 		
 	}
 	
@@ -44,11 +44,11 @@ public class ConsoleWindowListener implements WindowListener {
 	public void windowClosing(WindowEvent windowEvent) {
 		
 		ArrayList<ConsoleListener> listeners;
-		while ((listeners = console.getListeners()).size() > 0) {
+		while ((listeners = baseConsole.getListeners()).size() > 0) {
 			try {
 				for (ConsoleListener l : listeners) {
 					
-					console.removeListener(l, RemovalActionEvent.WINDOW_CLOSE);
+					baseConsole.removeListener(l, RemovalActionEvent.WINDOW_CLOSE);
 					
 				}
 			}catch (ConcurrentModificationException e) {

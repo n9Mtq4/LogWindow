@@ -15,7 +15,7 @@
 
 package com.n9mtq4.console.lib.managers;
 
-import com.n9mtq4.console.lib.Console;
+import com.n9mtq4.console.lib.BaseConsole;
 import com.n9mtq4.console.lib.ConsoleListener;
 
 import java.io.BufferedReader;
@@ -34,7 +34,7 @@ public class PluginManager {
 	public static String DEFAULT_PLUGIN_FOLDER = "plugins/";
 	private static final Class[] parameters = new Class[] {URL.class};
 	
-	public static void loadPluginsToConsole(Console c, String location) {
+	public static void loadPluginsToConsole(BaseConsole c, String location) {
 		
 		if (!location.endsWith("/")) {
 			location += "/";

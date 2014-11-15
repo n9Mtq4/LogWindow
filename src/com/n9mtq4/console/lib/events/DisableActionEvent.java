@@ -15,7 +15,7 @@
 
 package com.n9mtq4.console.lib.events;
 
-import com.n9mtq4.console.lib.Console;
+import com.n9mtq4.console.lib.BaseConsole;
 
 /**
  * Created by Will on 10/23/14.
@@ -27,18 +27,18 @@ public class DisableActionEvent {
 	public static int CODE_CLOSE = 1;
 	public static int USER_CLOSE = 2;
 	
-	private Console console;
+	private BaseConsole baseConsole;
 	private int type;
 	
-	public DisableActionEvent(Console console, int type) {
+	public DisableActionEvent(BaseConsole baseConsole, int type) {
 		
-		this.console = console;
+		this.baseConsole = baseConsole;
 		this.type = type;
 		
 	}
 	
-	public Console getConsole() {
-		return console;
+	public BaseConsole getBaseConsole() {
+		return baseConsole;
 	}
 	
 	public int getType() {

@@ -24,12 +24,12 @@ import java.util.ArrayList;
  */
 public abstract class ConsoleListener {
 	
-	private ArrayList<Console> linkedConsoles;
+	private ArrayList<BaseConsole> linkedBaseConsoles;
 	private boolean enabled;
 	
 	public ConsoleListener() {
 		
-		linkedConsoles = new ArrayList<Console>();
+		linkedBaseConsoles = new ArrayList<BaseConsole>();
 		enabled = true;
 		
 	}
@@ -44,7 +44,7 @@ public abstract class ConsoleListener {
 	public void push(String text) {
 		
 		ConsoleCommand command = new ConsoleCommand(text);
-		for (Console c : linkedConsoles) {
+		for (BaseConsole c : linkedBaseConsoles) {
 			this.actionPreformed(new ConsoleActionEvent(c, command));
 		}
 		
@@ -52,25 +52,25 @@ public abstract class ConsoleListener {
 	
 	public void tab() {
 		TabCommand tabCommand = new TabCommand();
-		for (Console c : linkedConsoles) {
+		for (BaseConsole c : linkedBaseConsoles) {
 			this.actionTab(new TabActionEvent(c, tabCommand));
 		}
 	}
 	
-	public void addToConsole(Console console) {
+	public void addToConsole(BaseConsole baseConsole) {
 		
-		if (!linkedConsoles.contains(console) || !console.getListeners().contains(this)) {
-			linkedConsoles.add(console);
-			console.addListener(this);
+		if (!linkedBaseConsoles.contains(baseConsole) || !baseConsole.getListeners().contains(this)) {
+			linkedBaseConsoles.add(baseConsole);
+			baseConsole.addListener(this);
 		}
 		
 	}
 	
-	public void removeFromConsole(Console console) {
+	public void removeFromConsole(BaseConsole baseConsole) {
 		
-		if (linkedConsoles.contains(console) || console.getListeners().contains(this)) {
-			linkedConsoles.remove(console);
-			console.removeListener(this);
+		if (linkedBaseConsoles.contains(baseConsole) || baseConsole.getListeners().contains(this)) {
+			linkedBaseConsoles.remove(baseConsole);
+			baseConsole.removeListener(this);
 		}
 		
 	}
@@ -81,8 +81,8 @@ public abstract class ConsoleListener {
 		
 	}
 	
-	public ArrayList<Console> getLinkedConsoles() {
-		return linkedConsoles;
+	public ArrayList<BaseConsole> getLinkedBaseConsoles() {
+		return linkedBaseConsoles;
 	}
 	
 	public boolean isEnabled() {

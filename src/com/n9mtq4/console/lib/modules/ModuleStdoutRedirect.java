@@ -57,13 +57,13 @@ public class ModuleStdoutRedirect extends ConsoleListener {
 					
 					if (c.getArg(2).equalsIgnoreCase("on")) {
 						
-						e.getConsole().redirectStdoutOn();
+						e.getBaseConsole().redirectStdoutOn();
 						System.out.println("Hello World! This was printed using System.out.println()");
 						
 					}else if (c.getArg(2).equalsIgnoreCase("off")) {
 						
-						e.getConsole().println("turned off stdout redirection");
-						e.getConsole().redirectStdoutOff();
+						e.getBaseConsole().println("turned off stdout redirection");
+						e.getBaseConsole().redirectStdoutOff();
 						
 					}
 					
@@ -75,7 +75,7 @@ public class ModuleStdoutRedirect extends ConsoleListener {
 					
 					if (c.getArg(2).equalsIgnoreCase("on")) {
 						
-						e.getConsole().redirectStdoutOn(Boolean.parseBoolean(c.getArg(3)));
+						e.getBaseConsole().redirectStdoutOn(Boolean.parseBoolean(c.getArg(3)));
 						System.out.println("Hello World! This was printed using System.out.println()");
 						
 					}

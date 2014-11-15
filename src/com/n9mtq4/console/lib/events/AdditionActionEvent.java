@@ -15,15 +15,15 @@
 
 package com.n9mtq4.console.lib.events;
 
-import com.n9mtq4.console.lib.Console;
+import com.n9mtq4.console.lib.BaseConsole;
 
 /**
  * Created by Will on 11/2/14.
  */
 public class AdditionActionEvent extends EnableActionEvent {
 	
-	public AdditionActionEvent(Console console) {
-		super(console);
+	public AdditionActionEvent(BaseConsole baseConsole) {
+		super(baseConsole);
 	}
 	
 }

@@ -43,9 +43,9 @@ public class ModulePluginManager extends ConsoleListener {
 	public void actionPreformed(ConsoleActionEvent e) {
 		
 		if (e.getCommand().trim().equals("loadPlugins")) {
-			e.getConsole().println("loading plugins...");
-			PluginManager.loadPluginsToConsole(e.getConsole(), PluginManager.DEFAULT_PLUGIN_FOLDER);
-			e.getConsole().println("done loading plugins");
+			e.getBaseConsole().println("loading plugins...");
+			PluginManager.loadPluginsToConsole(e.getBaseConsole(), PluginManager.DEFAULT_PLUGIN_FOLDER);
+			e.getBaseConsole().println("done loading plugins");
 		}
 		
 	}

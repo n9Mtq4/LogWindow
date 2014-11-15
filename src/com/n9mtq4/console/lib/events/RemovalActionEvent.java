@@ -15,15 +15,15 @@
 
 package com.n9mtq4.console.lib.events;
 
-import com.n9mtq4.console.lib.Console;
+import com.n9mtq4.console.lib.BaseConsole;
 
 /**
  * Created by Will on 11/2/14.
  */
 public class RemovalActionEvent extends DisableActionEvent {
 	
-	public RemovalActionEvent(Console console, int type) {
-		super(console, type);
+	public RemovalActionEvent(BaseConsole baseConsole, int type) {
+		super(baseConsole, type);
 	}
 	
 }

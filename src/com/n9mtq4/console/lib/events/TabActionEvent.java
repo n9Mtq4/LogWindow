@@ -15,7 +15,7 @@
 
 package com.n9mtq4.console.lib.events;
 
-import com.n9mtq4.console.lib.Console;
+import com.n9mtq4.console.lib.BaseConsole;
 import com.n9mtq4.console.lib.TabCommand;
 
 /**
@@ -23,19 +23,19 @@ import com.n9mtq4.console.lib.TabCommand;
  */
 public class TabActionEvent {
 	
-	private Console console;
+	private BaseConsole baseConsole;
 	private TabCommand tabCommand;
 	private String currentText;
 	
-	public TabActionEvent(Console console, TabCommand tabCommand) {
-		this.console = console;
+	public TabActionEvent(BaseConsole baseConsole, TabCommand tabCommand) {
+		this.baseConsole = baseConsole;
 		this.tabCommand = tabCommand;
-		this.currentText = console.getField().getText();
+		this.currentText = baseConsole.getField().getText();
 		
 	}
 	
-	public Console getConsole() {
-		return console;
+	public BaseConsole getBaseConsole() {
+		return baseConsole;
 	}
 	
 	public TabCommand getTabCommand() {

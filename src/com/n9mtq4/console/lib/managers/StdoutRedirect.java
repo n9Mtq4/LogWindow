@@ -1,6 +1,6 @@
 package com.n9mtq4.console.lib.managers;
 
-import com.n9mtq4.console.lib.Console;
+import com.n9mtq4.console.lib.BaseConsole;
 
 import java.io.PrintStream;
 import java.text.MessageFormat;
@@ -10,12 +10,12 @@ import java.text.MessageFormat;
  */
 public class StdoutRedirect extends PrintStream {
 	
-	private Console c;
+	private BaseConsole c;
 	private PrintStream backup;
 	private boolean showLocation;
 	private boolean on;
 	
-	public StdoutRedirect(Console c) {
+	public StdoutRedirect(BaseConsole c) {
 		super(System.out);
 		this.c = c;
 	}
@@ -77,7 +77,7 @@ public class StdoutRedirect extends PrintStream {
 		return MessageFormat.format("({0}:{1, number,#}): ", element.getFileName(), element.getLineNumber());
 	}
 	
-	public Console getC() {
+	public BaseConsole getC() {
 		return c;
 	}
 	

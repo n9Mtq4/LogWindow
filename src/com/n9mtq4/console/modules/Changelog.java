@@ -15,7 +15,7 @@
 
 package com.n9mtq4.console.modules;
 
-import com.n9mtq4.console.lib.Console;
+import com.n9mtq4.console.lib.BaseConsole;
 import com.n9mtq4.console.lib.ConsoleListener;
 import com.n9mtq4.console.lib.events.*;
 
@@ -49,7 +49,7 @@ public class Changelog extends ConsoleListener {
 	public void actionPreformed(ConsoleActionEvent e) {
 		
 		if (e.getCommand().trim().equalsIgnoreCase("changelog")) {
-			final Console c = e.getConsole();
+			final BaseConsole c = e.getBaseConsole();
 			new Thread() {
 				@Override
 				public void run() {

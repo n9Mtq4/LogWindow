@@ -15,27 +15,27 @@
 
 package com.n9mtq4.console.lib.events;
 
-import com.n9mtq4.console.lib.Console;
+import com.n9mtq4.console.lib.BaseConsole;
 
 /**
  * Created by Will on 10/23/14.
  */
 public class EnableActionEvent {
 	
-	private Console console;
+	private BaseConsole baseConsole;
 	
-	public EnableActionEvent(Console console) {
+	public EnableActionEvent(BaseConsole baseConsole) {
 		
-		this.console = console;
+		this.baseConsole = baseConsole;
 		
 	}
 	
-	public Console getConsole() {
-		return console;
+	public BaseConsole getBaseConsole() {
+		return baseConsole;
 	}
 	
-	public void setConsole(Console console) {
-		this.console = console;
+	public void setBaseConsole(BaseConsole baseConsole) {
+		this.baseConsole = baseConsole;
 	}
 	
 }

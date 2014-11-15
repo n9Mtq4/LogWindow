@@ -51,16 +51,16 @@ public class ModuleJarLoader extends ConsoleListener {
 			String filePath = e.getCommand().getText().substring(e.getCommand().getText().indexOf("jarloader ") + "jarloader ".length());
 			File jarFile = new File(filePath);
 			if (!jarFile.exists()) {
-				e.getConsole().println("[ERROR]: " + jarFile.getPath() + " doesn't exist");
+				e.getBaseConsole().println("[ERROR]: " + jarFile.getPath() + " doesn't exist");
 				return;
 			}
-			e.getConsole().println("Adding jar file: " + jarFile, Color.BLUE);
+			e.getBaseConsole().println("Adding jar file: " + jarFile, Color.BLUE);
 			try {
 				PluginManager.addFile(jarFile);
 			}catch (IOException e1) {
-				e.getConsole().println("[ERROR]: " + e1.toString(), Color.RED);
+				e.getBaseConsole().println("[ERROR]: " + e1.toString(), Color.RED);
 			}
-			e.getConsole().println("done loading " + filePath, Color.BLUE);
+			e.getBaseConsole().println("done loading " + filePath, Color.BLUE);
 			
 		}
 		
@@ -70,9 +70,9 @@ public class ModuleJarLoader extends ConsoleListener {
 	public void onDisable(DisableActionEvent e) {
 		
 		if (e.getType() != DisableActionEvent.WINDOW_CLOSE) {
-			e.getConsole().enableListener(this);
-			e.getConsole().print("[ERROR]: ", Color.RED);
-			e.getConsole().println("you can't disable " + this.getClass().getName());
+			e.getBaseConsole().enableListener(this);
+			e.getBaseConsole().print("[ERROR]: ", Color.RED);
+			e.getBaseConsole().println("you can't disable " + this.getClass().getName());
 		}
 		
 	}
@@ -81,9 +81,9 @@ public class ModuleJarLoader extends ConsoleListener {
 	public void onRemoval(RemovalActionEvent e) {
 		
 		if (e.getType() != DisableActionEvent.WINDOW_CLOSE) {
-			e.getConsole().addListener(this);
-			e.getConsole().print("[ERROR]: ", Color.RED);
-			e.getConsole().println("you can't remove " + this.getClass().getName());
+			e.getBaseConsole().addListener(this);
+			e.getBaseConsole().print("[ERROR]: ", Color.RED);
+			e.getBaseConsole().println("you can't remove " + this.getClass().getName());
 		}
 		
 	}

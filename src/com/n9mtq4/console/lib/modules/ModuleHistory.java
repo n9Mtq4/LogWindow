@@ -48,15 +48,15 @@ public class ModuleHistory extends ConsoleListener {
 			
 			if (e.getCommand().getLength() == 1) {
 				if (e.getCommand().getArg(0).equalsIgnoreCase("history")) {
-					for (String s : e.getConsole().getHistory()) {
-						e.getConsole().println(s, Color.MAGENTA);
+					for (String s : e.getBaseConsole().getHistory()) {
+						e.getBaseConsole().println(s, Color.MAGENTA);
 					}
 				}
 			}else if (e.getCommand().getLength() == 2) {
 				if (e.getCommand().getArg(1).equalsIgnoreCase("clear")) {
-					e.getConsole().setHistory(new ArrayList<String>());
-					e.getConsole().setHistoryIndex(0);
-					e.getConsole().println("Cleared history", Color.CYAN);
+					e.getBaseConsole().setHistory(new ArrayList<String>());
+					e.getBaseConsole().setHistoryIndex(0);
+					e.getBaseConsole().println("Cleared history", Color.CYAN);
 				}
 			}
 			

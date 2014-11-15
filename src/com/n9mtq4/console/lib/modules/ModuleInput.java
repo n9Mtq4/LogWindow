@@ -43,8 +43,8 @@ public class ModuleInput extends ConsoleListener {
 	@Override
 	public void actionPreformed(ConsoleActionEvent e) {
 		
-		e.getConsole().print("[INPUT]: ", Color.BLUE);
-		e.getConsole().println(e.getCommand().getText());
+		e.getBaseConsole().print("[INPUT]: ", Color.BLUE);
+		e.getBaseConsole().println(e.getCommand().getText());
 		
 	}
 	

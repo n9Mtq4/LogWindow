@@ -44,7 +44,7 @@ public class ImageLoader extends ConsoleListener {
 		if (e.getCommand().getLength() >= 2 && e.getCommand().getArg(0).equalsIgnoreCase("imageload")) {
 			
 			String fileLocation = e.getCommand().getWordsStartingFrom(1);
-			e.getConsole().printlnImage(fileLocation);
+			e.getBaseConsole().printlnImage(fileLocation);
 			
 		}
 		
