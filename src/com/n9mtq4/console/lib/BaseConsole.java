@@ -38,6 +38,15 @@ import java.util.ConcurrentModificationException;
 public class BaseConsole {
 	
 	public static ArrayList<BaseConsole> globalList = new ArrayList<BaseConsole>();
+	public static final String ANSI_RESET = "\u001B[0m";
+	public static final String ANSI_BLACK = "\u001B[30m";
+	public static final String ANSI_RED = "\u001B[31m";
+	public static final String ANSI_GREEN = "\u001B[32m";
+	public static final String ANSI_YELLOW = "\u001B[33m";
+	public static final String ANSI_BLUE = "\u001B[34m";
+	public static final String ANSI_PURPLE = "\u001B[35m";
+	public static final String ANSI_CYAN = "\u001B[36m";
+	public static final String ANSI_WHITE = "\u001B[37m";
 	
 	private ArrayList<ConsoleListener> listeners;
 	private ArrayList<String> history;
@@ -432,7 +441,23 @@ public class BaseConsole {
 	}
 	
 	public void print(String text, Color color) {
-		System.out.println(text);
+		String sc = "";
+		if (color.getRGB() == Color.RED.getRGB()) {
+			sc = ANSI_RED;
+		}else if (color.getRGB() == Color.YELLOW.getRGB()) {
+			sc = ANSI_YELLOW;
+		}else if (color.getRGB() == Color.GREEN.getRGB()) {
+			sc = ANSI_GREEN;
+		}else if (color.getRGB() == Color.BLUE.getRGB()) {
+			sc = ANSI_BLUE;
+		}else if (color.getRGB() == Color.CYAN.getRGB()) {
+			sc = ANSI_CYAN;
+		}else if (color.getRGB() == Color.BLACK.getRGB()) {
+			sc = ANSI_BLACK;
+		}
+//		TODO: extend java.awt.Color to add this into another class
+//		TODO: add purple
+		System.out.println(sc + text + ANSI_RESET);
 	}
 	
 	public ConsoleListener getListener(String identifier) {
