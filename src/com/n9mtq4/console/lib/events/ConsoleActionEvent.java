@@ -35,6 +35,12 @@ public class ConsoleActionEvent {
 		return baseConsole;
 	}
 	
+//	TODO: legacy
+	@Deprecated
+	public BaseConsole getConsole() {
+		return baseConsole.getGui();
+	}
+	
 	public ConsoleCommand getCommand() {
 		return command;
 	}
