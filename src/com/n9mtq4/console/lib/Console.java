@@ -15,13 +15,6 @@
 
 package com.n9mtq4.console.lib;
 
-import com.n9mtq4.console.lib.events.AdditionActionEvent;
-import com.n9mtq4.console.lib.events.DisableActionEvent;
-import com.n9mtq4.console.lib.events.EnableActionEvent;
-import com.n9mtq4.console.lib.events.RemovalActionEvent;
-import com.n9mtq4.console.lib.managers.PluginManager;
-import com.n9mtq4.console.lib.managers.StdoutRedirect;
-import com.n9mtq4.console.lib.modules.*;
 import com.n9mtq4.console.lib.parts.NTextArea;
 
 import javax.swing.*;
@@ -30,58 +23,17 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.io.File;
-import java.io.PrintWriter;
-import java.io.StringWriter;
-import java.util.ArrayList;
-import java.util.ConcurrentModificationException;
 
 /**
- * Created by Will on 10/20/14.
+ * Created by Will on 11/13/14.
  */
-public class Console {
+public class Console extends BaseConsole {
 	
-	private ArrayList<ConsoleListener> listeners;
 	private JFrame frame;
 	private JPanel noWrapPanel;
 	private NTextArea area;
 	private JTextField field;
 	private JScrollPane scrollArea;
-	private ArrayList<String> history;
-	private int historyIndex;
-	private StdoutRedirect stdoutRedirect;
-	
-	public Console(String pluginDirectory) {
-		listeners = new ArrayList<ConsoleListener>();
-		initMandatoryListeners();
-		history = new ArrayList<String>();
-		this.loadPlugins(pluginDirectory);
-		gui(true);
-	}
-	
-	public Console(boolean gui) {
-		
-		listeners = new ArrayList<ConsoleListener>();
-		initMandatoryListeners();
-		history = new ArrayList<String>();
-		gui(gui);
-		
-	}
-	
-	public Console() {
-		listeners = new ArrayList<ConsoleListener>();
-		initMandatoryListeners();
-		history = new ArrayList<String>();
-		gui(true);
-	}
-	
-	public Console(ConsoleListener listener) {
-		listeners = new ArrayList<ConsoleListener>();
-		initMandatoryListeners();
-		addListener(listener);
-		history = new ArrayList<String>();
-		gui(true);
-	}
 	
 	private void gui(boolean show) {
 		
@@ -125,13 +77,13 @@ public class Console {
 				if (keyEvent.getKeyCode() == KeyEvent.VK_UP) {
 					if (historyIndex > 0) {
 						historyIndex--;
-						field.setText(history.get(historyIndex));
+						field.setText(getHistory().get(historyIndex));
 						field.setCaretPosition(field.getText().length());
 					}
 				}else if (keyEvent.getKeyCode() == KeyEvent.VK_DOWN) {
-					if (historyIndex < history.size() - 1) {
+					if (historyIndex < getHistory().size() - 1) {
 						historyIndex++;
-						field.setText(history.get(historyIndex));
+						field.setText(getHistory().get(historyIndex));
 						field.setCaretPosition(field.getText().length());
 					}
 				}else if (keyEvent.getKeyCode() == KeyEvent.VK_TAB) {
@@ -145,342 +97,7 @@ public class Console {
 		
 	}
 	
-	private void initMandatoryListeners() {
-		
-		this.addListener(new ModuleListener());
-		this.addListener(new ModuleJarLoader());
-		
-	}
 	
-	public void addDefaultListeners() {
-		this.addListener(new ModulePluginManager());
-		this.addListener(new ModuleConsoleManager());
-		this.addListener(new ModuleHistory());
-		this.addListener(new ModuleStdoutRedirect());
-	}
-	
-	private void onFieldEnter(ActionEvent e) {
-		JTextField source = (JTextField) e.getSource();
-		String text = source.getText();
-		if (!text.trim().equals("")) {
-			source.setText("");
-			history.add(text);
-			historyIndex = history.size();
-			push(text);
-		}
-	}
-	
-	public void redirectStdoutOff() {
-		
-		if (stdoutRedirect != null) stdoutRedirect.turnOff();
-		
-	}
-	
-	public void redirectStdoutOn() {
-		
-		redirectStdoutOn(false);
-		
-	}
-	
-	public void redirectStdoutOn(boolean debug) {
-		
-		if (stdoutRedirect == null) {
-			stdoutRedirect = new StdoutRedirect(this);
-		}
-		stdoutRedirect.turnOn(debug);
-		
-	}
-	
-	private void push(String text) {
-		
-		try {
-			for (ConsoleListener p : listeners) {
-				try {
-					if (p.isEnabled()) {
-						p.push(text);
-					}
-				}catch (Exception e) {
-					StringWriter sw = new StringWriter();
-					PrintWriter pw = new PrintWriter(sw);
-					e.printStackTrace(pw);
-					this.println(sw.toString(), Color.RED);
-					e.printStackTrace();
-				}
-			}
-		}catch (ConcurrentModificationException e1) {
-		}
-		
-	}
-	
-	private void tab() {
-		
-		try {
-			for (ConsoleListener p : listeners) {
-				if (p.isEnabled()) {
-					p.tab();
-				}
-			}
-		}catch (ConcurrentModificationException e) {
-		}
-		
-	}
-	
-	public ConsoleListener[] getListenersByName(String name) {
-		
-		ArrayList<ConsoleListener> list = new ArrayList<ConsoleListener>();
-		for (ConsoleListener l : listeners) {
-			
-			if (l.getClass().getName().equalsIgnoreCase(name)) {
-				
-				list.add(l);
-				
-			}
-			
-		}
-		
-		if (list.size() > 0) {
-			return (ConsoleListener[]) list.toArray();
-		}else {
-			return null;
-		}
-		
-	}
-	
-	public void enableAllListeners() {
-		
-		for (ConsoleListener l : listeners) {
-			
-			enableListener(l);
-			
-		}
-		
-	}
-	
-	public void enableListenersByName(String name) {
-		
-		for (ConsoleListener l : listeners) {
-			
-			if (l.getClass().getName().equals(name)) {
-				enableListener(l);
-			}
-			
-		}
-		
-	}
-	
-	public void enableListenerByName(String name) {
-		
-		for (ConsoleListener l : listeners) {
-			
-			if (l.getClass().getName().equals(name)) {
-				enableListener(l);
-				break;
-			}
-			
-		}
-		
-	}
-	
-	public void enableListener(ConsoleListener listener) {
-		
-		if (!listener.isEnabled()) {
-			listener.setEnabled(true);
-			listener.onEnable(new EnableActionEvent(this));
-		}
-		
-	}
-	
-	public void disableAllListeners() {
-		
-		disableAllListeners(DisableActionEvent.NOT_SPECIFIED);
-		
-	}
-	
-	public void disableAllListeners(int type) {
-		
-		for (ConsoleListener l : listeners) {
-			
-			disableListener(l, type);
-			
-		}
-		
-	}
-	
-	public void disableListenersByName(String name, int type) {
-		
-		for (ConsoleListener l : listeners) {
-			
-			if (l.getClass().getName().equals(name)) {
-				disableListener(l, type);
-			}
-			
-		}
-		
-	}
-	
-	public void disableListenerByName(String name) {
-		
-		disableListenerByName(name, DisableActionEvent.NOT_SPECIFIED);
-		
-	}
-	
-	public void disableListenerByName(String name, int type) {
-		
-		for (ConsoleListener l : listeners) {
-			
-			if (l.getClass().getName().equals(name)) {
-				disableListener(l, type);
-				break;
-			}
-			
-		}
-		
-	}
-	
-	public void disableListener(ConsoleListener listener) {
-		
-		disableListener(listener, DisableActionEvent.NOT_SPECIFIED);
-		
-	}
-	
-	public void disableListener(ConsoleListener listener, int type) {
-		
-		if (listener.isEnabled()) {
-			listener.setEnabled(false);
-			listener.onDisable(new DisableActionEvent(this, type));
-		}
-		
-	}
-	
-	public void removeListenerByName(String name) {
-		
-		removeListenerByName(name, RemovalActionEvent.NOT_SPECIFIED);
-		
-	}
-	
-	public void removeListenerByName(String name, int type) {
-		
-		for (ConsoleListener l : listeners) {
-			
-			if (l.getClass().getName().equals(name)) {
-				removeListener(l);
-				break;
-			}
-			
-		}
-		
-	}
-	
-	public void removeListenersByName(String name) {
-		
-		removeListenersByName(name, RemovalActionEvent.NOT_SPECIFIED);
-		
-	}
-	
-	public void removeListenersByName(String name, int type) {
-		
-		for (ConsoleListener l : listeners) {
-			
-			if (l.getClass().getName().equals(name)) {
-				removeListener(l, type);
-			}
-			
-		}
-		
-	}
-	
-	public void removeAllListeners(int type) {
-		
-		int i = getListeners().size();
-		int c = 0;
-		while (getListeners().size() > 0 && i > c) {
-			try {
-				for (ConsoleListener l : getListeners()) {
-					
-					removeListener(l, type);
-					
-				}
-			}catch (ConcurrentModificationException e) {
-				
-			}
-			c++;
-		}
-		
-	}
-	
-	public void removeAllListeners() {
-		
-		removeAllListeners(RemovalActionEvent.NOT_SPECIFIED);
-		
-	}
-	
-	public void addListener(ConsoleListener listener) {
-		
-		if (!listeners.contains(listener) || !listener.getLinkedConsoles().contains(this)) {
-			listeners.add(listener);
-			listener.onAddition(new AdditionActionEvent(this));
-			listener.onEnable(new EnableActionEvent(this));
-			listener.addToConsole(this);
-		}
-		
-	}
-	
-	public void removeListener(ConsoleListener listener) {
-		
-		removeListener(listener, RemovalActionEvent.NOT_SPECIFIED);
-		
-	}
-	
-	public void removeListener(ConsoleListener listener, int type) {
-		
-		if (listeners.contains(listener) || listener.getLinkedConsoles().contains(this)) {
-			listeners.remove(listener);
-			listener.removeFromConsole(this);
-			listener.onDisable(new DisableActionEvent(this, type));
-			listener.onRemoval(new RemovalActionEvent(this, type));
-		}
-		
-	}
-	
-	public void loadPlugins(String filePath) {
-		
-		PluginManager.loadPluginsToConsole(this, filePath);
-		
-	}
-	
-	public void loadPlugins() {
-		
-		PluginManager.loadPluginsToConsole(this, PluginManager.DEFAULT_PLUGIN_FOLDER);
-		
-	}
-	
-	public void printlnImage(File file) {
-		
-		printImage(file.getAbsolutePath());
-		print("\n");
-		
-	}
-	
-	public void printlnImage(String filePath) {
-		
-		printImage(filePath);
-		print("\n");
-		
-	}
-	
-	public void println(String text) {
-		print(text + "\n");
-	}
-	
-	public void println(String text, Color color) {
-		print(text + "\n", color);
-	}
-	
-	public void printImage(File file) {
-		
-		printImage(file.getPath());
-		
-	}
 	
 	public void printImage(String filePath) {
 		
@@ -489,120 +106,11 @@ public class Console {
 	}
 	
 	public void print(String text) {
-		area.append(text, Color.BLACK);
+		print(text, Color.BLACK);
 	}
 	
 	public void print(String text, Color color) {
 		area.append(text, color);
-	}
-	
-	public ConsoleListener getListener(String identifier) {
-		
-		try {
-			int i = Integer.parseInt(identifier);
-			try {
-				return getListenerByIndex(i);
-			}catch (Exception e1) {
-				return null;
-			}
-		}catch (NumberFormatException e) {
-			return getListenerByName(identifier);
-		}
-		
-	}
-	
-	public ConsoleListener getListenerByIndex(int index) {
-		
-		return listeners.get(index);
-		
-	}
-	
-	public ConsoleListener getListenerByName(String name) {
-		
-		for (ConsoleListener l : listeners) {
-			
-			if (l.getClass().getName().equalsIgnoreCase(name)) {
-				
-				return l;
-				
-			}
-			
-		}
-		
-		return null;
-		
-	}
-	
-	public JFrame getFrame() {
-		return frame;
-	}
-	
-	public void setFrame(JFrame frame) {
-		this.frame = frame;
-	}
-	
-	public NTextArea getArea() {
-		return area;
-	}
-	
-	public void setArea(NTextArea area) {
-		this.area = area;
-	}
-	
-	public JTextField getField() {
-		return field;
-	}
-	
-	public void setField(JTextField field) {
-		this.field = field;
-	}
-	
-	public JScrollPane getScrollArea() {
-		return scrollArea;
-	}
-	
-	public void setScrollArea(JScrollPane scrollArea) {
-		this.scrollArea = scrollArea;
-	}
-	
-	public ArrayList<String> getHistory() {
-		return history;
-	}
-	
-	public void setHistory(ArrayList<String> history) {
-		this.history = history;
-	}
-	
-	public int getHistoryIndex() {
-		return historyIndex;
-	}
-	
-	public void setHistoryIndex(int historyIndex) {
-		this.historyIndex = historyIndex;
-	}
-	
-	public ArrayList<ConsoleListener> getListeners() {
-		return listeners;
-	}
-	
-	public void setListeners(ArrayList<ConsoleListener> listeners) {
-		this.listeners = listeners;
-	}
-	
-	public JPanel getNoWrapPanel() {
-		return noWrapPanel;
-	}
-	
-	public void setNoWrapPanel(JPanel noWrapPanel) {
-		this.noWrapPanel = noWrapPanel;
-	}
-	
-	public StdoutRedirect getStdoutRedirect() {
-		return stdoutRedirect;
-	}
-	
-	public void setStdoutRedirect(StdoutRedirect stdoutRedirect) {
-		this.stdoutRedirect = stdoutRedirect;
 	}
 	
 }
