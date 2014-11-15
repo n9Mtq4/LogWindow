@@ -35,6 +35,21 @@ public class Console extends BaseConsole {
 	private JTextField field;
 	private JScrollPane scrollArea;
 	
+	public Console(String pluginDirectory) {
+		super(pluginDirectory);
+		gui(true);
+	}
+	
+	public Console() {
+		super();
+		gui(true);
+	}
+	
+	public Console(ConsoleListener listener) {
+		super(listener);
+		gui(true);
+	}
+	
 	private void gui(boolean show) {
 		
 		frame = new JFrame("Console");
@@ -103,10 +118,6 @@ public class Console extends BaseConsole {
 		
 		area.appendPicture(filePath);
 		
-	}
-	
-	public void print(String text) {
-		print(text, Color.BLACK);
 	}
 	
 	public void print(String text, Color color) {
