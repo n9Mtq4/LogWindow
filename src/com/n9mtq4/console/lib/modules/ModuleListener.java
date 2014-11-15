@@ -260,7 +260,11 @@ public class ModuleListener extends ConsoleListener {
 					String name = e.getCommand().getArg(2);
 					ConsoleListener l = e.getBaseConsole().getListener(name);
 					for (BaseConsole c : l.getLinkedBaseConsoles()) {
-						e.getBaseConsole().println(c.getClass().getName() + ": " + c.getFrame().getTitle());
+						if (e.getBaseConsole().hasGuiAttached()) {
+							e.getBaseConsole().println(c.getClass().getName() + ": " + e.getBaseConsole().getId() + ": " + c.getGui().getFrame().getTitle());
+						}else {
+							e.getBaseConsole().print(c.getClass().getName() + ": " + e.getBaseConsole().getId());
+						}
 					}
 					
 				}

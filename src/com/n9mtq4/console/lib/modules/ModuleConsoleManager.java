@@ -49,9 +49,11 @@ public class ModuleConsoleManager extends ConsoleListener {
 				if (e.getCommand().getArg(1).equalsIgnoreCase("new")) {
 					new BaseConsole();
 				}else if (e.getCommand().getArg(1).equalsIgnoreCase("delete")) {
-					e.getBaseConsole().getFrame().dispose();
+					e.getBaseConsole().dispose();
 				}else if (e.getCommand().getArg(1).equalsIgnoreCase("clear")) {
-					e.getBaseConsole().getArea().setText("");
+					if (e.getBaseConsole().hasGuiAttached()) {
+						e.getBaseConsole().getGui().getArea().setText("");
+					}
 				}
 				
 			}

@@ -113,4 +113,44 @@ public class Console extends BaseConsole {
 		area.append(text, color);
 	}
 	
+	public JFrame getFrame() {
+		return frame;
+	}
+	
+	public void setFrame(JFrame frame) {
+		this.frame = frame;
+	}
+	
+	public JPanel getNoWrapPanel() {
+		return noWrapPanel;
+	}
+	
+	public void setNoWrapPanel(JPanel noWrapPanel) {
+		this.noWrapPanel = noWrapPanel;
+	}
+	
+	public NTextArea getArea() {
+		return area;
+	}
+	
+	public void setArea(NTextArea area) {
+		this.area = area;
+	}
+	
+	public JTextField getField() {
+		return field;
+	}
+	
+	public void setField(JTextField field) {
+		this.field = field;
+	}
+	
+	public JScrollPane getScrollArea() {
+		return scrollArea;
+	}
+	
+	public void setScrollArea(JScrollPane scrollArea) {
+		this.scrollArea = scrollArea;
+	}
+	
 }

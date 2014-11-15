@@ -37,9 +37,13 @@ import java.util.ConcurrentModificationException;
  */
 public class BaseConsole {
 	
+	public static ArrayList<BaseConsole> globalList = new ArrayList<BaseConsole>();
+	
 	private ArrayList<ConsoleListener> listeners;
 	private ArrayList<String> history;
 	public int historyIndex;
+	private Console gui;
+	private int id;
 	private StdoutRedirect stdoutRedirect;
 	
 	public BaseConsole(String pluginDirectory) {
@@ -47,12 +51,14 @@ public class BaseConsole {
 		initMandatoryListeners();
 		history = new ArrayList<String>();
 		this.loadPlugins(pluginDirectory);
+		initConsole();
 	}
 	
 	public BaseConsole() {
 		listeners = new ArrayList<ConsoleListener>();
 		initMandatoryListeners();
 		history = new ArrayList<String>();
+		initConsole();
 	}
 	
 	public BaseConsole(ConsoleListener listener) {
@@ -60,6 +66,22 @@ public class BaseConsole {
 		initMandatoryListeners();
 		addListener(listener);
 		history = new ArrayList<String>();
+		initConsole();
+	}
+	
+	private void initConsole() {
+		
+		globalList.add(this);
+		this.id = globalList.indexOf(this);
+		
+	}
+	
+	public void dispose() {
+		
+		if (hasGuiAttached()) {
+			this.gui.getFrame().dispose();
+		}
+		
 	}
 	
 	private void initMandatoryListeners() {
@@ -480,6 +502,26 @@ public class BaseConsole {
 	
 	public void setStdoutRedirect(StdoutRedirect stdoutRedirect) {
 		this.stdoutRedirect = stdoutRedirect;
+	}
+	
+	public Console getGui() {
+		return gui;
+	}
+	
+	public void setGui(Console gui) {
+		this.gui = gui;
+	}
+	
+	public boolean hasGuiAttached() {
+		return this.gui != null;
+	}
+	
+	public int getId() {
+		return id;
+	}
+	
+	public void setId(int id) {
+		this.id = id;
 	}
 	
 }
