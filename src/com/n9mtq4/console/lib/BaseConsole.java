@@ -456,7 +456,7 @@ public class BaseConsole {
 			sc = ANSI_BLACK;
 		}
 //		TODO: extend java.awt.Color to add this into another class
-//		TODO: add purple
+//		TODO: add purple and white
 		System.out.println(sc + text + ANSI_RESET);
 	}
 	
