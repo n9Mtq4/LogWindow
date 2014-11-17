@@ -15,29 +15,27 @@
 
 package com.n9mtq4.console.lib.modules;
 
-import com.n9mtq4.console.lib.BaseConsole;
 import com.n9mtq4.console.lib.ConsoleCommand;
 import com.n9mtq4.console.lib.ConsoleListener;
 import com.n9mtq4.console.lib.events.*;
+import com.n9mtq4.console.lib.managers.SocketManager;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.PrintWriter;
-import java.net.*;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 /**
  * Created by Will on 11/16/14.
  */
 public class ModuleNetwork extends ConsoleListener {
 	
-	private Socket s;
-	private ServerSocket serverSocket;
-	private Socket serverInSocket;
+	private SocketManager manager;
 	
 	@Override
 	public void onAddition(AdditionActionEvent e) {
-		
+		manager = new SocketManager();
 	}
 	
 	@Override
@@ -79,7 +77,7 @@ public class ModuleNetwork extends ConsoleListener {
 						portString = ipport.substring(ipport.indexOf(":") + 1);
 						try {
 							int port = Integer.parseInt(portString);
-							this.s = socketConnect(ip, port);
+							manager.clientConnect(ip, port);
 						}catch (NumberFormatException e1) {
 							e.getBaseConsole().println(e1.toString());
 						}
@@ -89,39 +87,12 @@ public class ModuleNetwork extends ConsoleListener {
 					
 					String portString = c.getArg(2);
 					try {
+						
 						e.getBaseConsole().println("starting server on port " + portString);
-						final int port = Integer.parseInt(portString);
-						final BaseConsole b = e.getBaseConsole();
-						new Thread(new Runnable() {
-							@Override
-							public void run() {
-								try {
-									serverSocket = new ServerSocket(port);
-									serverInSocket = serverSocket.accept();
-									b.println("Client has connected to socket server at " + serverSocket.getLocalPort());
-									BufferedReader in = new BufferedReader(new InputStreamReader(serverInSocket.getInputStream()));
-									new Thread(new Runnable() {
-										@Override
-										public void run() {
-											while (true) {
-												try {
-													BufferedReader in = new BufferedReader(new InputStreamReader(serverInSocket.getInputStream()));
-													String inputLine;
-													while ((inputLine = in.readLine()) != null) {
-														b.println(inputLine);
-													}
-												}catch (Exception e3) {
-													e3.printStackTrace();
-												}
-											}
-										}
-									}).start();
-								}catch (Exception e2) {
-									e2.printStackTrace();
-								}
-							}
-						}, "SeverSocket").start();
-						b.println("Awaiting client connection to socket");
+						int port = Integer.parseInt(portString);
+						e.getBaseConsole().println("Awaiting client connection to socket");
+						manager.startServer(port);
+						manager.startServerListenerToConsole(e.getBaseConsole());
 						
 					}catch (NumberFormatException e1) {
 						e.getBaseConsole().println("port must be an int");
@@ -131,11 +102,7 @@ public class ModuleNetwork extends ConsoleListener {
 			}else if (c.getLength() >= 3) {
 				if (c.getArg(1).equalsIgnoreCase("print")) {
 					String msg = c.getWordsStartingFrom(2);
-					if (s== null || !s.isConnected()) {
-						e.getBaseConsole().println("please do \"socket connect ip:port\" before printing to the socket");
-						return;
-					}
-					socketPrint(this.s, msg);
+					manager.clientPrint(msg);
 				}
 			}
 			
@@ -174,37 +141,6 @@ public class ModuleNetwork extends ConsoleListener {
 			e.printStackTrace();
 		}
 		return result;
-	}
-	
-	public static Socket socketConnect(String ip, int port) {
-		
-		try {
-			Socket socket = new Socket();
-			socket.setSoTimeout(2000);
-			socket.connect((SocketAddress) new InetSocketAddress(ip, port));
-			return socket;
-		}catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
-		
-	}
-	
-	public static boolean socketPrint(Socket socket, String string) {
-		
-		try {
-			
-			PrintWriter pw = new PrintWriter(socket.getOutputStream());
-			pw.print(string);
-			pw.flush();
-			pw.close();
-			return true;
-			
-		}catch (Exception e) {
-			e.printStackTrace();
-			return false;
-		}
-		
 	}
 	
 }
