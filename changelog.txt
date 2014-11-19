@@ -1,6 +1,9 @@
-582350a (HEAD, master) minor todo change
+c7fe48a (HEAD, origin/master, master) More info (YEA!!)
+80d0f4f Reworked Socket connections
+0cfc441 API 3.0.0
+582350a minor todo change
 19c5275 Module for network debugging (socket and http)
-5b2527e (origin/master) Legacy Code for back compatibility
+5b2527e Legacy Code for back compatibility
 5f935ab Colors in BaseConsole
 ee4b755 Fixed gui
 b87caf6 fixed errors on build
