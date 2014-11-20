@@ -15,10 +15,7 @@
 
 package com.n9mtq4.console.lib;
 
-import com.n9mtq4.console.lib.events.AdditionActionEvent;
-import com.n9mtq4.console.lib.events.DisableActionEvent;
-import com.n9mtq4.console.lib.events.EnableActionEvent;
-import com.n9mtq4.console.lib.events.RemovalActionEvent;
+import com.n9mtq4.console.lib.events.*;
 import com.n9mtq4.console.lib.managers.PluginManager;
 import com.n9mtq4.console.lib.managers.StdoutRedirect;
 import com.n9mtq4.console.lib.modules.*;
@@ -56,6 +53,21 @@ public class BaseConsole {
 	private StdoutRedirect stdoutRedirect;
 	
 	public BaseConsole(String pluginDirectory) {
+		construct(pluginDirectory);
+//		TODO: add scanner for input
+	}
+	
+	public BaseConsole() {
+		construct();
+//		TODO: add scanner for input
+	}
+	
+	public BaseConsole(ConsoleListener listener) {
+		construct(listener);
+//		TODO: add scanner for input
+	}
+	
+	public void construct(String pluginDirectory) {
 		listeners = new ArrayList<ConsoleListener>();
 		initMandatoryListeners();
 		history = new ArrayList<String>();
@@ -63,14 +75,14 @@ public class BaseConsole {
 		initConsole();
 	}
 	
-	public BaseConsole() {
+	public void construct() {
 		listeners = new ArrayList<ConsoleListener>();
 		initMandatoryListeners();
 		history = new ArrayList<String>();
 		initConsole();
 	}
 	
-	public BaseConsole(ConsoleListener listener) {
+	public void construct(ConsoleListener listener) {
 		listeners = new ArrayList<ConsoleListener>();
 		initMandatoryListeners();
 		addListener(listener);
@@ -139,6 +151,10 @@ public class BaseConsole {
 		
 	}
 	
+	public void sendPluginsString(String txt) {
+		push(txt);
+	}
+	
 	private void push(String text) {
 		
 		try {
@@ -148,16 +164,20 @@ public class BaseConsole {
 						p.push(text);
 					}
 				}catch (Exception e) {
-					StringWriter sw = new StringWriter();
-					PrintWriter pw = new PrintWriter(sw);
-					e.printStackTrace(pw);
-					this.println(sw.toString(), Color.RED);
+					this.printStackTrace(e);
 					e.printStackTrace();
 				}
 			}
 		}catch (ConcurrentModificationException e1) {
 		}
 		
+	}
+	
+	public void printStackTrace(Exception e) {
+		StringWriter sw = new StringWriter();
+		PrintWriter pw = new PrintWriter(sw);
+		e.printStackTrace(pw);
+		this.println(sw.toString(), Color.RED);
 	}
 	
 	public void tab() {
