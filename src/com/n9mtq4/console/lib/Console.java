@@ -36,17 +36,17 @@ public class Console extends BaseConsole {
 	private JScrollPane scrollArea;
 	
 	public Console(String pluginDirectory) {
-		construct(pluginDirectory);
+		super(pluginDirectory);
 		gui(true);
 	}
 	
 	public Console() {
-		construct();
+		super();
 		gui(true);
 	}
 	
 	public Console(ConsoleListener listener) {
-		construct(listener);
+		super(listener);
 		gui(true);
 	}
 	

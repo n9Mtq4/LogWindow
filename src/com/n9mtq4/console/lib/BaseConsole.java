@@ -35,39 +35,17 @@ import java.util.ConcurrentModificationException;
 public class BaseConsole {
 	
 	public static ArrayList<BaseConsole> globalList = new ArrayList<BaseConsole>();
-	public static final String ANSI_RESET = "\u001B[0m";
-	public static final String ANSI_BLACK = "\u001B[30m";
-	public static final String ANSI_RED = "\u001B[31m";
-	public static final String ANSI_GREEN = "\u001B[32m";
-	public static final String ANSI_YELLOW = "\u001B[33m";
-	public static final String ANSI_BLUE = "\u001B[34m";
-	public static final String ANSI_PURPLE = "\u001B[35m";
-	public static final String ANSI_CYAN = "\u001B[36m";
-	public static final String ANSI_WHITE = "\u001B[37m";
 	
 	private ArrayList<ConsoleListener> listeners;
 	private ArrayList<String> history;
 	public int historyIndex;
+//	TODO: cast this to Console to get whether this has a gui
+//	TODO: should remove reference to overriding classes
 	private Console gui;
 	private int id;
 	private StdoutRedirect stdoutRedirect;
 	
 	public BaseConsole(String pluginDirectory) {
-		construct(pluginDirectory);
-//		TODO: add scanner for input
-	}
-	
-	public BaseConsole() {
-		construct();
-//		TODO: add scanner for input
-	}
-	
-	public BaseConsole(ConsoleListener listener) {
-		construct(listener);
-//		TODO: add scanner for input
-	}
-	
-	public void construct(String pluginDirectory) {
 		listeners = new ArrayList<ConsoleListener>();
 		initMandatoryListeners();
 		history = new ArrayList<String>();
@@ -75,14 +53,14 @@ public class BaseConsole {
 		initConsole();
 	}
 	
-	public void construct() {
+	public BaseConsole() {
 		listeners = new ArrayList<ConsoleListener>();
 		initMandatoryListeners();
 		history = new ArrayList<String>();
 		initConsole();
 	}
 	
-	public void construct(ConsoleListener listener) {
+	public BaseConsole(ConsoleListener listener) {
 		listeners = new ArrayList<ConsoleListener>();
 		initMandatoryListeners();
 		addListener(listener);
@@ -99,9 +77,22 @@ public class BaseConsole {
 	
 	public void dispose() {
 		
+		ArrayList<ConsoleListener> listeners;
+		while ((listeners = this.getListeners()).size() > 0) {
+			try {
+				for (ConsoleListener l : listeners) {
+					
+					this.removeListener(l, RemovalActionEvent.WINDOW_CLOSE);
+					
+				}
+			}catch (ConcurrentModificationException e) {
+				
+			}
+		}
 		if (hasGuiAttached()) {
 			this.gui.getFrame().dispose();
 		}
+		
 		
 	}
 	
@@ -450,9 +441,10 @@ public class BaseConsole {
 		
 	}
 	
+	/**
+	 * Override me!
+	 * */
 	public void printImage(String filePath) {
-		
-//		dummy
 		
 	}
 	
@@ -460,24 +452,11 @@ public class BaseConsole {
 		print(text, Color.BLACK);
 	}
 	
+	/**
+	 * Override me!
+	 * */
 	public void print(String text, Color color) {
-		String sc = "";
-		if (color.getRGB() == Color.RED.getRGB()) {
-			sc = ANSI_RED;
-		}else if (color.getRGB() == Color.YELLOW.getRGB()) {
-			sc = ANSI_YELLOW;
-		}else if (color.getRGB() == Color.GREEN.getRGB()) {
-			sc = ANSI_GREEN;
-		}else if (color.getRGB() == Color.BLUE.getRGB()) {
-			sc = ANSI_BLUE;
-		}else if (color.getRGB() == Color.CYAN.getRGB()) {
-			sc = ANSI_CYAN;
-		}else if (color.getRGB() == Color.BLACK.getRGB()) {
-			sc = ANSI_BLACK;
-		}
-//		TODO: extend java.awt.Color to add this into another class
-//		TODO: add purple and white
-		System.out.println(sc + text + ANSI_RESET);
+		
 	}
 	
 	public ConsoleListener getListener(String identifier) {
