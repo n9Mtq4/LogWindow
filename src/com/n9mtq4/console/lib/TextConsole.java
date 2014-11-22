@@ -54,15 +54,15 @@ public class TextConsole extends BaseConsole {
 	public void initScanner() {
 		
 		scan = new Scanner(System.in);
+		shouldScan = true;
 		final TextConsole thiz = this;
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
 				while(thiz.isShouldScan()) {
-					String line;
-					while ((line = thiz.getScan().nextLine()) != null) {
-						thiz.sendPluginsString(line);
-					}
+					System.out.print("> ");
+					String s = scan.nextLine();
+					thiz.sendPluginsString(s);
 				}
 			}
 		}, "Scanner Input Listener").start();
@@ -72,6 +72,7 @@ public class TextConsole extends BaseConsole {
 	@Override
 	public void dispose() {
 		super.dispose();
+		stopScan();
 		scan.close();
 	}
 	
@@ -100,7 +101,11 @@ public class TextConsole extends BaseConsole {
 	public void printImage(String filePath) {
 //		can't print images
 	}
-
+	
+	public void stopScan() {
+		shouldScan = false;
+	}
+	
 	public Scanner getScan() {
 		return scan;
 	}
