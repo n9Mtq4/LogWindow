@@ -18,6 +18,7 @@ package com.n9mtq4.console.lib;
 import com.n9mtq4.console.lib.events.*;
 
 import java.util.ArrayList;
+import java.util.ConcurrentModificationException;
 
 /**
  * Created by Will on 10/20/14.
@@ -44,8 +45,12 @@ public abstract class ConsoleListener {
 	public void push(String text) {
 		
 		ConsoleCommand command = new ConsoleCommand(text);
-		for (BaseConsole c : linkedBaseConsoles) {
-			this.actionPreformed(new ConsoleActionEvent(c, command));
+		try {
+			for (BaseConsole c : linkedBaseConsoles) {
+				this.actionPreformed(new ConsoleActionEvent(c, command));
+			}
+		}catch (ConcurrentModificationException e) {
+//			TODO: properly catch
 		}
 		
 	}
