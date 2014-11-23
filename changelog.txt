@@ -1,4 +1,10 @@
-c7fe48a (HEAD, origin/master, master) More info (YEA!!)
+cf701d1 (HEAD, origin/master, master) Many bug fixes
+c96f080 Catch concurrentmodification
+40b0e8d TextConsole for text
+c3fbf11 now redirects to BaseConsole.dispose
+846cfda separation of constructor from BaseConsole
+af65d86 API 3.0.2
+c7fe48a More info (YEA!!)
 80d0f4f Reworked Socket connections
 0cfc441 API 3.0.0
 582350a minor todo change
