@@ -15,6 +15,8 @@
 
 package com.n9mtq4.console.lib;
 
+import com.n9mtq4.console.lib.managers.Colour;
+
 import java.awt.*;
 import java.util.Scanner;
 
@@ -22,16 +24,6 @@ import java.util.Scanner;
  * Created by Will on 11/20/14.
  */
 public class TextConsole extends BaseConsole {
-	
-	private static final String ANSI_RESET = "\u001B[0m";
-	private static final String ANSI_BLACK = "\u001B[30m";
-	private static final String ANSI_RED = "\u001B[31m";
-	private static final String ANSI_GREEN = "\u001B[32m";
-	private static final String ANSI_YELLOW = "\u001B[33m";
-	private static final String ANSI_BLUE = "\u001B[34m";
-	private static final String ANSI_PURPLE = "\u001B[35m";
-	private static final String ANSI_CYAN = "\u001B[36m";
-	private static final String ANSI_WHITE = "\u001B[37m";
 	
 	private Scanner scan;
 	private boolean shouldScan;
@@ -77,24 +69,13 @@ public class TextConsole extends BaseConsole {
 	}
 	
 	@Override
+	public void print(String text) {
+		print(text, Color.WHITE);
+	}
+	
+	@Override
 	public void print(String text, Color color) {
-		String sc = "";
-		if (color.getRGB() == Color.RED.getRGB()) {
-			sc = ANSI_RED;
-		}else if (color.getRGB() == Color.YELLOW.getRGB()) {
-			sc = ANSI_YELLOW;
-		}else if (color.getRGB() == Color.GREEN.getRGB()) {
-			sc = ANSI_GREEN;
-		}else if (color.getRGB() == Color.BLUE.getRGB()) {
-			sc = ANSI_BLUE;
-		}else if (color.getRGB() == Color.CYAN.getRGB()) {
-			sc = ANSI_CYAN;
-		}else if (color.getRGB() == Color.BLACK.getRGB()) {
-			sc = ANSI_BLACK;
-		}
-//		TODO: extend java.awt.Color to add this into another class
-//		TODO: add purple and white
-		System.out.print(sc + text + ANSI_RESET);
+		System.out.print(Colour.getColour(color).getANSI() + text + Colour.getAnsiReset());
 	}
 	
 	@Override
