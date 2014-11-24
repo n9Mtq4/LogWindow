@@ -15,7 +15,11 @@
 
 package com.n9mtq4.console.lib;
 
-import com.n9mtq4.console.lib.events.*;
+import com.n9mtq4.console.lib.events.AdditionActionEvent;
+import com.n9mtq4.console.lib.events.DisableActionEvent;
+import com.n9mtq4.console.lib.events.EnableActionEvent;
+import com.n9mtq4.console.lib.events.RemovalActionEvent;
+import com.n9mtq4.console.lib.managers.Colour;
 import com.n9mtq4.console.lib.managers.PluginManager;
 import com.n9mtq4.console.lib.managers.StdoutRedirect;
 import com.n9mtq4.console.lib.modules.*;
@@ -452,10 +456,14 @@ public class BaseConsole {
 		print(text, Color.BLACK);
 	}
 	
+	public void print(String text, Color color) {
+		print(text, Colour.getColour(color));
+	}
+	
 	/**
 	 * Override me!
 	 * */
-	public void print(String text, Color color) {
+	public void print(String text, Colour colour) {
 		
 	}
 	

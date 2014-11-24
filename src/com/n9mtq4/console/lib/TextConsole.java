@@ -74,8 +74,8 @@ public class TextConsole extends BaseConsole {
 	}
 	
 	@Override
-	public void print(String text, Color color) {
-		System.out.print(Colour.getColour(color).getANSI() + text + Colour.getAnsiReset());
+	public void print(String text, Colour colour) {
+		System.out.print(colour.getANSI() + text + Colour.getAnsiReset());
 	}
 	
 	@Override
