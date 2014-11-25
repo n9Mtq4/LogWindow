@@ -60,7 +60,7 @@ public class ModuleNetwork extends ConsoleListener {
 					String result = httpGet(url);
 					e.getBaseConsole().println(result);
 				}else if (c.getArg(1).equalsIgnoreCase("post")) {
-//					TODO: post
+//					TODO: http post request
 				}
 			}
 			

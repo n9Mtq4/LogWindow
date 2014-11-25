@@ -112,7 +112,11 @@ public class Console extends BaseConsole {
 		
 	}
 	
-	
+	@Override
+	public void dispose() {
+		super.dispose();
+		this.getFrame().dispose();
+	}
 	
 	public void printImage(String filePath) {
 		

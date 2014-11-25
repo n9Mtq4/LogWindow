@@ -43,9 +43,6 @@ public class BaseConsole {
 	private ArrayList<ConsoleListener> listeners;
 	private ArrayList<String> history;
 	public int historyIndex;
-//	TODO: cast this to Console to get whether this has a gui
-//	TODO: should remove reference to overriding classes
-	private Console gui;
 	private int id;
 	private StdoutRedirect stdoutRedirect;
 	
@@ -93,10 +90,6 @@ public class BaseConsole {
 				
 			}
 		}
-		if (hasGuiAttached()) {
-			this.gui.getFrame().dispose();
-		}
-		
 		
 	}
 	
@@ -537,15 +530,15 @@ public class BaseConsole {
 	}
 	
 	public Console getGui() {
-		return gui;
-	}
-	
-	public void setGui(Console gui) {
-		this.gui = gui;
+		if (hasGuiAttached()) {
+			return ((Console) this);
+		}else {
+			return null;
+		}
 	}
 	
 	public boolean hasGuiAttached() {
-		return this.gui != null;
+		return (this instanceof Console);
 	}
 	
 	public int getId() {

@@ -35,7 +35,7 @@ public class ConsoleActionEvent {
 		return baseConsole;
 	}
 	
-//	TODO: legacy
+//	TODO: legacy (use at your own risk)
 	@Deprecated
 	public BaseConsole getConsole() {
 		return baseConsole.getGui();
