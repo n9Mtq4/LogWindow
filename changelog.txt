@@ -1,4 +1,10 @@
-cf701d1 (HEAD, origin/master, master) Many bug fixes
+e9d69b8 (HEAD, origin/master, master) Launcher support for TextConsole
+7c903ae changed Console gui handling
+7062a23 more color support
+01c4db5 new way of handling colors
+d01f1f2 new Console gui
+2600358 API 3.1.0
+cf701d1 Many bug fixes
 c96f080 Catch concurrentmodification
 40b0e8d TextConsole for text
 c3fbf11 now redirects to BaseConsole.dispose
