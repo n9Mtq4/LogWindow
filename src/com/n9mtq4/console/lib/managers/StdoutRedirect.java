@@ -38,37 +38,73 @@ public class StdoutRedirect extends PrintStream {
 	
 	@Override
 	public void print(String s) {
-		if (showLocation) {
-			c.print(getLocation() + s);
+		StackTraceElement element = Thread.currentThread().getStackTrace()[2];
+		if (!element.getMethodName().contains("print")) {
+			if (showLocation) {
+				c.print(getLocation() + s);
+			}else {
+				c.print(s);
+			}
 		}else {
-			c.print(s);
+			if (showLocation) {
+				backup.print(getLocation() + s);
+			}else {
+				backup.print(s);
+			}
 		}
 	}
 	
 	@Override
 	public void print(Object o) {
-		if (showLocation) {
-			c.print(getLocation() + o.toString());
+		StackTraceElement element = Thread.currentThread().getStackTrace()[2];
+		if (!element.getMethodName().contains("print")) {
+			if (showLocation) {
+				c.print(getLocation() + o.toString());
+			}else {
+				c.print(o.toString());
+			}
 		}else {
-			c.print(o.toString());
+			if (showLocation) {
+				backup.print(getLocation() + o.toString());
+			}else {
+				backup.print(o.toString());
+			}
 		}
 	}
 	
 	@Override
 	public void println(Object x) {
-		if (showLocation) {
-			c.println(getLocation() + x.toString());
+		StackTraceElement element = Thread.currentThread().getStackTrace()[2];
+		if (!element.getMethodName().contains("print")) {
+			if (showLocation) {
+				c.println(getLocation() + x.toString());
+			}else {
+				c.println(x.toString());
+			}
 		}else {
-			c.println(x.toString());
+			if (showLocation) {
+				backup.print(getLocation() + x.toString());
+			}else {
+				backup.print(x.toString());
+			}
 		}
 	}
 	
 	@Override
 	public void println(String x) {
-		if (showLocation) {
-			c.println(getLocation() + x);
+		StackTraceElement element = Thread.currentThread().getStackTrace()[2];
+		if (!element.getMethodName().contains("print")) {
+			if (showLocation) {
+				c.println(getLocation() + x);
+			}else {
+				c.println(x);
+			}
 		}else {
-			c.println(x);
+			if (showLocation) {
+				backup.print(getLocation() + x);
+			}else {
+				backup.print(x);
+			}
 		}
 	}
 	
