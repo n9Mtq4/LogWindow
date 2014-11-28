@@ -1,4 +1,9 @@
-e9d69b8 (HEAD, origin/master, master) Launcher support for TextConsole
+936d864 (HEAD, origin/master, master) fixed stackoverflow error
+0e20092 support for new features in 3.1.0 & bug fix
+11905fe support for new features in 3.1.0
+385d129 API 3.1.6
+db578e8 API 3.1.5
+e9d69b8 Launcher support for TextConsole
 7c903ae changed Console gui handling
 7062a23 more color support
 01c4db5 new way of handling colors
