@@ -16,7 +16,7 @@
 package com.n9mtq4.console.lib.events;
 
 import com.n9mtq4.console.lib.BaseConsole;
-import com.n9mtq4.console.lib.ConsoleCommand;
+import com.n9mtq4.console.lib.command.ConsoleCommand;
 
 /**
  * Created by Will on 10/20/14.

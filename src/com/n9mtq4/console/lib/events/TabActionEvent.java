@@ -16,7 +16,7 @@
 package com.n9mtq4.console.lib.events;
 
 import com.n9mtq4.console.lib.BaseConsole;
-import com.n9mtq4.console.lib.TabCommand;
+import com.n9mtq4.console.lib.command.TabCommand;
 
 /**
  * Created by Will on 10/23/14.

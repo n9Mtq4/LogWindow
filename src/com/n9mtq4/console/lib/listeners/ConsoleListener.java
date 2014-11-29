@@ -13,8 +13,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.n9mtq4.console.lib;
+package com.n9mtq4.console.lib.listeners;
 
+import com.n9mtq4.console.lib.BaseConsole;
+import com.n9mtq4.console.lib.command.ConsoleCommand;
+import com.n9mtq4.console.lib.command.TabCommand;
 import com.n9mtq4.console.lib.events.*;
 
 import java.util.ArrayList;

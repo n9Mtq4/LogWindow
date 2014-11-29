@@ -13,7 +13,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.n9mtq4.console.lib;
+package com.n9mtq4.console.lib.listeners;
+
+import com.n9mtq4.console.lib.BaseConsole;
 
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;

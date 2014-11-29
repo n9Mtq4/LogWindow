@@ -15,6 +15,8 @@
 
 package com.n9mtq4.console.lib;
 
+import com.n9mtq4.console.lib.listeners.ConsoleListener;
+import com.n9mtq4.console.lib.listeners.ConsoleWindowListener;
 import com.n9mtq4.console.lib.parts.NTextArea;
 
 import javax.swing.*;
