@@ -450,6 +450,7 @@ public class BaseConsole {
 		print(text, Color.BLACK);
 	}
 	
+	@Deprecated
 	public void print(String text, Color color) {
 		print(text, Colour.getColour(color));
 	}
