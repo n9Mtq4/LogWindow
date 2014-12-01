@@ -166,7 +166,7 @@ public class BaseConsole {
 		StringWriter sw = new StringWriter();
 		PrintWriter pw = new PrintWriter(sw);
 		e.printStackTrace(pw);
-		this.println(sw.toString(), Color.RED);
+		this.println(sw.toString(), Colour.RED);
 	}
 	
 	public void tab() {
@@ -429,6 +429,7 @@ public class BaseConsole {
 		print(text + "\n");
 	}
 	
+	@Deprecated
 	public void println(String text, Color color) {
 		print(text + "\n", color);
 	}
@@ -447,7 +448,7 @@ public class BaseConsole {
 	}
 	
 	public void print(String text) {
-		print(text, Color.BLACK);
+		print(text, Colour.BLACK);
 	}
 	
 	@Deprecated
