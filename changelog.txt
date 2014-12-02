@@ -1,4 +1,10 @@
-936d864 (HEAD, origin/master, master) fixed stackoverflow error
+7f2f4df (HEAD, origin/master, master) more colours
+33cdf49 migrated to Colour
+3490a06 deprecated - use Colour
+6318f0e removed runnable jar resources
+15b0655 refactor
+cb46d30 API 3.1.9
+936d864 fixed stackoverflow error
 0e20092 support for new features in 3.1.0 & bug fix
 11905fe support for new features in 3.1.0
 385d129 API 3.1.6
