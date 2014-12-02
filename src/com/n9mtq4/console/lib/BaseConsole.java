@@ -429,6 +429,10 @@ public class BaseConsole {
 		print(text + "\n");
 	}
 	
+	public void println(String text, Colour colour) {
+		print(text + "\n", colour);
+	}
+	
 	@Deprecated
 	public void println(String text, Color color) {
 		print(text + "\n", color);

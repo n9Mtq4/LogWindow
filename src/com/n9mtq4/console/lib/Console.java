@@ -17,6 +17,7 @@ package com.n9mtq4.console.lib;
 
 import com.n9mtq4.console.lib.listeners.ConsoleListener;
 import com.n9mtq4.console.lib.listeners.ConsoleWindowListener;
+import com.n9mtq4.console.lib.managers.Colour;
 import com.n9mtq4.console.lib.parts.NTextArea;
 
 import javax.swing.*;
@@ -126,8 +127,8 @@ public class Console extends BaseConsole {
 		
 	}
 	
-	public void print(String text, Color color) {
-		area.append(text, color);
+	public void print(String text, Colour colour) {
+		area.append(text, colour);
 	}
 	
 	public JFrame getFrame() {

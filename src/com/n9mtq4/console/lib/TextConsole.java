@@ -18,7 +18,6 @@ package com.n9mtq4.console.lib;
 import com.n9mtq4.console.lib.listeners.ConsoleListener;
 import com.n9mtq4.console.lib.managers.Colour;
 
-import java.awt.*;
 import java.util.Scanner;
 
 /**
@@ -71,7 +70,7 @@ public class TextConsole extends BaseConsole {
 	
 	@Override
 	public void print(String text) {
-		print(text, Color.WHITE);
+		print(text, Colour.WHITE);
 	}
 	
 	@Override

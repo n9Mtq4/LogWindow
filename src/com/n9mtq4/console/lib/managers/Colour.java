@@ -33,7 +33,18 @@ public class Colour extends Color {
 	private static final String ANSI_CYAN = "\u001B[36m";
 	private static final String ANSI_WHITE = "\u001B[37m";
 	
-	public static Color PURPLE = new Color(128, 0, 128);
+	public static final Colour WHITE = getColour(Color.WHITE);
+	public static final Colour LIGHT_GRAY = getColour(Color.LIGHT_GRAY);
+	public static final Colour GRAY = getColour(Color.GRAY);
+	public static final Colour RED = getColour(Color.RED);
+	public static final Colour PINK = getColour(Color.PINK);
+	public static final Colour ORANGE = getColour(Color.ORANGE);
+	public static final Colour YELLOW = getColour(Color.YELLOW);
+	public static final Colour GREEN = getColour(Color.GREEN);
+	public static final Colour MAGENTA = getColour(Color.MAGENTA);
+	public static final Colour BLUE = getColour(Color.BLUE);
+	public static final Colour BLACK = getColour(Color.BLACK);
+	public static final Colour PURPLE = new Colour(128, 0, 128);
 	
 	public Colour(int i, int i1, int i2) {
 		super(i, i1, i2);
