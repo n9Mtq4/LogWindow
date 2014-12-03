@@ -15,11 +15,11 @@
 
 package com.n9mtq4.console.lib.modules;
 
-import com.n9mtq4.console.lib.*;
+import com.n9mtq4.console.lib.BaseConsole;
 import com.n9mtq4.console.lib.events.*;
 import com.n9mtq4.console.lib.listeners.ConsoleListener;
+import com.n9mtq4.console.lib.managers.Colour;
 
-import java.awt.*;
 import java.util.ArrayList;
 
 /**
@@ -53,22 +53,22 @@ public class ModuleListener extends ConsoleListener {
 					int i = 0;
 					for (ConsoleListener l : e.getBaseConsole().getListeners()) {
 						e.getBaseConsole().print("[" + i + "]: ");
-						e.getBaseConsole().println(l.getClass().getName(), l.isEnabled() ? Color.GREEN : Color.RED);
+						e.getBaseConsole().println(l.getClass().getName(), l.isEnabled() ? Colour.GREEN : Colour.RED);
 						i++;
 					}
 				}else if (e.getCommand().getArg(1).equalsIgnoreCase("adddefaults")) {
 					
-					e.getBaseConsole().print("[OUT]: ", Color.BLUE);
+					e.getBaseConsole().print("[OUT]: ", Colour.BLUE);
 					e.getBaseConsole().println("adding...");
 					
 					e.getBaseConsole().addDefaultListeners();
 					
-					e.getBaseConsole().print("[OUT]: ", Color.BLUE);
+					e.getBaseConsole().print("[OUT]: ", Colour.BLUE);
 					e.getBaseConsole().println("done adding default listeners");
 					
 				}else if (e.getCommand().getArg(1).equalsIgnoreCase("removeduplicates")) {
 					
-					e.getBaseConsole().print("[OUT]: ", Color.BLUE);
+					e.getBaseConsole().print("[OUT]: ", Colour.BLUE);
 					e.getBaseConsole().println("removing duplicates...");
 					ArrayList<String> duplicateNames = new ArrayList<String>();
 					ArrayList<String> namesAlready = new ArrayList<String>();
@@ -82,22 +82,22 @@ public class ModuleListener extends ConsoleListener {
 					for (String s : duplicateNames) {
 						e.getBaseConsole().removeListenerByName(s, RemovalActionEvent.USER_CLOSE);
 					}
-					e.getBaseConsole().print("[OUT]: ", Color.BLUE);
+					e.getBaseConsole().print("[OUT]: ", Colour.BLUE);
 					e.getBaseConsole().println("done removing duplicate listeners");
 					
 				}else if (e.getCommand().getArg(1).equalsIgnoreCase("removeall")) {
 					
-					e.getBaseConsole().print("[OUT]: ", Color.BLUE);
+					e.getBaseConsole().print("[OUT]: ", Colour.BLUE);
 					e.getBaseConsole().println("removing all listeners...");
 					
 					e.getBaseConsole().removeAllListeners(RemovalActionEvent.USER_CLOSE);
 					
-					e.getBaseConsole().print("[OUT]: ", Color.BLUE);
+					e.getBaseConsole().print("[OUT]: ", Colour.BLUE);
 					e.getBaseConsole().println("done removing all listeners");
 					
 				}else if (e.getCommand().getArg(1).equalsIgnoreCase("disableduplicates")) {
 					
-					e.getBaseConsole().print("[OUT]: ", Color.BLUE);
+					e.getBaseConsole().print("[OUT]: ", Colour.BLUE);
 					e.getBaseConsole().println("disabling duplicates...");
 					ArrayList<String> duplicateNames = new ArrayList<String>();
 					ArrayList<String> namesAlready = new ArrayList<String>();
@@ -111,17 +111,17 @@ public class ModuleListener extends ConsoleListener {
 					for (String s : duplicateNames) {
 						e.getBaseConsole().disableListenerByName(s, DisableActionEvent.USER_CLOSE);
 					}
-					e.getBaseConsole().print("[OUT]: ", Color.BLUE);
+					e.getBaseConsole().print("[OUT]: ", Colour.BLUE);
 					e.getBaseConsole().println("done disabling duplicate listeners");
 					
 				}else if (e.getCommand().getArg(1).equalsIgnoreCase("disableall")) {
 					
-					e.getBaseConsole().print("[OUT]: ", Color.BLUE);
+					e.getBaseConsole().print("[OUT]: ", Colour.BLUE);
 					e.getBaseConsole().println("disabling all listeners...");
 					
 					e.getBaseConsole().disableAllListeners(DisableActionEvent.USER_CLOSE);
 					
-					e.getBaseConsole().print("[OUT]: ", Color.BLUE);
+					e.getBaseConsole().print("[OUT]: ", Colour.BLUE);
 					e.getBaseConsole().println("done disabling all listeners");
 					
 				}
@@ -134,16 +134,16 @@ public class ModuleListener extends ConsoleListener {
 						Class<?> clazz = Class.forName(e.getCommand().getArg(2));
 						Object clazz1 = clazz.newInstance();
 						
-						e.getBaseConsole().print("[OUT]: ", Color.BLUE);
+						e.getBaseConsole().print("[OUT]: ", Colour.BLUE);
 						e.getBaseConsole().println("adding...");
 						
 						e.getBaseConsole().addListener((ConsoleListener) clazz1);
 						
-						e.getBaseConsole().print("[OUT]: ", Color.BLUE);
+						e.getBaseConsole().print("[OUT]: ", Colour.BLUE);
 						e.getBaseConsole().println("done adding: " + clazz.getName());
 						
 					}catch (Exception e1) {
-						e.getBaseConsole().print("[ERROR]: ", Color.RED);
+						e.getBaseConsole().print("[ERROR]: ", Colour.RED);
 						e.getBaseConsole().println(e1.toString());
 					}
 					
@@ -151,7 +151,7 @@ public class ModuleListener extends ConsoleListener {
 					
 					String name = e.getCommand().getArg(2);
 					
-					e.getBaseConsole().print("[OUT]: ", Color.BLUE);
+					e.getBaseConsole().print("[OUT]: ", Colour.BLUE);
 					e.getBaseConsole().println("removing...");
 					
 					ConsoleListener l = e.getBaseConsole().getListener(name);
@@ -159,12 +159,12 @@ public class ModuleListener extends ConsoleListener {
 						
 						e.getBaseConsole().removeListener(l, RemovalActionEvent.USER_CLOSE);
 						
-						e.getBaseConsole().print("[OUT]: ", Color.BLUE);
+						e.getBaseConsole().print("[OUT]: ", Colour.BLUE);
 						e.getBaseConsole().println("Done removing: " + l.getClass().getName());
 						
 					}else {
 						
-						e.getBaseConsole().print("[OUT]: ", Color.BLUE);
+						e.getBaseConsole().print("[OUT]: ", Colour.BLUE);
 						e.getBaseConsole().println(name + " isn't a valid listener");
 						
 					}
@@ -173,12 +173,12 @@ public class ModuleListener extends ConsoleListener {
 					
 					String name = e.getCommand().getArg(2);
 					
-					e.getBaseConsole().print("[OUT]: ", Color.BLUE);
+					e.getBaseConsole().print("[OUT]: ", Colour.BLUE);
 					e.getBaseConsole().println("removing all instances...");
 					
 					e.getBaseConsole().removeListenersByName(name, RemovalActionEvent.USER_CLOSE);
 					
-					e.getBaseConsole().print("[OUT]: ", Color.BLUE);
+					e.getBaseConsole().print("[OUT]: ", Colour.BLUE);
 					e.getBaseConsole().println("Done removing all instances: " + name);
 					
 				}else if (e.getCommand().getArg(1).equalsIgnoreCase("enable")) {
@@ -187,7 +187,7 @@ public class ModuleListener extends ConsoleListener {
 						
 						String name = e.getCommand().getArg(2);
 						
-						e.getBaseConsole().print("[OUT]: ", Color.BLUE);
+						e.getBaseConsole().print("[OUT]: ", Colour.BLUE);
 						e.getBaseConsole().println("enabling...");
 						
 						ConsoleListener l = e.getBaseConsole().getListener(name);
@@ -195,18 +195,18 @@ public class ModuleListener extends ConsoleListener {
 							
 							e.getBaseConsole().enableListener(l);
 							
-							e.getBaseConsole().print("[OUT]: ", Color.BLUE);
+							e.getBaseConsole().print("[OUT]: ", Colour.BLUE);
 							e.getBaseConsole().println("done enabling: " + l.getClass().getName());
 							
 						}else {
 							
-							e.getBaseConsole().print("[OUT]: ", Color.BLUE);
+							e.getBaseConsole().print("[OUT]: ", Colour.BLUE);
 							e.getBaseConsole().println(name + " isn't a valid listener");
 							
 						}
 						
 					}catch (Exception e1) {
-						e.getBaseConsole().print("[ERROR]: ", Color.RED);
+						e.getBaseConsole().print("[ERROR]: ", Colour.RED);
 						e.getBaseConsole().println(e1.toString());
 					}
 					
@@ -214,19 +214,19 @@ public class ModuleListener extends ConsoleListener {
 					
 					String name = e.getCommand().getArg(2);
 					
-					e.getBaseConsole().print("[OUT]: ", Color.BLUE);
+					e.getBaseConsole().print("[OUT]: ", Colour.BLUE);
 					e.getBaseConsole().println("enabling all instances...");
 					
 					e.getBaseConsole().enableListenersByName(name);
 					
-					e.getBaseConsole().print("[OUT]: ", Color.BLUE);
+					e.getBaseConsole().print("[OUT]: ", Colour.BLUE);
 					e.getBaseConsole().println("Done enabling all instances: " + name);
 					
 				}else if (e.getCommand().getArg(1).equalsIgnoreCase("disable")) {
 					
 					String name = e.getCommand().getArg(2);
 					
-					e.getBaseConsole().print("[OUT]: ", Color.BLUE);
+					e.getBaseConsole().print("[OUT]: ", Colour.BLUE);
 					e.getBaseConsole().println("disabling...");
 					
 					ConsoleListener l = e.getBaseConsole().getListener(name);
@@ -234,12 +234,12 @@ public class ModuleListener extends ConsoleListener {
 						
 						e.getBaseConsole().disableListener(l, DisableActionEvent.USER_CLOSE);
 						
-						e.getBaseConsole().print("[OUT]: ", Color.BLUE);
+						e.getBaseConsole().print("[OUT]: ", Colour.BLUE);
 						e.getBaseConsole().println("Done disabling: " + l.getClass().getName());
 						
 					}else {
 						
-						e.getBaseConsole().print("[OUT]: ", Color.BLUE);
+						e.getBaseConsole().print("[OUT]: ", Colour.BLUE);
 						e.getBaseConsole().println(name + " isn't a valid listener");
 						
 					}
@@ -248,12 +248,12 @@ public class ModuleListener extends ConsoleListener {
 					
 					String name = e.getCommand().getArg(2);
 					
-					e.getBaseConsole().print("[OUT]: ", Color.BLUE);
+					e.getBaseConsole().print("[OUT]: ", Colour.BLUE);
 					e.getBaseConsole().println("disabling all instances...");
 					
 					e.getBaseConsole().disableListenersByName(name, DisableActionEvent.USER_CLOSE);
 					
-					e.getBaseConsole().print("[OUT]: ", Color.BLUE);
+					e.getBaseConsole().print("[OUT]: ", Colour.BLUE);
 					e.getBaseConsole().println("Done disabling all instances: " + name);
 					
 				}else if (e.getCommand().getArg(1).equalsIgnoreCase("listconsoles")) {
@@ -281,7 +281,7 @@ public class ModuleListener extends ConsoleListener {
 		
 		if (e.getType() != DisableActionEvent.WINDOW_CLOSE) {
 			e.getBaseConsole().enableListener(this);
-			e.getBaseConsole().print("[ERROR]: ", Color.RED);
+			e.getBaseConsole().print("[ERROR]: ", Colour.RED);
 			e.getBaseConsole().println("you can't disable " + this.getClass().getName());
 		}
 		
@@ -292,7 +292,7 @@ public class ModuleListener extends ConsoleListener {
 		
 		if (e.getType() != DisableActionEvent.WINDOW_CLOSE) {
 			e.getBaseConsole().addListener(this);
-			e.getBaseConsole().print("[ERROR]: ", Color.RED);
+			e.getBaseConsole().print("[ERROR]: ", Colour.RED);
 			e.getBaseConsole().println("you can't remove " + this.getClass().getName());
 		}
 		

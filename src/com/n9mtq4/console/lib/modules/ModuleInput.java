@@ -17,8 +17,7 @@ package com.n9mtq4.console.lib.modules;
 
 import com.n9mtq4.console.lib.events.*;
 import com.n9mtq4.console.lib.listeners.ConsoleListener;
-
-import java.awt.*;
+import com.n9mtq4.console.lib.managers.Colour;
 
 /**
  * Created by Will on 10/20/14.
@@ -43,7 +42,7 @@ public class ModuleInput extends ConsoleListener {
 	@Override
 	public void actionPreformed(ConsoleActionEvent e) {
 		
-		e.getBaseConsole().print("[INPUT]: ", Color.BLUE);
+		e.getBaseConsole().print("[INPUT]: ", Colour.BLUE);
 		e.getBaseConsole().println(e.getCommand().getText());
 		
 	}

@@ -15,11 +15,11 @@
 
 package com.n9mtq4.console.lib.modules;
 
-import com.n9mtq4.console.lib.listeners.ConsoleListener;
 import com.n9mtq4.console.lib.events.*;
+import com.n9mtq4.console.lib.listeners.ConsoleListener;
+import com.n9mtq4.console.lib.managers.Colour;
 import com.n9mtq4.console.lib.managers.PluginManager;
 
-import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 
@@ -54,13 +54,13 @@ public class ModuleJarLoader extends ConsoleListener {
 				e.getBaseConsole().println("[ERROR]: " + jarFile.getPath() + " doesn't exist");
 				return;
 			}
-			e.getBaseConsole().println("Adding jar file: " + jarFile, Color.BLUE);
+			e.getBaseConsole().println("Adding jar file: " + jarFile, Colour.BLUE);
 			try {
 				PluginManager.addFile(jarFile);
 			}catch (IOException e1) {
-				e.getBaseConsole().println("[ERROR]: " + e1.toString(), Color.RED);
+				e.getBaseConsole().println("[ERROR]: " + e1.toString(), Colour.RED);
 			}
-			e.getBaseConsole().println("done loading " + filePath, Color.BLUE);
+			e.getBaseConsole().println("done loading " + filePath, Colour.BLUE);
 			
 		}
 		
@@ -71,7 +71,7 @@ public class ModuleJarLoader extends ConsoleListener {
 		
 		if (e.getType() != DisableActionEvent.WINDOW_CLOSE) {
 			e.getBaseConsole().enableListener(this);
-			e.getBaseConsole().print("[ERROR]: ", Color.RED);
+			e.getBaseConsole().print("[ERROR]: ", Colour.RED);
 			e.getBaseConsole().println("you can't disable " + this.getClass().getName());
 		}
 		
@@ -82,7 +82,7 @@ public class ModuleJarLoader extends ConsoleListener {
 		
 		if (e.getType() != DisableActionEvent.WINDOW_CLOSE) {
 			e.getBaseConsole().addListener(this);
-			e.getBaseConsole().print("[ERROR]: ", Color.RED);
+			e.getBaseConsole().print("[ERROR]: ", Colour.RED);
 			e.getBaseConsole().println("you can't remove " + this.getClass().getName());
 		}
 		

@@ -15,10 +15,10 @@
 
 package com.n9mtq4.console.modules;
 
-import com.n9mtq4.console.lib.listeners.ConsoleListener;
 import com.n9mtq4.console.lib.events.*;
+import com.n9mtq4.console.lib.listeners.ConsoleListener;
+import com.n9mtq4.console.lib.managers.Colour;
 
-import java.awt.*;
 import java.io.BufferedReader;
 import java.io.File;
 
@@ -68,7 +68,7 @@ public class FileReader extends ConsoleListener {
 						br.close();
 						e.getBaseConsole().println(everything);
 					}catch (Exception e1) {
-						e.getBaseConsole().print("[ERROR]: ", Color.RED);
+						e.getBaseConsole().print("[ERROR]: ", Colour.RED);
 						e.getBaseConsole().println(e1.toString());
 					}
 					
