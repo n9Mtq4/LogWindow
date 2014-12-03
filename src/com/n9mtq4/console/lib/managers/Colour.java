@@ -43,6 +43,7 @@ public class Colour extends Color {
 	public static final Colour GREEN = getColour(Color.GREEN);
 	public static final Colour MAGENTA = getColour(Color.MAGENTA);
 	public static final Colour BLUE = getColour(Color.BLUE);
+	public static final Colour CYAN = getColour(Color.CYAN);
 	public static final Colour BLACK = getColour(Color.BLACK);
 	public static final Colour PURPLE = new Colour(128, 0, 128);
 	
