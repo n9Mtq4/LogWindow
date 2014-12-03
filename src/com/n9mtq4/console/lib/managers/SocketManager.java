@@ -69,6 +69,7 @@ public class SocketManager {
 						Thread.sleep(2);
 					}catch (Exception e3) {
 						e3.printStackTrace();
+						break;
 					}
 				}
 			}
