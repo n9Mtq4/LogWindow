@@ -45,7 +45,6 @@ public class PluginManager {
 			return;
 		}
 		File[] children = folder.listFiles();
-		if (children == null) return;
 		assert children != null;
 		for (File f : children) {
 			if (f.getAbsolutePath().trim().endsWith(".jar")) {
