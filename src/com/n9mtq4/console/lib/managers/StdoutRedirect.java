@@ -46,11 +46,7 @@ public class StdoutRedirect extends PrintStream {
 				c.print(s);
 			}
 		}else {
-			if (showLocation) {
-				backup.print(getLocation() + s);
-			}else {
-				backup.print(s);
-			}
+			backup.print(s);
 		}
 	}
 	
@@ -64,11 +60,7 @@ public class StdoutRedirect extends PrintStream {
 				c.print(o.toString());
 			}
 		}else {
-			if (showLocation) {
-				backup.print(getLocation() + o.toString());
-			}else {
-				backup.print(o.toString());
-			}
+			backup.print(o);
 		}
 	}
 	
@@ -82,11 +74,7 @@ public class StdoutRedirect extends PrintStream {
 				c.println(x.toString());
 			}
 		}else {
-			if (showLocation) {
-				backup.print(getLocation() + x.toString());
-			}else {
-				backup.print(x.toString());
-			}
+			backup.println(x);
 		}
 	}
 	
@@ -100,11 +88,7 @@ public class StdoutRedirect extends PrintStream {
 				c.println(x);
 			}
 		}else {
-			if (showLocation) {
-				backup.print(getLocation() + x);
-			}else {
-				backup.print(x);
-			}
+			backup.println(x);
 		}
 	}
 	
