@@ -27,20 +27,24 @@ public class TextConsole extends BaseConsole {
 	
 	private Scanner scan;
 	private boolean shouldScan;
+	private boolean ansi;
 	
 	public TextConsole(String pluginDirectory) {
 		super(pluginDirectory);
 		initScanner();
+		ansi = !(System.getProperty("os.name").toLowerCase().contains("window"));
 	}
 	
 	public TextConsole() {
 		super();
 		initScanner();
+		ansi = !(System.getProperty("os.name").toLowerCase().contains("window"));
 	}
 	
 	public TextConsole(ConsoleListener listener) {
 		super(listener);
 		initScanner();
+		ansi = !(System.getProperty("os.name").toLowerCase().contains("window"));
 	}
 	
 	public void initScanner() {
@@ -75,7 +79,11 @@ public class TextConsole extends BaseConsole {
 	
 	@Override
 	public void print(String text, Colour colour) {
-		System.out.print(colour.getANSI() + text + Colour.getAnsiReset());
+		if (ansi) {
+			System.out.print(colour.getANSI() + text + Colour.getAnsiReset());
+		}else {
+			System.out.print(text);
+		}
 	}
 	
 	@Override
