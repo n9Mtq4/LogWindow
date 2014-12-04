@@ -80,7 +80,7 @@ public class Colour extends Color {
 	}
 	
 	public String getANSI() {
-		if (this.getRGB() == Color.RED.getRGB()) {
+		if (this.getRGB() == Colour.RED.getRGB()) {
 			return ANSI_RED;
 		}else if (this.getRGB() == Colour.YELLOW.getRGB()) {
 			return ANSI_YELLOW;
@@ -95,6 +95,8 @@ public class Colour extends Color {
 		}else if (this.getRGB() == Colour.WHITE.getRGB()) {
 			return ANSI_WHITE;
 		}else if (this.getRGB() == Colour.PURPLE.getRGB()) {
+			return ANSI_PURPLE;
+		}else if (this.getRGB() == Colour.MAGENTA.getRGB()) {
 			return ANSI_PURPLE;
 		}
 		return "";
