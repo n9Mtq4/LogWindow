@@ -1,4 +1,12 @@
-7f2f4df (HEAD, origin/master, master) more colours
+12876f6 (HEAD, origin/master, master) bug fix on windows
+9bf19ee minor changes to color
+117bdb4 removed redundant code
+e23c080 bug fixes
+58a9dba Added cyan
+190dd6e Migrated Modules to Colour
+12281ca Fixed Issue 2
+3e941c3 API 3.1.14
+7f2f4df more colours
 33cdf49 migrated to Colour
 3490a06 deprecated - use Colour
 6318f0e removed runnable jar resources
