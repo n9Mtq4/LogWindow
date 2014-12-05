@@ -53,7 +53,6 @@ public abstract class ConsoleListener {
 				this.actionPreformed(new ConsoleActionEvent(c, command));
 			}
 		}catch (ConcurrentModificationException e) {
-//			TODO: properly catch
 		}
 		
 	}
