@@ -53,7 +53,7 @@ public class Console extends BaseConsole {
 		gui(true);
 	}
 	
-	private void gui(boolean show) {
+	public void gui(boolean show) {
 		
 		frame = new JFrame("Console");
 		

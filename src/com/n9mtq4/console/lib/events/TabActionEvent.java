@@ -31,7 +31,7 @@ public class TabActionEvent {
 		this.baseConsole = baseConsole;
 		this.tabCommand = tabCommand;
 		if (this.baseConsole.hasGuiAttached()) {
-			this.currentText = baseConsole.getGui().getField().getText();
+			this.currentText = (baseConsole.getGui()).getField().getText();
 		}
 		
 	}
