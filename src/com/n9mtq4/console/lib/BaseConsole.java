@@ -20,7 +20,7 @@ import com.n9mtq4.console.lib.events.DisableActionEvent;
 import com.n9mtq4.console.lib.events.EnableActionEvent;
 import com.n9mtq4.console.lib.events.RemovalActionEvent;
 import com.n9mtq4.console.lib.listeners.ConsoleListener;
-import com.n9mtq4.console.lib.managers.Colour;
+import com.n9mtq4.console.lib.utils.Colour;
 import com.n9mtq4.console.lib.managers.PluginManager;
 import com.n9mtq4.console.lib.managers.StdoutRedirect;
 import com.n9mtq4.console.lib.modules.*;
@@ -106,6 +106,7 @@ public class BaseConsole {
 		this.addListener(new ModuleConsoleManager());
 		this.addListener(new ModuleHistory());
 		this.addListener(new ModuleStdoutRedirect());
+		this.addListener(new ModuleNetwork());
 	}
 	
 	public void onFieldEnter(ActionEvent e) {

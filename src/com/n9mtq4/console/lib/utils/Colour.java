@@ -13,7 +13,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.n9mtq4.console.lib.managers;
+package com.n9mtq4.console.lib.utils;
 
 import java.awt.*;
 import java.awt.color.ColorSpace;

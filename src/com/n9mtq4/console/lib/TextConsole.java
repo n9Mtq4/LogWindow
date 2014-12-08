@@ -16,7 +16,7 @@
 package com.n9mtq4.console.lib;
 
 import com.n9mtq4.console.lib.listeners.ConsoleListener;
-import com.n9mtq4.console.lib.managers.Colour;
+import com.n9mtq4.console.lib.utils.Colour;
 
 import java.util.Scanner;
 
