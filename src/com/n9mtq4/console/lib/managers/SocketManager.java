@@ -49,11 +49,13 @@ public class SocketManager {
 	
 	public void startServerListenerToConsole(BaseConsole c) {
 		final BaseConsole c1 = c;
+		final SocketManager thiz = this;
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
 				try {
-					serverInSocket = serverSocket.accept();
+					thiz.serverInSocket = new Socket();
+					thiz.serverInSocket = thiz.serverSocket.accept();
 				}catch (IOException e) {
 					c1.println("Error starting listener on SocketServer");
 					return;
