@@ -1,4 +1,11 @@
-12876f6 (HEAD, origin/master, master) bug fix on windows
+966ac18 (HEAD, origin/master, master) minor changes to SocketManager
+c4bc551 minor refactor
+ace5b84 minor changes
+72f6cc6 TextConsole added
+376950d removed comment
+4ff3972 removed legacy code
+78ada77 API 3.1.22
+12876f6 bug fix on windows
 9bf19ee minor changes to color
 117bdb4 removed redundant code
 e23c080 bug fixes
