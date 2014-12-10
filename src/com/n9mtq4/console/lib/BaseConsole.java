@@ -46,6 +46,7 @@ public class BaseConsole {
 	public int historyIndex;
 	private int id;
 	private StdoutRedirect stdoutRedirect;
+	private ArrayList<ConsoleGui> gui;
 	
 	public BaseConsole(String pluginDirectory) {
 		listeners = new ArrayList<ConsoleListener>();
@@ -445,6 +446,7 @@ public class BaseConsole {
 		
 	}
 	
+//	TODO: gui.printImage (proxy)
 	/**
 	 * Override me!
 	 * */
@@ -461,6 +463,7 @@ public class BaseConsole {
 		print(text, Colour.getColour(color));
 	}
 	
+//	TODO: gui.print (proxy)
 	/**
 	 * Override me!
 	 * */
@@ -537,6 +540,8 @@ public class BaseConsole {
 		this.stdoutRedirect = stdoutRedirect;
 	}
 	
+//	TODO: remove
+	@Deprecated
 	public Console getGui() {
 		if (hasGuiAttached()) {
 			return ((Console) this);
@@ -545,6 +550,7 @@ public class BaseConsole {
 		}
 	}
 	
+//	TODO: change to new gui system
 	public boolean hasGuiAttached() {
 		return (this instanceof Console);
 	}
