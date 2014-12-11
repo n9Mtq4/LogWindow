@@ -427,6 +427,14 @@ public class BaseConsole {
 		
 	}
 	
+	public void println(Object x) {
+		println(x.toString());
+	}
+	
+	public void println(Object x, Colour colour) {
+		println(x.toString(), colour);
+	}
+	
 	public void println(String text) {
 		print(text + "\n");
 	}
@@ -452,6 +460,14 @@ public class BaseConsole {
 	 * */
 	public void printImage(String filePath) {
 		
+	}
+	
+	public void print(Object x) {
+		print(x.toString());
+	}
+	
+	public void print(Object x, Colour colour) {
+		print(x.toString(), colour);
 	}
 	
 	public void print(String text) {
