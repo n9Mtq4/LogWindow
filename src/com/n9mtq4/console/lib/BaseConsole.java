@@ -75,6 +75,7 @@ public class BaseConsole {
 		
 		globalList.add(this);
 		this.id = globalList.indexOf(this);
+		gui = new ArrayList<ConsoleGui>();
 		
 	}
 	
@@ -454,11 +455,14 @@ public class BaseConsole {
 		
 	}
 	
-//	TODO: gui.printImage (proxy)
 	/**
-	 * Override me!
+	 * Lowest level
 	 * */
 	public void printImage(String filePath) {
+		
+		for (ConsoleGui g : gui) {
+			g.printImage(filePath);
+		}
 		
 	}
 	
@@ -479,11 +483,14 @@ public class BaseConsole {
 		print(text, Colour.getColour(color));
 	}
 	
-//	TODO: gui.print (proxy)
 	/**
-	 * Override me!
+	 * Lowest level
 	 * */
 	public void print(String text, Colour colour) {
+		
+		for (ConsoleGui g : gui) {
+			g.print(text, colour);
+		}
 		
 	}
 	
@@ -569,6 +576,14 @@ public class BaseConsole {
 //	TODO: change to new gui system
 	public boolean hasGuiAttached() {
 		return (this instanceof Console);
+	}
+	
+	public void addGui(ConsoleGui g) {
+		gui.add(g);
+	}
+	
+	public void removeGui(ConsoleGui g) {
+		gui.remove(g);
 	}
 	
 	public int getId() {

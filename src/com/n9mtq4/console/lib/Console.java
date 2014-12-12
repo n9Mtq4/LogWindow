@@ -121,12 +121,14 @@ public class Console extends BaseConsole {
 		this.getFrame().dispose();
 	}
 	
+	@Override
 	public void printImage(String filePath) {
 		
 		area.appendPicture(filePath);
 		
 	}
 	
+	@Override
 	public void print(String text, Colour colour) {
 		area.append(text, colour);
 	}
