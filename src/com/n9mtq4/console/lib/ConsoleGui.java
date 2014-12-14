@@ -22,6 +22,8 @@ import com.n9mtq4.console.lib.utils.Colour;
  */
 public class ConsoleGui {
 	
+	public BaseConsole parent;
+	
 	public ConsoleGui() {
 		
 		init();
@@ -32,10 +34,18 @@ public class ConsoleGui {
 		
 	}
 	
+	public void dispose() {
+		
+	}
+	
+	public void add(BaseConsole parent) {
+		this.parent = parent;
+	}
+	
 	/**
 	 * Override me!
 	 * */
-	public void print(String msg, Colour colour) {
+	public void print(String text, Colour colour) {
 		
 	}
 	
@@ -44,6 +54,14 @@ public class ConsoleGui {
 	 * */
 	public void printImage(String filePath) {
 		
+	}
+	
+	public BaseConsole getParent() {
+		return parent;
+	}
+	
+	public void setParent(BaseConsole parent) {
+		this.parent = parent;
 	}
 	
 }
