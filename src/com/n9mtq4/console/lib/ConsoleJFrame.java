@@ -18,7 +18,7 @@ package com.n9mtq4.console.lib;
 /**
  * Created by Will on 12/29/14.
  */
-public class ConsoleFrame extends ConsoleGui {
+public class ConsoleJFrame extends ConsoleGui {
 	
 	
 	
