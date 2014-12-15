@@ -15,11 +15,159 @@
 
 package com.n9mtq4.console.lib;
 
+import com.n9mtq4.console.lib.listeners.ConsoleWindowListener;
+import com.n9mtq4.console.lib.parts.NTextArea;
+import com.n9mtq4.console.lib.utils.Colour;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+
 /**
  * Created by Will on 12/29/14.
  */
 public class ConsoleJFrame extends ConsoleGui {
 	
+	private JFrame frame;
+	private JPanel noWrapPanel;
+	private NTextArea area;
+	private JTextField field;
+	private JScrollPane scrollArea;
 	
+	@Override
+	public void init() {
+		
+		boolean show = true;
+		frame = new JFrame("Console");
+		
+		area = new NTextArea();
+		area.setUserEditable(false);
+		noWrapPanel = new JPanel(new BorderLayout());
+		noWrapPanel.add(area);
+		scrollArea = new JScrollPane(noWrapPanel);
+		scrollArea.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+		scrollArea.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+		
+		field = new JTextField();
+		frame.add(scrollArea, BorderLayout.CENTER);
+		frame.add(field, BorderLayout.SOUTH);
+		
+		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		frame.pack();
+		frame.setSize(360, 240);
+		frame.setLocationRelativeTo(null);
+		frame.setVisible(show);
+		frame.setSize(360, 240);
+		frame.setLocationRelativeTo(null);
+		
+		frame.addWindowListener(new ConsoleWindowListener(parent));
+		
+		field.requestFocus();
+		field.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent actionEvent) {
+				onFieldEnter(actionEvent);
+			}
+		});
+		field.addKeyListener(new KeyListener() {
+			@Override
+			public void keyTyped(KeyEvent keyEvent) {
+			}
+			@Override
+			public void keyPressed(KeyEvent keyEvent) {
+				if (keyEvent.getKeyCode() == KeyEvent.VK_UP) {
+					if (parent.historyIndex > 0) {
+						parent.historyIndex--;
+						field.setText(parent.getHistory().get(parent.historyIndex));
+						field.setCaretPosition(field.getText().length());
+					}
+				}else if (keyEvent.getKeyCode() == KeyEvent.VK_DOWN) {
+					if (parent.historyIndex < parent.getHistory().size() - 1) {
+						parent.historyIndex++;
+						field.setText(parent.getHistory().get(parent.historyIndex));
+						field.setCaretPosition(field.getText().length());
+					}
+				}else if (keyEvent.getKeyCode() == KeyEvent.VK_TAB) {
+					parent.tab();
+				}
+			}
+			@Override
+			public void keyReleased(KeyEvent keyEvent) {
+			}
+		});
+		
+	}
+	
+	public void onFieldEnter(ActionEvent e) {
+		JTextField source = (JTextField) e.getSource();
+		String text = source.getText();
+		if (!text.trim().equals("")) {
+			source.setText("");
+			parent.sendPluginsString(text);
+		}
+	}
+	
+	@Override
+	public void dispose() {
+		super.dispose();
+		this.getFrame().dispose();
+	}
+	
+	@Override
+	public void printImage(String filePath) {
+		
+		area.appendPicture(filePath);
+		
+	}
+	
+	@Override
+	public void print(String text, Colour colour) {
+		
+		area.append(text, colour);
+		
+	}
+	
+	public JFrame getFrame() {
+		return frame;
+	}
+	
+	public void setFrame(JFrame frame) {
+		this.frame = frame;
+	}
+	
+	public JPanel getNoWrapPanel() {
+		return noWrapPanel;
+	}
+	
+	public void setNoWrapPanel(JPanel noWrapPanel) {
+		this.noWrapPanel = noWrapPanel;
+	}
+	
+	public NTextArea getArea() {
+		return area;
+	}
+	
+	public void setArea(NTextArea area) {
+		this.area = area;
+	}
+	
+	public JTextField getField() {
+		return field;
+	}
+	
+	public void setField(JTextField field) {
+		this.field = field;
+	}
+	
+	public JScrollPane getScrollArea() {
+		return scrollArea;
+	}
+	
+	public void setScrollArea(JScrollPane scrollArea) {
+		this.scrollArea = scrollArea;
+	}
 	
 }
