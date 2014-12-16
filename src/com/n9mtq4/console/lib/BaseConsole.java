@@ -76,6 +76,14 @@ public class BaseConsole {
 		globalList.add(this);
 		this.id = globalList.indexOf(this);
 		gui = new ArrayList<ConsoleGui>();
+		initGui();
+		
+	}
+	
+	/**
+	 * Override me!
+	 * */
+	public void initGui() {
 		
 	}
 	
@@ -91,6 +99,18 @@ public class BaseConsole {
 				}
 			}catch (ConcurrentModificationException e) {
 				
+			}
+		}
+		ArrayList<ConsoleGui> guis;
+//		TODO: change to getter
+		while ((guis = this.gui).size() > 0) {
+			try {
+				for (ConsoleGui g : guis) {
+					
+					this.removeGui(g);
+					
+				}
+			}catch (ConcurrentModificationException e) {
 			}
 		}
 		
@@ -111,6 +131,8 @@ public class BaseConsole {
 		this.addListener(new ModuleNetwork());
 	}
 	
+//	TODO: remove
+	@Deprecated
 	public void onFieldEnter(ActionEvent e) {
 		JTextField source = (JTextField) e.getSource();
 		String text = source.getText();
@@ -144,6 +166,8 @@ public class BaseConsole {
 	}
 	
 	public void sendPluginsString(String txt) {
+		history.add(txt);
+		historyIndex = history.size();
 		push(txt);
 	}
 	
@@ -580,10 +604,12 @@ public class BaseConsole {
 	
 	public void addGui(ConsoleGui g) {
 		gui.add(g);
+		g.add(this);
 	}
 	
 	public void removeGui(ConsoleGui g) {
 		gui.remove(g);
+		g.dispose();
 	}
 	
 	public int getId() {
