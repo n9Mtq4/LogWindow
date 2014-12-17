@@ -16,6 +16,7 @@
 package com.n9mtq4.console.lib.listeners;
 
 import com.n9mtq4.console.lib.BaseConsole;
+import com.n9mtq4.console.lib.ConsoleGui;
 
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
@@ -25,12 +26,18 @@ import java.awt.event.WindowListener;
  */
 public class ConsoleWindowListener implements WindowListener {
 	
+	private ConsoleGui consoleGui;
+//	TODO: legacy code
 	private BaseConsole baseConsole;
 	
-	public ConsoleWindowListener(BaseConsole c) {
-		
-		this.baseConsole = c;
-		
+	public ConsoleWindowListener(ConsoleGui consoleGui) {
+		this.consoleGui = consoleGui;
+	}
+	
+//	TODO: legacy code
+	@Deprecated
+	public ConsoleWindowListener(BaseConsole baseConsole) {
+		this.baseConsole = baseConsole;
 	}
 	
 	@Override
@@ -41,7 +48,14 @@ public class ConsoleWindowListener implements WindowListener {
 	@Override
 	public void windowClosing(WindowEvent windowEvent) {
 		
-		baseConsole.dispose();
+		try {
+			consoleGui.getParent().dispose();
+//			TODO: legacy code
+			baseConsole.dispose();
+		}catch (NullPointerException e1) {
+//			its ok that we get an error
+//			TODO: remove try once baseConsole is gone
+		}
 		
 	}
 	
