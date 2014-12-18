@@ -15,8 +15,79 @@
 
 package com.n9mtq4.console.lib;
 
+import com.n9mtq4.console.lib.utils.Colour;
+
+import java.util.Scanner;
+
 /**
  * Created by Will on 12/11/14.
  */
 public class ConsoleScanner extends ConsoleGui {
+	
+	private Scanner scan;
+	private boolean shouldScan;
+	private boolean ansi;
+	
+	@Override
+	public void init() {
+		getParent().setDefaultTextColour(null);
+		initScanner();
+		ansi = !(System.getProperty("os.name").toLowerCase().contains("window"));
+	}
+	
+	@Override
+	public void dispose() {
+		stopScan();
+		scan.close();
+	}
+	
+	public void initScanner() {
+		
+		scan = new Scanner(System.in);
+		shouldScan = true;
+		final ConsoleScanner thiz = this;
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				while(thiz.isShouldScan()) {
+//					System.out.print("> ");
+					String s = scan.nextLine();
+					thiz.getParent().sendPluginsString(s);
+				}
+			}
+		}, "Scanner Input Listener").start();
+		
+	}
+	
+	@Override
+	public void print(String text, Colour colour) {
+		if (colour != null) {
+			if (ansi) {
+				System.out.print(colour.getANSI() + text + Colour.getAnsiReset());
+			}else {
+				System.out.print(text);
+			}
+		}else {
+			System.out.print(text);
+		}
+		
+	}
+	
+	@Override
+	public void printImage(String filePath) {
+//		can't print images to command line
+	}
+	
+	public void stopScan() {
+		shouldScan = false;
+	}
+	
+	public Scanner getScan() {
+		return scan;
+	}
+	
+	public boolean isShouldScan() {
+		return shouldScan;
+	}
+	
 }
