@@ -48,6 +48,8 @@ public class BaseConsole {
 	private StdoutRedirect stdoutRedirect;
 	private ArrayList<ConsoleGui> gui;
 	
+	private Colour defaultTextColour = Colour.BLACK;
+	
 	public BaseConsole(String pluginDirectory) {
 		listeners = new ArrayList<ConsoleListener>();
 		initMandatoryListeners();
@@ -499,7 +501,7 @@ public class BaseConsole {
 	}
 	
 	public void print(String text) {
-		print(text, Colour.BLACK);
+		print(text, defaultTextColour);
 	}
 	
 	@Deprecated
@@ -587,19 +589,25 @@ public class BaseConsole {
 		this.stdoutRedirect = stdoutRedirect;
 	}
 	
-//	TODO: remove
-	@Deprecated
-	public Console getGui() {
-		if (hasGuiAttached()) {
-			return ((Console) this);
-		}else {
-			return null;
-		}
+	public void setGui(ArrayList<ConsoleGui> gui) {
+		this.gui = gui;
 	}
 	
-//	TODO: change to new gui system
+	public ArrayList<ConsoleGui> getGui() {
+		return gui;
+	}
+	
+	public Colour getDefaultTextColour() {
+		return defaultTextColour;
+	}
+	
+	public void setDefaultTextColour(Colour defaultTextColour) {
+		this.defaultTextColour = defaultTextColour;
+	}
+	
+	
 	public boolean hasGuiAttached() {
-		return (this instanceof Console);
+		return gui.size() > 0;
 	}
 	
 	public void addGui(ConsoleGui g) {
