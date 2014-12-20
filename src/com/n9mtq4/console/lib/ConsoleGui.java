@@ -17,17 +17,18 @@ package com.n9mtq4.console.lib;
 
 import com.n9mtq4.console.lib.utils.Colour;
 
+import java.util.Random;
+
 /**
  * Created by Will on 12/29/14.
  */
 public class ConsoleGui {
 	
-	public BaseConsole parent;
+	private BaseConsole parent;
+	private String name;
 	
 	public ConsoleGui() {
-		
-		init();
-		
+		this.name = String.valueOf(new Random(10000).nextInt());
 	}
 	
 	public void init() {
@@ -40,6 +41,7 @@ public class ConsoleGui {
 	
 	public void add(BaseConsole parent) {
 		this.parent = parent;
+		init();
 	}
 	
 	/**
@@ -62,6 +64,14 @@ public class ConsoleGui {
 	
 	public void setParent(BaseConsole parent) {
 		this.parent = parent;
+	}
+	
+	public String getName() {
+		return name;
+	}
+	
+	public void setName(String name) {
+		this.name = name;
 	}
 	
 }
