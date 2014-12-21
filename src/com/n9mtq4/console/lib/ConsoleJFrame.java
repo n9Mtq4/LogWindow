@@ -63,7 +63,7 @@ public class ConsoleJFrame extends ConsoleGui {
 		frame.setSize(360, 240);
 		frame.setLocationRelativeTo(null);
 		
-		frame.addWindowListener(new ConsoleWindowListener(parent));
+		frame.addWindowListener(new ConsoleWindowListener(this));
 		
 		field.requestFocus();
 		field.addActionListener(new ActionListener() {
@@ -79,19 +79,19 @@ public class ConsoleJFrame extends ConsoleGui {
 			@Override
 			public void keyPressed(KeyEvent keyEvent) {
 				if (keyEvent.getKeyCode() == KeyEvent.VK_UP) {
-					if (parent.historyIndex > 0) {
-						parent.historyIndex--;
-						field.setText(parent.getHistory().get(parent.historyIndex));
+					if (getParent().historyIndex > 0) {
+						getParent().historyIndex--;
+						field.setText(getParent().getHistory().get(getParent().historyIndex));
 						field.setCaretPosition(field.getText().length());
 					}
 				}else if (keyEvent.getKeyCode() == KeyEvent.VK_DOWN) {
-					if (parent.historyIndex < parent.getHistory().size() - 1) {
-						parent.historyIndex++;
-						field.setText(parent.getHistory().get(parent.historyIndex));
+					if (getParent().historyIndex < getParent().getHistory().size() - 1) {
+						getParent().historyIndex++;
+						field.setText(getParent().getHistory().get(getParent().historyIndex));
 						field.setCaretPosition(field.getText().length());
 					}
 				}else if (keyEvent.getKeyCode() == KeyEvent.VK_TAB) {
-					parent.tab();
+					getParent().tab();
 				}
 			}
 			@Override
@@ -106,7 +106,7 @@ public class ConsoleJFrame extends ConsoleGui {
 		String text = source.getText();
 		if (!text.trim().equals("")) {
 			source.setText("");
-			parent.sendPluginsString(text);
+			getParent().sendPluginsString(text);
 		}
 	}
 	
