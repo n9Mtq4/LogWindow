@@ -38,6 +38,7 @@ public class NTextArea extends JTextPane {
 	}
 	
 	public void append(String msg, Color c) {
+		if (c == null) c = Color.BLACK;
 		boolean edit = super.isEditable();
 		super.setEditable(true);
 //		thanks nIcE cOw @ stackoverflow
