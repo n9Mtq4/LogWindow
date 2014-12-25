@@ -15,92 +15,14 @@
 
 package com.n9mtq4.console.lib;
 
-import com.n9mtq4.console.lib.listeners.ConsoleListener;
-import com.n9mtq4.console.lib.utils.Colour;
-
-import java.util.Scanner;
-
 /**
  * Created by Will on 11/20/14.
  */
 public class TextConsole extends BaseConsole {
 	
-	private Scanner scan;
-	private boolean shouldScan;
-	private boolean ansi;
-	
-	public TextConsole(String pluginDirectory) {
-		super(pluginDirectory);
-		initScanner();
-		ansi = !(System.getProperty("os.name").toLowerCase().contains("window"));
-	}
-	
-	public TextConsole() {
-		super();
-		initScanner();
-		ansi = !(System.getProperty("os.name").toLowerCase().contains("window"));
-	}
-	
-	public TextConsole(ConsoleListener listener) {
-		super(listener);
-		initScanner();
-		ansi = !(System.getProperty("os.name").toLowerCase().contains("window"));
-	}
-	
-	public void initScanner() {
-		
-		scan = new Scanner(System.in);
-		shouldScan = true;
-		final TextConsole thiz = this;
-		new Thread(new Runnable() {
-			@Override
-			public void run() {
-				while(thiz.isShouldScan()) {
-					System.out.print("> ");
-					String s = scan.nextLine();
-					thiz.sendPluginsString(s);
-				}
-			}
-		}, "Scanner Input Listener").start();
-		
-	}
-	
 	@Override
-	public void dispose() {
-		super.dispose();
-		stopScan();
-		scan.close();
-	}
-	
-	@Override
-	public void print(String text) {
-		print(text, Colour.WHITE);
-	}
-	
-	@Override
-	public void print(String text, Colour colour) {
-		if (ansi) {
-			System.out.print(colour.getANSI() + text + Colour.getAnsiReset());
-		}else {
-			System.out.print(text);
-		}
-	}
-	
-	@Override
-	public void printImage(String filePath) {
-//		can't print images
-	}
-	
-	public void stopScan() {
-		shouldScan = false;
-	}
-	
-	public Scanner getScan() {
-		return scan;
-	}
-	
-	public boolean isShouldScan() {
-		return shouldScan;
+	public void initGui() {
+		this.addGui(new ConsoleScanner());
 	}
 	
 }
