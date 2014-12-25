@@ -21,6 +21,8 @@ import com.n9mtq4.console.lib.command.TabCommand;
 /**
  * Created by Will on 10/23/14.
  */
+//TODO: remove tab support
+@Deprecated
 public class TabActionEvent {
 	
 	private BaseConsole baseConsole;
@@ -30,9 +32,10 @@ public class TabActionEvent {
 	public TabActionEvent(BaseConsole baseConsole, TabCommand tabCommand) {
 		this.baseConsole = baseConsole;
 		this.tabCommand = tabCommand;
-		if (this.baseConsole.hasGuiAttached()) {
+		this.currentText = "";
+		/*if (this.baseConsole.hasGuiAttached()) {
 			this.currentText = (baseConsole.getGui()).getField().getText();
-		}
+		}*/
 		
 	}
 	
