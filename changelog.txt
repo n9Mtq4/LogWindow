@@ -1,4 +1,22 @@
-966ac18 (HEAD, origin/master, master) minor changes to SocketManager
+0d02579 (HEAD, origin/master, master) API 4.0.0
+28e88e6 fixed on compile errors
+9f4eb6f Uses new gui system
+8447559 Support for new gui
+58f8964 Supports default text color being null
+412444f changed to new window listener
+4c415aa changed init call
+4b2f58a default text color & new getGui
+9a685d1 Migrated TextConsole to new gui system
+6270499 Fixed null pointer
+49346a7 Implemented new gui
+17756a8 Migrated Console to new gui
+6514ec9 Expanded ConsoleGui capabilities
+b821049 refactor
+df75898 More gui system setup
+c41368d Support for printing objects
+2e52d5e Set up for new gui system
+cdba414 API 3.1.28
+966ac18 minor changes to SocketManager
 c4bc551 minor refactor
 ace5b84 minor changes
 72f6cc6 TextConsole added
