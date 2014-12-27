@@ -20,14 +20,12 @@ import com.n9mtq4.console.lib.events.DisableActionEvent;
 import com.n9mtq4.console.lib.events.EnableActionEvent;
 import com.n9mtq4.console.lib.events.RemovalActionEvent;
 import com.n9mtq4.console.lib.listeners.ConsoleListener;
-import com.n9mtq4.console.lib.utils.Colour;
 import com.n9mtq4.console.lib.managers.PluginManager;
 import com.n9mtq4.console.lib.managers.StdoutRedirect;
 import com.n9mtq4.console.lib.modules.*;
+import com.n9mtq4.console.lib.utils.Colour;
 
-import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.io.File;
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -104,8 +102,7 @@ public class BaseConsole {
 			}
 		}
 		ArrayList<ConsoleGui> guis;
-//		TODO: change to getter
-		while ((guis = this.gui).size() > 0) {
+		while ((guis = this.getGui()).size() > 0) {
 			try {
 				for (ConsoleGui g : guis) {
 					
@@ -131,19 +128,6 @@ public class BaseConsole {
 		this.addListener(new ModuleHistory());
 		this.addListener(new ModuleStdoutRedirect());
 		this.addListener(new ModuleNetwork());
-	}
-	
-//	TODO: remove
-	@Deprecated
-	public void onFieldEnter(ActionEvent e) {
-		JTextField source = (JTextField) e.getSource();
-		String text = source.getText();
-		if (!text.trim().equals("")) {
-			source.setText("");
-			history.add(text);
-			historyIndex = history.size();
-			push(text);
-		}
 	}
 	
 	public void redirectStdoutOff() {
