@@ -15,6 +15,8 @@
 
 package com.n9mtq4.console.lib;
 
+import com.n9mtq4.console.lib.gui.ConsoleScanner;
+
 /**
  * Created by Will on 11/20/14.
  */

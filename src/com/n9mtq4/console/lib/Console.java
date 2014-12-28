@@ -15,6 +15,8 @@
 
 package com.n9mtq4.console.lib;
 
+import com.n9mtq4.console.lib.gui.ConsoleJFrame;
+
 /**
  * Created by Will on 11/13/14.
  */

@@ -13,8 +13,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.n9mtq4.console.lib;
+package com.n9mtq4.console.lib.gui;
 
+import com.n9mtq4.console.lib.BaseConsole;
 import com.n9mtq4.console.lib.utils.Colour;
 
 import java.util.Random;

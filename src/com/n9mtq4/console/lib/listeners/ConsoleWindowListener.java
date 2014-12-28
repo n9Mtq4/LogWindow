@@ -15,7 +15,7 @@
 
 package com.n9mtq4.console.lib.listeners;
 
-import com.n9mtq4.console.lib.ConsoleGui;
+import com.n9mtq4.console.lib.gui.ConsoleGui;
 
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
