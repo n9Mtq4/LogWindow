@@ -13,14 +13,14 @@ A library for modular/plugin based commands in a text window
 - Make a class and extend ConsoleListener
 ```java
 package me.plugin;
-import com.n9mtq4.console.lib.listeners.ConsoleListener
+import com.n9mtq4.console.lib.ConsoleListener
 public class MyPlugin extends ConsoleListener {
 }
 ```
 - You will have to override a lot of methods
 ```java
 package me.plugin;
-import com.n9mtq4.console.lib.listeners.ConsoleListener
+import com.n9mtq4.console.lib.ConsoleListener
 public class MyPlugin extends ConsoleListener {
 	@Override
 	public void onAddition(AdditionActionEvent e) {

@@ -16,7 +16,7 @@
 package com.n9mtq4.console.lib.managers;
 
 import com.n9mtq4.console.lib.BaseConsole;
-import com.n9mtq4.console.lib.listeners.ConsoleListener;
+import com.n9mtq4.console.lib.ConsoleListener;
 
 import java.io.BufferedReader;
 import java.io.File;

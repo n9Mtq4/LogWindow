@@ -20,7 +20,6 @@ import com.n9mtq4.console.lib.events.DisableActionEvent;
 import com.n9mtq4.console.lib.events.EnableActionEvent;
 import com.n9mtq4.console.lib.events.RemovalActionEvent;
 import com.n9mtq4.console.lib.gui.ConsoleGui;
-import com.n9mtq4.console.lib.listeners.ConsoleListener;
 import com.n9mtq4.console.lib.managers.PluginManager;
 import com.n9mtq4.console.lib.managers.StdoutRedirect;
 import com.n9mtq4.console.lib.modules.*;

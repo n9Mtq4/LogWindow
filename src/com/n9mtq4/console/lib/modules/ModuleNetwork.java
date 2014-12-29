@@ -16,7 +16,7 @@
 package com.n9mtq4.console.lib.modules;
 
 import com.n9mtq4.console.lib.command.ConsoleCommand;
-import com.n9mtq4.console.lib.listeners.ConsoleListener;
+import com.n9mtq4.console.lib.ConsoleListener;
 import com.n9mtq4.console.lib.events.*;
 import com.n9mtq4.console.lib.managers.SocketManager;
 
