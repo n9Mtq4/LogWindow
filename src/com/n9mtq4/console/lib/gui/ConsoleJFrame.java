@@ -90,8 +90,6 @@ public class ConsoleJFrame extends ConsoleGui {
 						field.setText(getParent().getHistory().get(getParent().historyIndex));
 						field.setCaretPosition(field.getText().length());
 					}
-				}else if (keyEvent.getKeyCode() == KeyEvent.VK_TAB) {
-					getParent().tab();
 				}
 			}
 			@Override

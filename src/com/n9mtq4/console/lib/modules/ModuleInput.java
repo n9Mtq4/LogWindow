@@ -35,11 +35,6 @@ public class ModuleInput extends ConsoleListener {
 	}
 	
 	@Override
-	public void actionTab(TabActionEvent e) {
-		
-	}
-	
-	@Override
 	public void actionPreformed(ConsoleActionEvent e) {
 		
 		e.getBaseConsole().print("[INPUT]: ", Colour.BLUE);

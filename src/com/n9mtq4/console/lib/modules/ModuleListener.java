@@ -38,11 +38,6 @@ public class ModuleListener extends ConsoleListener {
 	}
 	
 	@Override
-	public void actionTab(TabActionEvent e) {
-		
-	}
-	
-	@Override
 	public void actionPreformed(ConsoleActionEvent e) {
 		
 		if (e.getCommand().getArg(0).equalsIgnoreCase("listener")) {

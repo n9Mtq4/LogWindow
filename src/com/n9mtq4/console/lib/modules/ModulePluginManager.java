@@ -35,11 +35,6 @@ public class ModulePluginManager extends ConsoleListener {
 	}
 	
 	@Override
-	public void actionTab(TabActionEvent e) {
-		
-	}
-	
-	@Override
 	public void actionPreformed(ConsoleActionEvent e) {
 		
 		if (e.getCommand().trim().equals("loadPlugins")) {

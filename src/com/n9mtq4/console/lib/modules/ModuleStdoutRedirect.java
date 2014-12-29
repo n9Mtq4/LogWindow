@@ -35,11 +35,6 @@ public class ModuleStdoutRedirect extends ConsoleListener {
 	}
 	
 	@Override
-	public void actionTab(TabActionEvent e) {
-		
-	}
-	
-	@Override
 	public void actionPreformed(ConsoleActionEvent e) {
 		
 		ConsoleCommand c = e.getCommand();

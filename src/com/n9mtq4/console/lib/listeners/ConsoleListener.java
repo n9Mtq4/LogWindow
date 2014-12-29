@@ -17,7 +17,6 @@ package com.n9mtq4.console.lib.listeners;
 
 import com.n9mtq4.console.lib.BaseConsole;
 import com.n9mtq4.console.lib.command.ConsoleCommand;
-import com.n9mtq4.console.lib.command.TabCommand;
 import com.n9mtq4.console.lib.events.*;
 
 import java.util.ArrayList;
@@ -40,7 +39,6 @@ public abstract class ConsoleListener {
 	
 	public abstract void onAddition(AdditionActionEvent e);
 	public abstract void onEnable(EnableActionEvent e);
-	public abstract void actionTab(TabActionEvent e);
 	public abstract void actionPreformed(ConsoleActionEvent e);
 	public abstract void onDisable(DisableActionEvent e);
 	public abstract void onRemoval(RemovalActionEvent e);
@@ -55,13 +53,6 @@ public abstract class ConsoleListener {
 		}catch (ConcurrentModificationException e) {
 		}
 		
-	}
-	
-	public void tab() {
-		TabCommand tabCommand = new TabCommand();
-		for (BaseConsole c : linkedBaseConsoles) {
-			this.actionTab(new TabActionEvent(c, tabCommand));
-		}
 	}
 	
 	public void addToConsole(BaseConsole baseConsole) {

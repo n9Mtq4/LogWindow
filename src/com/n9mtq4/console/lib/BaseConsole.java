@@ -183,19 +183,6 @@ public class BaseConsole {
 		this.println(sw.toString(), Colour.RED);
 	}
 	
-	public void tab() {
-		
-		try {
-			for (ConsoleListener p : listeners) {
-				if (p.isEnabled()) {
-					p.tab();
-				}
-			}
-		}catch (ConcurrentModificationException e) {
-		}
-		
-	}
-	
 	public ConsoleListener[] getListenersByName(String name) {
 		
 		ArrayList<ConsoleListener> list = new ArrayList<ConsoleListener>();

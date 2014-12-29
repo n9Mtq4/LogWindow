@@ -37,11 +37,6 @@ public class ModuleHistory extends ConsoleListener {
 	}
 	
 	@Override
-	public void actionTab(TabActionEvent e) {
-		
-	}
-	
-	@Override
 	public void actionPreformed(ConsoleActionEvent e) {
 		
 		if (e.getCommand().contains("history")) {
