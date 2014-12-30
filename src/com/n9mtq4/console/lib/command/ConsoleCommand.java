@@ -48,6 +48,10 @@ public class ConsoleCommand {
 		
 	}
 	
+	public boolean eqt(String s) {
+		return text.trim().equalsIgnoreCase(s);
+	}
+	
 	public boolean startsWith(String s) {
 		
 		return text.startsWith(s);
@@ -69,6 +73,10 @@ public class ConsoleCommand {
 		return cache;
 	}
 	
+	public boolean containsIgnoreCase(@NotNull CharSequence s) {
+		return text.toLowerCase().contains(s);
+	}
+	
 	public boolean contains(@NotNull CharSequence c) {
 		return text.contains(c);
 	}
@@ -81,6 +89,10 @@ public class ConsoleCommand {
 		
 		return tokens.length;
 		
+	}
+	
+	public int getTextLength() {
+		return text.length();
 	}
 	
 }
