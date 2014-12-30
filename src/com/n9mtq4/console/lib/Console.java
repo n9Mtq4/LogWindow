@@ -15,7 +15,7 @@
 
 package com.n9mtq4.console.lib;
 
-import com.n9mtq4.console.lib.gui.ConsoleJFrame;
+import com.n9mtq4.console.lib.gui.GuiJFrame;
 
 /**
  * Created by Will on 11/13/14.
@@ -24,7 +24,7 @@ public class Console extends BaseConsole {
 	
 	@Override
 	public void initGui() {
-		this.addGui(new ConsoleJFrame());
+		this.addGui(new GuiJFrame());
 	}
 	
 }

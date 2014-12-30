@@ -22,7 +22,7 @@ import java.net.ServerSocket;
 /**
  * Created by Will on 12/29/14.
  */
-public class ConsoleSocket extends ConsoleGui {
+public class GuiSocket extends ConsoleGui {
 	
 //	TODO: socket server that parent.sendPluginsString with data it receives\n then send back output
 	

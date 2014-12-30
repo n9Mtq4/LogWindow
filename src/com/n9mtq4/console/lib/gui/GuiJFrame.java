@@ -29,7 +29,7 @@ import java.awt.event.KeyListener;
 /**
  * Created by Will on 12/29/14.
  */
-public class ConsoleJFrame extends ConsoleGui {
+public class GuiJFrame extends ConsoleGui {
 	
 	private JFrame frame;
 	private JPanel noWrapPanel;
@@ -110,7 +110,6 @@ public class ConsoleJFrame extends ConsoleGui {
 	
 	@Override
 	public void dispose() {
-		super.dispose();
 		this.getFrame().dispose();
 	}
 	

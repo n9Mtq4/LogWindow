@@ -15,7 +15,7 @@
 
 package com.n9mtq4.console.lib;
 
-import com.n9mtq4.console.lib.gui.ConsoleSocket;
+import com.n9mtq4.console.lib.gui.GuiSocket;
 
 /**
  * Created by Will on 12/29/14.
@@ -24,7 +24,7 @@ public class ConsoleNetwork extends BaseConsole {
 	
 	@Override
 	public void initGui() {
-		this.addGui(new ConsoleSocket());
+		this.addGui(new GuiSocket());
 	}
 	
 }

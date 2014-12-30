@@ -15,7 +15,7 @@
 
 package com.n9mtq4.console.lib;
 
-import com.n9mtq4.console.lib.gui.ConsoleScanner;
+import com.n9mtq4.console.lib.gui.GuiScanner;
 
 /**
  * Created by Will on 11/20/14.
@@ -24,7 +24,7 @@ public class TextConsole extends BaseConsole {
 	
 	@Override
 	public void initGui() {
-		this.addGui(new ConsoleScanner());
+		this.addGui(new GuiScanner());
 	}
 	
 }

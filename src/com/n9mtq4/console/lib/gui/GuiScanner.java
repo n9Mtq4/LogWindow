@@ -22,7 +22,7 @@ import java.util.Scanner;
 /**
  * Created by Will on 12/11/14.
  */
-public class ConsoleScanner extends ConsoleGui {
+public class GuiScanner extends ConsoleGui {
 	
 	private Scanner scan;
 	private boolean shouldScan;
@@ -45,7 +45,7 @@ public class ConsoleScanner extends ConsoleGui {
 		
 		scan = new Scanner(System.in);
 		shouldScan = true;
-		final ConsoleScanner thiz = this;
+		final GuiScanner thiz = this;
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
