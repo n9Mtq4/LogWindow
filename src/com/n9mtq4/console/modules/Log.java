@@ -45,24 +45,9 @@ public class Log extends ConsoleListener {
 	}
 	
 	@Override
-	public void onEnable(EnableActionEvent e) {
-		
-	}
-	
-	@Override
 	public void actionPreformed(ConsoleActionEvent e) {
 		
 		append(e.getCommand().getText());
-		
-	}
-	
-	@Override
-	public void onDisable(DisableActionEvent e) {
-		
-	}
-	
-	@Override
-	public void onRemoval(RemovalActionEvent e) {
 		
 	}
 	

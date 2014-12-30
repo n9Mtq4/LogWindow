@@ -25,16 +25,6 @@ import com.n9mtq4.console.lib.events.*;
 public class ModuleStdoutRedirect extends ConsoleListener {
 	
 	@Override
-	public void onAddition(AdditionActionEvent e) {
-		
-	}
-	
-	@Override
-	public void onEnable(EnableActionEvent e) {
-		
-	}
-	
-	@Override
 	public void actionPreformed(ConsoleActionEvent e) {
 		
 		ConsoleCommand c = e.getCommand();
@@ -80,16 +70,6 @@ public class ModuleStdoutRedirect extends ConsoleListener {
 			}
 			
 		}
-		
-	}
-	
-	@Override
-	public void onDisable(DisableActionEvent e) {
-		
-	}
-	
-	@Override
-	public void onRemoval(RemovalActionEvent e) {
 		
 	}
 	

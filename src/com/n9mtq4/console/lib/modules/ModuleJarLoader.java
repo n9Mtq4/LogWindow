@@ -29,16 +29,6 @@ import java.io.IOException;
 public class ModuleJarLoader extends ConsoleListener {
 	
 	@Override
-	public void onAddition(AdditionActionEvent e) {
-		
-	}
-	
-	@Override
-	public void onEnable(EnableActionEvent e) {
-		
-	}
-	
-	@Override
 	public void actionPreformed(ConsoleActionEvent e) {
 		
 		if (e.getCommand().trim().toLowerCase().startsWith("jarloader ") && e.getCommand().getLength() >= 2) {

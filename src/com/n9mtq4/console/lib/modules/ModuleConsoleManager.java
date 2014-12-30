@@ -25,16 +25,6 @@ import com.n9mtq4.console.lib.ConsoleListener;
 public class ModuleConsoleManager extends ConsoleListener {
 	
 	@Override
-	public void onAddition(AdditionActionEvent e) {
-		
-	}
-	
-	@Override
-	public void onEnable(EnableActionEvent e) {
-		
-	}
-	
-	@Override
 	public void actionPreformed(ConsoleActionEvent e) {
 		
 		if (!e.getCommand().contains("console")) return;
@@ -53,16 +43,6 @@ public class ModuleConsoleManager extends ConsoleListener {
 			}
 			
 		}
-		
-	}
-	
-	@Override
-	public void onDisable(DisableActionEvent e) {
-		
-	}
-	
-	@Override
-	public void onRemoval(RemovalActionEvent e) {
 		
 	}
 	

@@ -32,6 +32,7 @@ public class ModuleRepository extends ConsoleListener {
 	@Override
 	public void actionPreformed(ConsoleActionEvent e) {
 		
+//		TODO: install
 		if (e.getCommand().getArg(0).equalsIgnoreCase("repo")) {
 			int l = e.getCommand().getLength();
 			if (l == 2) {

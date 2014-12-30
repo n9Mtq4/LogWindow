@@ -24,16 +24,6 @@ import com.n9mtq4.console.lib.events.*;
 public class ImageLoader extends ConsoleListener {
 	
 	@Override
-	public void onAddition(AdditionActionEvent e) {
-		
-	}
-	
-	@Override
-	public void onEnable(EnableActionEvent e) {
-		
-	}
-	
-	@Override
 	public void actionPreformed(ConsoleActionEvent e) {
 		
 		if (e.getCommand().getLength() >= 2 && e.getCommand().getArg(0).equalsIgnoreCase("imageload")) {
@@ -42,16 +32,6 @@ public class ImageLoader extends ConsoleListener {
 			e.getBaseConsole().printlnImage(fileLocation);
 			
 		}
-		
-	}
-	
-	@Override
-	public void onDisable(DisableActionEvent e) {
-		
-	}
-	
-	@Override
-	public void onRemoval(RemovalActionEvent e) {
 		
 	}
 	

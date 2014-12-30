@@ -31,16 +31,6 @@ import java.net.URL;
 public class Changelog extends ConsoleListener {
 	
 	@Override
-	public void onAddition(AdditionActionEvent e) {
-		
-	}
-	
-	@Override
-	public void onEnable(EnableActionEvent e) {
-		
-	}
-	
-	@Override
 	public void actionPreformed(ConsoleActionEvent e) {
 		
 		if (e.getCommand().trim().equalsIgnoreCase("changelog")) {
@@ -53,16 +43,6 @@ public class Changelog extends ConsoleListener {
 				}
 			}.start();
 		}
-		
-	}
-	
-	@Override
-	public void onDisable(DisableActionEvent e) {
-		
-	}
-	
-	@Override
-	public void onRemoval(RemovalActionEvent e) {
 		
 	}
 	

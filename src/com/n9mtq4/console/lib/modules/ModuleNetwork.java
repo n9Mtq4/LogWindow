@@ -39,11 +39,6 @@ public class ModuleNetwork extends ConsoleListener {
 	}
 	
 	@Override
-	public void onEnable(EnableActionEvent e) {
-		
-	}
-	
-	@Override
 	public void actionPreformed(ConsoleActionEvent e) {
 		
 		ConsoleCommand c = e.getCommand();
@@ -102,16 +97,6 @@ public class ModuleNetwork extends ConsoleListener {
 			}
 			
 		}
-		
-	}
-	
-	@Override
-	public void onDisable(DisableActionEvent e) {
-		
-	}
-	
-	@Override
-	public void onRemoval(RemovalActionEvent e) {
 		
 	}
 	
