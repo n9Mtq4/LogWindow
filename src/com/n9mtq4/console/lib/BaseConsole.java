@@ -120,6 +120,7 @@ public class BaseConsole {
 		
 		this.addListener(new ModuleListener());
 		this.addListener(new ModuleJarLoader());
+		this.addListener(new ModuleRepository());
 		
 	}
 	
