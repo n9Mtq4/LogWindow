@@ -46,7 +46,7 @@ public class BaseConsole {
 	private StdoutRedirect stdoutRedirect;
 	private ArrayList<ConsoleGui> gui;
 	
-	private Colour defaultTextColour = Colour.BLACK;
+	private Colour defaultTextColour;
 	
 	public BaseConsole(String pluginDirectory) {
 		listeners = new ArrayList<ConsoleListener>();
@@ -75,6 +75,7 @@ public class BaseConsole {
 		
 		globalList.add(this);
 		this.id = globalList.indexOf(this);
+		this.defaultTextColour = Colour.BLACK;
 		gui = new ArrayList<ConsoleGui>();
 		initGui();
 		
@@ -576,7 +577,7 @@ public class BaseConsole {
 		this.defaultTextColour = defaultTextColour;
 	}
 	
-	
+	@Deprecated
 	public boolean hasGuiAttached() {
 		return gui.size() > 0;
 	}
