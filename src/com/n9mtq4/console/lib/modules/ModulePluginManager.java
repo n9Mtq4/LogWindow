@@ -50,7 +50,7 @@ public class ModulePluginManager extends ConsoleListener {
 			String plPath = e.getCommand().getWordsStartingFrom(1);
 			File f = new File(plPath);
 			if (!f.exists()) {
-				e.getBaseConsole().println(plPath + " doesn't exist");
+				e.getBaseConsole().println(plPath + " does not exist");
 				return;
 			}
 			PluginManager.loadPlugin(new File(plPath), e.getBaseConsole());
