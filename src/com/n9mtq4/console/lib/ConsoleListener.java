@@ -15,7 +15,6 @@
 
 package com.n9mtq4.console.lib;
 
-import com.n9mtq4.console.lib.BaseConsole;
 import com.n9mtq4.console.lib.command.ConsoleCommand;
 import com.n9mtq4.console.lib.events.*;
 
@@ -37,11 +36,19 @@ public abstract class ConsoleListener {
 		
 	}
 	
-	public abstract void onAddition(AdditionActionEvent e);
-	public abstract void onEnable(EnableActionEvent e);
+	public void onAddition(AdditionActionEvent e) {
+		
+	}
+	public void onEnable(EnableActionEvent e) {
+		
+	}
 	public abstract void actionPreformed(ConsoleActionEvent e);
-	public abstract void onDisable(DisableActionEvent e);
-	public abstract void onRemoval(RemovalActionEvent e);
+	public void onDisable(DisableActionEvent e) {
+		
+	}
+	public void onRemoval(RemovalActionEvent e) {
+		
+	}
 	
 	public void push(String text) {
 		
