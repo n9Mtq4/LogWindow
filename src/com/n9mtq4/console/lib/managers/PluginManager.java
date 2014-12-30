@@ -47,37 +47,41 @@ public class PluginManager {
 		File[] children = folder.listFiles();
 		assert children != null;
 		for (File f : children) {
-			if (f.getAbsolutePath().trim().endsWith(".jar")) {
+			
+			loadPlugin(f, c);
+			
+		}
+		
+	}
+	public static void loadPlugin(File f, BaseConsole c) {
+		if (f.getAbsolutePath().trim().endsWith(".jar")) {
+			
+			String name = f.getName().substring(0, f.getName().lastIndexOf(".jar")).trim();
+			if (new File(f.getParentFile().getAbsolutePath() + name + ".txt").exists()) {
 				
-				String name = f.getName().substring(0, f.getName().lastIndexOf(".jar")).trim();
+				try {
+					addFile(f);
+				}catch (IOException e) {
+					e.printStackTrace();
+				}
 				
-				if (new File(location + name + ".txt").exists()) {
-					try {
-						addFile(f);
-					}catch (IOException e) {
-						e.printStackTrace();
-					}
-					
-					String text = loadStringFromFile(location + name + ".txt");
-					String[] tokens = text.split("\n");
-					for (String t : tokens) {
-						if (!t.startsWith("# ")) {
-							try {
-								Class<?> clazz = Class.forName(t);
-								ConsoleListener clazz1 = (ConsoleListener) clazz.newInstance();
-								c.addListener(clazz1);
-							}catch (Exception e) {
-								e.printStackTrace();
-							}
+				String text = loadStringFromFile(f.getParentFile().getAbsolutePath() + name + ".txt");
+				String[] tokens = text.split("\n");
+				for (String t : tokens) {
+					if (!t.startsWith("# ")) {
+						try {
+							Class<?> clazz = Class.forName(t);
+							ConsoleListener clazz1 = (ConsoleListener) clazz.newInstance();
+							c.addListener(clazz1);
+						}catch (Exception e) {
+							e.printStackTrace();
 						}
 					}
-					
 				}
 				
 			}
 			
 		}
-		
 	}
 	
 	private static String loadStringFromFile(String filePath) {

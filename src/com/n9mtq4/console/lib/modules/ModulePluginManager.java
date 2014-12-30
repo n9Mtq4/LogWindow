@@ -19,6 +19,8 @@ import com.n9mtq4.console.lib.ConsoleListener;
 import com.n9mtq4.console.lib.events.*;
 import com.n9mtq4.console.lib.managers.PluginManager;
 
+import java.io.File;
+
 /**
  * Created by Will on 10/24/14.
  */
@@ -37,10 +39,21 @@ public class ModulePluginManager extends ConsoleListener {
 	@Override
 	public void actionPreformed(ConsoleActionEvent e) {
 		
-		if (e.getCommand().trim().equals("loadPlugins")) {
+		if (e.getCommand().eqt("loadplugins")) {
 			e.getBaseConsole().println("loading plugins...");
 			PluginManager.loadPluginsToConsole(e.getBaseConsole(), PluginManager.DEFAULT_PLUGIN_FOLDER);
 			e.getBaseConsole().println("done loading plugins");
+			return;
+		}
+		
+		if (e.getCommand().startsWith("loadplugin")) {
+			String plPath = e.getCommand().getWordsStartingFrom(1);
+			File f = new File(plPath);
+			if (!f.exists()) {
+				e.getBaseConsole().println(plPath + " doesn't exist");
+				return;
+			}
+			PluginManager.loadPlugin(new File(plPath), e.getBaseConsole());
 		}
 		
 	}
