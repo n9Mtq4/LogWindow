@@ -49,7 +49,7 @@ public class ConsoleCommand {
 	}
 	
 	public boolean eqt(String s) {
-		return text.trim().equalsIgnoreCase(s);
+		return text.trim().equalsIgnoreCase(s.toLowerCase());
 	}
 	
 	public boolean startsWith(String s) {
@@ -74,7 +74,7 @@ public class ConsoleCommand {
 	}
 	
 	public boolean containsIgnoreCase(@NotNull CharSequence s) {
-		return text.toLowerCase().contains(s);
+		return text.toLowerCase().contains(String.valueOf(s).toLowerCase());
 	}
 	
 	public boolean contains(@NotNull CharSequence c) {
