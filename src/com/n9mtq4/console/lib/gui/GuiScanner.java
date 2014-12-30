@@ -50,7 +50,7 @@ public class GuiScanner extends ConsoleGui {
 			@Override
 			public void run() {
 				while(thiz.isShouldScan()) {
-//					System.out.print("> ");
+					System.out.print("> ");
 					String s = scan.nextLine();
 					thiz.getParent().sendPluginsString(s);
 				}
