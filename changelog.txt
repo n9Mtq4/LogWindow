@@ -1,4 +1,21 @@
-0d02579 (HEAD, origin/master, master) API 4.0.0
+c4d9dd0 (HEAD, master) plugin repository client required
+2e71463 plugin repository client
+31fa505 add enable disable remove not required
+c1fb112 more formal
+94e4efb (origin/master) load specific plugin from listener
+d4e6ed5 minor bug fix
+f606a58 shebang line
+0071063 optimised console with no colors/images
+951d673 refactor
+d63f046 framework for socket connected listeners
+c7dca3b api enhancement
+5aba498 minor changes
+ab67f66 refactor
+73b3c29 removed tab support (never implemented)
+f0b6e8d refactor
+f5a44e7 Clean up with todo
+cfa4102 API 4.0.0
+0d02579 API 4.0.0
 28e88e6 fixed on compile errors
 9f4eb6f Uses new gui system
 8447559 Support for new gui
