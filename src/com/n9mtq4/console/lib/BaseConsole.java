@@ -20,6 +20,7 @@ import com.n9mtq4.console.lib.events.DisableActionEvent;
 import com.n9mtq4.console.lib.events.EnableActionEvent;
 import com.n9mtq4.console.lib.events.RemovalActionEvent;
 import com.n9mtq4.console.lib.gui.ConsoleGui;
+import com.n9mtq4.console.lib.listeners.ShutdownHook;
 import com.n9mtq4.console.lib.managers.PluginManager;
 import com.n9mtq4.console.lib.managers.StdoutRedirect;
 import com.n9mtq4.console.lib.modules.*;
@@ -78,6 +79,7 @@ public class BaseConsole {
 		this.defaultTextColour = Colour.BLACK;
 		gui = new ArrayList<ConsoleGui>();
 		initGui();
+		Runtime.getRuntime().addShutdownHook(new ShutdownHook(this));
 		
 	}
 	
@@ -90,6 +92,7 @@ public class BaseConsole {
 	
 	public void dispose() {
 		
+		System.out.println("Disposing of BaseConsole with id of " + globalList.indexOf(this));
 		ArrayList<ConsoleListener> listeners;
 		while ((listeners = this.getListeners()).size() > 0) {
 			try {
