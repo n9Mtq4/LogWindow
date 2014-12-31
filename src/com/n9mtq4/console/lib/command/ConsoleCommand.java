@@ -22,6 +22,9 @@ import com.sun.istack.internal.NotNull;
  */
 public class ConsoleCommand {
 	
+	/**
+	 * Stores the raw text that has been inputed.
+	 * */
 	private String text;
 	private String[] tokens;
 	
@@ -30,34 +33,73 @@ public class ConsoleCommand {
 		init();
 	}
 	
+	/**
+	 * Does pre-string calculations
+	 * */
 	private void init() {
 		
 		tokens = text.split(" ");
 		
 	}
 	
+	/**
+	 * The text of the command is split into words.
+	 * getArg returns the word at the given index.
+	 * <p/>
+	 * "Hello Java World".getArg(1) returns "Java"<br/>
+	 * "Hello Java World".getArg(4) throws {@link StringIndexOutOfBoundsException}
+	 * @return The word at the given index.
+	 * @throws java.lang.StringIndexOutOfBoundsException when the index is more than the number of words - 1 (first word is 0)
+	 * */
 	public String getArg(int  i) {
 		
 		return tokens[i];
 		
 	}
 	
+	/**
+	 * Trims off the whitespace at the end of the text of the command.<br/>
+	 * @return the trimmed string.
+	 * @see String#trim
+	 * */
 	public String trim() {
 		
 		return text.trim();
 		
 	}
 	
+	/**
+	 * Does the same thing as {@link String}.trim().equalsIgnoreCase()<br/>
+	 * @param s The comparing {@link String}
+	 * @return The boolean of {@link String}.trim().equalsIgnoreCase(s)
+	 * @see String#trim
+	 * @see String#equalsIgnoreCase
+	 * */
 	public boolean eqt(String s) {
 		return text.trim().equalsIgnoreCase(s.toLowerCase());
 	}
 	
+	/**
+	 * Returns if the text of the command starts with the given {@link String}<br/>
+	 * Same as getText().startsWith(s)
+	 * @param s The comparing {@link String}
+	 * @return boolean of {@link String}.startsWith(s);
+	 * @see String#startsWith
+	 * */
 	public boolean startsWith(String s) {
 		
 		return text.startsWith(s);
 		
 	}
 	
+	/**
+	 * Gets a word starting from word index.<p/>
+	 * "Hello Java World".getWordsStartingFrom(0) returns "Hello Java World"<br/>
+	 * "Hello Java World".getWordsStartingFrom(1) returns "Java World"<br/>
+	 * "Hello Java World".getWordsStartingFrom(4) returns null<br/>
+	 * @param startIndex Index of the word to get the string there-on.
+	 * @return The cropped {@link String}.
+	 * */
 	public String getWordsStartingFrom(int startIndex) {
 		String before = getText();
 		String cache = before;
@@ -73,24 +115,49 @@ public class ConsoleCommand {
 		return cache;
 	}
 	
+	/**
+	 * Runs a contains on the text with ignoring the case.
+	 * @param s The string to compare
+	 * @return if the text inputed has the String given
+	 * @see ConsoleCommand#contains
+	 * @see String#contains
+	 * */
 	public boolean containsIgnoreCase(@NotNull CharSequence s) {
 		return text.toLowerCase().contains(String.valueOf(s).toLowerCase());
 	}
 	
-	public boolean contains(@NotNull CharSequence c) {
-		return text.contains(c);
+	/**
+	 * Runs a contains on the text.
+	 * @param s The string to compare
+	 * @return if the text inputed has the String given
+	 * @see String#contains
+	 * */
+	public boolean contains(@NotNull CharSequence s) {
+		return text.contains(s);
 	}
 	
+	/**
+	 * Gives you the raw text that the command contains.<br/>
+	 * @return the raw text.
+	 * */
 	public String getText() {
 		return text;
 	}
 	
+	/**
+	 * Gives you the number of words that the user inputed.
+	 * @return tokens.length
+	 * */
 	public int getLength() {
 		
 		return tokens.length;
 		
 	}
 	
+	/**
+	 * Gives you the character count of the {@link String} the user inputed.
+	 * @see String#length
+	 * */
 	public int getTextLength() {
 		return text.length();
 	}
