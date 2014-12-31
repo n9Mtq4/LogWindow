@@ -1,4 +1,16 @@
-e385d55 (HEAD, origin/master, master) Lib for reflection
+b49abcf (HEAD, master) ConsoleCommand javadocs
+b4f6b86 less access to privates w/ getters and setters
+8eeb855 Lots of bug fixes
+09c582d Listeners get the same ConsoleActionEvent
+2ac5386 (origin/master) more javadocs
+bca7855 some javadocs
+bceb943 refactor
+a586707 removed unused code
+db70447 Bug fixes
+2eb1f35 added shutdown hook to base console
+d38fa15 replaced window listener with shutdown hook
+afedb2e API 4.0.20
+e385d55 Lib for reflection
 ae0de7d removed unused methods
 faf02e4 hide repository
 2dc9f51 ready to type feedback
