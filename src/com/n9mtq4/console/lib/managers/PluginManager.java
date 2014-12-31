@@ -48,16 +48,22 @@ public class PluginManager {
 		assert children != null;
 		for (File f : children) {
 			
-			loadPlugin(f, c);
+			loadPlugin(f, c, location);
 			
 		}
 		
 	}
+	
+//	TODO: test to see if works
 	public static void loadPlugin(File f, BaseConsole c) {
+		loadPlugin(f, c, f.getParent());
+	}
+	
+	public static void loadPlugin(File f, BaseConsole c, String location) {
 		if (f.getAbsolutePath().trim().endsWith(".jar")) {
 			
 			String name = f.getName().substring(0, f.getName().lastIndexOf(".jar")).trim();
-			if (new File(f.getParentFile().getAbsolutePath() + name + ".txt").exists()) {
+			if (new File(location + name + ".txt").exists()) {
 				
 				try {
 					addFile(f);
@@ -65,7 +71,7 @@ public class PluginManager {
 					e.printStackTrace();
 				}
 				
-				String text = loadStringFromFile(f.getParentFile().getAbsolutePath() + name + ".txt");
+				String text = loadStringFromFile(location + name + ".txt");
 				String[] tokens = text.split("\n");
 				for (String t : tokens) {
 					if (!t.startsWith("# ")) {
