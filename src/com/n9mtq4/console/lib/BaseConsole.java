@@ -34,6 +34,7 @@ import java.util.ConcurrentModificationException;
 /**
  * Created by Will on 10/20/14.
  */
+@SuppressWarnings("unused")
 public class BaseConsole {
 	
 	/**
@@ -49,6 +50,7 @@ public class BaseConsole {
 	 * Keeps a record of the input.
 	 * */
 	private ArrayList<String> history;
+//	TODO: move historyIndex to the gui
 	/**
 	 * Keeps the index when going back through history.
 	 * */
@@ -148,7 +150,7 @@ public class BaseConsole {
 		
 		System.out.println("Disposing of BaseConsole with id of " + globalList.indexOf(this));
 		ArrayList<ConsoleListener> listeners;
-		while ((listeners = this.getListeners()).size() > 0) {
+		while ((listeners = this.listeners).size() > 0) {
 			try {
 				for (ConsoleListener l : listeners) {
 					
@@ -264,7 +266,7 @@ public class BaseConsole {
 			ConsoleActionEvent event = new ConsoleActionEvent(this, command);
 			for (ConsoleListener p : listeners) {
 				try {
-					if (p.isEnabled() && !event.isDone()) {
+					if (p.isEnabled() && (!event.isDone() || p.hasIgnoreDone())) {
 						p.push(event);
 					}
 				}catch (Exception e) {
@@ -479,11 +481,11 @@ public class BaseConsole {
 	
 	public void removeAllListeners(int type) {
 		
-		int i = getListeners().size();
+		int i = listeners.size();
 		int c = 0;
-		while (getListeners().size() > 0 && i > c) {
+		while (listeners.size() > 0 && i > c) {
 			try {
-				for (ConsoleListener l : getListeners()) {
+				for (ConsoleListener l : listeners) {
 					
 					removeListener(l, type);
 					
@@ -687,6 +689,10 @@ public class BaseConsole {
 		return history;
 	}
 	
+	public void setHistoryIndex(int historyIndex) {
+		this.historyIndex = historyIndex;
+	}
+	
 	public void setHistory(ArrayList<String> history) {
 		this.history = history;
 	}
@@ -695,16 +701,8 @@ public class BaseConsole {
 		return historyIndex;
 	}
 	
-	public void setHistoryIndex(int historyIndex) {
-		this.historyIndex = historyIndex;
-	}
-	
 	public ArrayList<ConsoleListener> getListeners() {
 		return listeners;
-	}
-	
-	public void setListeners(ArrayList<ConsoleListener> listeners) {
-		this.listeners = listeners;
 	}
 	
 	public StdoutRedirect getStdoutRedirect() {
@@ -713,10 +711,6 @@ public class BaseConsole {
 	
 	public void setStdoutRedirect(StdoutRedirect stdoutRedirect) {
 		this.stdoutRedirect = stdoutRedirect;
-	}
-	
-	public void setGui(ArrayList<ConsoleGui> gui) {
-		this.gui = gui;
 	}
 	
 	public ArrayList<ConsoleGui> getGui() {
@@ -748,10 +742,6 @@ public class BaseConsole {
 	
 	public int getId() {
 		return id;
-	}
-	
-	public void setId(int id) {
-		this.id = id;
 	}
 	
 }

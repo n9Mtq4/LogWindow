@@ -28,26 +28,24 @@ public abstract class ConsoleListener {
 	
 	private ArrayList<BaseConsole> linkedBaseConsoles;
 	private boolean enabled;
+	private boolean ignoreDone;
 	
 	public ConsoleListener() {
 		
 		linkedBaseConsoles = new ArrayList<BaseConsole>();
-		enabled = true;
+		this.enabled = true;
+		this.ignoreDone = false;
 		
 	}
 	
 	public void onAddition(AdditionActionEvent e) {
-		
 	}
 	public void onEnable(EnableActionEvent e) {
-		
 	}
 	public abstract void actionPerformed(ConsoleActionEvent e);
 	public void onDisable(DisableActionEvent e) {
-		
 	}
 	public void onRemoval(RemovalActionEvent e) {
-		
 	}
 	
 	@Deprecated
@@ -108,6 +106,10 @@ public abstract class ConsoleListener {
 	
 	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
+	}
+	
+	public boolean hasIgnoreDone() {
+		return ignoreDone;
 	}
 	
 }

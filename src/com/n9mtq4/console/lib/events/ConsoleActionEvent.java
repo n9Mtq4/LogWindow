@@ -25,10 +25,12 @@ public class ConsoleActionEvent {
 	
 	private BaseConsole baseConsole;
 	private ConsoleCommand command;
+	private boolean done;
 	
 	public ConsoleActionEvent(BaseConsole baseConsole, ConsoleCommand command) {
 		this.baseConsole = baseConsole;
 		this.command = command;
+		this.done = false;
 	}
 	
 	public BaseConsole getBaseConsole() {
@@ -37,6 +39,10 @@ public class ConsoleActionEvent {
 	
 	public ConsoleCommand getCommand() {
 		return command;
+	}
+	
+	public boolean isDone() {
+		return done;
 	}
 	
 }
