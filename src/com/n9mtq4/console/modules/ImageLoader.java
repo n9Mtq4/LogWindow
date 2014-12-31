@@ -24,7 +24,7 @@ import com.n9mtq4.console.lib.events.*;
 public class ImageLoader extends ConsoleListener {
 	
 	@Override
-	public void actionPreformed(ConsoleActionEvent e) {
+	public void actionPerformed(ConsoleActionEvent e) {
 		
 		if (e.getCommand().getLength() >= 2 && e.getCommand().getArg(0).equalsIgnoreCase("imageload")) {
 			

@@ -42,7 +42,7 @@ public abstract class ConsoleListener {
 	public void onEnable(EnableActionEvent e) {
 		
 	}
-	public abstract void actionPreformed(ConsoleActionEvent e);
+	public abstract void actionPerformed(ConsoleActionEvent e);
 	public void onDisable(DisableActionEvent e) {
 		
 	}
@@ -55,7 +55,7 @@ public abstract class ConsoleListener {
 		ConsoleCommand command = new ConsoleCommand(text);
 		try {
 			for (BaseConsole c : linkedBaseConsoles) {
-				this.actionPreformed(new ConsoleActionEvent(c, command));
+				this.actionPerformed(new ConsoleActionEvent(c, command));
 			}
 		}catch (ConcurrentModificationException e) {
 		}

@@ -25,7 +25,7 @@ import com.n9mtq4.console.lib.utils.Colour;
 public class ModuleInput extends ConsoleListener {
 	
 	@Override
-	public void actionPreformed(ConsoleActionEvent e) {
+	public void actionPerformed(ConsoleActionEvent e) {
 		
 		e.getBaseConsole().print("[INPUT]: ", Colour.BLUE);
 		e.getBaseConsole().println(e.getCommand().getText());

@@ -28,7 +28,7 @@ import java.util.ArrayList;
 public class ModuleListener extends ConsoleListener {
 	
 	@Override
-	public void actionPreformed(ConsoleActionEvent e) {
+	public void actionPerformed(ConsoleActionEvent e) {
 		
 		if (e.getCommand().getArg(0).equalsIgnoreCase("listener")) {
 			

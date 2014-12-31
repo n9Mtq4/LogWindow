@@ -25,7 +25,7 @@ import com.n9mtq4.console.lib.events.*;
 public class ModuleStdoutRedirect extends ConsoleListener {
 	
 	@Override
-	public void actionPreformed(ConsoleActionEvent e) {
+	public void actionPerformed(ConsoleActionEvent e) {
 		
 		ConsoleCommand c = e.getCommand();
 		if (c.getArg(0).equalsIgnoreCase("stdout")) {

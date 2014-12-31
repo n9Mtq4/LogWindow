@@ -29,7 +29,7 @@ import java.io.IOException;
 public class ModuleJarLoader extends ConsoleListener {
 	
 	@Override
-	public void actionPreformed(ConsoleActionEvent e) {
+	public void actionPerformed(ConsoleActionEvent e) {
 		
 		if (e.getCommand().trim().toLowerCase().startsWith("jarloader ") && e.getCommand().getLength() >= 2) {
 			

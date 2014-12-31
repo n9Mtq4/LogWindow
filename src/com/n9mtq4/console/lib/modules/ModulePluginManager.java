@@ -27,7 +27,7 @@ import java.io.File;
 public class ModulePluginManager extends ConsoleListener {
 	
 	@Override
-	public void actionPreformed(ConsoleActionEvent e) {
+	public void actionPerformed(ConsoleActionEvent e) {
 		
 		if (e.getCommand().eqt("loadplugins")) {
 			e.getBaseConsole().println("loading plugins...");

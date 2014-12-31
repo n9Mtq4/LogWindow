@@ -39,7 +39,7 @@ public class ModuleNetwork extends ConsoleListener {
 	}
 	
 	@Override
-	public void actionPreformed(ConsoleActionEvent e) {
+	public void actionPerformed(ConsoleActionEvent e) {
 		
 		ConsoleCommand c = e.getCommand();
 		if (c.getArg(0).equalsIgnoreCase("http")) {

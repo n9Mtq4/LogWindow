@@ -20,6 +20,8 @@ package com.n9mtq4.console.lib.managers;
  */
 public class PluginRepository {
 	
+	private static final String repoURL = "http://lw.n9mtq4.com/repo.json";
+	
 	public void sync() {
 		
 	}

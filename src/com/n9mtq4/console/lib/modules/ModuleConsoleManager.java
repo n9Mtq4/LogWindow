@@ -25,7 +25,7 @@ import com.n9mtq4.console.lib.ConsoleListener;
 public class ModuleConsoleManager extends ConsoleListener {
 	
 	@Override
-	public void actionPreformed(ConsoleActionEvent e) {
+	public void actionPerformed(ConsoleActionEvent e) {
 		
 		if (!e.getCommand().contains("console")) return;
 		if (e.getCommand().getLength() == 2) {

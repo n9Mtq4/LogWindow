@@ -30,7 +30,7 @@ public class ModuleRepository extends ConsoleListener {
 	private PluginRepository pluginRepository;
 	
 	@Override
-	public void actionPreformed(ConsoleActionEvent e) {
+	public void actionPerformed(ConsoleActionEvent e) {
 		
 //		TODO: install
 		if (e.getCommand().getArg(0).equalsIgnoreCase("repo")) {

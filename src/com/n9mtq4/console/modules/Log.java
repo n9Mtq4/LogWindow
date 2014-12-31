@@ -45,7 +45,7 @@ public class Log extends ConsoleListener {
 	}
 	
 	@Override
-	public void actionPreformed(ConsoleActionEvent e) {
+	public void actionPerformed(ConsoleActionEvent e) {
 		
 		append(e.getCommand().getText());
 		

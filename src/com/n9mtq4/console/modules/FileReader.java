@@ -28,7 +28,7 @@ import java.io.File;
 public class FileReader extends ConsoleListener {
 	
 	@Override
-	public void actionPreformed(ConsoleActionEvent e) {
+	public void actionPerformed(ConsoleActionEvent e) {
 		
 		if (!e.getCommand().startsWith("file ")) return;
 		if (e.getCommand().getLength() == 3) {

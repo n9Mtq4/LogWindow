@@ -31,7 +31,7 @@ import java.net.URL;
 public class Changelog extends ConsoleListener {
 	
 	@Override
-	public void actionPreformed(ConsoleActionEvent e) {
+	public void actionPerformed(ConsoleActionEvent e) {
 		
 		if (e.getCommand().trim().equalsIgnoreCase("changelog")) {
 			final BaseConsole c = e.getBaseConsole();
