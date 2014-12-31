@@ -1,8 +1,13 @@
-c4d9dd0 (HEAD, master) plugin repository client required
+e385d55 (HEAD, origin/master, master) Lib for reflection
+ae0de7d removed unused methods
+faf02e4 hide repository
+2dc9f51 ready to type feedback
+7409c56 API 4.0.16
+c4d9dd0 plugin repository client required
 2e71463 plugin repository client
 31fa505 add enable disable remove not required
 c1fb112 more formal
-94e4efb (origin/master) load specific plugin from listener
+94e4efb load specific plugin from listener
 d4e6ed5 minor bug fix
 f606a58 shebang line
 0071063 optimised console with no colors/images
