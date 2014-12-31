@@ -15,10 +15,8 @@
 
 package com.n9mtq4.console.lib;
 
-import com.n9mtq4.console.lib.events.AdditionActionEvent;
-import com.n9mtq4.console.lib.events.DisableActionEvent;
-import com.n9mtq4.console.lib.events.EnableActionEvent;
-import com.n9mtq4.console.lib.events.RemovalActionEvent;
+import com.n9mtq4.console.lib.command.ConsoleCommand;
+import com.n9mtq4.console.lib.events.*;
 import com.n9mtq4.console.lib.gui.ConsoleGui;
 import com.n9mtq4.console.lib.listeners.ShutdownHook;
 import com.n9mtq4.console.lib.managers.PluginManager;
@@ -262,10 +260,12 @@ public class BaseConsole {
 	private void push(String text) {
 		
 		try {
+			ConsoleCommand command = new ConsoleCommand(text);
+			ConsoleActionEvent event = new ConsoleActionEvent(this, command);
 			for (ConsoleListener p : listeners) {
 				try {
-					if (p.isEnabled()) {
-						p.push(text);
+					if (p.isEnabled() && !event.isDone()) {
+						p.push(event);
 					}
 				}catch (Exception e) {
 					this.printStackTrace(e);
@@ -645,6 +645,13 @@ public class BaseConsole {
 		
 	}
 	
+	/**
+	 * Gets a {@link ConsoleListener} with the index in the array.
+	 * @deprecated Use {@link BaseConsole#getListener} instead (index in {@link ConsoleListener} array or name).
+	 * @param index The index of the desired {@link ConsoleListener}.
+	 * @return The {@link ConsoleListener} with the given class name.
+	 * @see BaseConsole#getListener
+	 * */
 	@Deprecated
 	public ConsoleListener getListenerByIndex(int index) {
 		
@@ -653,7 +660,7 @@ public class BaseConsole {
 	}
 	
 	/**
-	 * Gets a given
+	 * Gets a {@link ConsoleListener} with a given name.
 	 * @deprecated Use {@link BaseConsole#getListener} instead (index in {@link ConsoleListener} array or name).
 	 * @param name The class name of the desired {@link ConsoleListener}.
 	 * @return The {@link ConsoleListener} with the given class name.

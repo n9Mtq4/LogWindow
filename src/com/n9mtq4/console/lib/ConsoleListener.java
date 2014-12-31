@@ -50,6 +50,7 @@ public abstract class ConsoleListener {
 		
 	}
 	
+	@Deprecated
 	public void push(String text) {
 		
 		ConsoleCommand command = new ConsoleCommand(text);
@@ -58,6 +59,17 @@ public abstract class ConsoleListener {
 				this.actionPerformed(new ConsoleActionEvent(c, command));
 			}
 		}catch (ConcurrentModificationException e) {
+		}
+		
+	}
+	
+	public void push(ConsoleActionEvent e) {
+		
+		try {
+			for (BaseConsole c : linkedBaseConsoles) {
+				this.actionPerformed(e);
+			}
+		}catch (ConcurrentModificationException e1) {
 		}
 		
 	}
