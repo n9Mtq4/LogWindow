@@ -1,3 +1,18 @@
+/*
+ * NOTE: This is added by intellij IDE. Disregard this message if there is another copyright later in the file.
+ * Copyright (C) 2014  Will (n9Mtq4) Bresnahan
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+
 package com.n9mtq4.console.lib.utils;
 
 import java.lang.reflect.Constructor;
@@ -8,14 +23,15 @@ import java.lang.reflect.Method;
  * Created by Will on 12/30/14.
  */
 /**
- * Use static import for best results
- * Class to simplify reflection
+ * Note: Use static import for best results.<br/>
+ * Class to simplify reflection calls.<br/>
  * */
+@SuppressWarnings("unused")
 public class ReflectionHelper {
 	
-	public static int getInt(String fieldName, Object obj) {
+	public static int getInt(String fieldName, Object obj, Class clazz) {
 		try {
-			Field f = obj.getClass().getDeclaredField(fieldName);
+			Field f = clazz.getDeclaredField(fieldName);
 			f.setAccessible(true);
 			return f.getInt(obj);
 		}catch (Exception e) {
@@ -24,9 +40,9 @@ public class ReflectionHelper {
 		}
 	}
 	
-	public static void setInt(int x, String fieldName, Object obj) {
+	public static void setInt(int x, String fieldName, Object obj, Class clazz) {
 		try {
-			Field f = obj.getClass().getDeclaredField(fieldName);
+			Field f = clazz.getDeclaredField(fieldName);
 			f.setAccessible(true);
 			f.setInt(obj, x);
 		}catch (Exception e) {
@@ -55,9 +71,9 @@ public class ReflectionHelper {
 		}
 	}
 	
-	public static byte getByte(String fieldName, Object obj) {
+	public static byte getByte(String fieldName, Object obj, Class clazz) {
 		try {
-			Field f = obj.getClass().getDeclaredField(fieldName);
+			Field f = clazz.getDeclaredField(fieldName);
 			f.setAccessible(true);
 			return f.getByte(obj);
 		}catch (Exception e) {
@@ -66,9 +82,9 @@ public class ReflectionHelper {
 		}
 	}
 	
-	public static void setByte(byte x, String fieldName, Object obj) {
+	public static void setByte(byte x, String fieldName, Object obj, Class clazz) {
 		try {
-			Field f = obj.getClass().getDeclaredField(fieldName);
+			Field f = clazz.getDeclaredField(fieldName);
 			f.setAccessible(true);
 			f.setByte(obj, x);
 		}catch (Exception e) {
@@ -97,9 +113,9 @@ public class ReflectionHelper {
 		}
 	}
 	
-	public static boolean getBoolean(String fieldName, Object obj) {
+	public static boolean getBoolean(String fieldName, Object obj, Class clazz) {
 		try {
-			Field f = obj.getClass().getDeclaredField(fieldName);
+			Field f = clazz.getDeclaredField(fieldName);
 			f.setAccessible(true);
 			return f.getBoolean(obj);
 		}catch (Exception e) {
@@ -108,9 +124,9 @@ public class ReflectionHelper {
 		}
 	}
 	
-	public static void setBoolean(boolean x, String fieldName, Object obj) {
+	public static void setBoolean(boolean x, String fieldName, Object obj, Class clazz) {
 		try {
-			Field f = obj.getClass().getDeclaredField(fieldName);
+			Field f = clazz.getDeclaredField(fieldName);
 			f.setAccessible(true);
 			f.setBoolean(obj, x);
 		}catch (Exception e) {
@@ -139,9 +155,9 @@ public class ReflectionHelper {
 		}
 	}
 	
-	public static char getChar(String fieldName, Object obj) {
+	public static char getChar(String fieldName, Object obj, Class clazz) {
 		try {
-			Field f = obj.getClass().getDeclaredField(fieldName);
+			Field f = clazz.getDeclaredField(fieldName);
 			f.setAccessible(true);
 			return f.getChar(obj);
 		}catch (Exception e) {
@@ -150,9 +166,9 @@ public class ReflectionHelper {
 		}
 	}
 	
-	public static void setChar(char x, String fieldName, Object obj) {
+	public static void setChar(char x, String fieldName, Object obj, Class clazz) {
 		try {
-			Field f = obj.getClass().getDeclaredField(fieldName);
+			Field f = clazz.getDeclaredField(fieldName);
 			f.setAccessible(true);
 			f.setChar(obj, x);
 		}catch (Exception e) {
@@ -181,9 +197,9 @@ public class ReflectionHelper {
 		}
 	}
 	
-	public static float getFloat(String fieldName, Object obj) {
+	public static float getFloat(String fieldName, Object obj, Class clazz) {
 		try {
-			Field f = obj.getClass().getDeclaredField(fieldName);
+			Field f = clazz.getDeclaredField(fieldName);
 			f.setAccessible(true);
 			return f.getFloat(obj);
 		}catch (Exception e) {
@@ -192,9 +208,9 @@ public class ReflectionHelper {
 		}
 	}
 	
-	public static void setFloat(float x, String fieldName, Object obj) {
+	public static void setFloat(float x, String fieldName, Object obj, Class clazz) {
 		try {
-			Field f = obj.getClass().getDeclaredField(fieldName);
+			Field f = clazz.getDeclaredField(fieldName);
 			f.setAccessible(true);
 			f.setFloat(obj, x);
 		}catch (Exception e) {
@@ -223,9 +239,9 @@ public class ReflectionHelper {
 		}
 	}
 	
-	public static double getDouble(String fieldName, Object obj) {
+	public static double getDouble(String fieldName, Object obj, Class clazz) {
 		try {
-			Field f = obj.getClass().getDeclaredField(fieldName);
+			Field f = clazz.getDeclaredField(fieldName);
 			f.setAccessible(true);
 			return f.getDouble(obj);
 		}catch (Exception e) {
@@ -234,9 +250,9 @@ public class ReflectionHelper {
 		}
 	}
 	
-	public static void setDouble(double x, String fieldName, Object obj) {
+	public static void setDouble(double x, String fieldName, Object obj, Class clazz) {
 		try {
-			Field f = obj.getClass().getDeclaredField(fieldName);
+			Field f = clazz.getDeclaredField(fieldName);
 			f.setAccessible(true);
 			f.setDouble(obj, x);
 		}catch (Exception e) {
@@ -265,9 +281,9 @@ public class ReflectionHelper {
 		}
 	}
 	
-	public static long getLong(String fieldName, Object obj) {
+	public static long getLong(String fieldName, Object obj, Class clazz) {
 		try {
-			Field f = obj.getClass().getDeclaredField(fieldName);
+			Field f = clazz.getDeclaredField(fieldName);
 			f.setAccessible(true);
 			return f.getLong(obj);
 		}catch (Exception e) {
@@ -276,9 +292,9 @@ public class ReflectionHelper {
 		}
 	}
 	
-	public static void setLong(long x, String fieldName, Object obj) {
+	public static void setLong(long x, String fieldName, Object obj, Class clazz) {
 		try {
-			Field f = obj.getClass().getDeclaredField(fieldName);
+			Field f = clazz.getDeclaredField(fieldName);
 			f.setAccessible(true);
 			f.setLong(obj, x);
 		}catch (Exception e) {
@@ -307,9 +323,9 @@ public class ReflectionHelper {
 		}
 	}
 	
-	public static Object getObject(String fieldName, Object obj) {
+	public static Object getObject(String fieldName, Object obj, Class clazz) {
 		try {
-			Field f = obj.getClass().getDeclaredField(fieldName);
+			Field f = clazz.getDeclaredField(fieldName);
 			f.setAccessible(true);
 			return f.get(obj);
 		}catch (Exception e) {
@@ -318,9 +334,9 @@ public class ReflectionHelper {
 		}
 	}
 	
-	public static void setObject(Object x, String fieldName, Object obj) {
+	public static void setObject(Object x, String fieldName, Object obj, Class clazz) {
 		try {
-			Field f = obj.getClass().getDeclaredField(fieldName);
+			Field f = clazz.getDeclaredField(fieldName);
 			f.setAccessible(true);
 			f.set(obj, x);
 		}catch (Exception e) {
@@ -364,13 +380,13 @@ public class ReflectionHelper {
 		}
 	}
 	
-	public static Object callObjectMethod(String methodName, Object obj, Object[] params) {
+	public static Object callObjectMethod(String methodName, Object obj, Class clazz, Object[] params) {
 		try {
 			Class[] classParams = new Class[params.length];
 			for (int i = 0; i < classParams.length; i++) {
 				classParams[i] = params[i].getClass();
 			}
-			Method m = obj.getClass().getDeclaredMethod(methodName, classParams);
+			Method m = clazz.getDeclaredMethod(methodName, classParams);
 			m.setAccessible(true);
 			return m.invoke(obj, params);
 		}catch (Exception e) {
@@ -379,17 +395,17 @@ public class ReflectionHelper {
 		}
 	}
 	
-	public static void callVoidMethod(String methodName, Object obj, Object[] params) {
-		callObjectMethod(methodName, obj, params);
+	public static void callVoidMethod(String methodName, Object obj, Class clazz, Object[] params) {
+		callObjectMethod(methodName, obj, clazz, params);
 	}
 	
-	public static Integer callIntMethod(String methodName, Object obj, Object[] params) {
+	public static Integer callIntMethod(String methodName, Object obj, Class clazz, Object[] params) {
 		try {
 			Class[] classParams = new Class[params.length];
 			for (int i = 0; i < classParams.length; i++) {
 				classParams[i] = params[i].getClass();
 			}
-			Method m = obj.getClass().getDeclaredMethod(methodName, classParams);
+			Method m = clazz.getDeclaredMethod(methodName, classParams);
 			m.setAccessible(true);
 			return (Integer) m.invoke(obj, params);
 		}catch (Exception e) {
@@ -398,13 +414,13 @@ public class ReflectionHelper {
 		}
 	}
 	
-	public static Byte callByteMethod(String methodName, Object obj, Object[] params) {
+	public static Byte callByteMethod(String methodName, Object obj, Class clazz, Object[] params) {
 		try {
 			Class[] classParams = new Class[params.length];
 			for (int i = 0; i < classParams.length; i++) {
 				classParams[i] = params[i].getClass();
 			}
-			Method m = obj.getClass().getDeclaredMethod(methodName, classParams);
+			Method m = clazz.getDeclaredMethod(methodName, classParams);
 			m.setAccessible(true);
 			return (Byte) m.invoke(obj, params);
 		}catch (Exception e) {
@@ -413,13 +429,13 @@ public class ReflectionHelper {
 		}
 	}
 	
-	public static Boolean callBooleanMethod(String methodName, Object obj, Object[] params) {
+	public static Boolean callBooleanMethod(String methodName, Object obj, Class clazz, Object[] params) {
 		try {
 			Class[] classParams = new Class[params.length];
 			for (int i = 0; i < classParams.length; i++) {
 				classParams[i] = params[i].getClass();
 			}
-			Method m = obj.getClass().getDeclaredMethod(methodName, classParams);
+			Method m = clazz.getDeclaredMethod(methodName, classParams);
 			m.setAccessible(true);
 			return (Boolean) m.invoke(obj, params);
 		}catch (Exception e) {
@@ -428,13 +444,13 @@ public class ReflectionHelper {
 		}
 	}
 	
-	public static Character callCharMethod(String methodName, Object obj, Object[] params) {
+	public static Character callCharMethod(String methodName, Object obj, Class clazz, Object[] params) {
 		try {
 			Class[] classParams = new Class[params.length];
 			for (int i = 0; i < classParams.length; i++) {
 				classParams[i] = params[i].getClass();
 			}
-			Method m = obj.getClass().getDeclaredMethod(methodName, classParams);
+			Method m = clazz.getDeclaredMethod(methodName, classParams);
 			m.setAccessible(true);
 			return (Character) m.invoke(obj, params);
 		}catch (Exception e) {
@@ -443,13 +459,13 @@ public class ReflectionHelper {
 		}
 	}
 	
-	public static Float callFloatMethod(String methodName, Object obj, Object[] params) {
+	public static Float callFloatMethod(String methodName, Object obj, Class clazz, Object[] params) {
 		try {
 			Class[] classParams = new Class[params.length];
 			for (int i = 0; i < classParams.length; i++) {
 				classParams[i] = params[i].getClass();
 			}
-			Method m = obj.getClass().getDeclaredMethod(methodName, classParams);
+			Method m = clazz.getDeclaredMethod(methodName, classParams);
 			m.setAccessible(true);
 			return (Float) m.invoke(obj, params);
 		}catch (Exception e) {
@@ -458,13 +474,13 @@ public class ReflectionHelper {
 		}
 	}
 	
-	public static Double callDoubleMethod(String methodName, Object obj, Object[] params) {
+	public static Double callDoubleMethod(String methodName, Object obj, Class clazz, Object[] params) {
 		try {
 			Class[] classParams = new Class[params.length];
 			for (int i = 0; i < classParams.length; i++) {
 				classParams[i] = params[i].getClass();
 			}
-			Method m = obj.getClass().getDeclaredMethod(methodName, classParams);
+			Method m = clazz.getDeclaredMethod(methodName, classParams);
 			m.setAccessible(true);
 			return (Double) m.invoke(obj, params);
 		}catch (Exception e) {
@@ -473,13 +489,13 @@ public class ReflectionHelper {
 		}
 	}
 	
-	public static Long callLongMethod(String methodName, Object obj, Object[] params) {
+	public static Long callLongMethod(String methodName, Object obj, Class clazz, Object[] params) {
 		try {
 			Class[] classParams = new Class[params.length];
 			for (int i = 0; i < classParams.length; i++) {
 				classParams[i] = params[i].getClass();
 			}
-			Method m = obj.getClass().getDeclaredMethod(methodName, classParams);
+			Method m = clazz.getDeclaredMethod(methodName, classParams);
 			m.setAccessible(true);
 			return (Long) m.invoke(obj, params);
 		}catch (Exception e) {
