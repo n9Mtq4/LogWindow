@@ -15,7 +15,6 @@
 
 package com.n9mtq4.console.lib.gui;
 
-import com.n9mtq4.console.lib.listeners.ConsoleWindowListener;
 import com.n9mtq4.console.lib.parts.NTextArea;
 import com.n9mtq4.console.lib.utils.Colour;
 
@@ -62,8 +61,6 @@ public class GuiJFrame extends ConsoleGui {
 		frame.setVisible(show);
 		frame.setSize(360, 240);
 		frame.setLocationRelativeTo(null);
-		
-		frame.addWindowListener(new ConsoleWindowListener(this));
 		
 		field.requestFocus();
 		field.addActionListener(new ActionListener() {

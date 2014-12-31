@@ -15,57 +15,32 @@
 
 package com.n9mtq4.console.lib.listeners;
 
-import com.n9mtq4.console.lib.gui.ConsoleGui;
-
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
+import com.n9mtq4.console.lib.BaseConsole;
 
 /**
- * Created by Will on 10/28/14.
+ * Created by Will on 12/30/14.
  */
-public class ConsoleWindowListener implements WindowListener {
+public class ShutdownHook extends Thread {
 	
-	private ConsoleGui consoleGui;
+	private BaseConsole parent;
 	
-	public ConsoleWindowListener(ConsoleGui consoleGui) {
-		this.consoleGui = consoleGui;
+	public ShutdownHook(BaseConsole console) {
+		this.parent = console;
 	}
 	
 	@Override
-	public void windowOpened(WindowEvent windowEvent) {
+	public void run() {
+		
+		parent.dispose();
 		
 	}
 	
-	@Override
-	public void windowClosing(WindowEvent windowEvent) {
-		
-		consoleGui.getParent().dispose();
-		
+	public BaseConsole getParent() {
+		return parent;
 	}
 	
-	@Override
-	public void windowClosed(WindowEvent windowEvent) {
-		
-	}
-	
-	@Override
-	public void windowIconified(WindowEvent windowEvent) {
-		
-	}
-	
-	@Override
-	public void windowDeiconified(WindowEvent windowEvent) {
-		
-	}
-	
-	@Override
-	public void windowActivated(WindowEvent windowEvent) {
-		
-	}
-	
-	@Override
-	public void windowDeactivated(WindowEvent windowEvent) {
-		
+	public void setParent(BaseConsole parent) {
+		this.parent = parent;
 	}
 	
 }

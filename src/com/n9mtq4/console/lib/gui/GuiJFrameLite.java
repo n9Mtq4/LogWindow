@@ -15,7 +15,6 @@
 
 package com.n9mtq4.console.lib.gui;
 
-import com.n9mtq4.console.lib.listeners.ConsoleWindowListener;
 import com.n9mtq4.console.lib.utils.Colour;
 
 import javax.swing.*;
@@ -59,8 +58,6 @@ public class GuiJFrameLite extends ConsoleGui {
 		frame.setVisible(true);
 		frame.setSize(360, 240);
 		frame.setLocationRelativeTo(null);
-		
-		frame.addWindowListener(new ConsoleWindowListener(this));
 		
 		field.requestFocus();
 		field.addActionListener(new ActionListener() {
