@@ -25,54 +25,87 @@ import java.util.Random;
  */
 public class ConsoleGui {
 	
+	/**
+	 * Parent BaseConsole
+	 * */
 	private BaseConsole parent;
+	/**
+	 * Identifier ID
+	 * */
 	private String name;
 	
+	/**
+	 * Makes a new {@link ConsoleGui} object.
+	 * */
 	public ConsoleGui() {
-		this.name = String.valueOf(new Random(10000).nextInt());
+		this.name = this.getClass().getName() + ":" + String.valueOf(new Random(10000).nextInt());
 	}
 	
+	/**
+	 * Note: Override me!<br/>
+	 * Note: Add your gui stuff here when making a custom {@link ConsoleGui}<br/>
+	 * Called when {@link ConsoleGui} is added to {@link BaseConsole}.
+	 * */
 	public void init() {
 		
 	}
 	
+	/**
+	 * Note: Override me!<br/>
+	 * Note: Close streams or dispose {@link javax.swing.JFrame} here.<br/>
+	 * Called when {@link BaseConsole} is closing or your {@link ConsoleGui} is removed.
+	 * */
 	public void dispose() {
 		
 	}
 	
+	/**
+	 * Note: DO NOT OVERRIDE!<br/>
+	 * Binds the object to a parent {@link BaseConsole}.
+	 * */
 	public void add(BaseConsole parent) {
 		this.parent = parent;
 		init();
 	}
 	
 	/**
-	 * Override me!
+	 * Note: Override me!<br/>
+	 * Called when a {@link com.n9mtq4.console.lib.ConsoleListener} wants to print something.
 	 * */
 	public void print(String text, Colour colour) {
 		
 	}
 	
 	/**
-	 * Override me!
+	 * Note: Override me!<br/>
+	 * Called when a {@link com.n9mtq4.console.lib.ConsoleListener} wants to print an image.
 	 * */
 	public void printImage(String filePath) {
 		
 	}
 	
+	/**
+	 * Gets the parent {@link BaseConsole}.
+	 * @return The {@link BaseConsole} this {@link ConsoleGui} is linked to.
+	 * */
 	public BaseConsole getParent() {
 		return parent;
 	}
 	
+	/**
+	 * Sets the parent {@link BaseConsole}.
+	 * @param parent Sets the parent to the new parent given.
+	 * */
 	public void setParent(BaseConsole parent) {
 		this.parent = parent;
 	}
 	
+	/**
+	 * Gets the Identifier Name of this {@link ConsoleGui}.
+	 * @return The identifier id.
+	 * */
 	public String getName() {
 		return name;
-	}
-	
-	public void setName(String name) {
-		this.name = name;
 	}
 	
 }
