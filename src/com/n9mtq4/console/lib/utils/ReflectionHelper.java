@@ -7,6 +7,10 @@ import java.lang.reflect.Method;
 /**
  * Created by Will on 12/30/14.
  */
+/**
+ * Use static import for best results
+ * Class to simplify reflection
+ * */
 public class ReflectionHelper {
 	
 	public static int getInt(String fieldName, Object obj) {

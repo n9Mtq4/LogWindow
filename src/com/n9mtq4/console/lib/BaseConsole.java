@@ -38,17 +38,53 @@ import java.util.ConcurrentModificationException;
  */
 public class BaseConsole {
 	
+	/**
+	 * Keeps the ids of all {@link BaseConsole}s.
+	 * */
 	public static ArrayList<BaseConsole> globalList = new ArrayList<BaseConsole>();
 	
+	/**
+	 * The array containing all the listeners attached to the {@link BaseConsole}.
+	 * */
 	private ArrayList<ConsoleListener> listeners;
+	/**
+	 * Keeps a record of the input.
+	 * */
 	private ArrayList<String> history;
+	/**
+	 * Keeps the index when going back through history.
+	 * */
 	public int historyIndex;
+	/**
+	 * Has the local id for the {@link BaseConsole}.
+	 * */
 	private int id;
+	/**
+	 * The object that handles setOut for redirection.
+	 * @see com.n9mtq4.console.lib.managers.StdoutRedirect
+	 * @see BaseConsole#redirectStdoutOn
+	 * @see BaseConsole#redirectStdoutOn(boolean)
+	 * @see BaseConsole#redirectStdoutOff
+	 * */
 	private StdoutRedirect stdoutRedirect;
+	/**
+	 * Contains all {@link ConsoleGui}s attached.
+	 * @see BaseConsole#addGui
+	 * @see BaseConsole#removeGui
+	 * */
 	private ArrayList<ConsoleGui> gui;
 	
+	/**
+	 * The default text colour for print when no colour is specified.
+	 * @see BaseConsole#setDefaultTextColour
+	 * @see BaseConsole#getDefaultTextColour
+	 * */
 	private Colour defaultTextColour;
 	
+	/**
+	 * Constructor for {@link BaseConsole}.
+	 * @param pluginDirectory loads all plugins in this file path.
+	 * */
 	public BaseConsole(String pluginDirectory) {
 		listeners = new ArrayList<ConsoleListener>();
 		initMandatoryListeners();
@@ -57,6 +93,9 @@ public class BaseConsole {
 		initConsole();
 	}
 	
+	/**
+	 * Constructor for {@link BaseConsole}.
+	 * */
 	public BaseConsole() {
 		listeners = new ArrayList<ConsoleListener>();
 		initMandatoryListeners();
@@ -64,6 +103,10 @@ public class BaseConsole {
 		initConsole();
 	}
 	
+	/**
+	 * Constructor for {@link BaseConsole}.
+	 * @param listener adds the {@link ConsoleListener} to the newly created {@link BaseConsole}
+	 * */
 	public BaseConsole(ConsoleListener listener) {
 		listeners = new ArrayList<ConsoleListener>();
 		initMandatoryListeners();
@@ -72,6 +115,10 @@ public class BaseConsole {
 		initConsole();
 	}
 	
+	/**
+	 * Handles global {@link BaseConsole} initilizing<br/>
+	 * Is called in the constructor
+	 * */
 	private void initConsole() {
 		
 		globalList.add(this);
@@ -84,12 +131,21 @@ public class BaseConsole {
 	}
 	
 	/**
-	 * Override me!
+	 * NOTE: Override me!<br/>
+	 * Insert your {@link ConsoleGui} here with<br/>
+	 * this.addGui(new ThingThatExtendsConsoleGui());
 	 * */
 	public void initGui() {
 		
 	}
 	
+	/**
+	 * Handles closing down the {@link ConsoleListener}s and {@link ConsoleGui}s.<br/>
+	 * Note: if overriding make sure to call super to close {@link ConsoleListener} and {@link ConsoleGui}.<br/>
+	 * @see ConsoleGui#dispose
+	 * @see ConsoleListener#onDisable
+	 * @see ConsoleListener#onRemoval
+	 * */
 	public void dispose() {
 		
 		System.out.println("Disposing of BaseConsole with id of " + globalList.indexOf(this));
@@ -119,6 +175,10 @@ public class BaseConsole {
 		
 	}
 	
+	/**
+	 * Adds required {@link ConsoleListener}s to the {@link BaseConsole}.<br/>
+	 * This is called in the constructor.
+	 * */
 	private void initMandatoryListeners() {
 		
 		this.addListener(new ModuleListener());
@@ -127,6 +187,10 @@ public class BaseConsole {
 		
 	}
 	
+	/**
+	 * Adds recommend {@link ConsoleListener}s to the {@link BaseConsole}.<br/>
+	 * This is not called on init.
+	 * */
 	public void addDefaultListeners() {
 		this.addListener(new ModulePluginManager());
 		this.addListener(new ModuleConsoleManager());
@@ -135,18 +199,42 @@ public class BaseConsole {
 		this.addListener(new ModuleNetwork());
 	}
 	
+	/**
+	 * Turns off {@link System#out} redirection
+	 * from
+	 * {@link com.n9mtq4.console.lib.BaseConsole}.
+	 * {@link com.n9mtq4.console.lib.BaseConsole#print}.
+	 * @see BaseConsole#redirectStdoutOn()
+	 * @see BaseConsole#redirectStdoutOn(boolean)
+	 * */
 	public void redirectStdoutOff() {
 		
 		if (stdoutRedirect != null) stdoutRedirect.turnOff();
 		
 	}
 	
+	/**
+	 * Turns on {@link System#out} redirection
+	 * to
+	 * {@link BaseConsole}.{@link BaseConsole#print}
+	 * @see BaseConsole#redirectStdoutOff()
+	 * @see BaseConsole#redirectStdoutOn(boolean)
+	 * */
 	public void redirectStdoutOn() {
 		
 		redirectStdoutOn(false);
 		
 	}
 	
+	/**
+	 * Turns on {@link System#out} redirection
+	 * to
+	 * {@link com.n9mtq4.console.lib.BaseConsole}.
+	 * {@link com.n9mtq4.console.lib.BaseConsole#print}.
+	 * @param debug Whether or not to print java file and line number of print statement
+	 * @see BaseConsole#redirectStdoutOff()
+	 * @see BaseConsole#redirectStdoutOn
+	 * */
 	public void redirectStdoutOn(boolean debug) {
 		
 		if (stdoutRedirect == null) {
@@ -156,12 +244,21 @@ public class BaseConsole {
 		
 	}
 	
-	public void sendPluginsString(String txt) {
-		history.add(txt);
+	/**
+	 * Note: use me to send input when using a custom {@link ConsoleGui}.<br/>
+	 * Takes {@link String} and iterates through all {@link ConsoleListener} on console.
+	 * @param text String to send to {@link ConsoleListener#actionPerformed}.
+	 * */
+	public void sendPluginsString(String text) {
+		history.add(text);
 		historyIndex = history.size();
-		push(txt);
+		push(text);
 	}
 	
+	/**
+	 * Low level version of {@link BaseConsole#sendPluginsString}.
+	 * @param text Sting to send to {@link ConsoleListener#actionPerformed}.
+	 * */
 	private void push(String text) {
 		
 		try {
@@ -180,13 +277,23 @@ public class BaseConsole {
 		
 	}
 	
-	public void printStackTrace(Exception e) {
+	/**
+	 * Prints the stack trace of a throwable to the {@link BaseConsole} output.
+	 * @param throwable Prints the stackTrace.
+	 * @see java.lang.Throwable#printStackTrace
+	 * */
+	public void printStackTrace(Throwable throwable) {
 		StringWriter sw = new StringWriter();
 		PrintWriter pw = new PrintWriter(sw);
-		e.printStackTrace(pw);
+		throwable.printStackTrace(pw);
 		this.println(sw.toString(), Colour.RED);
 	}
 	
+	/**
+	 * Finds all {@link ConsoleListener}s with a given class name and returns them in the form of an array<br/>
+	 * @param name The name of the class to look for.
+	 * @return an array of {@link ConsoleListener}s with the given class name
+	 * */
 	public ConsoleListener[] getListenersByName(String name) {
 		
 		ArrayList<ConsoleListener> list = new ArrayList<ConsoleListener>();
@@ -208,6 +315,9 @@ public class BaseConsole {
 		
 	}
 	
+	/**
+	 * Enables all {@link ConsoleListener}s that have been added to @{BaseConsole}
+	 * */
 	public void enableAllListeners() {
 		
 		for (ConsoleListener l : listeners) {
@@ -218,6 +328,11 @@ public class BaseConsole {
 		
 	}
 	
+	/**
+	 * Enables all {@link ConsoleListener} with a given name attached to {@link BaseConsole}.
+	 * @param name Class name of the {@link ConsoleListener} to enable.
+	 * @see BaseConsole#enableListenerByName
+	 * */
 	public void enableListenersByName(String name) {
 		
 		for (ConsoleListener l : listeners) {
@@ -230,6 +345,11 @@ public class BaseConsole {
 		
 	}
 	
+	/**
+	 * Only enables the first {@link ConsoleListener} with a given name attached to {@link BaseConsole}.
+	 * @param name Class name of the {@link ConsoleListener} to enable.
+	 * @see BaseConsole#enableListenersByName
+	 * */
 	public void enableListenerByName(String name) {
 		
 		for (ConsoleListener l : listeners) {
@@ -243,6 +363,12 @@ public class BaseConsole {
 		
 	}
 	
+	/**
+	 * Enables the given {@link ConsoleListener} that is attached to {@link BaseConsole}.
+	 * @param listener the {@link ConsoleListener} object to enable
+	 * @see BaseConsole#disableListener
+	 * @see BaseConsole#enableListenerByName
+	 * */
 	public void enableListener(ConsoleListener listener) {
 		
 		if (!listener.isEnabled()) {
@@ -446,6 +572,13 @@ public class BaseConsole {
 		print(text + "\n", colour);
 	}
 	
+	/**
+	 * Prints the given string in the given color.
+	 * @deprecated Use {@link BaseConsole#println(String, Colour)}
+	 * @param text String to print.
+	 * @param color Colour to print string in.
+	 * @see BaseConsole#println(String, Colour)
+	 * */
 	@Deprecated
 	public void println(String text, Color color) {
 		print(text + "\n", color);
@@ -458,7 +591,7 @@ public class BaseConsole {
 	}
 	
 	/**
-	 * Lowest level
+	 * Note: Lowest level<br/>
 	 * */
 	public void printImage(String filePath) {
 		
@@ -486,7 +619,7 @@ public class BaseConsole {
 	}
 	
 	/**
-	 * Lowest level
+	 * Note: Lowest level<br/>
 	 * */
 	public void print(String text, Colour colour) {
 		
@@ -496,6 +629,7 @@ public class BaseConsole {
 		
 	}
 	
+	@SuppressWarnings("deprecation")
 	public ConsoleListener getListener(String identifier) {
 		
 		try {
@@ -511,12 +645,21 @@ public class BaseConsole {
 		
 	}
 	
+	@Deprecated
 	public ConsoleListener getListenerByIndex(int index) {
 		
 		return listeners.get(index);
 		
 	}
 	
+	/**
+	 * Gets a given
+	 * @deprecated Use {@link BaseConsole#getListener} instead (index in {@link ConsoleListener} array or name).
+	 * @param name The class name of the desired {@link ConsoleListener}.
+	 * @return The {@link ConsoleListener} with the given class name.
+	 * @see BaseConsole#getListener
+	 * */
+	@Deprecated
 	public ConsoleListener getListenerByName(String name) {
 		
 		for (ConsoleListener l : listeners) {
