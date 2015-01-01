@@ -34,10 +34,12 @@ public class GuiJFrameLite extends ConsoleGui {
 	private JTextArea area;
 	private JTextField field;
 	private JScrollPane scrollArea;
+	private int historyIndex;
 	
 	@Override
 	public void init() {
 		
+		this.historyIndex = getParent().getHistory().size();
 		frame = new JFrame("Console Lite");
 		
 		area = new JTextArea();
@@ -73,15 +75,15 @@ public class GuiJFrameLite extends ConsoleGui {
 			@Override
 			public void keyPressed(KeyEvent keyEvent) {
 				if (keyEvent.getKeyCode() == KeyEvent.VK_UP) {
-					if (getParent().historyIndex > 0) {
-						getParent().historyIndex--;
-						field.setText(getParent().getHistory().get(getParent().historyIndex));
+					if (historyIndex > 0) {
+						historyIndex--;
+						field.setText(getParent().getHistory().get(historyIndex));
 						field.setCaretPosition(field.getText().length());
 					}
 				}else if (keyEvent.getKeyCode() == KeyEvent.VK_DOWN) {
-					if (getParent().historyIndex < getParent().getHistory().size() - 1) {
-						getParent().historyIndex++;
-						field.setText(getParent().getHistory().get(getParent().historyIndex));
+					if (historyIndex < getParent().getHistory().size() - 1) {
+						historyIndex++;
+						field.setText(getParent().getHistory().get(historyIndex));
 						field.setCaretPosition(field.getText().length());
 					}
 				}
@@ -96,6 +98,7 @@ public class GuiJFrameLite extends ConsoleGui {
 	public void onFieldEnter(ActionEvent e) {
 		JTextField source = (JTextField) e.getSource();
 		String text = source.getText();
+		historyIndex = getParent().getHistory().size();
 		if (!text.trim().equals("")) {
 			source.setText("");
 			getParent().sendPluginsString(text);

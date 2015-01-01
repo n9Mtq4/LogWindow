@@ -50,11 +50,6 @@ public class BaseConsole {
 	 * Keeps a record of the input.
 	 * */
 	private ArrayList<String> history;
-//	TODO: move historyIndex to the gui
-	/**
-	 * Keeps the index when going back through history.
-	 * */
-	public int historyIndex;
 	/**
 	 * Has the local id for the {@link BaseConsole}.
 	 * */
@@ -251,7 +246,6 @@ public class BaseConsole {
 	 * */
 	public void sendPluginsString(String text) {
 		history.add(text);
-		historyIndex = history.size();
 		push(text);
 	}
 	
@@ -689,16 +683,8 @@ public class BaseConsole {
 		return (ArrayList<String>) history.clone();
 	}
 	
-	public void setHistoryIndex(int historyIndex) {
-		this.historyIndex = historyIndex;
-	}
-	
 	public void setHistory(ArrayList<String> history) {
 		this.history = history;
-	}
-	
-	public int getHistoryIndex() {
-		return historyIndex;
 	}
 	
 	public ArrayList<ConsoleListener> getListeners() {
