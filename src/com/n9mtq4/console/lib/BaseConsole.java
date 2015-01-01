@@ -686,7 +686,7 @@ public class BaseConsole {
 	}
 	
 	public ArrayList<String> getHistory() {
-		return history;
+		return (ArrayList<String>) history.clone();
 	}
 	
 	public void setHistoryIndex(int historyIndex) {
@@ -702,19 +702,15 @@ public class BaseConsole {
 	}
 	
 	public ArrayList<ConsoleListener> getListeners() {
-		return listeners;
+		return (ArrayList<ConsoleListener>) listeners.clone();
 	}
 	
 	public StdoutRedirect getStdoutRedirect() {
 		return stdoutRedirect;
 	}
 	
-	public void setStdoutRedirect(StdoutRedirect stdoutRedirect) {
-		this.stdoutRedirect = stdoutRedirect;
-	}
-	
 	public ArrayList<ConsoleGui> getGui() {
-		return gui;
+		return (ArrayList<ConsoleGui>) gui.clone();
 	}
 	
 	public Colour getDefaultTextColour() {
