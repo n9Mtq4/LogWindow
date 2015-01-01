@@ -119,30 +119,45 @@ public class Colour extends Color {
 	 * */
 	public static final Colour PURPLE = new Colour(128, 0, 128);
 	
+	/**
+	 * @see Color
+	 * */
 	public Colour(int i, int i1, int i2) {
 		super(i, i1, i2);
 	}
-	
+	/**
+	 * @see Color
+	 * */
 	public Colour(int i, int i1, int i2, int i3) {
 		super(i, i1, i2, i3);
 	}
-	
+	/**
+	 * @see Color
+	 * */
 	public Colour(int i) {
 		super(i);
 	}
-	
+	/**
+	 * @see Color
+	 * */
 	public Colour(int i, boolean b) {
 		super(i, b);
 	}
-	
+	/**
+	 * @see Color
+	 * */
 	public Colour(float v, float v1, float v2) {
 		super(v, v1, v2);
 	}
-	
+	/**
+	 * @see Color
+	 * */
 	public Colour(float v, float v1, float v2, float v3) {
 		super(v, v1, v2, v3);
 	}
-	
+	/**
+	 * @see Color
+	 * */
 	public Colour(ColorSpace colorSpace, float[] floats, float v) {
 		super(colorSpace, floats, v);
 	}
