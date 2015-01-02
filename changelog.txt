@@ -1,8 +1,19 @@
-b49abcf (HEAD, master) ConsoleCommand javadocs
+241e3ce (HEAD, master) Clearing history with new gui
+fb241c1 moved to reflection helper
+4d6afc3 interfaces to get capabilities of the gui
+680452c re-added clearing the console window
+83fedee can set the text
+e9f4f75 moved historyIndex to guis
+d2f954c getters clone return value
+c406c28 bug fixes
+be9450f (origin/master) some more changes to reflection
+791714b major change to reflection
+cd10661 API 4.0.31
+b49abcf ConsoleCommand javadocs
 b4f6b86 less access to privates w/ getters and setters
 8eeb855 Lots of bug fixes
 09c582d Listeners get the same ConsoleActionEvent
-2ac5386 (origin/master) more javadocs
+2ac5386 more javadocs
 bca7855 some javadocs
 bceb943 refactor
 a586707 removed unused code
