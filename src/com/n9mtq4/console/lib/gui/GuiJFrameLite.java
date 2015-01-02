@@ -15,6 +15,7 @@
 
 package com.n9mtq4.console.lib.gui;
 
+import com.n9mtq4.console.lib.gui.interfaces.TextSetable;
 import com.n9mtq4.console.lib.utils.Colour;
 
 import javax.swing.*;
@@ -27,7 +28,7 @@ import java.awt.event.KeyListener;
 /**
  * Created by Will on 12/29/14.
  */
-public class GuiJFrameLite extends ConsoleGui {
+public class GuiJFrameLite extends ConsoleGui implements TextSetable {
 	
 	private JFrame frame;
 	private JPanel noWrapPanel;
@@ -117,6 +118,11 @@ public class GuiJFrameLite extends ConsoleGui {
 	@Override
 	public void dispose() {
 		frame.dispose();
+	}
+	
+	@Override
+	public void setText(String text) {
+		area.setText(text);
 	}
 	
 	public JFrame getFrame() {
