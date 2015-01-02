@@ -55,6 +55,14 @@ public class NTextArea extends JTextPane {
 		
 	}
 	
+	@Override
+	public void setText(String s) {
+		boolean edit = super.isEditable();
+		super.setEditable(true);
+		super.setText(s);
+		super.setEditable(edit);
+	}
+	
 	public void appendPicture(String filePath) {
 		
 		int len = this.getDocument().getLength();
