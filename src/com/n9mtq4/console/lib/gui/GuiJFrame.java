@@ -16,7 +16,7 @@
 package com.n9mtq4.console.lib.gui;
 
 import com.n9mtq4.console.lib.gui.interfaces.History;
-import com.n9mtq4.console.lib.gui.interfaces.TextSetable;
+import com.n9mtq4.console.lib.gui.interfaces.TextSettable;
 import com.n9mtq4.console.lib.parts.NTextArea;
 import com.n9mtq4.console.lib.utils.Colour;
 
@@ -30,7 +30,7 @@ import java.awt.event.KeyListener;
 /**
  * Created by Will on 12/29/14.
  */
-public class GuiJFrame extends ConsoleGui implements TextSetable, History {
+public class GuiJFrame extends ConsoleGui implements TextSettable, History {
 	
 	private JFrame frame;
 	private JPanel noWrapPanel;
