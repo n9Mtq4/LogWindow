@@ -15,9 +15,11 @@
 
 package com.n9mtq4.console.lib.modules;
 
-import com.n9mtq4.console.lib.*;
-import com.n9mtq4.console.lib.events.*;
+import com.n9mtq4.console.lib.Console;
 import com.n9mtq4.console.lib.ConsoleListener;
+import com.n9mtq4.console.lib.events.ConsoleActionEvent;
+import com.n9mtq4.console.lib.gui.ConsoleGui;
+import com.n9mtq4.console.lib.gui.interfaces.TextSetable;
 
 /**
  * Created by Will on 10/22/14.
@@ -36,9 +38,13 @@ public class ModuleConsoleManager extends ConsoleListener {
 					new Console();
 				}else if (e.getCommand().getArg(1).equalsIgnoreCase("delete")) {
 					e.getBaseConsole().dispose();
+				}else if (e.getCommand().getArg(1).equalsIgnoreCase("clear")) {
+					for (ConsoleGui g : e.getBaseConsole().getGui()) {
+						if (g instanceof TextSetable) {
+							((TextSetable) g).setText("");
+						}
+					}
 				}
-				
-//				TODO: re add clear
 				
 			}
 			
