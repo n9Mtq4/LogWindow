@@ -34,6 +34,9 @@ import java.util.ConcurrentModificationException;
 /**
  * Created by Will on 10/20/14.
  */
+/**
+ * The class that handles all User to Listener interactions.
+ * */
 @SuppressWarnings("unused")
 public class BaseConsole {
 	
@@ -126,7 +129,7 @@ public class BaseConsole {
 	}
 	
 	/**
-	 * NOTE: Override me!<br/>
+	 * Note: Override me!<br/>
 	 * Insert your {@link ConsoleGui} here with<br/>
 	 * this.addGui(new ThingThatExtendsConsoleGui());
 	 * */
@@ -178,7 +181,6 @@ public class BaseConsole {
 		
 		this.addListener(new ModuleListener());
 		this.addListener(new ModuleJarLoader());
-		this.addListener(new ModuleRepository());
 		
 	}
 	
@@ -498,6 +500,7 @@ public class BaseConsole {
 		
 	}
 	
+	@SuppressWarnings("deprecation")
 	public void addListener(ConsoleListener listener) {
 		
 		if (!listeners.contains(listener) || !listener.getLinkedBaseConsoles().contains(this)) {
@@ -515,6 +518,7 @@ public class BaseConsole {
 		
 	}
 	
+	@SuppressWarnings("deprecation")
 	public void removeListener(ConsoleListener listener, int type) {
 		
 		if (listeners.contains(listener) || listener.getLinkedBaseConsoles().contains(this)) {
@@ -526,18 +530,31 @@ public class BaseConsole {
 		
 	}
 	
+	/**
+	 * Loads plugins to this console from the file path.
+	 * @param filePath the file path of the folder to load this plugins from.
+	 * */
 	public void loadPlugins(String filePath) {
 		
 		PluginManager.loadPluginsToConsole(this, filePath);
 		
 	}
 	
+	/**
+	 * Loads plugins to this console from "./plugins".<br/>
+	 * @see BaseConsole#loadPlugins(String)
+	 * */
 	public void loadPlugins() {
 		
 		PluginManager.loadPluginsToConsole(this, PluginManager.DEFAULT_PLUGIN_FOLDER);
 		
 	}
 	
+	/**
+	 * Prints an image to the gui.<br/>
+	 * @param file The file to print
+	 * @see BaseConsole#printImage
+	 * */
 	public void printlnImage(File file) {
 		
 		printImage(file.getAbsolutePath());
@@ -545,6 +562,11 @@ public class BaseConsole {
 		
 	}
 	
+	/**
+	 * Prints an image to the gui.<br/>
+	 * @param filePath The file path of the image to print
+	 * @see BaseConsole#printImage
+	 * */
 	public void printlnImage(String filePath) {
 		
 		printImage(filePath);
@@ -609,6 +631,9 @@ public class BaseConsole {
 		print(text, defaultTextColour);
 	}
 	
+	/**
+	 * @deprecated Use {@link BaseConsole#print(String, Colour)}
+	 * */
 	@Deprecated
 	public void print(String text, Color color) {
 		print(text, Colour.getColour(color));
@@ -625,6 +650,11 @@ public class BaseConsole {
 		
 	}
 	
+	/**
+	 * Gets the the listener with a given name, or index.
+	 * @param identifier A class name, or a number (in the form a {@link String}).
+	 * @return A {@link ConsoleListener} with the given name of index.
+	 * */
 	@SuppressWarnings("deprecation")
 	public ConsoleListener getListener(String identifier) {
 		
@@ -712,14 +742,14 @@ public class BaseConsole {
 		return gui.size() > 0;
 	}
 	
-	public void addGui(ConsoleGui g) {
-		gui.add(g);
-		g.add(this);
+	public void addGui(ConsoleGui consoleGui) {
+		gui.add(consoleGui);
+		consoleGui.add(this);
 	}
 	
-	public void removeGui(ConsoleGui g) {
-		gui.remove(g);
-		g.dispose();
+	public void removeGui(ConsoleGui consoleGui) {
+		gui.remove(consoleGui);
+		consoleGui.dispose();
 	}
 	
 	public int getId() {
