@@ -22,6 +22,9 @@ import com.n9mtq4.console.lib.events.*;
 /**
  * Created by Will on 10/30/14.
  */
+/**
+ * A module to enable or disable the redirection of StdOut to the console
+ * */
 public class ModuleStdoutRedirect extends ConsoleListener {
 	
 	@Override

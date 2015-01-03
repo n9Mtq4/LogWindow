@@ -25,6 +25,9 @@ import java.util.ArrayList;
 /**
  * Created by Will on 10/21/14.
  */
+/**
+ * A module to add, remove, enable, and disable listeners on the console
+ * */
 public class ModuleListener extends ConsoleListener {
 	
 	@Override

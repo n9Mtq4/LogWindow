@@ -24,6 +24,9 @@ import com.n9mtq4.console.lib.gui.interfaces.TextSettable;
 /**
  * Created by Will on 10/22/14.
  */
+/**
+ * A module for making new consoles, deleting the console, of clearing the console.
+ * */
 public class ModuleConsoleManager extends ConsoleListener {
 	
 	@Override

@@ -29,6 +29,9 @@ import java.net.URL;
 /**
  * Created by Will on 11/16/14.
  */
+/**
+ * A module to access http and sockets from the console
+ * */
 public class ModuleNetwork extends ConsoleListener {
 	
 	private SocketManager manager;

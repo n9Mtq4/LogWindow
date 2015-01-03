@@ -26,6 +26,9 @@ import java.io.IOException;
 /**
  * Created by Will on 10/24/14.
  */
+/**
+ * A module to load jar files into the class path from a console
+ * */
 public class ModuleJarLoader extends ConsoleListener {
 	
 	@Override

@@ -24,6 +24,9 @@ import java.io.File;
 /**
  * Created by Will on 10/24/14.
  */
+/**
+ * A module to load plugins to the console
+ * */
 public class ModulePluginManager extends ConsoleListener {
 	
 	@Override
