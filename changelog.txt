@@ -1,4 +1,10 @@
-241e3ce (HEAD, master) Clearing history with new gui
+c59e3df (HEAD, master) refactor & more javadocs
+4203989 javadoc descriptions
+fb8c844 deleted unused or un important classes
+84ddad8 ConsoleListener has javadocs
+acf8dfe refactor
+b33dea1 (origin/master) API 4.0.41
+241e3ce Clearing history with new gui
 fb241c1 moved to reflection helper
 4d6afc3 interfaces to get capabilities of the gui
 680452c re-added clearing the console window
@@ -6,7 +12,7 @@ fb241c1 moved to reflection helper
 e9f4f75 moved historyIndex to guis
 d2f954c getters clone return value
 c406c28 bug fixes
-be9450f (origin/master) some more changes to reflection
+be9450f some more changes to reflection
 791714b major change to reflection
 cd10661 API 4.0.31
 b49abcf ConsoleCommand javadocs
