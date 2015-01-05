@@ -13,7 +13,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.n9mtq4.console.lib.modules;
+package com.n9mtq4.console.modules;
 
 import com.n9mtq4.console.lib.command.ConsoleCommand;
 import com.n9mtq4.console.lib.ConsoleListener;

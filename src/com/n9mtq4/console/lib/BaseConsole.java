@@ -23,6 +23,7 @@ import com.n9mtq4.console.lib.managers.PluginManager;
 import com.n9mtq4.console.lib.managers.StdoutRedirect;
 import com.n9mtq4.console.lib.modules.*;
 import com.n9mtq4.console.lib.utils.Colour;
+import com.n9mtq4.console.modules.ModuleNetwork;
 
 import java.awt.*;
 import java.io.File;
