@@ -20,6 +20,7 @@ import com.sun.istack.internal.NotNull;
 /**
  * Created by Will on 10/20/14.
  */
+@SuppressWarnings("unused")
 public class ConsoleCommand {
 	
 	/**
@@ -113,6 +114,40 @@ public class ConsoleCommand {
 			}
 		}
 		return cache;
+	}
+	
+	/**
+	 * Gets the string before a pattern.<br/>
+	 * "Hello Java World".getBeforePattern("Java") returns "Hello "<br/>
+	 * @param pattern The pattern to search for.
+	 * */
+	public String getBeforePattern(String pattern) {
+		int index = text.indexOf(pattern);
+		if (index == -1) {
+			return "";
+		}
+		try {
+			return text.substring(0, index);
+		}catch (StringIndexOutOfBoundsException e) {
+			return "";
+		}
+	}
+	
+	/**
+	 * Gets the string after a pattern.<br/>
+	 * "Hello Java World".getBeforePattern("Java") returns " World"<br/>
+	 * @param pattern The pattern to search for.
+	 * */
+	public String getAfterPattern(String pattern) {
+		int index = text.indexOf(pattern);
+		if (index == -1) {
+			return "";
+		}
+		try {
+			return text.substring(index, text.length());
+		}catch (StringIndexOutOfBoundsException e) {
+			return "";
+		}
 	}
 	
 	/**
