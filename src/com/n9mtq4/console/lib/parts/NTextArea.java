@@ -27,6 +27,7 @@ public class NTextArea extends JTextPane {
 	private boolean userEditable;
 	
 	public NTextArea() {
+		super();
 		this.userEditable = false;
 	}
 	
