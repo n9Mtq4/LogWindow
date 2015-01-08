@@ -15,6 +15,7 @@
 
 package com.n9mtq4.console.lib.gui;
 
+import com.n9mtq4.console.lib.gui.interfaces.HasFrame;
 import com.n9mtq4.console.lib.gui.interfaces.History;
 import com.n9mtq4.console.lib.gui.interfaces.TextSettable;
 import com.n9mtq4.console.lib.utils.Colour;
@@ -29,7 +30,7 @@ import java.awt.event.KeyListener;
 /**
  * Created by Will on 12/29/14.
  */
-public class GuiJFrameLite extends ConsoleGui implements TextSettable, History {
+public class GuiJFrameLite extends ConsoleGui implements TextSettable, History, HasFrame {
 	
 	private JFrame frame;
 	private JPanel noWrapPanel;
@@ -118,7 +119,7 @@ public class GuiJFrameLite extends ConsoleGui implements TextSettable, History {
 	
 	@Override
 	public void dispose() {
-		frame.dispose();
+		this.frame.dispose();
 	}
 	
 	@Override
@@ -129,14 +130,6 @@ public class GuiJFrameLite extends ConsoleGui implements TextSettable, History {
 	@Override
 	public void historyUpdate() {
 		this.historyIndex = getParent().getHistory().size();
-	}
-	
-	public JFrame getFrame() {
-		return frame;
-	}
-	
-	public void setFrame(JFrame frame) {
-		this.frame = frame;
 	}
 	
 	public JPanel getNoWrapPanel() {
@@ -171,4 +164,8 @@ public class GuiJFrameLite extends ConsoleGui implements TextSettable, History {
 		this.scrollArea = scrollArea;
 	}
 	
+	@Override
+	public JFrame getJFrame() {
+		return this.frame;
+	}
 }
