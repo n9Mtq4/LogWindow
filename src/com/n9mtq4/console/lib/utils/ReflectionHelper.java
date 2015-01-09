@@ -673,7 +673,15 @@ public class ReflectionHelper {
 		return callStaticLongMethod(methodName, clazz, getClassParams(params), params);
 	}
 	
-	private static Class[] getClassParams(Object[] params) {
+	public static Class getClass(String className) {
+		try {
+			return Class.forName(className);
+		}catch (ClassNotFoundException e) {
+			return null;
+		}
+	}
+	
+	public static Class[] getClassParams(Object[] params) {
 		Class[] classParams = new Class[params.length];
 		for (int i = 0; i < classParams.length; i++) {
 			classParams[i] = params[i].getClass();
