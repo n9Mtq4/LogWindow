@@ -18,8 +18,10 @@ package com.n9mtq4.console.lib.gui.interfaces;
 /**
  * Created by Will on 1/1/15.
  */
-public interface TextSettable {
+public interface Textable {
 	
 	public void setText(String text);
+	
+	public String getText();
 	
 }

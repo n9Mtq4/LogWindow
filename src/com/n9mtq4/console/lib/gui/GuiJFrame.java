@@ -17,7 +17,7 @@ package com.n9mtq4.console.lib.gui;
 
 import com.n9mtq4.console.lib.gui.interfaces.HasFrame;
 import com.n9mtq4.console.lib.gui.interfaces.History;
-import com.n9mtq4.console.lib.gui.interfaces.TextSettable;
+import com.n9mtq4.console.lib.gui.interfaces.Textable;
 import com.n9mtq4.console.lib.parts.NTextArea;
 import com.n9mtq4.console.lib.utils.Colour;
 
@@ -31,7 +31,7 @@ import java.awt.event.KeyListener;
 /**
  * Created by Will on 12/29/14.
  */
-public class GuiJFrame extends ConsoleGui implements TextSettable, History, HasFrame {
+public class GuiJFrame extends ConsoleGui implements Textable, History, HasFrame {
 	
 	private JFrame frame;
 	private JPanel noWrapPanel;
@@ -133,6 +133,11 @@ public class GuiJFrame extends ConsoleGui implements TextSettable, History, HasF
 	@Override
 	public void setText(String text) {
 		area.setText(text);
+	}
+	
+	@Override
+	public String getText() {
+		return area.getText();
 	}
 	
 	@Override

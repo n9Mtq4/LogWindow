@@ -19,7 +19,7 @@ import com.n9mtq4.console.lib.Console;
 import com.n9mtq4.console.lib.ConsoleListener;
 import com.n9mtq4.console.lib.events.ConsoleActionEvent;
 import com.n9mtq4.console.lib.gui.ConsoleGui;
-import com.n9mtq4.console.lib.gui.interfaces.TextSettable;
+import com.n9mtq4.console.lib.gui.interfaces.Textable;
 
 /**
  * Created by Will on 10/22/14.
@@ -43,8 +43,8 @@ public class ModuleConsoleManager extends ConsoleListener {
 					e.getBaseConsole().dispose();
 				}else if (e.getCommand().getArg(1).equalsIgnoreCase("clear")) {
 					for (ConsoleGui g : e.getBaseConsole().getGui()) {
-						if (g instanceof TextSettable) {
-							((TextSettable) g).setText("");
+						if (g instanceof Textable) {
+							((Textable) g).setText("");
 						}
 					}
 				}
