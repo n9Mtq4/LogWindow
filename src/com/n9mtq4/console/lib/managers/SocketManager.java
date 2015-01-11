@@ -39,6 +39,37 @@ public class SocketManager {
 		
 	}
 	
+	private static Socket socketConnect(String ip, int port) {
+		
+		try {
+			Socket socket = new Socket();
+			socket.setSoTimeout(2000);
+			socket.connect((SocketAddress) new InetSocketAddress(ip, port));
+			return socket;
+		}catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+		
+	}
+	
+	private static boolean socketPrint(Socket socket, String string) {
+		
+		try {
+			
+			PrintWriter pw = new PrintWriter(socket.getOutputStream());
+			pw.print(string);
+			pw.flush();
+			pw.close();
+			return true;
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+		
+	}
+	
 	public void clientConnect(String ip, int port) {
 		this.s = socketConnect(ip, port);
 	}
@@ -91,37 +122,6 @@ public class SocketManager {
 				}
 			}
 		}, "SeverSocket").start();
-		
-	}
-	
-	private static Socket socketConnect(String ip, int port) {
-		
-		try {
-			Socket socket = new Socket();
-			socket.setSoTimeout(2000);
-			socket.connect((SocketAddress) new InetSocketAddress(ip, port));
-			return socket;
-		}catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
-		
-	}
-	
-	private static boolean socketPrint(Socket socket, String string) {
-		
-		try {
-			
-			PrintWriter pw = new PrintWriter(socket.getOutputStream());
-			pw.print(string);
-			pw.flush();
-			pw.close();
-			return true;
-			
-		}catch (Exception e) {
-			e.printStackTrace();
-			return false;
-		}
 		
 	}
 	

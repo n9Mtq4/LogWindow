@@ -23,7 +23,7 @@ import java.net.ServerSocket;
  * Created by Will on 12/29/14.
  */
 public class GuiSocket extends ConsoleGui {
-	
+
 //	TODO: socket server that parent.sendPluginsString with data it receives\n then send back output
 	
 	private Thread serverT;
@@ -31,7 +31,7 @@ public class GuiSocket extends ConsoleGui {
 	
 	@Override
 	public void init() {
-		
+
 //		open server & wait for connections
 		
 	}
@@ -42,7 +42,7 @@ public class GuiSocket extends ConsoleGui {
 	
 	@Override
 	public void dispose() {
-		
+
 //		close connections
 		
 	}

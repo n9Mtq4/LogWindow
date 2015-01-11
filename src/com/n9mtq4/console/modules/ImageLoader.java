@@ -16,7 +16,7 @@
 package com.n9mtq4.console.modules;
 
 import com.n9mtq4.console.lib.ConsoleListener;
-import com.n9mtq4.console.lib.events.*;
+import com.n9mtq4.console.lib.events.ConsoleActionEvent;
 
 /**
  * Created by Will on 10/31/14.

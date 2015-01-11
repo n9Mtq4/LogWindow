@@ -17,7 +17,7 @@ package com.n9mtq4.console.modules;
 
 import com.n9mtq4.console.lib.BaseConsole;
 import com.n9mtq4.console.lib.ConsoleListener;
-import com.n9mtq4.console.lib.events.*;
+import com.n9mtq4.console.lib.events.ConsoleActionEvent;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -61,9 +61,9 @@ public class Changelog extends ConsoleListener {
 				result += line + "\n";
 			}
 			rd.close();
-		} catch (IOException e) {
+		}catch (IOException e) {
 			e.printStackTrace();
-		} catch (Exception e) {
+		}catch (Exception e) {
 			e.printStackTrace();
 		}
 		return result;

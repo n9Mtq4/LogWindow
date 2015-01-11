@@ -32,7 +32,7 @@ public abstract class ConsoleListener {
 	
 	/**
 	 * Makes a new {@link ConsoleListener} object.
-	 * */
+	 */
 	public ConsoleListener() {
 		
 		linkedBaseConsoles = new ArrayList<BaseConsole>();
@@ -43,20 +43,25 @@ public abstract class ConsoleListener {
 	
 	public void onAddition(AdditionActionEvent e) {
 	}
+	
 	public void onEnable(EnableActionEvent e) {
 	}
+	
 	public abstract void actionPerformed(ConsoleActionEvent e);
+	
 	public void onDisable(DisableActionEvent e) {
 	}
+	
 	public void onRemoval(RemovalActionEvent e) {
 	}
 	
 	/**
 	 * Sends this listener a String.
+	 *
 	 * @param text The string to send to actionPerformed
-	 * @deprecated use {@link ConsoleListener#push(ConsoleActionEvent)} instead.
 	 * @see ConsoleListener#push(ConsoleActionEvent)
-	 * */
+	 * @deprecated use {@link ConsoleListener#push(ConsoleActionEvent)} instead.
+	 */
 	@Deprecated
 	public void push(String text) {
 		
@@ -72,8 +77,9 @@ public abstract class ConsoleListener {
 	
 	/**
 	 * Sends this listener a ConsoleActionEvent.
+	 *
 	 * @param consoleActionEvent The event to send.
-	 * */
+	 */
 	public void push(ConsoleActionEvent consoleActionEvent) {
 		
 		try {
@@ -87,10 +93,11 @@ public abstract class ConsoleListener {
 	
 	/**
 	 * Adds this listener onto a {@link BaseConsole}.
+	 *
 	 * @param baseConsole the {@link BaseConsole} to add this listener to.
-	 * @deprecated use {@link BaseConsole#addListener} instead.
 	 * @see BaseConsole#addListener
-	 * */
+	 * @deprecated use {@link BaseConsole#addListener} instead.
+	 */
 	@Deprecated
 	public void addToConsole(BaseConsole baseConsole) {
 		
@@ -103,10 +110,11 @@ public abstract class ConsoleListener {
 	
 	/**
 	 * Removes this listener from a {@link BaseConsole}.
+	 *
 	 * @param baseConsole the {@link BaseConsole} to remove this listener from.
-	 * @deprecated use {@link BaseConsole#removeListener} instead.
 	 * @see BaseConsole#removeListener
-	 * */
+	 * @deprecated use {@link BaseConsole#removeListener} instead.
+	 */
 	@Deprecated
 	public void removeFromConsole(BaseConsole baseConsole) {
 		
@@ -119,9 +127,10 @@ public abstract class ConsoleListener {
 	
 	/**
 	 * Toggles the enabled state of this listener.
+	 *
 	 * @see ConsoleListener#isEnabled
 	 * @see ConsoleListener#setEnabled
-	 * */
+	 */
 	public void toggleEnabled() {
 		
 		this.enabled = !this.enabled;
@@ -130,28 +139,31 @@ public abstract class ConsoleListener {
 	
 	/**
 	 * Gives you a list of the {@link BaseConsole} this listener is listening on.
+	 *
 	 * @return An array of {@link BaseConsole}.
-	 * */
+	 */
 	public ArrayList<BaseConsole> getLinkedBaseConsoles() {
 		return (ArrayList<BaseConsole>) linkedBaseConsoles.clone();
 	}
 	
 	/**
 	 * Tells you if this listener is enabled.
+	 *
 	 * @return The enabled boolean.
 	 * @see ConsoleListener#setEnabled
 	 * @see ConsoleListener#toggleEnabled
-	 * */
+	 */
 	public boolean isEnabled() {
 		return enabled;
 	}
 	
 	/**
 	 * Sets the enabled value of this listener.
+	 *
 	 * @param enabled The new value of enabled.
 	 * @see ConsoleListener#isEnabled
 	 * @see ConsoleListener#toggleEnabled
-	 * */
+	 */
 	public void setEnabled(boolean enabled) {
 		this.enabled = enabled;
 	}
@@ -159,8 +171,9 @@ public abstract class ConsoleListener {
 	/**
 	 * Note: always false.<br/>
 	 * Tells you if the listener will ignore the isDone of {@link ConsoleActionEvent}.
+	 *
 	 * @return A boolean of if the listener will ignore the isDone
-	 * */
+	 */
 	public boolean hasIgnoreDone() {
 		return ignoreDone;
 	}

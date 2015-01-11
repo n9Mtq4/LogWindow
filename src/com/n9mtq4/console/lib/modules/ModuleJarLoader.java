@@ -15,10 +15,12 @@
 
 package com.n9mtq4.console.lib.modules;
 
-import com.n9mtq4.console.lib.events.*;
 import com.n9mtq4.console.lib.ConsoleListener;
-import com.n9mtq4.console.lib.utils.Colour;
+import com.n9mtq4.console.lib.events.ConsoleActionEvent;
+import com.n9mtq4.console.lib.events.DisableActionEvent;
+import com.n9mtq4.console.lib.events.RemovalActionEvent;
 import com.n9mtq4.console.lib.managers.PluginManager;
+import com.n9mtq4.console.lib.utils.Colour;
 
 import java.io.File;
 import java.io.IOException;
@@ -26,9 +28,10 @@ import java.io.IOException;
 /**
  * Created by Will on 10/24/14.
  */
+
 /**
  * A module to load jar files into the class path from a console
- * */
+ */
 public class ModuleJarLoader extends ConsoleListener {
 	
 	@Override

@@ -49,7 +49,7 @@ public class GuiScanner extends ConsoleGui {
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
-				while(thiz.isShouldScan()) {
+				while (thiz.isShouldScan()) {
 					System.out.print("> ");
 					String s = scan.nextLine();
 					thiz.getParent().sendPluginsString(s);

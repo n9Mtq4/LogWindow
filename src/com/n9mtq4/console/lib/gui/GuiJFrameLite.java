@@ -75,6 +75,7 @@ public class GuiJFrameLite extends ConsoleGui implements Textable, History, HasF
 			@Override
 			public void keyTyped(KeyEvent keyEvent) {
 			}
+			
 			@Override
 			public void keyPressed(KeyEvent keyEvent) {
 				if (keyEvent.getKeyCode() == KeyEvent.VK_UP) {
@@ -91,6 +92,7 @@ public class GuiJFrameLite extends ConsoleGui implements Textable, History, HasF
 					}
 				}
 			}
+			
 			@Override
 			public void keyReleased(KeyEvent keyEvent) {
 			}
@@ -123,13 +125,13 @@ public class GuiJFrameLite extends ConsoleGui implements Textable, History, HasF
 	}
 	
 	@Override
-	public void setText(String text) {
-		area.setText(text);
+	public String getText() {
+		return area.getText();
 	}
 	
 	@Override
-	public String getText() {
-		return area.getText();
+	public void setText(String text) {
+		area.setText(text);
 	}
 	
 	@Override

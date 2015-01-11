@@ -20,8 +20,8 @@ package com.n9mtq4.console.lib.gui.interfaces;
  */
 public interface Textable {
 	
-	public void setText(String text);
-	
 	public String getText();
+	
+	public void setText(String text);
 	
 }

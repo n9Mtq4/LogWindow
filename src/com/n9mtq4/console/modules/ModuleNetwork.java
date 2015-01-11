@@ -15,9 +15,10 @@
 
 package com.n9mtq4.console.modules;
 
-import com.n9mtq4.console.lib.command.ConsoleCommand;
 import com.n9mtq4.console.lib.ConsoleListener;
-import com.n9mtq4.console.lib.events.*;
+import com.n9mtq4.console.lib.command.ConsoleCommand;
+import com.n9mtq4.console.lib.events.AdditionActionEvent;
+import com.n9mtq4.console.lib.events.ConsoleActionEvent;
 import com.n9mtq4.console.lib.managers.SocketManager;
 
 import java.io.BufferedReader;
@@ -29,12 +30,36 @@ import java.net.URL;
 /**
  * Created by Will on 11/16/14.
  */
+
 /**
  * A module to access http and sockets from the console
- * */
+ */
 public class ModuleNetwork extends ConsoleListener {
 	
 	private SocketManager manager;
+	
+	public static String httpGet(String urlToRead) {
+		URL url;
+		HttpURLConnection conn;
+		BufferedReader rd;
+		String line;
+		String result = "";
+		try {
+			url = new URL(urlToRead);
+			conn = (HttpURLConnection) url.openConnection();
+			conn.setRequestMethod("GET");
+			rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+			while ((line = rd.readLine()) != null) {
+				result += line + "\n";
+			}
+			rd.close();
+		}catch (IOException e) {
+			e.printStackTrace();
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
 	
 	@Override
 	public void onAddition(AdditionActionEvent e) {
@@ -101,29 +126,6 @@ public class ModuleNetwork extends ConsoleListener {
 			
 		}
 		
-	}
-	
-	public static String httpGet(String urlToRead) {
-		URL url;
-		HttpURLConnection conn;
-		BufferedReader rd;
-		String line;
-		String result = "";
-		try {
-			url = new URL(urlToRead);
-			conn = (HttpURLConnection) url.openConnection();
-			conn.setRequestMethod("GET");
-			rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-			while ((line = rd.readLine()) != null) {
-				result += line + "\n";
-			}
-			rd.close();
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return result;
 	}
 	
 }

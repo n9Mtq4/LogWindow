@@ -31,8 +31,8 @@ import java.net.URLClassLoader;
  */
 public class PluginManager {
 	
+	private static final Class[] parameters = new Class[]{URL.class};
 	public static String DEFAULT_PLUGIN_FOLDER = "plugins/";
-	private static final Class[] parameters = new Class[] {URL.class};
 	
 	public static void loadPluginsToConsole(BaseConsole c, String location) {
 		
@@ -54,7 +54,7 @@ public class PluginManager {
 		
 	}
 	
-//	TODO: test to see if works
+	//	TODO: test to see if works
 	public static void loadPlugin(File f, BaseConsole c) {
 		loadPlugin(f, c, f.getParent());
 	}
@@ -79,7 +79,7 @@ public class PluginManager {
 							/*Class<?> clazz = Class.forName(t);
 							ConsoleListener clazz1 = (ConsoleListener) clazz.newInstance();
 							c.addListener(clazz1);*/
-							ConsoleListener l = (ConsoleListener) ReflectionHelper.callConstructor(Class.forName(t), new Class[] {}, new Object[] {});
+							ConsoleListener l = (ConsoleListener) ReflectionHelper.callConstructor(Class.forName(t), new Class[]{}, new Object[]{});
 							c.addListener(l);
 						}catch (Exception e) {
 							e.printStackTrace();

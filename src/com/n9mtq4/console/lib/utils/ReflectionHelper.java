@@ -23,10 +23,11 @@ import java.lang.reflect.Method;
 /**
  * Created by Will on 12/30/14.
  */
+
 /**
  * Note: Use static import for best results.<br/>
  * Class to simplify reflection calls.<br/>
- * */
+ */
 @SuppressWarnings("unused")
 public class ReflectionHelper {
 	

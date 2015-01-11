@@ -16,7 +16,8 @@
 package com.n9mtq4.console.modules;
 
 import com.n9mtq4.console.lib.ConsoleListener;
-import com.n9mtq4.console.lib.events.*;
+import com.n9mtq4.console.lib.events.AdditionActionEvent;
+import com.n9mtq4.console.lib.events.ConsoleActionEvent;
 
 import java.io.*;
 
@@ -57,7 +58,7 @@ public class Log extends ConsoleListener {
 			PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(file, true)));
 			out.println(s);
 			out.close();
-		} catch (IOException e) {
+		}catch (IOException e) {
 		}
 		
 	}

@@ -16,8 +16,10 @@
 package com.n9mtq4.console.lib.modules;
 
 import com.n9mtq4.console.lib.BaseConsole;
-import com.n9mtq4.console.lib.events.*;
 import com.n9mtq4.console.lib.ConsoleListener;
+import com.n9mtq4.console.lib.events.ConsoleActionEvent;
+import com.n9mtq4.console.lib.events.DisableActionEvent;
+import com.n9mtq4.console.lib.events.RemovalActionEvent;
 import com.n9mtq4.console.lib.utils.Colour;
 
 import java.util.ArrayList;
@@ -25,9 +27,10 @@ import java.util.ArrayList;
 /**
  * Created by Will on 10/21/14.
  */
+
 /**
  * A module to add, remove, enable, and disable listeners on the console
- * */
+ */
 public class ModuleListener extends ConsoleListener {
 	
 	@Override

@@ -26,9 +26,10 @@ import java.util.ArrayList;
 /**
  * Created by Will on 10/20/14.
  */
+
 /**
  * A module for getting a list of the history and clearing the history
- * */
+ */
 public class ModuleHistory extends ConsoleListener {
 	
 	@Override
