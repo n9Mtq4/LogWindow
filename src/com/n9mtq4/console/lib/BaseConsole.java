@@ -23,6 +23,7 @@ import com.n9mtq4.console.lib.managers.PluginManager;
 import com.n9mtq4.console.lib.managers.StdoutRedirect;
 import com.n9mtq4.console.lib.modules.*;
 import com.n9mtq4.console.lib.utils.Colour;
+import com.n9mtq4.console.lib.utils.ReflectionHelper;
 import com.n9mtq4.console.modules.ModuleNetwork;
 
 import java.awt.*;
@@ -516,6 +517,16 @@ public class BaseConsole {
 		
 		removeAllListeners(RemovalActionEvent.NOT_SPECIFIED);
 		
+	}
+	
+	public boolean addListenerByName(String name) {
+		try {
+			Object l = ReflectionHelper.callConstructor(ReflectionHelper.getClass(name), new Object[]{});
+			this.addListener((ConsoleListener) l);
+			return true;
+		}catch (Exception e) {
+			return false;
+		}
 	}
 	
 	@SuppressWarnings("deprecation")
