@@ -17,6 +17,8 @@ package com.n9mtq4.console.lib;
 
 import com.n9mtq4.console.lib.gui.GuiJFrameLite;
 
+import javax.swing.*;
+
 /**
  * Created by Will on 12/29/14.
  */
@@ -24,6 +26,11 @@ public class ConsoleLite extends BaseConsole {
 	
 	@Override
 	public void initGui() {
+		try {
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
 		this.addGui(new GuiJFrameLite());
 	}
 	
