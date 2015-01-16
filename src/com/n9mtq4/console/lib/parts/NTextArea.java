@@ -18,6 +18,8 @@ package com.n9mtq4.console.lib.parts;
 import javax.swing.*;
 import javax.swing.text.*;
 import java.awt.*;
+import java.io.File;
+import java.net.MalformedURLException;
 
 /**
  * Created by Will on 10/20/14.
@@ -64,11 +66,15 @@ public class NTextArea extends JTextPane {
 		super.setEditable(edit);
 	}
 	
-	public void appendPicture(String filePath) {
+	public void appendPicture(File file) {
 		
 		int len = this.getDocument().getLength();
 		this.setCaretPosition(len);
-		this.insertIcon(new ImageIcon(filePath));
+		try {
+			this.insertIcon(new ImageIcon(file.toURI().toURL()));
+		}catch (MalformedURLException e) {
+			e.printStackTrace();
+		}
 		
 	}
 	

@@ -17,6 +17,7 @@ package com.n9mtq4.console.lib.gui;
 
 import com.n9mtq4.console.lib.utils.Colour;
 
+import java.io.File;
 import java.util.Scanner;
 
 /**
@@ -74,7 +75,7 @@ public class GuiScanner extends ConsoleGui {
 	}
 	
 	@Override
-	public void printImage(String filePath) {
+	public void printImage(File file) {
 //		can't print images to command line
 	}
 	

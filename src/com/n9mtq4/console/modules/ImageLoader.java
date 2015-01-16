@@ -18,6 +18,8 @@ package com.n9mtq4.console.modules;
 import com.n9mtq4.console.lib.ConsoleListener;
 import com.n9mtq4.console.lib.events.ConsoleActionEvent;
 
+import java.io.File;
+
 /**
  * Created by Will on 10/31/14.
  */
@@ -29,7 +31,7 @@ public class ImageLoader extends ConsoleListener {
 		if (e.getCommand().getLength() >= 2 && e.getCommand().getArg(0).equalsIgnoreCase("imageload")) {
 			
 			String fileLocation = e.getCommand().getWordsStartingFrom(1);
-			e.getBaseConsole().printlnImage(fileLocation);
+			e.getBaseConsole().printlnImage(new File(fileLocation));
 			
 		}
 		

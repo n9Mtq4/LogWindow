@@ -589,7 +589,7 @@ public class BaseConsole {
 	 */
 	public void printlnImage(File file) {
 		
-		printImage(file.getAbsolutePath());
+		printImage(file);
 		print("\n");
 		
 	}
@@ -602,7 +602,7 @@ public class BaseConsole {
 	 */
 	public void printlnImage(String filePath) {
 		
-		printImage(filePath);
+		printImage(new File(filePath));
 		print("\n");
 		
 	}
@@ -636,19 +636,19 @@ public class BaseConsole {
 		print(text + "\n", color);
 	}
 	
-	public void printImage(File file) {
+	public void printImage(String filePath) {
 		
-		printImage(file.getPath());
+		printImage(new File(filePath));
 		
 	}
 	
 	/**
 	 * Note: Lowest level<br/>
 	 */
-	public void printImage(String filePath) {
+	public void printImage(File file) {
 		
 		for (ConsoleGui g : gui) {
-			g.printImage(filePath);
+			g.printImage(file);
 		}
 		
 	}

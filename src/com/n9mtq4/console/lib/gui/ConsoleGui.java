@@ -18,6 +18,7 @@ package com.n9mtq4.console.lib.gui;
 import com.n9mtq4.console.lib.BaseConsole;
 import com.n9mtq4.console.lib.utils.Colour;
 
+import java.io.File;
 import java.util.Random;
 
 /**
@@ -80,7 +81,7 @@ public class ConsoleGui {
 	 * Note: Override me!<br/>
 	 * Called when a {@link com.n9mtq4.console.lib.ConsoleListener} wants to print an image.
 	 */
-	public void printImage(String filePath) {
+	public void printImage(File file) {
 		
 	}
 	

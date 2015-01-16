@@ -26,6 +26,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.File;
 
 /**
  * Created by Will on 12/29/14.
@@ -116,7 +117,7 @@ public class GuiJFrameLite extends ConsoleGui implements Textable, History, HasF
 	}
 	
 	@Override
-	public void printImage(String filePath) {
+	public void printImage(File file) {
 	}
 	
 	@Override

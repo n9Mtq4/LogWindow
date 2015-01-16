@@ -17,6 +17,7 @@ package com.n9mtq4.console.lib.gui;
 
 import com.n9mtq4.console.lib.utils.Colour;
 
+import java.io.File;
 import java.net.ServerSocket;
 
 /**
@@ -53,7 +54,7 @@ public class GuiSocket extends ConsoleGui {
 	}
 	
 	@Override
-	public void printImage(String filePath) {
+	public void printImage(File file) {
 //		TODO: image support (make a client?)
 //		No image support (YET)
 	}
