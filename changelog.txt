@@ -1,8 +1,10 @@
-11abfa9 (HEAD, master) downloads latest version
+859d9d7 (HEAD, origin/master, master) can add a listener by its name
+60d9efb API 4.0.58
+11abfa9 downloads latest version
 38c7514 fixed application not exiting
 1e15b9e refactor
 c6e2b26 get text on text settable
-77b92c4 (origin/master) minor changes to RelfectionHelper
+77b92c4 minor changes to RelfectionHelper
 0b5b7dc Merge branch 'master' of https://github.com/n9Mtq4/LogWindow
 fbf1a15 JFrame gui interface
 6af4ecc bug fix
