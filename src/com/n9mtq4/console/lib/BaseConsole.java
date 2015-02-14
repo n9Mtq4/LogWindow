@@ -521,7 +521,7 @@ public class BaseConsole {
 	
 	public boolean addListenerByName(String name) {
 		try {
-			Object l = ReflectionHelper.callConstructor(ReflectionHelper.getClass(name), new Object[]{});
+			Object l = ReflectionHelper.callConstructor(ReflectionHelper.getClassByFullName(name), new Object[] {});
 			this.addListener((ConsoleListener) l);
 			return true;
 		}catch (Exception e) {

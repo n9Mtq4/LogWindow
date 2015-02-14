@@ -41,6 +41,7 @@ public class ShutdownHook extends Thread {
 	public void run() {
 		
 		parent.dispose();
+		Runtime.getRuntime().halt(0);
 		
 	}
 	

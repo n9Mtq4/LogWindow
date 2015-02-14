@@ -15,47 +15,44 @@
 
 package com.n9mtq4.console.lib.gui;
 
+import com.n9mtq4.console.lib.managers.SocketManager;
 import com.n9mtq4.console.lib.utils.Colour;
-
-import java.io.File;
-import java.net.ServerSocket;
 
 /**
  * Created by Will on 12/29/14.
  */
 public class GuiSocket extends ConsoleGui {
-
-//	TODO: socket server that parent.sendPluginsString with data it receives\n then send back output
 	
-	private Thread serverT;
-	private ServerSocket serverSocket;
+	private int port = 4242;
+	private boolean sendToPluginsInsteadOfPrint = true;
+	
+	private SocketManager s = new SocketManager();
 	
 	@Override
 	public void init() {
-
-//		open server & wait for connections
+		go();
+	}
+	
+	public void go() {
 		
-	}
-	
-	private void onDataRecieve(String data) {
-		getParent().sendPluginsString(data);
-	}
-	
-	@Override
-	public void dispose() {
-
-//		close connections
+		getParent().setDefaultTextColour(null);
+		s.startServer(4444);
+		s.startServerListenerToConsole(getParent(), sendToPluginsInsteadOfPrint);
 		
 	}
 	
 	@Override
 	public void print(String text, Colour colour) {
-//		TODO: send back string to clients
+		if (colour != null) {
+			System.out.println(colour.getANSI() + text);
+		}else {
+			System.out.println(text);
+		}
 	}
 	
 	@Override
-	public void printImage(File file) {
-//		TODO: image support (make a client?)
-//		No image support (YET)
+	public void dispose() {
+		s.close();
 	}
+	
 }

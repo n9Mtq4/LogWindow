@@ -33,10 +33,21 @@ public class SocketManager {
 	
 	private Socket s;
 	private ServerSocket serverSocket;
+	@Deprecated
 	private Socket serverInSocket;
 	
 	public SocketManager() {
 		
+	}
+	
+	public void close() {
+		try {
+			s.close();
+			serverInSocket.close();
+			serverSocket.close();
+		}catch (Exception e) {
+			
+		}
 	}
 	
 	private static Socket socketConnect(String ip, int port) {
@@ -78,33 +89,41 @@ public class SocketManager {
 		return socketPrint(this.s, x);
 	}
 	
-	public void startServerListenerToConsole(BaseConsole c) {
+	public void startServerListenerToConsole(BaseConsole c, final boolean sendToPlugins) {
 		final BaseConsole c1 = c;
 		final SocketManager thiz = this;
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
-				try {
-					thiz.serverInSocket = new Socket();
-					thiz.serverInSocket = thiz.serverSocket.accept();
-				}catch (IOException e) {
-					c1.println("Error starting listener on SocketServer");
-					return;
-				}
-				c1.println("Client connected");
 				while (true) {
 					try {
-						BufferedReader in = new BufferedReader(new InputStreamReader(serverInSocket.getInputStream()));
-						String inputLine;
-						while ((inputLine = in.readLine()) != null) {
-							c1.println(inputLine);
-						}
-						Thread.sleep(2);
-					}catch (Exception e3) {
-						e3.printStackTrace();
-						break;
+						final Socket socket = thiz.serverSocket.accept();
+						new Thread(new Runnable() {
+							@Override
+							public void run() {
+								try {
+									BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+									String inputLine;
+									while ((inputLine = in.readLine()) != null) {
+										if (sendToPlugins) {
+											c1.sendPluginsString(inputLine);
+										}else {
+											c1.println(inputLine);
+										}
+									}
+									Thread.sleep(2);
+									socket.close();
+								}catch (Exception e3) {
+									e3.printStackTrace();
+								}
+							}
+						}).start();
+					}catch (Exception e) {
+						c1.printStackTrace(e);
+						return;
 					}
 				}
+				
 			}
 		}, "ServerSocketListener").start();
 	}

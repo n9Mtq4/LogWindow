@@ -110,7 +110,7 @@ public class ModuleNetwork extends ConsoleListener {
 						int port = Integer.parseInt(portString);
 						e.getBaseConsole().println("Awaiting client connection to socket");
 						manager.startServer(port);
-						manager.startServerListenerToConsole(e.getBaseConsole());
+						manager.startServerListenerToConsole(e.getBaseConsole(), false);
 						
 					}catch (NumberFormatException e1) {
 						e.getBaseConsole().println("port must be an int");
