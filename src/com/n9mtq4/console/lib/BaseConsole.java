@@ -78,14 +78,6 @@ public class BaseConsole {
 	private ArrayList<ConsoleGui> gui;
 	
 	/**
-	 * The default text colour for print when no colour is specified.
-	 *
-	 * @see BaseConsole#setDefaultTextColour
-	 * @see BaseConsole#getDefaultTextColour
-	 */
-	private Colour defaultTextColour;
-	
-	/**
 	 * Constructor for {@link BaseConsole}.
 	 *
 	 * @param pluginDirectory loads all plugins in this file path.
@@ -129,7 +121,6 @@ public class BaseConsole {
 		
 		globalList.add(this);
 		this.id = globalList.indexOf(this);
-		this.defaultTextColour = Colour.BLACK;
 		gui = new ArrayList<ConsoleGui>();
 		initGui();
 		Runtime.getRuntime().addShutdownHook(new ShutdownHook(this));
@@ -662,7 +653,7 @@ public class BaseConsole {
 	}
 	
 	public void print(String text) {
-		print(text, defaultTextColour);
+		print(text, null);
 	}
 	
 	/**
@@ -679,7 +670,7 @@ public class BaseConsole {
 	public void print(String text, Colour colour) {
 		
 		for (ConsoleGui g : gui) {
-			g.print(text, colour);
+			g.lowPrint(text, colour);
 		}
 		
 	}
@@ -766,29 +757,38 @@ public class BaseConsole {
 		return (ArrayList<ConsoleGui>) gui.clone();
 	}
 	
-	public Colour getDefaultTextColour() {
-		return defaultTextColour;
-	}
-	
-	public void setDefaultTextColour(Colour defaultTextColour) {
-		this.defaultTextColour = defaultTextColour;
-	}
-	
+	/**
+	 * Returns if the console has a gui attached to it.<br/>
+	 * @return If the {@link BaseConsole} has at least one gui attached to it
+	 * @deprecated Since the new gui system in version 4 this is unnecessary
+	 * */
 	@Deprecated
 	public boolean hasGuiAttached() {
 		return gui.size() > 0;
 	}
 	
+	/**
+	 * Adds a {@link com.n9mtq4.console.lib.gui.ConsoleGui} to the BaseConsole
+	 * @param consoleGui the gui to add
+	 * */
 	public void addGui(ConsoleGui consoleGui) {
 		gui.add(consoleGui);
 		consoleGui.add(this);
 	}
 	
+	/**
+	 * Removes a {@link com.n9mtq4.console.lib.gui.ConsoleGui} from the BaseConsole
+	 * @param consoleGui the gui to remove
+	 * */
 	public void removeGui(ConsoleGui consoleGui) {
 		gui.remove(consoleGui);
 		consoleGui.dispose();
 	}
 	
+	/**
+	 * Gets the global id of this {@link BaseConsole}
+	 * @return the global ID for this {@link BaseConsole}
+	 * */
 	public int getId() {
 		return id;
 	}

@@ -34,6 +34,13 @@ public class ConsoleGui {
 	 * Identifier ID
 	 */
 	private String name;
+	/**
+	 * The default text colour for print when no colour is specified.
+	 *
+	 * @see ConsoleGui#setDefaultTextColour
+	 * @see ConsoleGui#getDefaultTextColour
+	 */
+	private Colour defaultTextColour;
 	
 	/**
 	 * Makes a new {@link ConsoleGui} object.
@@ -67,6 +74,11 @@ public class ConsoleGui {
 	public void add(BaseConsole parent) {
 		this.parent = parent;
 		init();
+	}
+	
+	public void lowPrint(String text, Colour colour) {
+		if (colour == null) colour = this.defaultTextColour;
+		print(text, colour);
 	}
 	
 	/**
@@ -110,6 +122,14 @@ public class ConsoleGui {
 	 */
 	public String getName() {
 		return name;
+	}
+	
+	public Colour getDefaultTextColour() {
+		return defaultTextColour;
+	}
+	
+	public void setDefaultTextColour(Colour defaultTextColour) {
+		this.defaultTextColour = defaultTextColour;
 	}
 	
 }

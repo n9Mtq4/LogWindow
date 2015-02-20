@@ -35,7 +35,7 @@ public class GuiSocket extends ConsoleGui {
 	
 	public void go() {
 		
-		getParent().setDefaultTextColour(null);
+		setDefaultTextColour(null);
 		s.startServer(4444);
 		s.startServerListenerToConsole(getParent(), sendToPluginsInsteadOfPrint);
 		

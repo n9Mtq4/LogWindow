@@ -31,7 +31,7 @@ public class GuiScanner extends ConsoleGui {
 	
 	@Override
 	public void init() {
-		getParent().setDefaultTextColour(null);
+		setDefaultTextColour(null);
 		initScanner();
 		ansi = !(System.getProperty("os.name").toLowerCase().contains("window"));
 	}
