@@ -456,7 +456,7 @@ public class ReflectionHelper {
 		}
 	}
 	
-	public static Object callConstructor(Class clazz, Object[] params) {
+	public static Object callConstructor(Class clazz, Object... params) {
 		return callConstructor(clazz, getClassParams(params), params);
 	}
 	
@@ -476,7 +476,7 @@ public class ReflectionHelper {
 		return null;
 	}
 	
-	public static Object callObjectMethod(String methodName, Object obj, Class clazz, Object[] params) {
+	public static Object callObjectMethod(String methodName, Object obj, Class clazz, Object... params) {
 		return callObjectMethod(methodName, obj, clazz, getClassParams(params), params);
 	}
 	
@@ -484,7 +484,7 @@ public class ReflectionHelper {
 		return callObjectMethod(methodName, obj, obj.getClass(), classParams, params);
 	}
 	
-	public static Object callObjectMethod(String methodName, Object obj, Object[] params) {
+	public static Object callObjectMethod(String methodName, Object obj, Object... params) {
 		return callObjectMethod(methodName, obj, getClassParams(params), params);
 	}
 	
@@ -492,7 +492,7 @@ public class ReflectionHelper {
 		return callObjectMethod(methodName, null, clazz, classParams, params);
 	}
 	
-	public static Object callStaticObjectMethod(String methodName, Class clazz, Object[] params) {
+	public static Object callStaticObjectMethod(String methodName, Class clazz, Object... params) {
 		return callStaticObjectMethod(methodName, clazz, getClassParams(params), params);
 	}
 	
@@ -508,11 +508,11 @@ public class ReflectionHelper {
 		callVoidMethod(methodName, obj, obj.getClass(), classParams, params);
 	}
 	
-	public static void callVoidMethod(String methodName, Object obj, Object[] params) {
+	public static void callVoidMethod(String methodName, Object obj, Object... params) {
 		callObjectMethod(methodName, obj, getClassParams(params), params);
 	}
 	
-	public static void callStaticVoidMethod(String methodName, Class clazz, Object[] params) {
+	public static void callStaticVoidMethod(String methodName, Class clazz, Object... params) {
 		callStaticVoidMethod(methodName, clazz, getClassParams(params), params);
 	}
 	
@@ -524,7 +524,7 @@ public class ReflectionHelper {
 		return (Integer) callObjectMethod(methodName, obj, clazz, classParams, params);
 	}
 	
-	public static int callIntMethod(String methodName, Object obj, Class clazz, Object[] params) {
+	public static int callIntMethod(String methodName, Object obj, Class clazz, Object... params) {
 		return callIntMethod(methodName, obj, clazz, getClassParams(params), params);
 	}
 	
@@ -532,7 +532,7 @@ public class ReflectionHelper {
 		return callIntMethod(methodName, obj, obj.getClass(), classParams, params);
 	}
 	
-	public static int callIntMethod(String methodName, Object obj, Object[] params) {
+	public static int callIntMethod(String methodName, Object obj, Object... params) {
 		return callIntMethod(methodName, obj, getClassParams(params), params);
 	}
 	
@@ -540,7 +540,7 @@ public class ReflectionHelper {
 		return (Integer) callStaticObjectMethod(methodName, clazz, classParams, params);
 	}
 	
-	public static int callStaticIntMethod(String methodName, Class clazz, Object[] params) {
+	public static int callStaticIntMethod(String methodName, Class clazz, Object... params) {
 		return callStaticIntMethod(methodName, clazz, getClassParams(params), params);
 	}
 	
@@ -548,7 +548,7 @@ public class ReflectionHelper {
 		return (Byte) callObjectMethod(methodName, obj, clazz, classParams, params);
 	}
 	
-	public static byte callByteMethod(String methodName, Object obj, Class clazz, Object[] params) {
+	public static byte callByteMethod(String methodName, Object obj, Class clazz, Object... params) {
 		return callByteMethod(methodName, obj, clazz, getClassParams(params), params);
 	}
 	
@@ -556,7 +556,7 @@ public class ReflectionHelper {
 		return callByteMethod(methodName, obj, obj.getClass(), classParams, params);
 	}
 	
-	public static byte callByteMethod(String methodName, Object obj, Object[] params) {
+	public static byte callByteMethod(String methodName, Object obj, Object... params) {
 		return callByteMethod(methodName, obj, getClassParams(params), params);
 	}
 	
@@ -564,7 +564,7 @@ public class ReflectionHelper {
 		return (Byte) callStaticObjectMethod(methodName, clazz, classParams, params);
 	}
 	
-	public static byte callStaticByteMethod(String methodName, Class clazz, Object[] params) {
+	public static byte callStaticByteMethod(String methodName, Class clazz, Object... params) {
 		return callStaticByteMethod(methodName, clazz, getClassParams(params), params);
 	}
 	
@@ -572,7 +572,7 @@ public class ReflectionHelper {
 		return (Boolean) callObjectMethod(methodName, obj, clazz, classParams, params);
 	}
 	
-	public static boolean callBooleanMethod(String methodName, Object obj, Class clazz, Object[] params) {
+	public static boolean callBooleanMethod(String methodName, Object obj, Class clazz, Object... params) {
 		return callBooleanMethod(methodName, obj, clazz, getClassParams(params), params);
 	}
 	
@@ -580,7 +580,7 @@ public class ReflectionHelper {
 		return callBooleanMethod(methodName, obj, obj.getClass(), classParams, params);
 	}
 	
-	public static boolean callBooleanMethod(String methodName, Object obj, Object[] params) {
+	public static boolean callBooleanMethod(String methodName, Object obj, Object... params) {
 		return callBooleanMethod(methodName, obj, getClassParams(params), params);
 	}
 	
@@ -588,7 +588,7 @@ public class ReflectionHelper {
 		return (Boolean) callStaticObjectMethod(methodName, clazz, classParams, params);
 	}
 	
-	public static boolean callStaticBooleanMethod(String methodName, Class clazz, Object[] params) {
+	public static boolean callStaticBooleanMethod(String methodName, Class clazz, Object... params) {
 		return callStaticBooleanMethod(methodName, clazz, getClassParams(params), params);
 	}
 	
@@ -596,7 +596,7 @@ public class ReflectionHelper {
 		return (Character) callObjectMethod(methodName, obj, clazz, classParams, params);
 	}
 	
-	public static char callCharMethod(String methodName, Object obj, Class clazz, Object[] params) {
+	public static char callCharMethod(String methodName, Object obj, Class clazz, Object... params) {
 		return callCharMethod(methodName, obj, clazz, getClassParams(params), params);
 	}
 	
@@ -604,7 +604,7 @@ public class ReflectionHelper {
 		return callCharMethod(methodName, obj, obj.getClass(), classParams, params);
 	}
 	
-	public static char callCharMethod(String methodName, Object obj, Object[] params) {
+	public static char callCharMethod(String methodName, Object obj, Object... params) {
 		return callCharMethod(methodName, obj, getClassParams(params), params);
 	}
 	
@@ -612,7 +612,7 @@ public class ReflectionHelper {
 		return (Character) callStaticObjectMethod(methodName, clazz, classParams, params);
 	}
 	
-	public static char callStaticCharMethod(String methodName, Class clazz, Object[] params) {
+	public static char callStaticCharMethod(String methodName, Class clazz, Object... params) {
 		return callStaticCharMethod(methodName, clazz, getClassParams(params), params);
 	}
 	
@@ -620,7 +620,7 @@ public class ReflectionHelper {
 		return (Float) callObjectMethod(methodName, obj, clazz, classParams, params);
 	}
 	
-	public static float callFloatMethod(String methodName, Object obj, Class clazz, Object[] params) {
+	public static float callFloatMethod(String methodName, Object obj, Class clazz, Object... params) {
 		return callFloatMethod(methodName, obj, clazz, getClassParams(params), params);
 	}
 	
@@ -628,7 +628,7 @@ public class ReflectionHelper {
 		return callFloatMethod(methodName, obj, obj.getClass(), classParams, params);
 	}
 	
-	public static float callFloatMethod(String methodName, Object obj, Object[] params) {
+	public static float callFloatMethod(String methodName, Object obj, Object... params) {
 		return callFloatMethod(methodName, obj, getClassParams(params), params);
 	}
 	
@@ -636,7 +636,7 @@ public class ReflectionHelper {
 		return (Float) callStaticObjectMethod(methodName, clazz, classParams, params);
 	}
 	
-	public static float callStaticFloatMethod(String methodName, Class clazz, Object[] params) {
+	public static float callStaticFloatMethod(String methodName, Class clazz, Object... params) {
 		return callStaticFloatMethod(methodName, clazz, getClassParams(params), params);
 	}
 	
@@ -644,7 +644,7 @@ public class ReflectionHelper {
 		return (Double) callObjectMethod(methodName, obj, clazz, classParams, params);
 	}
 	
-	public static double callDoubleMethod(String methodName, Object obj, Class clazz, Object[] params) {
+	public static double callDoubleMethod(String methodName, Object obj, Class clazz, Object... params) {
 		return callDoubleMethod(methodName, obj, clazz, getClassParams(params), params);
 	}
 	
@@ -652,7 +652,7 @@ public class ReflectionHelper {
 		return callDoubleMethod(methodName, obj, obj.getClass(), classParams, params);
 	}
 	
-	public static double callDoubleMethod(String methodName, Object obj, Object[] params) {
+	public static double callDoubleMethod(String methodName, Object obj, Object... params) {
 		return callDoubleMethod(methodName, obj, getClassParams(params), params);
 	}
 	
@@ -660,7 +660,7 @@ public class ReflectionHelper {
 		return (Double) callStaticObjectMethod(methodName, clazz, classParams, params);
 	}
 	
-	public static double callStaticDoubleMethod(String methodName, Class clazz, Object[] params) {
+	public static double callStaticDoubleMethod(String methodName, Class clazz, Object... params) {
 		return callStaticDoubleMethod(methodName, clazz, getClassParams(params), params);
 	}
 	
@@ -668,7 +668,7 @@ public class ReflectionHelper {
 		return (Long) callObjectMethod(methodName, obj, clazz, classParams, params);
 	}
 	
-	public static long callLongMethod(String methodName, Object obj, Class clazz, Object[] params) {
+	public static long callLongMethod(String methodName, Object obj, Class clazz, Object... params) {
 		return callLongMethod(methodName, obj, clazz, getClassParams(params), params);
 	}
 	
@@ -676,7 +676,7 @@ public class ReflectionHelper {
 		return callLongMethod(methodName, obj, obj.getClass(), classParams, params);
 	}
 	
-	public static long callLongMethod(String methodName, Object obj, Object[] params) {
+	public static long callLongMethod(String methodName, Object obj, Object... params) {
 		return callLongMethod(methodName, obj, getClassParams(params), params);
 	}
 	
@@ -684,7 +684,7 @@ public class ReflectionHelper {
 		return (Long) callStaticObjectMethod(methodName, clazz, classParams, params);
 	}
 	
-	public static long callStaticLongMethod(String methodName, Class clazz, Object[] params) {
+	public static long callStaticLongMethod(String methodName, Class clazz, Object... params) {
 		return callStaticLongMethod(methodName, clazz, getClassParams(params), params);
 	}
 	
