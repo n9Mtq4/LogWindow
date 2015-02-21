@@ -17,7 +17,6 @@ package com.n9mtq4.console.lib.managers;
 
 import com.n9mtq4.console.lib.BaseConsole;
 import com.n9mtq4.console.lib.ConsoleListener;
-import com.n9mtq4.console.lib.utils.ReflectionHelper;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -26,12 +25,14 @@ import java.io.IOException;
 import java.net.URL;
 import java.net.URLClassLoader;
 
+import static com.n9mtq4.console.lib.utils.ReflectionHelper.*;
+
 /**
  * Created by Will on 10/26/14.
  */
 public class PluginManager {
 	
-	private static final Class[] parameters = new Class[]{URL.class};
+	private static final Class[] parameters = new Class[] {URL.class};
 	public static String DEFAULT_PLUGIN_FOLDER = "plugins/";
 	
 	public static void loadPluginsToConsole(BaseConsole c, String location) {
@@ -54,7 +55,7 @@ public class PluginManager {
 		
 	}
 	
-	//	TODO: test to see if works
+	//TODO: test to see if works
 	public static void loadPlugin(File f, BaseConsole c) {
 		loadPlugin(f, c, f.getParent());
 	}
@@ -76,10 +77,8 @@ public class PluginManager {
 				for (String t : tokens) {
 					if (!t.startsWith("# ")) {
 						try {
-							/*Class<?> clazz = Class.forName(t);
-							ConsoleListener clazz1 = (ConsoleListener) clazz.newInstance();
-							c.addListener(clazz1);*/
-							ConsoleListener l = (ConsoleListener) ReflectionHelper.callConstructor(Class.forName(t), new Class[]{}, new Object[]{});
+//							TODO: delete commented out code
+							ConsoleListener l = (ConsoleListener) callConstructor(Class.forName(t));
 							c.addListener(l);
 						}catch (Exception e) {
 							e.printStackTrace();
@@ -118,6 +117,7 @@ public class PluginManager {
 	public static void addURL(URL u) throws IOException {
 		URLClassLoader sysloader = (URLClassLoader) ClassLoader.getSystemClassLoader();
 		Class sysclass = URLClassLoader.class;
+//		TODO: delete commented out code
 /*		try {
 			Method method = sysclass.getDeclaredMethod("addURL", parameters);
 			method.setAccessible(true);
@@ -126,7 +126,7 @@ public class PluginManager {
 			t.printStackTrace();
 			throw new IOException("Error, could not add URL to system classloader");
 		}*/
-		ReflectionHelper.callVoidMethod("addURL", sysloader, sysclass, new Class[]{URL.class}, new Object[]{u});
+		callVoidMethod("addURL", sysloader, sysclass, new Class[]{URL.class}, new Object[]{u});
 	}
 	
 }
