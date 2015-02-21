@@ -122,16 +122,14 @@ public class ModuleListener extends ConsoleListener {
 				if (e.getCommand().getArg(1).equalsIgnoreCase("add")) {
 					
 					try {
-						Class<?> clazz = Class.forName(e.getCommand().getArg(2));
-						Object clazz1 = clazz.newInstance();
 						
 						e.getBaseConsole().print("[OUT]: ", Colour.BLUE);
 						e.getBaseConsole().println("adding...");
 						
-						e.getBaseConsole().addListener((ConsoleListener) clazz1);
+						e.getBaseConsole().addListenerByName(e.getCommand().getArg(2));
 						
 						e.getBaseConsole().print("[OUT]: ", Colour.BLUE);
-						e.getBaseConsole().println("done adding: " + clazz.getName());
+						e.getBaseConsole().println("done adding: " + Class.forName(e.getCommand().getArg(2)).getName());
 						
 					}catch (Exception e1) {
 						e.getBaseConsole().print("[ERROR]: ", Colour.RED);
