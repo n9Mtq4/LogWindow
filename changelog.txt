@@ -1,4 +1,15 @@
-859d9d7 (HEAD, origin/master, master) can add a listener by its name
+36e09c4 (HEAD, master) minor tweak to addListenerByName
+5d0cbae remove old code
+044262a updated for ReflectionHelper changes
+a9df093 deprecate lowPrint
+9364af3 (origin/master) javadocs
+c3e4c4f defaultTextColor now unique to ConsoleGui
+3035f7a minor changes to method parameters
+218a611 Console with sockets
+2e678ff changed location on disk
+e4dfa13 print image now uses file
+c75d11a better ui on windows
+859d9d7 can add a listener by its name
 60d9efb API 4.0.58
 11abfa9 downloads latest version
 38c7514 fixed application not exiting
