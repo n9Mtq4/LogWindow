@@ -76,7 +76,15 @@ public class ConsoleGui {
 		init();
 	}
 	
-	public void lowPrint(String text, Colour colour) {
+	/**
+	 * Note: Don't override me! Override {@link com.n9mtq4.console.lib.gui.ConsoleGui#print} instead<br/>
+	 * Note: Don't use me!
+	 * A small helper method that {@link BaseConsole} calls. This method adds support for default text color.
+	 * @see com.n9mtq4.console.lib.gui.ConsoleGui#print
+	 * @deprecated Helper method only meant to be used by {@link BaseConsole}
+	 * */
+	@Deprecated
+ 	public void lowPrint(String text, Colour colour) {
 		if (colour == null) colour = this.defaultTextColour;
 		print(text, colour);
 	}

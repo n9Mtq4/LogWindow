@@ -667,6 +667,7 @@ public class BaseConsole {
 	/**
 	 * Note: Lowest level<br/>
 	 */
+	@SuppressWarnings("deprecation")
 	public void print(String text, Colour colour) {
 		
 		for (ConsoleGui g : gui) {
