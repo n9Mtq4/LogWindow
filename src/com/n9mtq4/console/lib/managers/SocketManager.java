@@ -18,7 +18,6 @@ package com.n9mtq4.console.lib.managers;
 import com.n9mtq4.console.lib.BaseConsole;
 
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.InetSocketAddress;
@@ -33,8 +32,6 @@ public class SocketManager {
 	
 	private Socket s;
 	private ServerSocket serverSocket;
-	@Deprecated
-	private Socket serverInSocket;
 	
 	public SocketManager() {
 		
@@ -43,7 +40,6 @@ public class SocketManager {
 	public void close() {
 		try {
 			s.close();
-			serverInSocket.close();
 			serverSocket.close();
 		}catch (Exception e) {
 			
