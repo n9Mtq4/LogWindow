@@ -50,8 +50,8 @@ public class ConsoleGui {
 	}
 	
 	/**
-	 * Note: Override me!<br/>
-	 * Note: Add your gui stuff here when making a custom {@link ConsoleGui}<br/>
+	 * Note: Override me!<br>
+	 * Note: Add your gui stuff here when making a custom {@link ConsoleGui}<br>
 	 * Called when {@link ConsoleGui} is added to {@link BaseConsole}.
 	 */
 	public void init() {
@@ -59,8 +59,8 @@ public class ConsoleGui {
 	}
 	
 	/**
-	 * Note: Override me!<br/>
-	 * Note: Close streams or dispose {@link javax.swing.JFrame} here.<br/>
+	 * Note: Override me!<br>
+	 * Note: Close streams or dispose {@link javax.swing.JFrame} here.<br>
 	 * Called when {@link BaseConsole} is closing or your {@link ConsoleGui} is removed.
 	 */
 	public void dispose() {
@@ -68,7 +68,7 @@ public class ConsoleGui {
 	}
 	
 	/**
-	 * Note: DO NOT OVERRIDE!<br/>
+	 * Note: DO NOT OVERRIDE!<br>
 	 * Binds the object to a parent {@link BaseConsole}.
 	 */
 	public void add(BaseConsole parent) {
@@ -77,7 +77,7 @@ public class ConsoleGui {
 	}
 	
 	/**
-	 * Note: Don't override me! Override {@link com.n9mtq4.console.lib.gui.ConsoleGui#print} instead<br/>
+	 * Note: Don't override me! Override {@link com.n9mtq4.console.lib.gui.ConsoleGui#print} instead<br>
 	 * Note: Don't use me!
 	 * A small helper method that {@link BaseConsole} calls. This method adds support for default text color.
 	 * @see com.n9mtq4.console.lib.gui.ConsoleGui#print
@@ -90,7 +90,7 @@ public class ConsoleGui {
 	}
 	
 	/**
-	 * Note: Override me!<br/>
+	 * Note: Override me!<br>
 	 * Called when a {@link com.n9mtq4.console.lib.ConsoleListener} wants to print something.
 	 */
 	public void print(String text, Colour colour) {
@@ -98,7 +98,7 @@ public class ConsoleGui {
 	}
 	
 	/**
-	 * Note: Override me!<br/>
+	 * Note: Override me!<br>
 	 * Called when a {@link com.n9mtq4.console.lib.ConsoleListener} wants to print an image.
 	 */
 	public void printImage(File file) {

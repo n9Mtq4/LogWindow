@@ -22,7 +22,7 @@ import java.io.File;
 import java.net.MalformedURLException;
 
 /**
- * Created by Will on 10/20/14.<br/>
+ * Created by Will on 10/20/14.<br>
  * A custom JTextPane / JTextArea that supports colors
  * and images.
  * */
@@ -77,7 +77,7 @@ public class NTextArea extends JTextPane {
 	}
 	
 	/**
-	 * Sets the text of the {@link com.n9mtq4.console.lib.parts.NTextArea}<br/>
+	 * Sets the text of the {@link com.n9mtq4.console.lib.parts.NTextArea}<br>
 	 * @param string The new String to set the text to
 	 * */
 	@Override

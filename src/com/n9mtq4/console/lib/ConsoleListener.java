@@ -169,7 +169,7 @@ public abstract class ConsoleListener {
 	}
 	
 	/**
-	 * Note: always false.<br/>
+	 * Note: always false.<br>
 	 * Tells you if the listener will ignore the isDone of {@link ConsoleActionEvent}.
 	 *
 	 * @return A boolean of if the listener will ignore the isDone

@@ -22,8 +22,8 @@ import com.n9mtq4.console.lib.BaseConsole;
  */
 
 /**
- * The {@link ShutdownHook#run} method in this class is called when the Runtime closes if<br/>
- * Runtime.getRuntime().addShutdownHook(new {@link ShutdownHook}());<br/>
+ * The {@link ShutdownHook#run} method in this class is called when the Runtime closes if<br>
+ * Runtime.getRuntime().addShutdownHook(new {@link ShutdownHook}());<br>
  * is called.
  *
  * @see java.lang.Runtime

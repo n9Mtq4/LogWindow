@@ -114,7 +114,7 @@ public class BaseConsole {
 	}
 	
 	/**
-	 * Handles global {@link BaseConsole} initilizing<br/>
+	 * Handles global {@link BaseConsole} initilizing<br>
 	 * Is called in the constructor
 	 */
 	private void initConsole() {
@@ -128,8 +128,8 @@ public class BaseConsole {
 	}
 	
 	/**
-	 * Note: Override me!<br/>
-	 * Insert your {@link ConsoleGui} here with<br/>
+	 * Note: Override me!<br>
+	 * Insert your {@link ConsoleGui} here with<br>
 	 * this.addGui(new ThingThatExtendsConsoleGui());
 	 */
 	public void initGui() {
@@ -137,8 +137,8 @@ public class BaseConsole {
 	}
 	
 	/**
-	 * Handles closing down the {@link ConsoleListener}s and {@link ConsoleGui}s.<br/>
-	 * Note: if overriding make sure to call super to close {@link ConsoleListener} and {@link ConsoleGui}.<br/>
+	 * Handles closing down the {@link ConsoleListener}s and {@link ConsoleGui}s.<br>
+	 * Note: if overriding make sure to call super to close {@link ConsoleListener} and {@link ConsoleGui}.<br>
 	 *
 	 * @see ConsoleGui#dispose
 	 * @see ConsoleListener#onDisable
@@ -174,7 +174,7 @@ public class BaseConsole {
 	}
 	
 	/**
-	 * Adds required {@link ConsoleListener}s to the {@link BaseConsole}.<br/>
+	 * Adds required {@link ConsoleListener}s to the {@link BaseConsole}.<br>
 	 * This is called in the constructor.
 	 */
 	private void initMandatoryListeners() {
@@ -185,7 +185,7 @@ public class BaseConsole {
 	}
 	
 	/**
-	 * Adds recommend {@link ConsoleListener}s to the {@link BaseConsole}.<br/>
+	 * Adds recommend {@link ConsoleListener}s to the {@link BaseConsole}.<br>
 	 * This is not called on init.
 	 */
 	public void addDefaultListeners() {
@@ -245,7 +245,7 @@ public class BaseConsole {
 	}
 	
 	/**
-	 * Note: use me to send input when using a custom {@link ConsoleGui}.<br/>
+	 * Note: use me to send input when using a custom {@link ConsoleGui}.<br>
 	 * Takes {@link String} and iterates through all {@link ConsoleListener} on console.
 	 *
 	 * @param text String to send to {@link ConsoleListener#actionPerformed}.
@@ -294,7 +294,7 @@ public class BaseConsole {
 	}
 	
 	/**
-	 * Finds all {@link ConsoleListener}s with a given class name and returns them in the form of an array<br/>
+	 * Finds all {@link ConsoleListener}s with a given class name and returns them in the form of an array<br>
 	 *
 	 * @param name The name of the class to look for.
 	 * @return an array of {@link ConsoleListener}s with the given class name
@@ -561,7 +561,7 @@ public class BaseConsole {
 	}
 	
 	/**
-	 * Loads plugins to this console from "./plugins".<br/>
+	 * Loads plugins to this console from "./plugins".<br>
 	 *
 	 * @see BaseConsole#loadPlugins(String)
 	 */
@@ -572,7 +572,7 @@ public class BaseConsole {
 	}
 	
 	/**
-	 * Prints an image to the gui.<br/>
+	 * Prints an image to the gui.<br>
 	 *
 	 * @param file The file to print
 	 * @see BaseConsole#printImage
@@ -585,7 +585,7 @@ public class BaseConsole {
 	}
 	
 	/**
-	 * Prints an image to the gui.<br/>
+	 * Prints an image to the gui.<br>
 	 *
 	 * @param filePath The file path of the image to print
 	 * @see BaseConsole#printImage
@@ -633,7 +633,7 @@ public class BaseConsole {
 	}
 	
 	/**
-	 * Note: Lowest level<br/>
+	 * Note: Lowest level<br>
 	 */
 	public void printImage(File file) {
 		
@@ -664,7 +664,7 @@ public class BaseConsole {
 	}
 	
 	/**
-	 * Note: Lowest level<br/>
+	 * Note: Lowest level<br>
 	 */
 	@SuppressWarnings("deprecation")
 	public void print(String text, Colour colour) {
@@ -758,7 +758,7 @@ public class BaseConsole {
 	}
 	
 	/**
-	 * Returns if the console has a gui attached to it.<br/>
+	 * Returns if the console has a gui attached to it.<br>
 	 * @return If the {@link BaseConsole} has at least one gui attached to it
 	 * @deprecated Since the new gui system in version 4 this is unnecessary
 	 * */

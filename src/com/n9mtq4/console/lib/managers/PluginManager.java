@@ -77,7 +77,6 @@ public class PluginManager {
 				for (String t : tokens) {
 					if (!t.startsWith("# ")) {
 						try {
-//							TODO: delete commented out code
 							ConsoleListener l = (ConsoleListener) callConstructor(Class.forName(t));
 							c.addListener(l);
 						}catch (Exception e) {

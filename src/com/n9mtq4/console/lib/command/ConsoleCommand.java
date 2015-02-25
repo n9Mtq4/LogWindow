@@ -46,8 +46,8 @@ public class ConsoleCommand {
 	/**
 	 * The text of the command is split into words.
 	 * getArg returns the word at the given index.
-	 * <p/>
-	 * "Hello Java World".getArg(1) returns "Java"<br/>
+	 * <p>
+	 * "Hello Java World".getArg(1) returns "Java"<br>
 	 * "Hello Java World".getArg(4) throws {@link StringIndexOutOfBoundsException}
 	 *
 	 * @return The word at the given index.
@@ -60,7 +60,7 @@ public class ConsoleCommand {
 	}
 	
 	/**
-	 * Trims off the whitespace at the end of the text of the command.<br/>
+	 * Trims off the whitespace at the end of the text of the command.<br>
 	 *
 	 * @return the trimmed string.
 	 * @see String#trim
@@ -72,7 +72,7 @@ public class ConsoleCommand {
 	}
 	
 	/**
-	 * Does the same thing as {@link String}.trim().equalsIgnoreCase()<br/>
+	 * Does the same thing as {@link String}.trim().equalsIgnoreCase()<br>
 	 *
 	 * @param s The comparing {@link String}
 	 * @return The boolean of {@link String}.trim().equalsIgnoreCase(s)
@@ -84,7 +84,7 @@ public class ConsoleCommand {
 	}
 	
 	/**
-	 * Returns if the text of the command starts with the given {@link String}<br/>
+	 * Returns if the text of the command starts with the given {@link String}<br>
 	 * Same as getText().startsWith(s)
 	 *
 	 * @param s The comparing {@link String}
@@ -98,10 +98,10 @@ public class ConsoleCommand {
 	}
 	
 	/**
-	 * Gets a word starting from word index.<p/>
-	 * "Hello Java World".getWordsStartingFrom(0) returns "Hello Java World"<br/>
-	 * "Hello Java World".getWordsStartingFrom(1) returns "Java World"<br/>
-	 * "Hello Java World".getWordsStartingFrom(4) returns null<br/>
+	 * Gets a word starting from word index.<p>
+	 * "Hello Java World".getWordsStartingFrom(0) returns "Hello Java World"<br>
+	 * "Hello Java World".getWordsStartingFrom(1) returns "Java World"<br>
+	 * "Hello Java World".getWordsStartingFrom(4) returns null<br>
 	 *
 	 * @param startIndex Index of the word to get the string there-on.
 	 * @return The cropped {@link String}.
@@ -122,8 +122,8 @@ public class ConsoleCommand {
 	}
 	
 	/**
-	 * Gets the string before a pattern.<br/>
-	 * "Hello Java World".getBeforePattern("Java") returns "Hello "<br/>
+	 * Gets the string before a pattern.<br>
+	 * "Hello Java World".getBeforePattern("Java") returns "Hello "<br>
 	 *
 	 * @param pattern The pattern to search for.
 	 */
@@ -140,8 +140,8 @@ public class ConsoleCommand {
 	}
 	
 	/**
-	 * Gets the string after a pattern.<br/>
-	 * "Hello Java World".getBeforePattern("Java") returns " World"<br/>
+	 * Gets the string after a pattern.<br>
+	 * "Hello Java World".getBeforePattern("Java") returns " World"<br>
 	 *
 	 * @param pattern The pattern to search for.
 	 */
@@ -181,7 +181,7 @@ public class ConsoleCommand {
 	}
 	
 	/**
-	 * Gives you the raw text that the command contains.<br/>
+	 * Gives you the raw text that the command contains.<br>
 	 *
 	 * @return the raw text.
 	 */

@@ -39,8 +39,8 @@ import java.util.jar.JarFile;
  */
 
 /**
- * Note: Use static import for best results.<br/>
- * Class to simplify reflection calls.<br/>
+ * Note: Use static import for best results.<br>
+ * Class to simplify reflection calls.<br>
  */
 @SuppressWarnings("unused")
 public class ReflectionHelper {

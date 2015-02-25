@@ -23,7 +23,7 @@ import java.awt.color.ColorSpace;
  */
 
 /**
- * A modified version of @{link Color} to support ANSI values<br/>
+ * A modified version of @{link Color} to support ANSI values<br>
  *
  * @see Color
  */
@@ -180,7 +180,7 @@ public class Colour extends Color {
 	}
 	
 	/**
-	 * Gives the color reset ANSI code.<br/>
+	 * Gives the color reset ANSI code.<br>
 	 *
 	 * @return The ANSI code for resetting the colors.
 	 */
@@ -189,8 +189,8 @@ public class Colour extends Color {
 	}
 	
 	/**
-	 * Turns this {@link Colour} into an ANSI code.<br/>
-	 * Note: only works for some constants. (won't work with custom RGB).<br/>
+	 * Turns this {@link Colour} into an ANSI code.<br>
+	 * Note: only works for some constants. (won't work with custom RGB).<br>
 	 *
 	 * @return the ANSI string of the color for terminal colors.
 	 */
