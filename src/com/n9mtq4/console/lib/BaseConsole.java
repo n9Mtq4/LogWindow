@@ -24,7 +24,6 @@ import com.n9mtq4.console.lib.managers.PluginManager;
 import com.n9mtq4.console.lib.managers.StdoutRedirect;
 import com.n9mtq4.console.lib.modules.*;
 import com.n9mtq4.console.lib.utils.Colour;
-import com.n9mtq4.console.lib.utils.ReflectionHelper;
 import com.n9mtq4.console.modules.ModuleNetwork;
 
 import java.awt.*;
@@ -516,8 +515,8 @@ public class BaseConsole {
 	
 	public void addListenerByName(String name) throws Exception {
 		try {
-			Object l = ReflectionHelper.callConstructor(ReflectionHelper.getClassByFullName(name));
-			this.addListener((ConsoleListener) l);
+			ConsoleListener l = ConsoleListener.getNewListenerByName(name);
+			this.addListener(l);
 		}catch (Exception e) {
 			throw e;
 		}
