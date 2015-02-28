@@ -26,6 +26,23 @@ import java.util.ConcurrentModificationException;
  */
 public abstract class ConsoleListener {
 	
+	/**
+	 * A method that takes a string and returns a new instance of a ConsoleListener with the name
+	 * @param name The full class name of the listener
+	 * @return A new {@link com.n9mtq4.console.lib.ConsoleListener} with the same name
+	 * @throws Exception when something doesn't work
+	 * */
+	public static ConsoleListener getNewListenerByName(String name) throws Exception{
+		try {
+			Class<?> clazz = Class.forName(name);
+			Object clazz1 = clazz.newInstance();
+			ConsoleListener l = (ConsoleListener) clazz1;
+			return l;
+		}catch (Exception e) {
+			throw e;
+		}
+	}
+	
 	private ArrayList<BaseConsole> linkedBaseConsoles;
 	private boolean enabled;
 	private boolean ignoreDone;
