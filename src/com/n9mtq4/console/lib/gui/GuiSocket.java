@@ -23,7 +23,7 @@ import com.n9mtq4.console.lib.utils.Colour;
  */
 public class GuiSocket extends ConsoleGui {
 	
-	private int port = 4444;
+	public int port = 4444;
 	private boolean sendToPluginsInsteadOfPrint = true;
 	
 	private SocketManager s = new SocketManager();
