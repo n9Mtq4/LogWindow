@@ -126,10 +126,18 @@ public class ModuleListener extends ConsoleListener {
 						e.getBaseConsole().print("[OUT]: ", Colour.BLUE);
 						e.getBaseConsole().println("adding...");
 						
-						e.getBaseConsole().addListenerByName(e.getCommand().getArg(2));
+						ConsoleListener l = null;
+						try {
+							l = ConsoleListener.getNewListenerByName(e.getCommand().getArg(2));
+							e.getBaseConsole().addListener(l);
+						}catch (Exception e1) {
+							e.getBaseConsole().printStackTrace(e1);
+							return;
+						}
+						
 						
 						e.getBaseConsole().print("[OUT]: ", Colour.BLUE);
-						e.getBaseConsole().println("done adding: " + Class.forName(e.getCommand().getArg(2)).getName());
+						e.getBaseConsole().println("done adding: " + l.getClass().getName());
 						
 					}catch (Exception e1) {
 						e.getBaseConsole().print("[ERROR]: ", Colour.RED);
