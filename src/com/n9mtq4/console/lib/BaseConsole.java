@@ -18,6 +18,7 @@ package com.n9mtq4.console.lib;
 import com.n9mtq4.console.lib.command.ConsoleCommand;
 import com.n9mtq4.console.lib.events.*;
 import com.n9mtq4.console.lib.gui.ConsoleGui;
+import com.n9mtq4.console.lib.gui.interfaces.History;
 import com.n9mtq4.console.lib.listeners.ShutdownHook;
 import com.n9mtq4.console.lib.managers.PluginManager;
 import com.n9mtq4.console.lib.managers.StdoutRedirect;
@@ -252,6 +253,9 @@ public class BaseConsole {
 	 */
 	public void sendPluginsString(String text) {
 		history.add(text);
+		for (ConsoleGui g : gui) {
+			if (g instanceof History) ((History) g).historyUpdate();
+		}
 		push(text);
 	}
 	
