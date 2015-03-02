@@ -630,6 +630,12 @@ public class BaseConsole {
 		print(text + "\n", color);
 	}
 	
+	/**
+	 * Prints an image to the gui.<br>
+	 * No guarantee that it will actually print.
+	 * 
+	 * @param filePath the File of the image to print
+	 */
 	public void printImage(String filePath) {
 		
 		printImage(new File(filePath));
@@ -638,6 +644,10 @@ public class BaseConsole {
 	
 	/**
 	 * Note: Lowest level<br>
+	 * Prints an image to the gui<br>
+	 * No guarantee that it will actually print.
+	 * 
+	 * @param file the File of the image to print
 	 */
 	public void printImage(File file) {
 		
@@ -647,14 +657,29 @@ public class BaseConsole {
 		
 	}
 	
+	/**
+	 * Prints an Object to the gui.
+	 * 
+	 * @param x The object to print (Uses x.ToString)
+	 */
 	public void print(Object x) {
 		print(x.toString());
 	}
 	
+	/**
+	 * Prints an Object to the gui.
+	 * 
+	 * @param x The object to print (Uses x.toString)
+	 */
 	public void print(Object x, Colour colour) {
 		print(x.toString(), colour);
 	}
 	
+	/**
+	 * Prints a string to the gui.
+	 * 
+	 * @param text The string to print
+	 */
 	public void print(String text) {
 		print(text, null);
 	}
@@ -669,6 +694,10 @@ public class BaseConsole {
 	
 	/**
 	 * Note: Lowest level<br>
+	 * Prints a string with a colour to the gui.
+	 * 
+	 * @param text The string to print
+	 * @param colour The colour to print the string in
 	 */
 	@SuppressWarnings("deprecation")
 	public void print(String text, Colour colour) {
@@ -763,6 +792,7 @@ public class BaseConsole {
 	
 	/**
 	 * Returns if the console has a gui attached to it.<br>
+	 *     
 	 * @return If the {@link BaseConsole} has at least one gui attached to it
 	 * @deprecated Since the new gui system in version 4 this is unnecessary
 	 * */
@@ -772,7 +802,8 @@ public class BaseConsole {
 	}
 	
 	/**
-	 * Adds a {@link com.n9mtq4.console.lib.gui.ConsoleGui} to the BaseConsole
+	 * Adds a {@link com.n9mtq4.console.lib.gui.ConsoleGui} to the BaseConsole.
+	 * 
 	 * @param consoleGui the gui to add
 	 * */
 	public void addGui(ConsoleGui consoleGui) {
@@ -781,7 +812,8 @@ public class BaseConsole {
 	}
 	
 	/**
-	 * Removes a {@link com.n9mtq4.console.lib.gui.ConsoleGui} from the BaseConsole
+	 * Removes a {@link com.n9mtq4.console.lib.gui.ConsoleGui} from the BaseConsole.
+	 * 
 	 * @param consoleGui the gui to remove
 	 * */
 	public void removeGui(ConsoleGui consoleGui) {
@@ -790,7 +822,8 @@ public class BaseConsole {
 	}
 	
 	/**
-	 * Gets the global id of this {@link BaseConsole}
+	 * Gets the global id of this {@link BaseConsole}.
+	 * 
 	 * @return the global ID for this {@link BaseConsole}
 	 * */
 	public int getId() {

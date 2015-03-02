@@ -17,6 +17,7 @@ package com.n9mtq4.console.lib.gui;
 
 import com.n9mtq4.console.lib.BaseConsole;
 import com.n9mtq4.console.lib.utils.Colour;
+import com.sun.istack.internal.Nullable;
 
 import java.io.File;
 import java.util.Random;
@@ -78,7 +79,7 @@ public class ConsoleGui {
 	
 	/**
 	 * Note: Don't override me! Override {@link com.n9mtq4.console.lib.gui.ConsoleGui#print} instead<br>
-	 * Note: Don't use me!
+	 * Note: Don't use me!<br>
 	 * A small helper method that {@link BaseConsole} calls. This method adds support for default text color.
 	 * @see com.n9mtq4.console.lib.gui.ConsoleGui#print
 	 * @deprecated Helper method only meant to be used by {@link BaseConsole}
@@ -91,9 +92,15 @@ public class ConsoleGui {
 	
 	/**
 	 * Note: Override me!<br>
-	 * Called when a {@link com.n9mtq4.console.lib.ConsoleListener} wants to print something.
+	 * Called when a {@link com.n9mtq4.console.lib.ConsoleListener} wants to print something.<br>
+	 * @param text The string that the user wants to print that should be handled
+	 * @param colour The colour that the user wants to print the text in. If colour is null, it will be
+	 *                  automatically set to the defaultTextColour, however, if you haven't given
+	 *                  defaultTextColour a colour be prepared for colour to be null
+	 * @see com.n9mtq4.console.lib.gui.ConsoleGui#setDefaultTextColour
+	 * @see com.n9mtq4.console.lib.gui.ConsoleGui#getDefaultTextColour
 	 */
-	public void print(String text, Colour colour) {
+	public void print(String text, @Nullable Colour colour) {
 		
 	}
 	
@@ -109,6 +116,7 @@ public class ConsoleGui {
 	 * Gets the parent {@link BaseConsole}.
 	 *
 	 * @return The {@link BaseConsole} this {@link ConsoleGui} is linked to.
+	 * @see com.n9mtq4.console.lib.gui.ConsoleGui#setParent
 	 */
 	public BaseConsole getParent() {
 		return parent;
@@ -118,6 +126,7 @@ public class ConsoleGui {
 	 * Sets the parent {@link BaseConsole}.
 	 *
 	 * @param parent Sets the parent to the new parent given.
+	 * @see com.n9mtq4.console.lib.gui.ConsoleGui#getParent
 	 */
 	public void setParent(BaseConsole parent) {
 		this.parent = parent;
@@ -132,10 +141,24 @@ public class ConsoleGui {
 		return name;
 	}
 	
+	/**
+	 * Gets the default text colour to use when one is not specified<br>
+	 * If you called setDefaultTextColour - no need to do anything. It's handled on a
+	 * lower level.
+	 * @return The colour that is the default colour to be used when one isn't specified
+	 * @see com.n9mtq4.console.lib.gui.ConsoleGui#setDefaultTextColour
+	 * */
 	public Colour getDefaultTextColour() {
 		return defaultTextColour;
 	}
 	
+	/**
+	 * Sets the default text colour to use when one is not specified<br>
+	 * The super class will set the colour in print to whatever is set here - no need to do anything. It's handled on a
+	 * lower level.
+	 * @param defaultTextColour The colour that is the default colour to be used when one isn't specified
+	 * @see com.n9mtq4.console.lib.gui.ConsoleGui#getDefaultTextColour
+	 * */
 	public void setDefaultTextColour(Colour defaultTextColour) {
 		this.defaultTextColour = defaultTextColour;
 	}
