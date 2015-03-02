@@ -21,6 +21,7 @@ import com.n9mtq4.console.lib.events.ConsoleActionEvent;
 import com.n9mtq4.console.lib.events.DisableActionEvent;
 import com.n9mtq4.console.lib.events.RemovalActionEvent;
 import com.n9mtq4.console.lib.utils.Colour;
+import com.n9mtq4.console.lib.utils.ReflectionHelper;
 
 import java.util.ArrayList;
 
@@ -121,27 +122,27 @@ public class ModuleListener extends ConsoleListener {
 				
 				if (e.getCommand().getArg(1).equalsIgnoreCase("add")) {
 					
+					
+					e.getBaseConsole().print("[OUT]: ", Colour.BLUE);
+					e.getBaseConsole().println("adding...");
+					
+					ConsoleListener l = null;
 					try {
-						
-						e.getBaseConsole().print("[OUT]: ", Colour.BLUE);
-						e.getBaseConsole().println("adding...");
-						
-						ConsoleListener l = null;
-						try {
-							l = ConsoleListener.getNewListenerByName(e.getCommand().getArg(2));
-							e.getBaseConsole().addListener(l);
-						}catch (Exception e1) {
-							e.getBaseConsole().printStackTrace(e1);
-							return;
-						}
-						
-						
+						l = ConsoleListener.getNewListenerByName(e.getCommand().getArg(2));
+						e.getBaseConsole().addListener(l);
 						e.getBaseConsole().print("[OUT]: ", Colour.BLUE);
 						e.getBaseConsole().println("done adding: " + l.getClass().getName());
-						
 					}catch (Exception e1) {
-						e.getBaseConsole().print("[ERROR]: ", Colour.RED);
-						e.getBaseConsole().println(e1.toString());
+						try {
+							Class t = ReflectionHelper.getClassBySimpleName(e.getCommand().getArg(2));
+							ConsoleListener l1 = (ConsoleListener) (t.newInstance());
+							e.getBaseConsole().addListener(l1);
+							e.getBaseConsole().print("[OUT]: ", Colour.BLUE);
+							e.getBaseConsole().println("done adding: " + l1.getClass().getName());
+						}catch (Exception e2) {
+							e.getBaseConsole().println("No Such listener");
+							return;
+						}
 					}
 					
 				}else if (e.getCommand().getArg(1).equalsIgnoreCase("remove")) {
