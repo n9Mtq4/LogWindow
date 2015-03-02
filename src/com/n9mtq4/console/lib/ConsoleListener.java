@@ -17,6 +17,7 @@ package com.n9mtq4.console.lib;
 
 import com.n9mtq4.console.lib.command.ConsoleCommand;
 import com.n9mtq4.console.lib.events.*;
+import com.n9mtq4.console.lib.utils.Colour;
 
 import java.util.ArrayList;
 import java.util.ConcurrentModificationException;
@@ -70,6 +71,32 @@ public abstract class ConsoleListener {
 	}
 	
 	public void onRemoval(RemovalActionEvent e) {
+	}
+	
+	/**
+	 * Prevents disabling this listener.<br>
+	 * Call this method in the {@link com.n9mtq4.console.lib.ConsoleListener#onDisable}
+	 * and give it the {@link com.n9mtq4.console.lib.events.DisableActionEvent}
+	 * */
+	public void stopDisable(DisableActionEvent e) {
+		if (e.getType() != DisableActionEvent.WINDOW_CLOSE) {
+			e.getBaseConsole().enableListener(this);
+			e.getBaseConsole().print("[ERROR]: ", Colour.RED);
+			e.getBaseConsole().println("you can't disable " + this.getClass().getName());
+		}
+	}
+	
+	/**
+	 * Prevents removal of this listener.<br>
+	 * Call this method in the {@link com.n9mtq4.console.lib.ConsoleListener#onRemoval}
+	 * and give it the {@link com.n9mtq4.console.lib.events.RemovalActionEvent}
+	 * */
+	public void stopRemoval(RemovalActionEvent e) {
+		if (e.getType() != DisableActionEvent.WINDOW_CLOSE) {
+			e.getBaseConsole().addListener(this);
+			e.getBaseConsole().print("[ERROR]: ", Colour.RED);
+			e.getBaseConsole().println("you can't remove " + this.getClass().getName());
+		}
 	}
 	
 	/**
