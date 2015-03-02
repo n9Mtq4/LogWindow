@@ -177,32 +177,14 @@ public class GuiSocketOut extends ConsoleGui {
 			
 		}
 		
-		/**
-		 * Makes this listener invincible
-		 * */
 		@Override
 		public void onDisable(DisableActionEvent e) {
-			
-			if (e.getType() != DisableActionEvent.WINDOW_CLOSE) {
-				e.getBaseConsole().enableListener(this);
-				e.getBaseConsole().print("[ERROR]: ", Colour.RED);
-				e.getBaseConsole().println("you can't disable " + this.getClass().getName());
-			}
-			
+			stopDisable(e);
 		}
 		
-		/**
-		 * Makes this listener invincible
-		 * */
 		@Override
 		public void onRemoval(RemovalActionEvent e) {
-			
-			if (e.getType() != DisableActionEvent.WINDOW_CLOSE) {
-				e.getBaseConsole().addListener(this);
-				e.getBaseConsole().print("[ERROR]: ", Colour.RED);
-				e.getBaseConsole().println("you can't remove " + this.getClass().getName());
-			}
-			
+			stopRemoval(e);
 		}
 		
 	}
