@@ -45,16 +45,17 @@ public class GuiSocketOut extends ConsoleGui {
 	 * The {@link com.n9mtq4.console.lib.managers.SocketManager} to handle
 	 * */
 	public SocketManager socketManager = new SocketManager();
-	
 	/**
-	 * Init the gui
+	 * A {@link com.n9mtq4.console.lib.ConsoleListener} to help this gui
 	 * */
-	@Override
+	private GuiSocketOut.SocketInputSender helperListener;
+	
 	public void init() {
 		
 		setDefaultTextColour(Colour.BLACK);
 //		A helper listener for this gui
-		getParent().addListener(new GuiSocketOut.SocketInputSender(this));
+		helperListener = new GuiSocketOut.SocketInputSender(this);
+		getParent().addListener(helperListener);
 		
 	}
 	
@@ -64,6 +65,7 @@ public class GuiSocketOut extends ConsoleGui {
 	 * */
 	@Override
 	public void dispose() {
+		getParent().removeListener(helperListener, RemovalActionEvent.WINDOW_CLOSE);
 		socketManager.close();
 	}
 	
