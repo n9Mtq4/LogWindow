@@ -26,6 +26,7 @@ public class DisableActionEvent {
 	public static int WINDOW_CLOSE = 0;
 	public static int CODE_CLOSE = 1;
 	public static int USER_CLOSE = 2;
+	public static int OTHER_CLOSE = 10;
 	
 	private BaseConsole baseConsole;
 	private int type;
