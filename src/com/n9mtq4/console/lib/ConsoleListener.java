@@ -214,9 +214,9 @@ public abstract class ConsoleListener {
 	
 	/**
 	 * Note: always false.<br>
-	 * Tells you if the listener will ignore the isDone of {@link ConsoleActionEvent}.
+	 * Tells you if the listener will ignore the isCanceled of {@link ConsoleActionEvent}.
 	 *
-	 * @return A boolean of if the listener will ignore the isDone
+	 * @return A boolean of if the listener will ignore isCanceled
 	 */
 	public boolean hasIgnoreDone() {
 		return ignoreDone;

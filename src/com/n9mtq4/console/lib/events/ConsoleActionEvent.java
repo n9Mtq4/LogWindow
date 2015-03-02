@@ -25,12 +25,12 @@ public class ConsoleActionEvent {
 	
 	private BaseConsole baseConsole;
 	private ConsoleCommand command;
-	private boolean done;
+	private boolean canceled;
 	
 	public ConsoleActionEvent(BaseConsole baseConsole, ConsoleCommand command) {
 		this.baseConsole = baseConsole;
 		this.command = command;
-		this.done = false;
+		this.canceled = false;
 	}
 	
 	public BaseConsole getBaseConsole() {
@@ -41,8 +41,8 @@ public class ConsoleActionEvent {
 		return command;
 	}
 	
-	public boolean isDone() {
-		return done;
+	public boolean isCanceled() {
+		return canceled;
 	}
 	
 }

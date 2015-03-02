@@ -271,7 +271,7 @@ public class BaseConsole {
 			ConsoleActionEvent event = new ConsoleActionEvent(this, command);
 			for (ConsoleListener p : listeners) {
 				try {
-					if (p.isEnabled() && (!event.isDone() || p.hasIgnoreDone())) {
+					if (p.isEnabled() && (!event.isCanceled() || p.hasIgnoreDone())) {
 						p.push(event);
 					}
 				}catch (Exception e) {
