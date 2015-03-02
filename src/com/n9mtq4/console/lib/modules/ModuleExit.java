@@ -15,43 +15,19 @@
 
 package com.n9mtq4.console.lib.modules;
 
-import com.n9mtq4.console.lib.Console;
 import com.n9mtq4.console.lib.ConsoleListener;
 import com.n9mtq4.console.lib.events.ConsoleActionEvent;
-import com.n9mtq4.console.lib.gui.ConsoleGui;
-import com.n9mtq4.console.lib.gui.interfaces.Textable;
 
 /**
- * Created by Will on 10/22/14.
+ * Created by will on 3/2/15.
  */
-
-/**
- * A module for making new consoles, deleting the console, of clearing the console.
- */
-public class ModuleConsoleManager extends ConsoleListener {
+public class ModuleExit extends ConsoleListener {
 	
 	@Override
 	public void actionPerformed(ConsoleActionEvent e) {
 		
-		if (!e.getCommand().contains("console")) return;
-		if (e.getCommand().getLength() == 2) {
-			
-			if (e.getCommand().getArg(0).equalsIgnoreCase("console")) {
-				
-				if (e.getCommand().getArg(1).equalsIgnoreCase("new")) {
-					new Console();
-				}else if (e.getCommand().getArg(1).equalsIgnoreCase("delete")) {
-					e.getBaseConsole().dispose();
-				}else if (e.getCommand().getArg(1).equalsIgnoreCase("clear")) {
-					for (ConsoleGui g : e.getBaseConsole().getGui()) {
-						if (g instanceof Textable) {
-							((Textable) g).setText("");
-						}
-					}
-				}
-				
-			}
-			
+		if (e.getCommand().eqt("exit")) {
+			e.getBaseConsole().dispose();
 		}
 		
 	}
