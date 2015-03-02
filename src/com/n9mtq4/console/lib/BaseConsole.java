@@ -76,6 +76,10 @@ public class BaseConsole {
 	 * @see BaseConsole#removeGui
 	 */
 	private ArrayList<ConsoleGui> gui;
+	/**
+	 * The thread that is called when the program exits
+	 * */
+	private ShutdownHook shutdownHook;
 	
 	/**
 	 * Constructor for {@link BaseConsole}.
@@ -123,7 +127,8 @@ public class BaseConsole {
 		this.id = globalList.indexOf(this);
 		gui = new ArrayList<ConsoleGui>();
 		initGui();
-		Runtime.getRuntime().addShutdownHook(new ShutdownHook(this));
+		shutdownHook = new ShutdownHook(this);
+		Runtime.getRuntime().addShutdownHook(shutdownHook);
 		
 	}
 	
@@ -169,6 +174,14 @@ public class BaseConsole {
 				}
 			}catch (ConcurrentModificationException e) {
 			}
+		}
+//		removes shutdown hook if this method wasn't called from the shutdown hook
+		try {
+			String className = Thread.currentThread().getStackTrace()[2].getClassName(); // gets the class name that called it
+			if (!className.equals(ShutdownHook.class.getName())) {
+				Runtime.getRuntime().removeShutdownHook(shutdownHook);
+			}
+		}catch (Exception e) {
 		}
 		
 	}

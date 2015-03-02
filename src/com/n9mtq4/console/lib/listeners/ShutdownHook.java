@@ -18,10 +18,6 @@ package com.n9mtq4.console.lib.listeners;
 import com.n9mtq4.console.lib.BaseConsole;
 
 /**
- * Created by Will on 12/30/14.
- */
-
-/**
  * The {@link ShutdownHook#run} method in this class is called when the Runtime closes if<br>
  * Runtime.getRuntime().addShutdownHook(new {@link ShutdownHook}());<br>
  * is called.
@@ -41,16 +37,9 @@ public class ShutdownHook extends Thread {
 	public void run() {
 		
 		parent.dispose();
+//		TODO: Not sure, but I think this helps close sockets and stuff
 		Runtime.getRuntime().halt(0);
 		
-	}
-	
-	public BaseConsole getParent() {
-		return parent;
-	}
-	
-	public void setParent(BaseConsole parent) {
-		this.parent = parent;
 	}
 	
 }
