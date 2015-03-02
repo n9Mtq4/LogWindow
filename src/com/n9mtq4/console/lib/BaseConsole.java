@@ -22,9 +22,9 @@ import com.n9mtq4.console.lib.gui.interfaces.History;
 import com.n9mtq4.console.lib.listeners.ShutdownHook;
 import com.n9mtq4.console.lib.managers.PluginManager;
 import com.n9mtq4.console.lib.managers.StdoutRedirect;
-import com.n9mtq4.console.lib.modules.*;
+import com.n9mtq4.console.lib.modules.ModuleJarLoader;
+import com.n9mtq4.console.lib.modules.ModuleListener;
 import com.n9mtq4.console.lib.utils.Colour;
-import com.n9mtq4.console.modules.ModuleNetwork;
 
 import java.awt.*;
 import java.io.File;
@@ -182,18 +182,6 @@ public class BaseConsole {
 		this.addListener(new ModuleListener());
 		this.addListener(new ModuleJarLoader());
 		
-	}
-	
-	/**
-	 * Adds recommend {@link ConsoleListener}s to the {@link BaseConsole}.<br>
-	 * This is not called on init.
-	 */
-	public void addDefaultListeners() {
-		this.addListener(new ModulePluginManager());
-		this.addListener(new ModuleConsoleManager());
-		this.addListener(new ModuleHistory());
-		this.addListener(new ModuleStdoutRedirect());
-		this.addListener(new ModuleNetwork());
 	}
 	
 	/**

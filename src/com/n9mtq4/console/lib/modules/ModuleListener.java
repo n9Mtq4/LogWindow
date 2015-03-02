@@ -48,16 +48,6 @@ public class ModuleListener extends ConsoleListener {
 						e.getBaseConsole().println(l.getClass().getName(), l.isEnabled() ? Colour.GREEN : Colour.RED);
 						i++;
 					}
-				}else if (e.getCommand().getArg(1).equalsIgnoreCase("adddefaults")) {
-					
-					e.getBaseConsole().print("[OUT]: ", Colour.BLUE);
-					e.getBaseConsole().println("adding...");
-					
-					e.getBaseConsole().addDefaultListeners();
-					
-					e.getBaseConsole().print("[OUT]: ", Colour.BLUE);
-					e.getBaseConsole().println("done adding default listeners");
-					
 				}else if (e.getCommand().getArg(1).equalsIgnoreCase("removeduplicates")) {
 					
 					e.getBaseConsole().print("[OUT]: ", Colour.BLUE);
