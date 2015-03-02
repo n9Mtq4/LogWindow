@@ -25,14 +25,14 @@ import java.text.MessageFormat;
  */
 public class StdoutRedirect extends PrintStream {
 	
-	private BaseConsole c;
+	private BaseConsole baseConsole;
 	private PrintStream backup;
 	private boolean showLocation;
 	private boolean on;
 	
-	public StdoutRedirect(BaseConsole c) {
+	public StdoutRedirect(BaseConsole baseConsole) {
 		super(System.out);
-		this.c = c;
+		this.baseConsole = baseConsole;
 	}
 	
 	public void turnOn(boolean showLocation) {
@@ -56,9 +56,9 @@ public class StdoutRedirect extends PrintStream {
 		StackTraceElement element = Thread.currentThread().getStackTrace()[2];
 		if (!element.getMethodName().contains("print")) {
 			if (showLocation) {
-				c.print(getLocation() + s);
+				baseConsole.print(getLocation() + s);
 			}else {
-				c.print(s);
+				baseConsole.print(s);
 			}
 		}else {
 			backup.print(s);
@@ -70,9 +70,9 @@ public class StdoutRedirect extends PrintStream {
 		StackTraceElement element = Thread.currentThread().getStackTrace()[2];
 		if (!element.getMethodName().contains("print")) {
 			if (showLocation) {
-				c.print(getLocation() + o.toString());
+				baseConsole.print(getLocation() + o.toString());
 			}else {
-				c.print(o.toString());
+				baseConsole.print(o.toString());
 			}
 		}else {
 			backup.print(o);
@@ -84,9 +84,9 @@ public class StdoutRedirect extends PrintStream {
 		StackTraceElement element = Thread.currentThread().getStackTrace()[2];
 		if (!element.getMethodName().contains("print")) {
 			if (showLocation) {
-				c.println(getLocation() + x.toString());
+				baseConsole.println(getLocation() + x.toString());
 			}else {
-				c.println(x.toString());
+				baseConsole.println(x.toString());
 			}
 		}else {
 			backup.println(x);
@@ -98,9 +98,9 @@ public class StdoutRedirect extends PrintStream {
 		StackTraceElement element = Thread.currentThread().getStackTrace()[2];
 		if (!element.getMethodName().contains("print")) {
 			if (showLocation) {
-				c.println(getLocation() + x);
+				baseConsole.println(getLocation() + x);
 			}else {
-				c.println(x);
+				baseConsole.println(x);
 			}
 		}else {
 			backup.println(x);
@@ -112,8 +112,8 @@ public class StdoutRedirect extends PrintStream {
 		return MessageFormat.format("({0}:{1, number,#}): ", element.getFileName(), element.getLineNumber());
 	}
 	
-	public BaseConsole getC() {
-		return c;
+	public BaseConsole getBaseConsole() {
+		return baseConsole;
 	}
 	
 	public PrintStream getBackup() {
