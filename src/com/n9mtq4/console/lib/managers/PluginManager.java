@@ -125,7 +125,7 @@ public class PluginManager {
 			t.printStackTrace();
 			throw new IOException("Error, could not add URL to system classloader");
 		}*/
-		callVoidMethod("addURL", sysloader, sysclass, new Class[]{URL.class}, new Object[]{u});
+		callVoidMethod("addURL", sysloader, sysclass, u);
 	}
 	
 }
