@@ -44,6 +44,11 @@ public class GuiJFrame extends ConsoleGui implements Textable, History, HasFrame
 	@Override
 	public void init() {
 		
+		try {
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
 		setDefaultTextColour(Colour.BLACK);
 		this.historyIndex = getParent().getHistory().size();
 		boolean show = true;

@@ -43,6 +43,11 @@ public class GuiJFrameLite extends ConsoleGui implements Textable, History, HasF
 	@Override
 	public void init() {
 		
+		try {
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
 		setDefaultTextColour(Colour.BLACK);
 		this.historyIndex = getParent().getHistory().size();
 		frame = new JFrame("Console Lite");

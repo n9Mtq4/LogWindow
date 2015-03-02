@@ -26,11 +26,6 @@ public class ConsoleLite extends BaseConsole {
 	
 	@Override
 	public void initGui() {
-		try {
-			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-		}catch (Exception e) {
-			e.printStackTrace();
-		}
 		this.addGui(new GuiJFrameLite());
 	}
 	
