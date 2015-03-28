@@ -31,6 +31,11 @@ public class DisableActionEvent {
 	private BaseConsole baseConsole;
 	private int type;
 	
+	public DisableActionEvent(BaseConsole baseConsole) {
+		this.baseConsole = baseConsole;
+		this.type = NOT_SPECIFIED;
+	}
+	
 	public DisableActionEvent(BaseConsole baseConsole, int type) {
 		
 		this.baseConsole = baseConsole;

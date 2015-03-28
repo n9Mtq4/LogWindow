@@ -22,6 +22,10 @@ import com.n9mtq4.console.lib.BaseConsole;
  */
 public class RemovalActionEvent extends DisableActionEvent {
 	
+	public RemovalActionEvent(BaseConsole baseConsole) {
+		super(baseConsole);
+	}
+	
 	public RemovalActionEvent(BaseConsole baseConsole, int type) {
 		super(baseConsole, type);
 	}
