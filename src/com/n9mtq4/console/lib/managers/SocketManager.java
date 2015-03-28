@@ -34,10 +34,17 @@ public class SocketManager {
 	private Socket s;
 	private ServerSocket serverSocket;
 	
+	/**
+	 * A SocketManager object<br>
+	 * Has out and in connections
+	 * */
 	public SocketManager() {
-		
+//		dummy
 	}
 	
+	/**
+	 * Closes all sockets being used by this SocketManager
+	 * */
 	public void close() {
 		try {
 			clientDisconnect();
@@ -47,6 +54,9 @@ public class SocketManager {
 		}
 	}
 	
+	/**
+	 * private helper method for connecting to sockets
+	 * */
 	private static Socket socketConnect(String ip, int port) {
 		
 		try {
@@ -61,6 +71,9 @@ public class SocketManager {
 		
 	}
 	
+	/**
+	 * private helper method that prints data to a socket
+	 * */
 	private static boolean socketPrint(Socket socket, String string) {
 		
 		try {
@@ -78,10 +91,16 @@ public class SocketManager {
 		
 	}
 	
+	/**
+	 * Sets the outgoing socket in this SocketManager to the ip and port
+	 * */
 	public void clientConnect(String ip, int port) {
 		this.s = socketConnect(ip, port);
 	}
 	
+	/**
+	 * Disconnects the outgoing socket in this SocketManager
+	 * */
 	public void clientDisconnect() {
 		try {
 			s.close();
@@ -90,10 +109,27 @@ public class SocketManager {
 		}
 	}
 	
+	/**
+	 * Prints an Object to the outgoing socket with {@link Object#toString()}
+	 * */
+	public boolean clientPrint(Object x) {
+		return socketPrint(this.s, x.toString());
+	}
+	
+	/**
+	 * Prints a string to the outgoing socket
+	 * */
 	public boolean clientPrint(String x) {
 		return socketPrint(this.s, x);
 	}
 	
+	/**
+	 * Takes any incoming data from the ServerSocket and either prints it to the console,
+	 * or sends it to all the listeners.
+	 * @param c The BaseConsole to focus on
+	 * @param sendToPlugins True to send to listeners, false to print
+	 * @see SocketManager#startServer(int) Must startServer(port) first!
+	 * */
 	public void startServerListenerToConsole(BaseConsole c, final boolean sendToPlugins) {
 		final BaseConsole c1 = c;
 		final SocketManager thiz = this;
@@ -134,6 +170,9 @@ public class SocketManager {
 		}, "ServerSocketListener").start();
 	}
 	
+	/**
+	 * Starts a sever on specified port
+	 * */
 	public void startServer(int port) {
 		
 		final int port1 = port;

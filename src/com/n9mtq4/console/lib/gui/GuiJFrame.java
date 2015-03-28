@@ -139,16 +139,25 @@ public class GuiJFrame extends ConsoleGui implements Textable, History, HasFrame
 		
 	}
 	
+	/**
+	 * NOTE: Attribute override!<br>
+	 */
 	@Override
 	public String getText() {
 		return area.getText();
 	}
 	
+	/**
+	 * NOTE: Attribute override!<br>
+	 */
 	@Override
 	public void setText(String text) {
 		area.setText(text);
 	}
 	
+	/**
+	 * NOTE: Attribute override!<br>
+	 */
 	@Override
 	public void historyUpdate() {
 		this.historyIndex = getParent().getHistory().size();
@@ -186,8 +195,12 @@ public class GuiJFrame extends ConsoleGui implements Textable, History, HasFrame
 		this.scrollArea = scrollArea;
 	}
 	
+	/**
+	 * NOTE: Attribute override!<br>
+	 */
 	@Override
 	public JFrame getJFrame() {
 		return this.frame;
 	}
+	
 }

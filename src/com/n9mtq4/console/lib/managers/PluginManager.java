@@ -35,6 +35,10 @@ public class PluginManager {
 	private static final Class[] parameters = new Class[] {URL.class};
 	public static String DEFAULT_PLUGIN_FOLDER = "plugins/";
 	
+	/**
+	 * Loads all plugins from a specific directory to the BaseConsole.<br>
+	 * NOT FULLY TESTED
+	 * */
 	public static void loadPluginsToConsole(BaseConsole c, String location) {
 		
 		if (!location.endsWith("/")) {
@@ -56,10 +60,16 @@ public class PluginManager {
 	}
 	
 	//TODO: test to see if works
+	/**
+	 * NOT FULLY TESTED
+	 * */
 	public static void loadPlugin(File f, BaseConsole c) {
 		loadPlugin(f, c, f.getParent());
 	}
 	
+	/**
+	 * NOT FULLY TESTED
+	 * */
 	public static void loadPlugin(File f, BaseConsole c, String location) {
 		if (f.getAbsolutePath().trim().endsWith(".jar")) {
 			
@@ -90,6 +100,9 @@ public class PluginManager {
 		}
 	}
 	
+	/**
+	 * NOT FULLY TESTED
+	 * */
 	private static String loadStringFromFile(String filePath) {
 		try {
 			BufferedReader br = new BufferedReader(new FileReader(filePath));
@@ -109,10 +122,18 @@ public class PluginManager {
 		}
 	}
 	
+	/**
+	 * NOT FULLY TESTED
+	 * */
 	public static void addFile(File f) throws IOException {
 		addURL(f.toURI().toURL());
 	}
 	
+	
+//	TODO: check this code to make sure it works
+	/**
+	 * NOT FULLY TESTED
+	 * */
 	public static void addURL(URL u) throws IOException {
 		URLClassLoader sysloader = (URLClassLoader) ClassLoader.getSystemClassLoader();
 		Class sysclass = URLClassLoader.class;

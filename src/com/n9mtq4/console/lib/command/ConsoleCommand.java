@@ -73,7 +73,8 @@ public class ConsoleCommand {
 	
 	/**
 	 * Does the same thing as {@link String}.trim().equalsIgnoreCase()<br>
-	 *
+	 * trims the string then equalsIgnoreCase
+	 * 
 	 * @param s The comparing {@link String}
 	 * @return The boolean of {@link String}.trim().equalsIgnoreCase(s)
 	 * @see String#trim
@@ -126,6 +127,7 @@ public class ConsoleCommand {
 	 * "Hello Java World".getBeforePattern("Java") returns "Hello "<br>
 	 *
 	 * @param pattern The pattern to search for.
+	 * @return The string before the pattern.
 	 */
 	public String getBeforePattern(String pattern) {
 		int index = text.indexOf(pattern);
@@ -144,6 +146,7 @@ public class ConsoleCommand {
 	 * "Hello Java World".getBeforePattern("Java") returns " World"<br>
 	 *
 	 * @param pattern The pattern to search for.
+	 * @return the String after the pattern.
 	 */
 	public String getAfterPattern(String pattern) {
 		int index = text.indexOf(pattern);
@@ -155,6 +158,25 @@ public class ConsoleCommand {
 		}catch (StringIndexOutOfBoundsException e) {
 			return "";
 		}
+	}
+	
+	/**
+	 * Gets the string in between two other strings.<br>
+	 * "Hello World".getBetween("lo", "ld") returns " wor"<br>
+	 * "first second third first again".getBetween("second", "first") returns " third "<br>
+	 *  
+	 *  @param before The string before.
+	 *  @param after The string after.
+	 *  @return The string in between.
+	 * */
+	public String getBetween(String before, String after) {
+		
+		int index1 = text.indexOf(before) + before.length();
+		int index2 = text.indexOf(after, text.indexOf(before) + 1);
+		String out = text.substring(index1, index2);
+		
+		return out;
+		
 	}
 	
 	/**
