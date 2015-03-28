@@ -13,15 +13,32 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.n9mtq4.console.lib.gui.interfaces;
+package com.n9mtq4.console.lib.gui.attributes;
 
 /**
  * Created by Will on 1/1/15.
  */
+/**
+ * A interface that flags a {@link com.n9mtq4.console.lib.gui.ConsoleGui} as having
+ * full control over the text that has been pushed to them and that the ConsoleGui
+ * can set the text that has already been sent to it.
+ * */
 public interface Textable {
 	
+	/**
+	 * Gets the current text in a compatible {@link com.n9mtq4.console.lib.gui.ConsoleGui}.
+	 * 
+	 * @return The text that the {@link com.n9mtq4.console.lib.gui.ConsoleGui} has.
+	 * @see com.n9mtq4.console.lib.gui.attributes.Textable#setText
+	 * */
 	public String getText();
 	
+	/**
+	 * Sets the current text in a compatible {@link com.n9mtq4.console.lib.gui.ConsoleGui}.
+	 * 
+	 * @param text The text to set the {@link com.n9mtq4.console.lib.gui.ConsoleGui} to.
+	 * @see com.n9mtq4.console.lib.gui.attributes.Textable#getText
+	 * */
 	public void setText(String text);
 	
 }

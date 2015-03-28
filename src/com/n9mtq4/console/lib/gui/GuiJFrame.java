@@ -15,9 +15,9 @@
 
 package com.n9mtq4.console.lib.gui;
 
-import com.n9mtq4.console.lib.gui.interfaces.HasFrame;
-import com.n9mtq4.console.lib.gui.interfaces.History;
-import com.n9mtq4.console.lib.gui.interfaces.Textable;
+import com.n9mtq4.console.lib.gui.attributes.HasFrame;
+import com.n9mtq4.console.lib.gui.attributes.History;
+import com.n9mtq4.console.lib.gui.attributes.Textable;
 import com.n9mtq4.console.lib.parts.NTextArea;
 import com.n9mtq4.console.lib.utils.Colour;
 

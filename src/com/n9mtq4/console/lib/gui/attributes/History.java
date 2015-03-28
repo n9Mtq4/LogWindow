@@ -13,13 +13,21 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.n9mtq4.console.lib.gui.interfaces;
+package com.n9mtq4.console.lib.gui.attributes;
 
 /**
  * Created by Will on 1/1/15.
  */
+/**
+ * If a {@link com.n9mtq4.console.lib.gui.ConsoleGui} has native support for history,
+ * it might need a call when a {@link com.n9mtq4.console.lib.gui.ConsoleGui} calls
+ * {@link com.n9mtq4.console.lib.BaseConsole#sendPluginsString}
+ * */
 public interface History {
 	
+	/**
+	 * Called when {@link com.n9mtq4.console.lib.BaseConsole#sendPluginsString} is called
+	 * */
 	public void historyUpdate();
 	
 }

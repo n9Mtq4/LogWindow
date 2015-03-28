@@ -18,7 +18,7 @@ package com.n9mtq4.console.lib.modules;
 import com.n9mtq4.console.lib.ConsoleListener;
 import com.n9mtq4.console.lib.events.ConsoleActionEvent;
 import com.n9mtq4.console.lib.gui.ConsoleGui;
-import com.n9mtq4.console.lib.gui.interfaces.History;
+import com.n9mtq4.console.lib.gui.attributes.History;
 import com.n9mtq4.console.lib.utils.Colour;
 
 import java.util.ArrayList;

@@ -13,15 +13,22 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.n9mtq4.console.lib.gui.interfaces;
+package com.n9mtq4.console.lib.gui.attributes;
 
 import javax.swing.*;
 
 /**
  * Created by will on 1/7/15.
  */
+/**
+ * An interface that flags a {@link com.n9mtq4.console.lib.gui.ConsoleGui} that it contains a {@link javax.swing.JFrame}<br>
+ * use if (consoleGui instanceof HasFrame) {}
+ * */
 public interface HasFrame {
 	
+	/**
+	 * If the {@link com.n9mtq4.console.lib.gui.ConsoleGui} implements HasFrame, get the jframe
+	 * */
 	public JFrame getJFrame();
 	
 }
