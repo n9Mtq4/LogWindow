@@ -195,6 +195,10 @@ public class Colour extends Color {
 	 * @return the ANSI string of the color for terminal colors.
 	 */
 	public String getANSI() {
+		return getANSI(this);
+	}
+	
+	private String getANSI(Colour colour) {
 		if (this.getRGB() == Colour.RED.getRGB()) {
 			return ANSI_RED;
 		}else if (this.getRGB() == Colour.YELLOW.getRGB()) {
