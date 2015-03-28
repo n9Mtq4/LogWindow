@@ -87,21 +87,15 @@ public class BaseConsole {
 	 * @param pluginDirectory loads all plugins in this file path.
 	 */
 	public BaseConsole(String pluginDirectory) {
-		listeners = new ArrayList<ConsoleListener>();
-		initMandatoryListeners();
-		history = new ArrayList<String>();
+		init();
 		this.loadPlugins(pluginDirectory);
-		initConsole();
 	}
 	
 	/**
 	 * Constructor for {@link BaseConsole}.
 	 */
 	public BaseConsole() {
-		listeners = new ArrayList<ConsoleListener>();
-		initMandatoryListeners();
-		history = new ArrayList<String>();
-		initConsole();
+		init();
 	}
 	
 	/**
@@ -110,9 +104,23 @@ public class BaseConsole {
 	 * @param listener adds the {@link ConsoleListener} to the newly created {@link BaseConsole}
 	 */
 	public BaseConsole(ConsoleListener listener) {
+		init();
+		addListener(listener);
+	}
+	
+	/**
+	 * Constructor for {@link BaseConsole}
+	 * 
+	 * @param consoleGui adds the given {@link ConsoleGui} to the newly created {@link BaseConsole}
+	 * */
+	public BaseConsole(ConsoleGui consoleGui) {
+		init();
+		addGui(consoleGui);
+	}
+	
+	private void init() {
 		listeners = new ArrayList<ConsoleListener>();
 		initMandatoryListeners();
-		addListener(listener);
 		history = new ArrayList<String>();
 		initConsole();
 	}
