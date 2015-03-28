@@ -39,6 +39,7 @@ public abstract class ConsoleListener {
 			Object clazz1 = clazz.newInstance();
 			ConsoleListener l = (ConsoleListener) clazz1;
 			return l;
+//			TODO: delete try block
 		}catch (Exception e) {
 			throw e;
 		}

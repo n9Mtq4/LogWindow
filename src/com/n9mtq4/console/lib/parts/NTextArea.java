@@ -34,7 +34,8 @@ public class NTextArea extends JTextPane {
 	private boolean userEditable;
 	
 	/**
-	 * Calls parent
+	 * Calls parent.
+	 * 
 	 * @see javax.swing.JTextPane
 	 * */
 	public NTextArea() {
@@ -43,7 +44,8 @@ public class NTextArea extends JTextPane {
 	}
 	
 	/**
-	 * Calls parent
+	 * Calls parent.
+	 * 
 	 * @see javax.swing.JTextPane
 	 * */
 	public NTextArea(StyledDocument styledDocument) {
@@ -52,7 +54,8 @@ public class NTextArea extends JTextPane {
 	}
 	
 	/**
-	 * Appends a string onto the NTextFrame
+	 * Appends a string onto the NTextFrame.
+	 * 
 	 * @param msg the String to append
 	 * @param c the color that the string will be in
 	 * */
@@ -78,6 +81,7 @@ public class NTextArea extends JTextPane {
 	
 	/**
 	 * Sets the text of the {@link com.n9mtq4.console.lib.parts.NTextArea}<br>
+	 * 
 	 * @param string The new String to set the text to
 	 * */
 	@Override
@@ -90,6 +94,7 @@ public class NTextArea extends JTextPane {
 	
 	/**
 	 * Adds an image to the component.
+	 * 
 	 * @param file the location of the picture
 	 * */
 	public void appendPicture(File file) {
@@ -106,6 +111,7 @@ public class NTextArea extends JTextPane {
 	
 	/**
 	 * Can the user edit the text?
+	 * 
 	 * @return true if the user edit it; false otherwise
 	 * @see com.n9mtq4.console.lib.parts.NTextArea#setUserEditable
 	 * */
@@ -114,7 +120,8 @@ public class NTextArea extends JTextPane {
 	}
 	
 	/**
-	 * Setter method for userEditable
+	 * Setter method for userEditable.
+	 * 
 	 * @param userEditable true or false of can the user edit it
 	 * @see com.n9mtq4.console.lib.parts.NTextArea#isUserEditable
 	 * */

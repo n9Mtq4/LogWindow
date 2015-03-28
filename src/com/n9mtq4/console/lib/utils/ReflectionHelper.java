@@ -688,6 +688,8 @@ public class ReflectionHelper {
 		return callStaticLongMethod(methodName, clazz, getClassParams(params), params);
 	}
 	
+//	start stuff not written by me
+	
 	/**
 	 * Attempts to list all the classes in the specified package as determined
 	 * by the context class loader
@@ -795,6 +797,8 @@ public class ReflectionHelper {
 			}
 		}
 	}
+	
+//	end stuff not written by me
 	
 	public static List<String> findPackageNamesStartingWith(String prefix) {
 		List<String> result = new ArrayList<String>();
