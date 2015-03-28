@@ -27,7 +27,7 @@ public class ConsoleCommand {
 	 * Stores the raw text that has been inputed.
 	 */
 	private String text;
-	private String[] tokens;
+	private String[] words;
 	
 	public ConsoleCommand(String text) {
 		this.text = text;
@@ -39,7 +39,7 @@ public class ConsoleCommand {
 	 */
 	private void init() {
 		
-		tokens = text.split(" ");
+		words = text.split(" ");
 		
 	}
 	
@@ -55,7 +55,7 @@ public class ConsoleCommand {
 	 */
 	public String getArg(int i) {
 		
-		return tokens[i];
+		return words[i];
 		
 	}
 	
@@ -214,11 +214,11 @@ public class ConsoleCommand {
 	/**
 	 * Gives you the number of words that the user inputed.
 	 *
-	 * @return tokens.length
+	 * @return words.length
 	 */
 	public int getLength() {
 		
-		return tokens.length;
+		return words.length;
 		
 	}
 	
