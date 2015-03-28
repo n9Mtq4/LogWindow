@@ -51,7 +51,6 @@ public class GuiJFrame extends ConsoleGui implements Textable, History, HasFrame
 		}
 		setDefaultTextColour(Colour.BLACK);
 		this.historyIndex = getParent().getHistory().size();
-		boolean show = true;
 		frame = new JFrame("Console");
 		
 		area = new NTextArea();
@@ -70,7 +69,7 @@ public class GuiJFrame extends ConsoleGui implements Textable, History, HasFrame
 		frame.pack();
 		frame.setSize(360, 240);
 		frame.setLocationRelativeTo(null);
-		frame.setVisible(show);
+		frame.setVisible(true);
 		frame.setSize(360, 240);
 		frame.setLocationRelativeTo(null);
 		
@@ -88,13 +87,14 @@ public class GuiJFrame extends ConsoleGui implements Textable, History, HasFrame
 			
 			@Override
 			public void keyPressed(KeyEvent keyEvent) {
-				if (keyEvent.getKeyCode() == KeyEvent.VK_UP) {
+//				support for arrow up/down for scrolling through history
+				if (keyEvent.getKeyCode() == KeyEvent.VK_UP) { // up
 					if (historyIndex > 0) {
 						historyIndex--;
 						field.setText(getParent().getHistory().get(historyIndex));
 						field.setCaretPosition(field.getText().length());
 					}
-				}else if (keyEvent.getKeyCode() == KeyEvent.VK_DOWN) {
+				}else if (keyEvent.getKeyCode() == KeyEvent.VK_DOWN) { // down
 					if (historyIndex < getParent().getHistory().size() - 1) {
 						historyIndex++;
 						field.setText(getParent().getHistory().get(historyIndex));
@@ -111,12 +111,11 @@ public class GuiJFrame extends ConsoleGui implements Textable, History, HasFrame
 	}
 	
 	public void onFieldEnter(ActionEvent e) {
-		JTextField source = (JTextField) e.getSource();
-		String text = source.getText();
-		historyIndex = getParent().getHistory().size();
-		if (!text.trim().equals("")) {
-			source.setText("");
-			getParent().sendPluginsString(text);
+		JTextField source = (JTextField) e.getSource(); // get the JTextField
+		String text = source.getText(); // get the text in the JTextField
+		if (!text.trim().equals("")) { // if there's something entered
+			source.setText(""); // clear the field
+			getParent().sendPluginsString(text); // send it to the BaseConsole
 		}
 	}
 	
