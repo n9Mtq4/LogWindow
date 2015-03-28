@@ -142,9 +142,11 @@ public class BaseConsole {
 	
 	/**
 	 * Note: Override me!<br>
+	 * Note: Make a BaseConsole and addGui a gui instead of overriding BaseConsole
 	 * Insert your {@link ConsoleGui} here with<br>
 	 * this.addGui(new ThingThatExtendsConsoleGui());
 	 */
+	@Deprecated
 	public void initGui() {
 		
 	}
@@ -288,6 +290,7 @@ public class BaseConsole {
 				}
 			}
 		}catch (ConcurrentModificationException e1) {
+//			its expected, so this is just here to stop it from crashing
 		}
 		
 	}
