@@ -19,7 +19,10 @@ import com.n9mtq4.console.lib.gui.GuiSocket;
 
 /**
  * Created by Will on 12/29/14.
+ * @deprecated Use: new {@link com.n9mtq4.console.lib.BaseConsole#addGui}(new
+ * {@link com.n9mtq4.console.lib.gui.GuiSocket}());
  */
+@Deprecated
 public class ConsoleNetwork extends BaseConsole {
 	
 	@Override

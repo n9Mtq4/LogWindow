@@ -21,7 +21,10 @@ import javax.swing.*;
 
 /**
  * Created by Will on 11/13/14.
+ * @deprecated Use: new {@link com.n9mtq4.console.lib.BaseConsole#addGui}(new
+ * {@link com.n9mtq4.console.lib.gui.GuiJFrame}());
  */
+@Deprecated
 public class Console extends BaseConsole {
 	
 	@Override

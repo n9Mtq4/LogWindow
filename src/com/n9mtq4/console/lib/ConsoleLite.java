@@ -21,7 +21,10 @@ import javax.swing.*;
 
 /**
  * Created by Will on 12/29/14.
+ * @deprecated Use: new {@link com.n9mtq4.console.lib.BaseConsole#addGui}(new
+ * {@link com.n9mtq4.console.lib.gui.GuiJFrameLite}());
  */
+@Deprecated
 public class ConsoleLite extends BaseConsole {
 	
 	@Override

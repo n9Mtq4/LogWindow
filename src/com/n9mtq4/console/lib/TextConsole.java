@@ -19,7 +19,10 @@ import com.n9mtq4.console.lib.gui.GuiScanner;
 
 /**
  * Created by Will on 11/20/14.
+ * @deprecated Use: new {@link com.n9mtq4.console.lib.BaseConsole#addGui}(new
+ * {@link com.n9mtq4.console.lib.gui.GuiScanner}());
  */
+@Deprecated
 public class TextConsole extends BaseConsole {
 	
 	@Override
