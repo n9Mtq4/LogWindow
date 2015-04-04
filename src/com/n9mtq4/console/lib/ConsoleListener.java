@@ -16,6 +16,7 @@
 package com.n9mtq4.console.lib;
 
 import com.n9mtq4.console.lib.command.ConsoleCommand;
+import com.n9mtq4.console.lib.events.SentObjectEvent;
 import com.n9mtq4.console.lib.events.*;
 import com.n9mtq4.console.lib.utils.Colour;
 
@@ -67,6 +68,10 @@ public abstract class ConsoleListener {
 	}
 	
 	public abstract void actionPerformed(ConsoleActionEvent e);
+	
+	public void objectReceived(SentObjectEvent e) {
+		
+	}
 	
 	public void onDisable(DisableActionEvent e) {
 	}
@@ -121,6 +126,24 @@ public abstract class ConsoleListener {
 	}
 	
 	/**
+	 * Sends this listener a SentObjectEvent.
+	 * 
+	 * @param sentObjectEvent The event to send.
+	 * */
+	public void pushObject(SentObjectEvent sentObjectEvent) {
+		
+		try {
+//		TODO: fix this bug: consoleActionEvent has the base console, so it doesn't loop properly
+			for (BaseConsole c : linkedBaseConsoles) {
+				this.objectReceived(sentObjectEvent);
+			}
+		}catch (ConcurrentModificationException e1) {
+//			This is expected sometimes, and isn't a big deal
+		}
+		
+	}
+	
+	/**
 	 * Sends this listener a ConsoleActionEvent.
 	 *
 	 * @param consoleActionEvent The event to send.
@@ -128,6 +151,7 @@ public abstract class ConsoleListener {
 	public void push(ConsoleActionEvent consoleActionEvent) {
 		
 		try {
+//			TODO: fix this bug: consoleActionEvent has the base console, so it doesn't loop properly
 			for (BaseConsole c : linkedBaseConsoles) {
 				this.actionPerformed(consoleActionEvent);
 			}

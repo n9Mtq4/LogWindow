@@ -255,6 +255,40 @@ public class BaseConsole {
 		
 	}
 	
+//	TODO: add javadocs for pushing Objects
+	public void sendPluginsObject(Object object) {
+		sendPluginsObject(object, "");
+	}
+	
+	public void sendPluginsObject(Object object, String message) {
+		history.add(object.getClass().getName() + " : " + message);
+		pushObject(object, message);
+	}
+	
+	public void pushObject(Object object) {
+		pushObject(object, "");
+	}
+	
+	public void pushObject(Object object, String message) {
+		try {
+			SentObjectEvent event = new SentObjectEvent(this, object, message);
+			for (ConsoleListener l : listeners) {
+				try {
+					if (l.isEnabled() && (!event.isCanceled() || l.hasIgnoreDone())) {
+						l.pushObject(event);
+					}
+				}catch (Exception e) {
+//					catch anything that happens in a Listener and stop it from
+//					bubbling up and hurting the rest of the program
+					this.printStackTrace(e);
+					e.printStackTrace();
+				}
+			}
+		}catch (ConcurrentModificationException e1) {
+//			this is expected, so this is just here to stop it from crashing
+		}
+	}
+	
 	/**
 	 * Note: use me to send input when using a custom {@link ConsoleGui}.<br>
 	 * Takes {@link String} and iterates through all {@link ConsoleListener} on console.
@@ -274,7 +308,7 @@ public class BaseConsole {
 	 *
 	 * @param text Sting to send to {@link ConsoleListener#actionPerformed}.
 	 */
-	private void push(String text) {
+	public void push(String text) {
 		
 		try {
 			ConsoleCommand command = new ConsoleCommand(text);
