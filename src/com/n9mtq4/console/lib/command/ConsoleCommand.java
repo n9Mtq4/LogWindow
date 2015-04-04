@@ -154,7 +154,7 @@ public class ConsoleCommand {
 			return "";
 		}
 		try {
-			return text.substring(index, text.length());
+			return text.substring(index + pattern.length(), text.length());
 		}catch (StringIndexOutOfBoundsException e) {
 			return "";
 		}
