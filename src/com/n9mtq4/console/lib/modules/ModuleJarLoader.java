@@ -21,6 +21,7 @@ import com.n9mtq4.console.lib.events.DisableActionEvent;
 import com.n9mtq4.console.lib.events.RemovalActionEvent;
 import com.n9mtq4.console.lib.managers.PluginManager;
 import com.n9mtq4.console.lib.utils.Colour;
+import com.n9mtq4.console.lib.utils.JarLoader;
 
 import java.io.File;
 import java.io.IOException;
@@ -47,7 +48,7 @@ public class ModuleJarLoader extends ConsoleListener {
 			}
 			e.getBaseConsole().println("Adding jar file: " + jarFile, Colour.BLUE);
 			try {
-				PluginManager.addFile(jarFile);
+				JarLoader.addFile(jarFile);
 			}catch (IOException e1) {
 				e.getBaseConsole().println("[ERROR]: " + e1.toString(), Colour.RED);
 			}

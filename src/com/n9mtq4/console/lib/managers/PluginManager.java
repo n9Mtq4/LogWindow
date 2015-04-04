@@ -17,15 +17,16 @@ package com.n9mtq4.console.lib.managers;
 
 import com.n9mtq4.console.lib.BaseConsole;
 import com.n9mtq4.console.lib.ConsoleListener;
+import com.n9mtq4.console.lib.utils.ReflectionHelper;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.net.URL;
-import java.net.URLClassLoader;
 
-import static com.n9mtq4.console.lib.utils.ReflectionHelper.*;
+import static com.n9mtq4.console.lib.utils.JarLoader.*;
+
 
 /**
  * Created by Will on 10/26/14.
@@ -87,7 +88,7 @@ public class PluginManager {
 				for (String t : tokens) {
 					if (!t.startsWith("# ")) {
 						try {
-							ConsoleListener l = (ConsoleListener) callConstructor(Class.forName(t));
+							ConsoleListener l = (ConsoleListener) ReflectionHelper.callConstructor(Class.forName(t.trim()));
 							c.addListener(l);
 						}catch (Exception e) {
 							e.printStackTrace();
@@ -120,33 +121,6 @@ public class PluginManager {
 			e.printStackTrace();
 			return "";
 		}
-	}
-	
-	/**
-	 * NOT FULLY TESTED
-	 * */
-	public static void addFile(File f) throws IOException {
-		addURL(f.toURI().toURL());
-	}
-	
-	
-//	TODO: check this code to make sure it works
-	/**
-	 * NOT FULLY TESTED
-	 * */
-	public static void addURL(URL u) throws IOException {
-		URLClassLoader sysloader = (URLClassLoader) ClassLoader.getSystemClassLoader();
-		Class sysclass = URLClassLoader.class;
-//		TODO: delete commented out code
-/*		try {
-			Method method = sysclass.getDeclaredMethod("addURL", parameters);
-			method.setAccessible(true);
-			method.invoke(sysloader, new Object[] {u});
-		}catch (Throwable t) {
-			t.printStackTrace();
-			throw new IOException("Error, could not add URL to system classloader");
-		}*/
-		callVoidMethod("addURL", sysloader, sysclass, u);
 	}
 	
 }
