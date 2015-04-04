@@ -21,6 +21,7 @@ import com.n9mtq4.console.lib.gui.attributes.Textable;
 import com.n9mtq4.console.lib.utils.Colour;
 
 import javax.swing.*;
+import javax.swing.text.DefaultCaret;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -53,6 +54,10 @@ public class GuiJFrameLite extends ConsoleGui implements Textable, History, HasF
 		frame = new JFrame("Console Lite");
 		
 		area = new JTextArea();
+		area.setEditable(false);
+		DefaultCaret caret = (DefaultCaret) area.getCaret();
+		caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
+		
 		noWrapPanel = new JPanel(new BorderLayout());
 		noWrapPanel.add(area);
 		scrollArea = new JScrollPane(noWrapPanel);
