@@ -26,15 +26,15 @@ public class ConsoleActionEvent {
 	
 	/**
 	 * The {@link com.n9mtq4.console.lib.BaseConsole} that made this event
-	 * */
+	 */
 	private BaseConsole baseConsole;
 	/**
 	 * The {@link com.n9mtq4.console.lib.command.ConsoleCommand} that stores the inputed data
-	 * */
+	 */
 	private ConsoleCommand command;
 	/**
 	 * Has this event been canceled?
-	 * */
+	 */
 	private boolean canceled;
 	
 	public ConsoleActionEvent(BaseConsole baseConsole, ConsoleCommand command) {
@@ -45,16 +45,18 @@ public class ConsoleActionEvent {
 	
 	/**
 	 * Gets the {@link com.n9mtq4.console.lib.BaseConsole} that called this event
+	 *
 	 * @return The {@link com.n9mtq4.console.lib.BaseConsole} that called this event
-	 * */
+	 */
 	public BaseConsole getBaseConsole() {
 		return baseConsole;
 	}
 	
 	/**
 	 * Gets the {@link com.n9mtq4.console.lib.command.ConsoleCommand} that contains the inputed data
+	 *
 	 * @return The {@link com.n9mtq4.console.lib.command.ConsoleCommand} that contains the inputed data
-	 * */
+	 */
 	public ConsoleCommand getCommand() {
 		return command;
 	}
@@ -62,7 +64,7 @@ public class ConsoleActionEvent {
 	/**
 	 * Returns true if a {@link com.n9mtq4.console.lib.ConsoleListener} has
 	 * indicated that this event has been completed / shouldn't continue iterating through listeners
-	 * */
+	 */
 	public boolean isCanceled() {
 		return canceled;
 	}

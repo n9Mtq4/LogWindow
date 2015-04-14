@@ -78,7 +78,7 @@ public class BaseConsole {
 	private ArrayList<ConsoleGui> gui;
 	/**
 	 * The thread that is called when the program exits
-	 * */
+	 */
 	private ShutdownHook shutdownHook;
 	
 	/**
@@ -110,9 +110,9 @@ public class BaseConsole {
 	
 	/**
 	 * Constructor for {@link BaseConsole}
-	 * 
+	 *
 	 * @param consoleGui adds the given {@link ConsoleGui} to the newly created {@link BaseConsole}
-	 * */
+	 */
 	public BaseConsole(ConsoleGui consoleGui) {
 		init();
 		addGui(consoleGui);
@@ -255,7 +255,7 @@ public class BaseConsole {
 		
 	}
 	
-//	TODO: add javadocs for pushing Objects
+	//	TODO: add javadocs for pushing Objects
 	public void sendPluginsObject(Object object) {
 		sendPluginsObject(object, "");
 	}
@@ -678,7 +678,7 @@ public class BaseConsole {
 	/**
 	 * Prints an image to the gui.<br>
 	 * No guarantee that it will actually print.
-	 * 
+	 *
 	 * @param filePath the File of the image to print
 	 */
 	public void printImage(String filePath) {
@@ -691,7 +691,7 @@ public class BaseConsole {
 	 * Note: Lowest level<br>
 	 * Prints an image to the gui<br>
 	 * No guarantee that it will actually print.
-	 * 
+	 *
 	 * @param file the File of the image to print
 	 */
 	public void printImage(File file) {
@@ -704,7 +704,7 @@ public class BaseConsole {
 	
 	/**
 	 * Prints an Object to the gui.
-	 * 
+	 *
 	 * @param x The object to print (Uses x.ToString)
 	 */
 	public void print(Object x) {
@@ -713,7 +713,7 @@ public class BaseConsole {
 	
 	/**
 	 * Prints an Object to the gui.
-	 * 
+	 *
 	 * @param x The object to print (Uses x.toString)
 	 */
 	public void print(Object x, Colour colour) {
@@ -722,7 +722,7 @@ public class BaseConsole {
 	
 	/**
 	 * Prints a string to the gui.
-	 * 
+	 *
 	 * @param text The string to print
 	 */
 	public void print(String text) {
@@ -740,8 +740,8 @@ public class BaseConsole {
 	/**
 	 * Note: Lowest level<br>
 	 * Prints a string with a colour to the gui.
-	 * 
-	 * @param text The string to print
+	 *
+	 * @param text   The string to print
 	 * @param colour The colour to print the string in
 	 */
 	@SuppressWarnings("deprecation")
@@ -837,10 +837,10 @@ public class BaseConsole {
 	
 	/**
 	 * Returns if the console has a gui attached to it.<br>
-	 *     
+	 *
 	 * @return If the {@link BaseConsole} has at least one gui attached to it
 	 * @deprecated Since the new gui system in version 4 this is unnecessary
-	 * */
+	 */
 	@Deprecated
 	public boolean hasGuiAttached() {
 		return gui.size() > 0;
@@ -848,9 +848,9 @@ public class BaseConsole {
 	
 	/**
 	 * Adds a {@link com.n9mtq4.console.lib.gui.ConsoleGui} to the BaseConsole.
-	 * 
+	 *
 	 * @param consoleGui the gui to add
-	 * */
+	 */
 	public void addGui(ConsoleGui consoleGui) {
 		gui.add(consoleGui);
 		consoleGui.add(this);
@@ -858,9 +858,9 @@ public class BaseConsole {
 	
 	/**
 	 * Removes a {@link com.n9mtq4.console.lib.gui.ConsoleGui} from the BaseConsole.
-	 * 
+	 *
 	 * @param consoleGui the gui to remove
-	 * */
+	 */
 	public void removeGui(ConsoleGui consoleGui) {
 		gui.remove(consoleGui);
 		consoleGui.dispose();
@@ -868,9 +868,9 @@ public class BaseConsole {
 	
 	/**
 	 * Gets the global id of this {@link BaseConsole}.
-	 * 
+	 *
 	 * @return the global ID for this {@link BaseConsole}
-	 * */
+	 */
 	public int getId() {
 		return id;
 	}

@@ -35,10 +35,6 @@ import java.util.jar.JarEntry;
 import java.util.jar.JarFile;
 
 /**
- * Created by Will on 12/30/14.
- */
-
-/**
  * Note: Use static import for best results.<br>
  * Class to simplify reflection calls.<br>
  */
@@ -687,7 +683,7 @@ public class ReflectionHelper {
 	public static long callStaticLongMethod(String methodName, Class clazz, Object... params) {
 		return callStaticLongMethod(methodName, clazz, getClassParams(params), params);
 	}
-	
+
 //	start stuff not written by me
 	
 	/**
@@ -725,7 +721,8 @@ public class ReflectionHelper {
 							throw new ClassNotFoundException(pckgname + " does not appear to be a valid package (Unsupported encoding)", ex);
 						}
 						
-					}else throw new ClassNotFoundException(pckgname + " (" + url.getPath() + ") does not appear to be a valid package");
+					}else
+						throw new ClassNotFoundException(pckgname + " (" + url.getPath() + ") does not appear to be a valid package");
 				}catch (final IOException ioex) {
 					throw new ClassNotFoundException("IOException was thrown when trying to get all resources for " + pckgname, ioex);
 				}
@@ -797,7 +794,7 @@ public class ReflectionHelper {
 			}
 		}
 	}
-	
+
 //	end stuff not written by me
 	
 	public static List<String> findPackageNamesStartingWith(String prefix) {

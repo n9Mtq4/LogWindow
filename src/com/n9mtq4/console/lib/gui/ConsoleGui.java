@@ -81,11 +81,12 @@ public class ConsoleGui {
 	 * Note: Don't override me! Override {@link com.n9mtq4.console.lib.gui.ConsoleGui#print} instead<br>
 	 * Note: Don't use me!<br>
 	 * A small helper method that {@link BaseConsole} calls. This method adds support for default text color.
+	 *
 	 * @see com.n9mtq4.console.lib.gui.ConsoleGui#print
 	 * @deprecated Helper method only meant to be used by {@link BaseConsole}
-	 * */
+	 */
 	@Deprecated
- 	public void lowPrint(String text, Colour colour) {
+	public void lowPrint(String text, Colour colour) {
 		if (colour == null) colour = this.defaultTextColour;
 		print(text, colour);
 	}
@@ -93,10 +94,11 @@ public class ConsoleGui {
 	/**
 	 * Note: Override me!<br>
 	 * Called when a {@link com.n9mtq4.console.lib.ConsoleListener} wants to print something.<br>
-	 * @param text The string that the user wants to print that should be handled
+	 *
+	 * @param text   The string that the user wants to print that should be handled
 	 * @param colour The colour that the user wants to print the text in. If colour is null, it will be
-	 *                  automatically set to the defaultTextColour, however, if you haven't given
-	 *                  defaultTextColour a colour be prepared for colour to be null
+	 *               automatically set to the defaultTextColour, however, if you haven't given
+	 *               defaultTextColour a colour be prepared for colour to be null
 	 * @see com.n9mtq4.console.lib.gui.ConsoleGui#setDefaultTextColour
 	 * @see com.n9mtq4.console.lib.gui.ConsoleGui#getDefaultTextColour
 	 */
@@ -145,9 +147,10 @@ public class ConsoleGui {
 	 * Gets the default text colour to use when one is not specified<br>
 	 * If you called setDefaultTextColour - no need to do anything. It's handled on a
 	 * lower level.
+	 *
 	 * @return The colour that is the default colour to be used when one isn't specified
 	 * @see com.n9mtq4.console.lib.gui.ConsoleGui#setDefaultTextColour
-	 * */
+	 */
 	public Colour getDefaultTextColour() {
 		return defaultTextColour;
 	}
@@ -156,9 +159,10 @@ public class ConsoleGui {
 	 * Sets the default text colour to use when one is not specified<br>
 	 * The super class will set the colour in print to whatever is set here - no need to do anything. It's handled on a
 	 * lower level.
+	 *
 	 * @param defaultTextColour The colour that is the default colour to be used when one isn't specified
 	 * @see com.n9mtq4.console.lib.gui.ConsoleGui#getDefaultTextColour
-	 * */
+	 */
 	public void setDefaultTextColour(Colour defaultTextColour) {
 		this.defaultTextColour = defaultTextColour;
 	}

@@ -39,16 +39,18 @@ public class StdoutRedirect extends PrintStream {
 	
 	/**
 	 * Turns on the console redirection
+	 *
 	 * @see StdoutRedirect#turnOn(boolean)
-	 * */
+	 */
 	public void turnOn() {
 		turnOn(false);
 	}
 	
 	/**
 	 * Turns on the console redirection
+	 *
 	 * @param showLocation show where the print was called from?
-	 * */
+	 */
 	public void turnOn(boolean showLocation) {
 		
 		this.on = true;
@@ -60,7 +62,7 @@ public class StdoutRedirect extends PrintStream {
 	
 	/**
 	 * Disables console redirection
-	 * */
+	 */
 	public void turnOff() {
 		
 		this.on = false;
@@ -82,7 +84,7 @@ public class StdoutRedirect extends PrintStream {
 		}
 	}
 	
-//	START Overriding methods from PrintStream START
+	//	START Overriding methods from PrintStream START
 	@Override
 	public void print(Object o) {
 		StackTraceElement element = Thread.currentThread().getStackTrace()[2];
@@ -128,7 +130,7 @@ public class StdoutRedirect extends PrintStream {
 	
 	/**
 	 * Gets the location of where the print was called f rom
-	 * */
+	 */
 	private String getLocation() {
 		StackTraceElement element = Thread.currentThread().getStackTrace()[3];
 		return MessageFormat.format("({0}:{1, number,#}): ", element.getFileName(), element.getLineNumber());
@@ -136,28 +138,28 @@ public class StdoutRedirect extends PrintStream {
 	
 	/**
 	 * Getter for the {@link BaseConsole}
-	 * */
+	 */
 	public BaseConsole getBaseConsole() {
 		return baseConsole;
 	}
 	
 	/**
 	 * Getter for the default System.out
-	 * */
+	 */
 	public PrintStream getBackup() {
 		return backup;
 	}
 	
 	/**
 	 * Is the redirection showing the location?
-	 * */
+	 */
 	public boolean isShowLocation() {
 		return showLocation;
 	}
 	
 	/**
 	 * Is the redirection on?
-	 * */
+	 */
 	public boolean isOn() {
 		return on;
 	}

@@ -46,7 +46,7 @@ public class ConsoleCommand {
 	/**
 	 * The text of the command is split into words.
 	 * getArg returns the word at the given index.
-	 * <p>
+	 * <p/>
 	 * "Hello Java World".getArg(1) returns "Java"<br>
 	 * "Hello Java World".getArg(4) throws {@link StringIndexOutOfBoundsException}
 	 *
@@ -74,7 +74,7 @@ public class ConsoleCommand {
 	/**
 	 * Does the same thing as {@link String}.trim().equalsIgnoreCase()<br>
 	 * trims the string then equalsIgnoreCase
-	 * 
+	 *
 	 * @param s The comparing {@link String}
 	 * @return The boolean of {@link String}.trim().equalsIgnoreCase(s)
 	 * @see String#trim
@@ -164,11 +164,11 @@ public class ConsoleCommand {
 	 * Gets the string in between two other strings.<br>
 	 * "Hello World".getBetween("lo", "ld") returns " wor"<br>
 	 * "first second third first again".getBetween("second", "first") returns " third "<br>
-	 *  
-	 *  @param before The string before.
-	 *  @param after The string after.
-	 *  @return The string in between.
-	 * */
+	 *
+	 * @param before The string before.
+	 * @param after  The string after.
+	 * @return The string in between.
+	 */
 	public String getBetween(String before, String after) {
 		
 		int index1 = text.indexOf(before) + before.length();

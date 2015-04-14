@@ -16,7 +16,6 @@
 package com.n9mtq4.console.lib;
 
 import com.n9mtq4.console.lib.command.ConsoleCommand;
-import com.n9mtq4.console.lib.events.SentObjectEvent;
 import com.n9mtq4.console.lib.events.*;
 import com.n9mtq4.console.lib.utils.Colour;
 
@@ -30,11 +29,12 @@ public abstract class ConsoleListener {
 	
 	/**
 	 * A method that takes a string and returns a new instance of a ConsoleListener with the name
+	 *
 	 * @param name The full class name of the listener
 	 * @return A new {@link com.n9mtq4.console.lib.ConsoleListener} with the same name
 	 * @throws Exception when something doesn't work
-	 * */
-	public static ConsoleListener getNewListenerByName(String name) throws Exception{
+	 */
+	public static ConsoleListener getNewListenerByName(String name) throws Exception {
 		try {
 			Class<?> clazz = Class.forName(name);
 			Object clazz1 = clazz.newInstance();
@@ -83,7 +83,7 @@ public abstract class ConsoleListener {
 	 * Prevents disabling this listener.<br>
 	 * Call this method in the {@link com.n9mtq4.console.lib.ConsoleListener#onDisable}
 	 * and give it the {@link com.n9mtq4.console.lib.events.DisableActionEvent}
-	 * */
+	 */
 	public void stopDisable(DisableActionEvent e) {
 		if (e.getType() != DisableActionEvent.WINDOW_CLOSE) {
 			e.getBaseConsole().enableListener(this);
@@ -96,7 +96,7 @@ public abstract class ConsoleListener {
 	 * Prevents removal of this listener.<br>
 	 * Call this method in the {@link com.n9mtq4.console.lib.ConsoleListener#onRemoval}
 	 * and give it the {@link com.n9mtq4.console.lib.events.RemovalActionEvent}
-	 * */
+	 */
 	public void stopRemoval(RemovalActionEvent e) {
 		if (e.getType() != DisableActionEvent.WINDOW_CLOSE) {
 			e.getBaseConsole().addListener(this);
@@ -127,9 +127,9 @@ public abstract class ConsoleListener {
 	
 	/**
 	 * Sends this listener a SentObjectEvent.
-	 * 
+	 *
 	 * @param sentObjectEvent The event to send.
-	 * */
+	 */
 	public void pushObject(SentObjectEvent sentObjectEvent) {
 		
 		try {

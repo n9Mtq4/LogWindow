@@ -40,9 +40,9 @@ public class SentObjectEvent {
 	
 	/**
 	 * Gets the {@link com.n9mtq4.console.lib.BaseConsole} that called this event.
-	 * 
+	 *
 	 * @return The {@link com.n9mtq4.console.lib.BaseConsole} that called this event
-	 * */
+	 */
 	public BaseConsole getBaseConsole() {
 		return baseConsole;
 	}
@@ -50,14 +50,14 @@ public class SentObjectEvent {
 	/**
 	 * Returns true if a {@link com.n9mtq4.console.lib.ConsoleListener} has
 	 * indicated that this event has been completed / shouldn't continue iterating through listeners
-	 * */
+	 */
 	public boolean isCanceled() {
 		return canceled;
 	}
 	
 	/**
 	 * Gets the sent object
-	 * */
+	 */
 	public Object getObject() {
 		return object;
 	}

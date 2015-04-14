@@ -27,27 +27,28 @@ import java.io.File;
 /**
  * Created by will on 2/24/15.
  */
+
 /**
  * A {@link com.n9mtq4.console.lib.gui.ConsoleGui} that takes any output and
  * Sends it over a socket for a client somewhere to recieve
- * */
+ */
 public class GuiSocketOut extends ConsoleGui {
 	
 	/**
 	 * The ip to connect to
-	 * */
+	 */
 	private String ip = "localhost";
 	/**
 	 * The port to send stuff to
-	 * */
+	 */
 	private int port = 4444;
 	/**
 	 * The {@link com.n9mtq4.console.lib.managers.SocketManager} to handle
-	 * */
+	 */
 	public SocketManager socketManager = new SocketManager();
 	/**
 	 * A {@link com.n9mtq4.console.lib.ConsoleListener} to help this gui
-	 * */
+	 */
 	private GuiSocketOut.SocketInputSender helperListener;
 	
 	public void init() {
@@ -62,7 +63,7 @@ public class GuiSocketOut extends ConsoleGui {
 	/**
 	 * Disposes the gui<p>
 	 * closes the socket connections
-	 * */
+	 */
 	@Override
 	public void dispose() {
 		getParent().removeListener(helperListener, RemovalActionEvent.WINDOW_CLOSE);
@@ -71,7 +72,7 @@ public class GuiSocketOut extends ConsoleGui {
 	
 	/**
 	 * Get all output and send it to ip:port
-	 * */
+	 */
 	@Override
 	public void print(String text, Colour colour) {
 		
@@ -83,7 +84,7 @@ public class GuiSocketOut extends ConsoleGui {
 	
 	/**
 	 * Get a printed image and send the file location to ip:port
-	 * */
+	 */
 	@Override
 	public void printImage(File file) {
 		print(file.getAbsolutePath(), getDefaultTextColour());
@@ -92,61 +93,66 @@ public class GuiSocketOut extends ConsoleGui {
 	/**
 	 * Called when the ip or port changes<br>
 	 * Does nothing right now
-	 * */
+	 */
 	public void refresh() {
-		
+
 //		dummy - for possible use in the future
 		
 	}
 	
 	/**
 	 * Gets the ip
+	 *
 	 * @return the ip
 	 * @see com.n9mtq4.console.lib.gui.GuiSocketOut#setIp
-	 * */
+	 */
 	public String getIp() {
 		return ip;
 	}
 	
 	/**
 	 * Gets the port
+	 *
 	 * @return the port
 	 * @see com.n9mtq4.console.lib.gui.GuiSocketOut#setPort
-	 * */
+	 */
 	public int getPort() {
 		return port;
 	}
 	
 	/**
 	 * Gets the SocketManager
-	 * @return  the SocketManager
+	 *
+	 * @return the SocketManager
 	 * @see com.n9mtq4.console.lib.managers.SocketManager
-	 * */
+	 */
 	public SocketManager getSocketManager() {
 		return socketManager;
 	}
 	
 	/**
 	 * Sets the ip
+	 *
 	 * @param ip the new ip to set
-	 * @see com.n9mtq4.console.lib.gui.GuiSocketOut#getIp   
-	 * */
+	 * @see com.n9mtq4.console.lib.gui.GuiSocketOut#getIp
+	 */
 	public void setIp(String ip) {
 		this.ip = ip;
 	}
 	
 	/**
 	 * Sets the port
+	 *
 	 * @param port the new port to set
-	 * @see com.n9mtq4.console.lib.gui.GuiSocketOut#getPort   
-	 * */
+	 * @see com.n9mtq4.console.lib.gui.GuiSocketOut#getPort
+	 */
 	public void setPort(int port) {
 		this.port = port;
 	}
 	
 	/**
 	 * A helper class for {@link com.n9mtq4.console.lib.gui.GuiSocketOut}
-	 * */
+	 */
 	public static class SocketInputSender extends ConsoleListener {
 		
 		private GuiSocketOut parent;

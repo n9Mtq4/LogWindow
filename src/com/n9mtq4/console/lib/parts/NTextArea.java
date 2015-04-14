@@ -25,19 +25,19 @@ import java.net.MalformedURLException;
  * Created by Will on 10/20/14.<br>
  * A custom JTextPane / JTextArea that supports colors
  * and images.
- * */
+ */
 public class NTextArea extends JTextPane {
 	
 	/**
 	 * Can the user edit the text?
-	 * */
+	 */
 	private boolean userEditable;
 	
 	/**
 	 * Calls parent.
-	 * 
+	 *
 	 * @see javax.swing.JTextPane
-	 * */
+	 */
 	public NTextArea() {
 		super();
 		this.userEditable = false;
@@ -45,9 +45,9 @@ public class NTextArea extends JTextPane {
 	
 	/**
 	 * Calls parent.
-	 * 
+	 *
 	 * @see javax.swing.JTextPane
-	 * */
+	 */
 	public NTextArea(StyledDocument styledDocument) {
 		super(styledDocument);
 		this.userEditable = false;
@@ -55,10 +55,10 @@ public class NTextArea extends JTextPane {
 	
 	/**
 	 * Appends a string onto the NTextFrame.
-	 * 
+	 *
 	 * @param msg the String to append
-	 * @param c the color that the string will be in
-	 * */
+	 * @param c   the color that the string will be in
+	 */
 	public void append(String msg, Color c) {
 		if (c == null) c = Color.BLACK;
 		boolean edit = super.isEditable();
@@ -81,9 +81,9 @@ public class NTextArea extends JTextPane {
 	
 	/**
 	 * Sets the text of the {@link com.n9mtq4.console.lib.parts.NTextArea}<br>
-	 * 
+	 *
 	 * @param string The new String to set the text to
-	 * */
+	 */
 	@Override
 	public void setText(String string) {
 		boolean edit = super.isEditable();
@@ -94,9 +94,9 @@ public class NTextArea extends JTextPane {
 	
 	/**
 	 * Adds an image to the component.
-	 * 
+	 *
 	 * @param file the location of the picture
-	 * */
+	 */
 	public void appendPicture(File file) {
 		
 		int len = this.getDocument().getLength();
@@ -111,20 +111,20 @@ public class NTextArea extends JTextPane {
 	
 	/**
 	 * Can the user edit the text?
-	 * 
+	 *
 	 * @return true if the user edit it; false otherwise
 	 * @see com.n9mtq4.console.lib.parts.NTextArea#setUserEditable
-	 * */
+	 */
 	public boolean isUserEditable() {
 		return userEditable;
 	}
 	
 	/**
 	 * Setter method for userEditable.
-	 * 
+	 *
 	 * @param userEditable true or false of can the user edit it
 	 * @see com.n9mtq4.console.lib.parts.NTextArea#isUserEditable
-	 * */
+	 */
 	public void setUserEditable(boolean userEditable) {
 		this.userEditable = userEditable;
 		if (!userEditable) {
