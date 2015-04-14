@@ -17,20 +17,21 @@ package com.n9mtq4.console.lib.managers;
 
 import com.n9mtq4.console.lib.BaseConsole;
 import com.n9mtq4.console.lib.ConsoleListener;
-import com.n9mtq4.console.lib.utils.ReflectionHelper;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 import java.net.URL;
+import java.util.Scanner;
+import java.util.zip.ZipFile;
 
 import static com.n9mtq4.console.lib.utils.JarLoader.*;
+import static com.n9mtq4.console.lib.utils.ReflectionHelper.*;
 
 
 /**
- * Created by Will on 10/26/14.
+ * Created by Will on 10/26/14.<br>
+ * Handles all the loading from plugin jar files into the baseconsole.
  */
+//TODO: finish javadocs
 public class PluginManager {
 	
 	private static final Class[] parameters = new Class[] {URL.class};
@@ -38,15 +39,22 @@ public class PluginManager {
 	
 	/**
 	 * Loads all plugins from a specific directory to the BaseConsole.<br>
-	 * NOT FULLY TESTED
+	 * @see PluginManager#loadPluginsToConsole(BaseConsole, File) Use loadPluginsToConsole(BaseConsole, File) instead
 	 * */
-	public static void loadPluginsToConsole(BaseConsole c, String location) {
-		
-		if (!location.endsWith("/")) {
-			location += "/";
+	public static void loadPluginsToConsole(BaseConsole c, String filePath) {
+		if (!filePath.endsWith("/")) {
+			filePath += "/";
 		}
 		
-		File folder = new File(location);
+		File folder = new File(filePath);
+		loadPluginsToConsole(c, folder);
+	}
+	
+	/**
+	 * Loads all plugins from a specific directory to the BaseConsole.<br>
+	 * */
+	public static void loadPluginsToConsole(BaseConsole c, File folder) {
+		
 		if (!folder.exists()) {
 			return;
 		}
@@ -54,24 +62,78 @@ public class PluginManager {
 		assert children != null;
 		for (File f : children) {
 			
-			loadPlugin(f, c, location);
+			loadPlugin(f, c);
 			
 		}
 		
 	}
 	
-	//TODO: test to see if works
 	/**
-	 * NOT FULLY TESTED
+	 * Loads a plugin from File f into BaseConsole c.<br>
+	 * This plugin being loaded must be in the new format with a plugin.txt
+	 * in the root of the jar file.
 	 * */
 	public static void loadPlugin(File f, BaseConsole c) {
-		loadPlugin(f, c, f.getParent());
+		
+//		makes sure the file is a jar
+		if (f.getAbsolutePath().trim().toLowerCase().endsWith(".jar")) {
+			
+			try {
+				
+//				read plugin.txt from the plugin jar and set the contents to infoText
+				ZipFile zf = new ZipFile(f);
+				InputStream is = zf.getInputStream(zf.getEntry("plugin.txt"));
+				String infoText = streamToString(is);
+				
+//				add the jar file to the class loader, so we can reference it
+				addFile(f);
+				
+//				for each line in the file
+				String[] lines = infoText.split("\n");
+				for (String line : lines) {
+//					if the line isn't a comment
+					if (!line.startsWith("#")) {
+						try {
+//							try to add this listener to the base console using reflection
+							ConsoleListener listener = (ConsoleListener) callConstructor(getClassByFullName(line.trim()));
+							c.addListener(listener);
+						}catch (Exception e1) {
+							e1.printStackTrace();
+							c.printStackTrace(e1);
+						}
+					}
+				}
+				
+			}catch (IOException e) {
+				e.printStackTrace();
+				c.printStackTrace(e);
+			}
+			
+			
+		}
+		
 	}
 	
 	/**
-	 * NOT FULLY TESTED
+	 * Turns a InputStream into a String.
 	 * */
-	public static void loadPlugin(File f, BaseConsole c, String location) {
+	private static String streamToString(InputStream is) {
+		Scanner s = new Scanner(is).useDelimiter("\\A");
+		String str = s.hasNext() ? s.next() : "";
+		s.close();
+		return str;
+	}
+	
+	/**
+	 * Loads plugin from File f, at location into BaseConsole c.<br>
+	 * This plugin must be in the old format with a jar file, and another text
+	 * file with the same name (case sensitive) containing all the classes in the
+	 * jar file that extend ConsoleListener that wants to be added when the plugin
+	 * is loaded.
+	 * @deprecated Use the new plugin format. TODO: THIS WILL BE REMOVED IN VERSION 5.x.x
+	 * */
+ 	@Deprecated
+ 	public static void loadPluginOLDFORMAT(File f, BaseConsole c, String location) {
 		if (f.getAbsolutePath().trim().endsWith(".jar")) {
 			
 			String name = f.getName().substring(0, f.getName().lastIndexOf(".jar")).trim();
@@ -88,7 +150,7 @@ public class PluginManager {
 				for (String t : tokens) {
 					if (!t.startsWith("# ")) {
 						try {
-							ConsoleListener l = (ConsoleListener) ReflectionHelper.callConstructor(Class.forName(t.trim()));
+							ConsoleListener l = (ConsoleListener) callConstructor(Class.forName(t.trim()));
 							c.addListener(l);
 						}catch (Exception e) {
 							e.printStackTrace();
@@ -102,7 +164,7 @@ public class PluginManager {
 	}
 	
 	/**
-	 * NOT FULLY TESTED
+	 * Loads the contents of a file into a string.
 	 * */
 	private static String loadStringFromFile(String filePath) {
 		try {
