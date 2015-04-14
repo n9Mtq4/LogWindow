@@ -29,6 +29,6 @@ public interface HasFrame {
 	/**
 	 * If the {@link com.n9mtq4.console.lib.gui.ConsoleGui} implements HasFrame, get the jframe
 	 * */
-	public JFrame getJFrame();
+	JFrame getJFrame();
 	
 }

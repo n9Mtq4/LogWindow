@@ -31,7 +31,7 @@ public interface Textable {
 	 * @return The text that the {@link com.n9mtq4.console.lib.gui.ConsoleGui} has.
 	 * @see com.n9mtq4.console.lib.gui.attributes.Textable#setText
 	 * */
-	public String getText();
+	String getText();
 	
 	/**
 	 * Sets the current text in a compatible {@link com.n9mtq4.console.lib.gui.ConsoleGui}.
@@ -39,6 +39,6 @@ public interface Textable {
 	 * @param text The text to set the {@link com.n9mtq4.console.lib.gui.ConsoleGui} to.
 	 * @see com.n9mtq4.console.lib.gui.attributes.Textable#getText
 	 * */
-	public void setText(String text);
+	void setText(String text);
 	
 }

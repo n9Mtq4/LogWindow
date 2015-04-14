@@ -28,6 +28,6 @@ public interface History {
 	/**
 	 * Called when {@link com.n9mtq4.console.lib.BaseConsole#sendPluginsString} is called
 	 * */
-	public void historyUpdate();
+	void historyUpdate();
 	
 }
