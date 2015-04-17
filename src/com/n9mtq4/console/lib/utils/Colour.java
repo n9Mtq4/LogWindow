@@ -24,8 +24,6 @@ import java.awt.color.ColorSpace;
 
 /**
  * A modified version of @{link Color} to support ANSI values<br>
- *
- * @see
  */
 public class Colour extends Color {
 	
@@ -126,7 +124,6 @@ public class Colour extends Color {
 	 * @param i  the i
 	 * @param i1 the i 1
 	 * @param i2 the i 2
-	 * @see
 	 */
 	public Colour(int i, int i1, int i2) {
 		super(i, i1, i2);
@@ -139,7 +136,6 @@ public class Colour extends Color {
 	 * @param i1 the i 1
 	 * @param i2 the i 2
 	 * @param i3 the i 3
-	 * @see
 	 */
 	public Colour(int i, int i1, int i2, int i3) {
 		super(i, i1, i2, i3);
@@ -149,7 +145,6 @@ public class Colour extends Color {
 	 * Instantiates a new Colour.
 	 *
 	 * @param i the i
-	 * @see
 	 */
 	public Colour(int i) {
 		super(i);
@@ -160,7 +155,6 @@ public class Colour extends Color {
 	 *
 	 * @param i the i
 	 * @param b the b
-	 * @see
 	 */
 	public Colour(int i, boolean b) {
 		super(i, b);
@@ -172,7 +166,6 @@ public class Colour extends Color {
 	 * @param v  the v
 	 * @param v1 the v 1
 	 * @param v2 the v 2
-	 * @see
 	 */
 	public Colour(float v, float v1, float v2) {
 		super(v, v1, v2);
@@ -185,7 +178,6 @@ public class Colour extends Color {
 	 * @param v1 the v 1
 	 * @param v2 the v 2
 	 * @param v3 the v 3
-	 * @see
 	 */
 	public Colour(float v, float v1, float v2, float v3) {
 		super(v, v1, v2, v3);
@@ -197,7 +189,6 @@ public class Colour extends Color {
 	 * @param colorSpace the color space
 	 * @param floats     the floats
 	 * @param v          the v
-	 * @see
 	 */
 	public Colour(ColorSpace colorSpace, float[] floats, float v) {
 		super(colorSpace, floats, v);

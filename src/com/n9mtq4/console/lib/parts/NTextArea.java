@@ -35,8 +35,6 @@ public class NTextArea extends JTextPane {
 	
 	/**
 	 * Calls parent.
-	 *
-	 * @see
 	 */
 	public NTextArea() {
 		super();
@@ -47,7 +45,6 @@ public class NTextArea extends JTextPane {
 	 * Calls parent.
 	 *
 	 * @param styledDocument the styled document
-	 * @see
 	 */
 	public NTextArea(StyledDocument styledDocument) {
 		super(styledDocument);

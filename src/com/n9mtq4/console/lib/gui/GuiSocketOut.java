@@ -124,7 +124,6 @@ public class GuiSocketOut extends ConsoleGui {
 	 * Gets the SocketManager
 	 *
 	 * @return the SocketManager
-	 * @see
 	 */
 	public SocketManager getSocketManager() {
 		return socketManager;
