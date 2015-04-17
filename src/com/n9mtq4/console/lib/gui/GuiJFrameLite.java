@@ -129,6 +129,8 @@ public class GuiJFrameLite extends ConsoleGui implements Textable, History, HasF
 	
 	@Override
 	public void print(String text, Colour colour) {
+		DefaultCaret caret = (DefaultCaret) area.getCaret();
+		caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
 		area.append(text);
 	}
 	
