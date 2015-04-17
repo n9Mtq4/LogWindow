@@ -31,7 +31,8 @@ public abstract class ConsoleListener {
 	 * A method that takes a string and returns a new instance of a ConsoleListener with the name
 	 *
 	 * @param name The full class name of the listener
-	 * @return A new {@link com.n9mtq4.console.lib.ConsoleListener} with the same name
+	 * @return A new
+	 * with the same name
 	 * @throws Exception when something doesn't work
 	 */
 	public static ConsoleListener getNewListenerByName(String name) throws Exception {
@@ -61,28 +62,60 @@ public abstract class ConsoleListener {
 		
 	}
 	
+	/**
+	 * On addition.
+	 *
+	 * @param e the AdditionActionEvent
+	 */
 	public void onAddition(AdditionActionEvent e) {
 	}
 	
+	/**
+	 * On enable.
+	 *
+	 * @param e the EnableActionEvent
+	 */
 	public void onEnable(EnableActionEvent e) {
 	}
 	
+	/**
+	 * Action performed.
+	 *
+	 * @param e the ConsoleActionEvent
+	 */
 	public abstract void actionPerformed(ConsoleActionEvent e);
 	
+	/**
+	 * Object received.
+	 *
+	 * @param e the SentObjectEvent
+	 */
 	public void objectReceived(SentObjectEvent e) {
 		
 	}
 	
+	/**
+	 * On disable.
+	 *
+	 * @param e the DisableActionEvent
+	 */
 	public void onDisable(DisableActionEvent e) {
 	}
 	
+	/**
+	 * On removal.
+	 *
+	 * @param e the RemovalActionEvent
+	 */
 	public void onRemoval(RemovalActionEvent e) {
 	}
 	
 	/**
 	 * Prevents disabling this listener.<br>
-	 * Call this method in the {@link com.n9mtq4.console.lib.ConsoleListener#onDisable}
-	 * and give it the {@link com.n9mtq4.console.lib.events.DisableActionEvent}
+	 * Call this method in the {@link ConsoleListener#onDisable}
+	 * and give it the {@link DisableActionEvent}
+	 *
+	 * @param e the DisableActionEvent
 	 */
 	public void stopDisable(DisableActionEvent e) {
 		if (e.getType() != DisableActionEvent.WINDOW_CLOSE) {
@@ -94,8 +127,10 @@ public abstract class ConsoleListener {
 	
 	/**
 	 * Prevents removal of this listener.<br>
-	 * Call this method in the {@link com.n9mtq4.console.lib.ConsoleListener#onRemoval}
-	 * and give it the {@link com.n9mtq4.console.lib.events.RemovalActionEvent}
+	 * Call this method in the {@link ConsoleListener#onRemoval}
+	 * and give it the {@link RemovalActionEvent}
+	 *
+	 * @param e the e
 	 */
 	public void stopRemoval(RemovalActionEvent e) {
 		if (e.getType() != DisableActionEvent.WINDOW_CLOSE) {
@@ -163,9 +198,10 @@ public abstract class ConsoleListener {
 	/**
 	 * Adds this listener onto a {@link BaseConsole}.
 	 *
-	 * @param baseConsole the {@link BaseConsole} to add this listener to.
+	 * @param baseConsole the
+	 *                    to add this listener to.
 	 * @see BaseConsole#addListener
-	 * @deprecated use {@link BaseConsole#addListener} instead.
+	 * @deprecated use {@link BaseConsole#addListener(ConsoleListener)} instead.
 	 */
 	@Deprecated
 	public void addToConsole(BaseConsole baseConsole) {
@@ -180,9 +216,10 @@ public abstract class ConsoleListener {
 	/**
 	 * Removes this listener from a {@link BaseConsole}.
 	 *
-	 * @param baseConsole the {@link BaseConsole} to remove this listener from.
+	 * @param baseConsole the
+	 *                    to remove this listener from.
 	 * @see BaseConsole#removeListener
-	 * @deprecated use {@link BaseConsole#removeListener} instead.
+	 * @deprecated use {@link BaseConsole#removeListener(ConsoleListener)} instead.
 	 */
 	@Deprecated
 	public void removeFromConsole(BaseConsole baseConsole) {
@@ -209,7 +246,8 @@ public abstract class ConsoleListener {
 	/**
 	 * Gives you a list of the {@link BaseConsole} this listener is listening on.
 	 *
-	 * @return An array of {@link BaseConsole}.
+	 * @return An array of
+	 * .
 	 */
 	public ArrayList<BaseConsole> getLinkedBaseConsoles() {
 		return (ArrayList<BaseConsole>) linkedBaseConsoles.clone();

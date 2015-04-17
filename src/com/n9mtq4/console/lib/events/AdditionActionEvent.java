@@ -22,6 +22,11 @@ import com.n9mtq4.console.lib.BaseConsole;
  */
 public class AdditionActionEvent extends EnableActionEvent {
 	
+	/**
+	 * Instantiates a new Addition action event.
+	 *
+	 * @param baseConsole the base console
+	 */
 	public AdditionActionEvent(BaseConsole baseConsole) {
 		super(baseConsole);
 	}

@@ -29,7 +29,7 @@ import java.io.File;
  */
 
 /**
- * A {@link com.n9mtq4.console.lib.gui.ConsoleGui} that takes any output and
+ * A {@link ConsoleGui} that takes any output and
  * Sends it over a socket for a client somewhere to recieve
  */
 public class GuiSocketOut extends ConsoleGui {
@@ -43,7 +43,7 @@ public class GuiSocketOut extends ConsoleGui {
 	 */
 	private int port = 4444;
 	/**
-	 * The {@link com.n9mtq4.console.lib.managers.SocketManager} to handle
+	 * The {@link SocketManager} to handle
 	 */
 	public SocketManager socketManager = new SocketManager();
 	/**
@@ -104,7 +104,7 @@ public class GuiSocketOut extends ConsoleGui {
 	 * Gets the ip
 	 *
 	 * @return the ip
-	 * @see com.n9mtq4.console.lib.gui.GuiSocketOut#setIp
+	 * @see GuiSocketOut#setIp
 	 */
 	public String getIp() {
 		return ip;
@@ -114,7 +114,7 @@ public class GuiSocketOut extends ConsoleGui {
 	 * Gets the port
 	 *
 	 * @return the port
-	 * @see com.n9mtq4.console.lib.gui.GuiSocketOut#setPort
+	 * @see GuiSocketOut#setPort
 	 */
 	public int getPort() {
 		return port;
@@ -124,7 +124,7 @@ public class GuiSocketOut extends ConsoleGui {
 	 * Gets the SocketManager
 	 *
 	 * @return the SocketManager
-	 * @see com.n9mtq4.console.lib.managers.SocketManager
+	 * @see
 	 */
 	public SocketManager getSocketManager() {
 		return socketManager;
@@ -134,7 +134,7 @@ public class GuiSocketOut extends ConsoleGui {
 	 * Sets the ip
 	 *
 	 * @param ip the new ip to set
-	 * @see com.n9mtq4.console.lib.gui.GuiSocketOut#getIp
+	 * @see GuiSocketOut#getIp
 	 */
 	public void setIp(String ip) {
 		this.ip = ip;
@@ -144,19 +144,24 @@ public class GuiSocketOut extends ConsoleGui {
 	 * Sets the port
 	 *
 	 * @param port the new port to set
-	 * @see com.n9mtq4.console.lib.gui.GuiSocketOut#getPort
+	 * @see GuiSocketOut#getPort
 	 */
 	public void setPort(int port) {
 		this.port = port;
 	}
 	
 	/**
-	 * A helper class for {@link com.n9mtq4.console.lib.gui.GuiSocketOut}
+	 * A helper class for {@link GuiSocketOut}
 	 */
 	public static class SocketInputSender extends ConsoleListener {
 		
 		private GuiSocketOut parent;
 		
+		/**
+		 * Instantiates a new Socket input sender.
+		 *
+		 * @param parent the parent
+		 */
 		public SocketInputSender(GuiSocketOut parent) {
 			this.parent = parent;
 		}

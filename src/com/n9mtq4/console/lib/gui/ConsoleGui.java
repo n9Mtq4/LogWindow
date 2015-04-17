@@ -71,6 +71,8 @@ public class ConsoleGui {
 	/**
 	 * Note: DO NOT OVERRIDE!<br>
 	 * Binds the object to a parent {@link BaseConsole}.
+	 *
+	 * @param parent the parent
 	 */
 	public void add(BaseConsole parent) {
 		this.parent = parent;
@@ -78,12 +80,14 @@ public class ConsoleGui {
 	}
 	
 	/**
-	 * Note: Don't override me! Override {@link com.n9mtq4.console.lib.gui.ConsoleGui#print} instead<br>
+	 * Note: Don't override me! Override {@link ConsoleGui#print} instead<br>
 	 * Note: Don't use me!<br>
 	 * A small helper method that {@link BaseConsole} calls. This method adds support for default text color.
 	 *
-	 * @see com.n9mtq4.console.lib.gui.ConsoleGui#print
-	 * @deprecated Helper method only meant to be used by {@link BaseConsole}
+	 * @param text   the text
+	 * @param colour the colour
+	 * @see ConsoleGui#print
+	 * @deprecated Helper method only meant to be used by
 	 */
 	@Deprecated
 	public void lowPrint(String text, Colour colour) {
@@ -99,8 +103,8 @@ public class ConsoleGui {
 	 * @param colour The colour that the user wants to print the text in. If colour is null, it will be
 	 *               automatically set to the defaultTextColour, however, if you haven't given
 	 *               defaultTextColour a colour be prepared for colour to be null
-	 * @see com.n9mtq4.console.lib.gui.ConsoleGui#setDefaultTextColour
-	 * @see com.n9mtq4.console.lib.gui.ConsoleGui#getDefaultTextColour
+	 * @see ConsoleGui#setDefaultTextColour
+	 * @see ConsoleGui#getDefaultTextColour
 	 */
 	public void print(String text, @Nullable Colour colour) {
 		
@@ -109,6 +113,8 @@ public class ConsoleGui {
 	/**
 	 * Note: Override me!<br>
 	 * Called when a {@link com.n9mtq4.console.lib.ConsoleListener} wants to print an image.
+	 *
+	 * @param file the file
 	 */
 	public void printImage(File file) {
 		
@@ -117,8 +123,9 @@ public class ConsoleGui {
 	/**
 	 * Gets the parent {@link BaseConsole}.
 	 *
-	 * @return The {@link BaseConsole} this {@link ConsoleGui} is linked to.
-	 * @see com.n9mtq4.console.lib.gui.ConsoleGui#setParent
+	 * @return The  this
+	 * is linked to.
+	 * @see ConsoleGui#setParent
 	 */
 	public BaseConsole getParent() {
 		return parent;
@@ -128,7 +135,7 @@ public class ConsoleGui {
 	 * Sets the parent {@link BaseConsole}.
 	 *
 	 * @param parent Sets the parent to the new parent given.
-	 * @see com.n9mtq4.console.lib.gui.ConsoleGui#getParent
+	 * @see ConsoleGui#getParent
 	 */
 	public void setParent(BaseConsole parent) {
 		this.parent = parent;
@@ -149,7 +156,7 @@ public class ConsoleGui {
 	 * lower level.
 	 *
 	 * @return The colour that is the default colour to be used when one isn't specified
-	 * @see com.n9mtq4.console.lib.gui.ConsoleGui#setDefaultTextColour
+	 * @see ConsoleGui#setDefaultTextColour
 	 */
 	public Colour getDefaultTextColour() {
 		return defaultTextColour;
@@ -161,7 +168,7 @@ public class ConsoleGui {
 	 * lower level.
 	 *
 	 * @param defaultTextColour The colour that is the default colour to be used when one isn't specified
-	 * @see com.n9mtq4.console.lib.gui.ConsoleGui#getDefaultTextColour
+	 * @see ConsoleGui#getDefaultTextColour
 	 */
 	public void setDefaultTextColour(Colour defaultTextColour) {
 		this.defaultTextColour = defaultTextColour;

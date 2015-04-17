@@ -24,16 +24,31 @@ public class EnableActionEvent {
 	
 	private BaseConsole baseConsole;
 	
+	/**
+	 * Instantiates a new Enable action event.
+	 *
+	 * @param baseConsole the base console
+	 */
 	public EnableActionEvent(BaseConsole baseConsole) {
 		
 		this.baseConsole = baseConsole;
 		
 	}
 	
+	/**
+	 * Gets base console.
+	 *
+	 * @return the base console
+	 */
 	public BaseConsole getBaseConsole() {
 		return baseConsole;
 	}
 	
+	/**
+	 * Sets base console.
+	 *
+	 * @param baseConsole the base console
+	 */
 	public void setBaseConsole(BaseConsole baseConsole) {
 		this.baseConsole = baseConsole;
 	}

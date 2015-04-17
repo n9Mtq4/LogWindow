@@ -29,6 +29,11 @@ public class ConsoleCommand {
 	private String text;
 	private String[] words;
 	
+	/**
+	 * Instantiates a new Console command.
+	 *
+	 * @param text the text
+	 */
 	public ConsoleCommand(String text) {
 		this.text = text;
 		init();
@@ -50,8 +55,9 @@ public class ConsoleCommand {
 	 * "Hello Java World".getArg(1) returns "Java"<br>
 	 * "Hello Java World".getArg(4) throws {@link StringIndexOutOfBoundsException}
 	 *
+	 * @param i the i
 	 * @return The word at the given index.
-	 * @throws java.lang.StringIndexOutOfBoundsException when the index is more than the number of words - 1 (first word is 0)
+	 * @throws StringIndexOutOfBoundsException when the index is more than the number of words - 1 (first word is 0)
 	 */
 	public String getArg(int i) {
 		
@@ -75,8 +81,9 @@ public class ConsoleCommand {
 	 * Does the same thing as {@link String}.trim().equalsIgnoreCase()<br>
 	 * trims the string then equalsIgnoreCase
 	 *
-	 * @param s The comparing {@link String}
-	 * @return The boolean of {@link String}.trim().equalsIgnoreCase(s)
+	 * @param s The comparing
+	 * @return The boolean of
+	 * .trim().equalsIgnoreCase(s)
 	 * @see String#trim
 	 * @see String#equalsIgnoreCase
 	 */
@@ -88,8 +95,9 @@ public class ConsoleCommand {
 	 * Returns if the text of the command starts with the given {@link String}<br>
 	 * Same as getText().startsWith(s)
 	 *
-	 * @param s The comparing {@link String}
-	 * @return boolean of {@link String}.startsWith(s);
+	 * @param s The comparing
+	 * @return boolean of
+	 * .startsWith(s);
 	 * @see String#startsWith
 	 */
 	public boolean startsWith(String s) {
@@ -105,7 +113,8 @@ public class ConsoleCommand {
 	 * "Hello Java World".getWordsStartingFrom(4) returns null<br>
 	 *
 	 * @param startIndex Index of the word to get the string there-on.
-	 * @return The cropped {@link String}.
+	 * @return The cropped
+	 * .
 	 */
 	public String getWordsStartingFrom(int startIndex) {
 		String before = getText();
@@ -214,7 +223,7 @@ public class ConsoleCommand {
 	/**
 	 * Gives you the number of words that the user inputed.
 	 *
-	 * @return words.length
+	 * @return words.length length
 	 */
 	public int getLength() {
 		
@@ -225,6 +234,7 @@ public class ConsoleCommand {
 	/**
 	 * Gives you the character count of the {@link String} the user inputed.
 	 *
+	 * @return the text length
 	 * @see String#length
 	 */
 	public int getTextLength() {

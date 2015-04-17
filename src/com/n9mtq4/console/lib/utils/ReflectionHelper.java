@@ -41,6 +41,14 @@ import java.util.jar.JarFile;
 @SuppressWarnings("unused")
 public class ReflectionHelper {
 	
+	/**
+	 * Gets int.
+	 *
+	 * @param fieldName the field name
+	 * @param obj       the obj
+	 * @param clazz     the class
+	 * @return the int
+	 */
 	public static int getInt(String fieldName, Object obj, Class clazz) {
 		try {
 			Field f = clazz.getDeclaredField(fieldName);
@@ -52,6 +60,14 @@ public class ReflectionHelper {
 		}
 	}
 	
+	/**
+	 * Sets int.
+	 *
+	 * @param x         the x
+	 * @param fieldName the field name
+	 * @param obj       the obj
+	 * @param clazz     the class
+	 */
 	public static void setInt(int x, String fieldName, Object obj, Class clazz) {
 		try {
 			Field f = clazz.getDeclaredField(fieldName);
@@ -62,14 +78,35 @@ public class ReflectionHelper {
 		}
 	}
 	
+	/**
+	 * Gets int.
+	 *
+	 * @param fieldName the field name
+	 * @param obj       the obj
+	 * @return the int
+	 */
 	public static int getInt(String fieldName, Object obj) {
 		return getInt(fieldName, obj, obj.getClass());
 	}
 	
+	/**
+	 * Sets int.
+	 *
+	 * @param x         the x
+	 * @param fieldName the field name
+	 * @param obj       the obj
+	 */
 	public static void setInt(int x, String fieldName, Object obj) {
 		setInt(x, fieldName, obj, obj.getClass());
 	}
 	
+	/**
+	 * Gets static int.
+	 *
+	 * @param fieldName the field name
+	 * @param clazz     the class
+	 * @return the static int
+	 */
 	public static int getStaticInt(String fieldName, Class clazz) {
 		try {
 			Field f = clazz.getDeclaredField(fieldName);
@@ -81,6 +118,13 @@ public class ReflectionHelper {
 		}
 	}
 	
+	/**
+	 * Sets static int.
+	 *
+	 * @param x         the x
+	 * @param fieldName the field name
+	 * @param clazz     the class
+	 */
 	public static void setStaticInt(int x, String fieldName, Class clazz) {
 		try {
 			Field f = clazz.getDeclaredField(fieldName);
@@ -91,6 +135,14 @@ public class ReflectionHelper {
 		}
 	}
 	
+	/**
+	 * Gets byte.
+	 *
+	 * @param fieldName the field name
+	 * @param obj       the obj
+	 * @param clazz     the class
+	 * @return the byte
+	 */
 	public static byte getByte(String fieldName, Object obj, Class clazz) {
 		try {
 			Field f = clazz.getDeclaredField(fieldName);
@@ -102,6 +154,14 @@ public class ReflectionHelper {
 		}
 	}
 	
+	/**
+	 * Sets byte.
+	 *
+	 * @param x         the x
+	 * @param fieldName the field name
+	 * @param obj       the obj
+	 * @param clazz     the class
+	 */
 	public static void setByte(byte x, String fieldName, Object obj, Class clazz) {
 		try {
 			Field f = clazz.getDeclaredField(fieldName);
@@ -112,14 +172,35 @@ public class ReflectionHelper {
 		}
 	}
 	
+	/**
+	 * Gets byte.
+	 *
+	 * @param fieldName the field name
+	 * @param obj       the obj
+	 * @return the byte
+	 */
 	public static byte getByte(String fieldName, Object obj) {
 		return getByte(fieldName, obj, obj.getClass());
 	}
 	
+	/**
+	 * Sets byte.
+	 *
+	 * @param x         the x
+	 * @param fieldName the field name
+	 * @param obj       the obj
+	 */
 	public static void setByte(byte x, String fieldName, Object obj) {
 		setByte(x, fieldName, obj, obj.getClass());
 	}
 	
+	/**
+	 * Gets static byte.
+	 *
+	 * @param fieldName the field name
+	 * @param clazz     the class
+	 * @return the static byte
+	 */
 	public static byte getStaticByte(String fieldName, Class clazz) {
 		try {
 			Field f = clazz.getDeclaredField(fieldName);
@@ -131,6 +212,13 @@ public class ReflectionHelper {
 		}
 	}
 	
+	/**
+	 * Sets static byte.
+	 *
+	 * @param x         the x
+	 * @param fieldName the field name
+	 * @param clazz     the class
+	 */
 	public static void setStaticByte(byte x, String fieldName, Class clazz) {
 		try {
 			Field f = clazz.getDeclaredField(fieldName);
@@ -141,6 +229,14 @@ public class ReflectionHelper {
 		}
 	}
 	
+	/**
+	 * Gets boolean.
+	 *
+	 * @param fieldName the field name
+	 * @param obj       the obj
+	 * @param clazz     the class
+	 * @return the boolean
+	 */
 	public static boolean getBoolean(String fieldName, Object obj, Class clazz) {
 		try {
 			Field f = clazz.getDeclaredField(fieldName);
@@ -152,6 +248,14 @@ public class ReflectionHelper {
 		}
 	}
 	
+	/**
+	 * Sets boolean.
+	 *
+	 * @param x         the x
+	 * @param fieldName the field name
+	 * @param obj       the obj
+	 * @param clazz     the class
+	 */
 	public static void setBoolean(boolean x, String fieldName, Object obj, Class clazz) {
 		try {
 			Field f = clazz.getDeclaredField(fieldName);
@@ -162,14 +266,35 @@ public class ReflectionHelper {
 		}
 	}
 	
+	/**
+	 * Gets boolean.
+	 *
+	 * @param fieldName the field name
+	 * @param obj       the obj
+	 * @return the boolean
+	 */
 	public static boolean getBoolean(String fieldName, Object obj) {
 		return getBoolean(fieldName, obj, obj.getClass());
 	}
 	
+	/**
+	 * Sets boolean.
+	 *
+	 * @param x         the x
+	 * @param fieldName the field name
+	 * @param obj       the obj
+	 */
 	public static void setBoolean(boolean x, String fieldName, Object obj) {
 		setBoolean(x, fieldName, obj, obj.getClass());
 	}
 	
+	/**
+	 * Gets static boolean.
+	 *
+	 * @param fieldName the field name
+	 * @param clazz     the class
+	 * @return the static boolean
+	 */
 	public static boolean getStaticBoolean(String fieldName, Class clazz) {
 		try {
 			Field f = clazz.getDeclaredField(fieldName);
@@ -181,6 +306,13 @@ public class ReflectionHelper {
 		}
 	}
 	
+	/**
+	 * Sets static boolean.
+	 *
+	 * @param x         the x
+	 * @param fieldName the field name
+	 * @param clazz     the class
+	 */
 	public static void setStaticBoolean(boolean x, String fieldName, Class clazz) {
 		try {
 			Field f = clazz.getDeclaredField(fieldName);
@@ -191,6 +323,14 @@ public class ReflectionHelper {
 		}
 	}
 	
+	/**
+	 * Gets char.
+	 *
+	 * @param fieldName the field name
+	 * @param obj       the obj
+	 * @param clazz     the class
+	 * @return the char
+	 */
 	public static char getChar(String fieldName, Object obj, Class clazz) {
 		try {
 			Field f = clazz.getDeclaredField(fieldName);
@@ -202,6 +342,14 @@ public class ReflectionHelper {
 		}
 	}
 	
+	/**
+	 * Sets char.
+	 *
+	 * @param x         the x
+	 * @param fieldName the field name
+	 * @param obj       the obj
+	 * @param clazz     the class
+	 */
 	public static void setChar(char x, String fieldName, Object obj, Class clazz) {
 		try {
 			Field f = clazz.getDeclaredField(fieldName);
@@ -212,14 +360,35 @@ public class ReflectionHelper {
 		}
 	}
 	
+	/**
+	 * Gets char.
+	 *
+	 * @param fieldName the field name
+	 * @param obj       the obj
+	 * @return the char
+	 */
 	public static char getChar(String fieldName, Object obj) {
 		return getChar(fieldName, obj, obj.getClass());
 	}
 	
+	/**
+	 * Sets char.
+	 *
+	 * @param x         the x
+	 * @param fieldName the field name
+	 * @param obj       the obj
+	 */
 	public static void setChar(char x, String fieldName, Object obj) {
 		setChar(x, fieldName, obj, obj.getClass());
 	}
 	
+	/**
+	 * Gets static char.
+	 *
+	 * @param fieldName the field name
+	 * @param clazz     the class
+	 * @return the static char
+	 */
 	public static char getStaticChar(String fieldName, Class clazz) {
 		try {
 			Field f = clazz.getDeclaredField(fieldName);
@@ -231,6 +400,13 @@ public class ReflectionHelper {
 		}
 	}
 	
+	/**
+	 * Sets static char.
+	 *
+	 * @param x         the x
+	 * @param fieldName the field name
+	 * @param clazz     the class
+	 */
 	public static void setStaticChar(char x, String fieldName, Class clazz) {
 		try {
 			Field f = clazz.getDeclaredField(fieldName);
@@ -241,6 +417,14 @@ public class ReflectionHelper {
 		}
 	}
 	
+	/**
+	 * Gets float.
+	 *
+	 * @param fieldName the field name
+	 * @param obj       the obj
+	 * @param clazz     the class
+	 * @return the float
+	 */
 	public static float getFloat(String fieldName, Object obj, Class clazz) {
 		try {
 			Field f = clazz.getDeclaredField(fieldName);
@@ -252,6 +436,14 @@ public class ReflectionHelper {
 		}
 	}
 	
+	/**
+	 * Sets float.
+	 *
+	 * @param x         the x
+	 * @param fieldName the field name
+	 * @param obj       the obj
+	 * @param clazz     the class
+	 */
 	public static void setFloat(float x, String fieldName, Object obj, Class clazz) {
 		try {
 			Field f = clazz.getDeclaredField(fieldName);
@@ -262,14 +454,35 @@ public class ReflectionHelper {
 		}
 	}
 	
+	/**
+	 * Gets float.
+	 *
+	 * @param fieldName the field name
+	 * @param obj       the obj
+	 * @return the float
+	 */
 	public static float getFloat(String fieldName, Object obj) {
 		return getFloat(fieldName, obj, obj.getClass());
 	}
 	
+	/**
+	 * Sets float.
+	 *
+	 * @param x         the x
+	 * @param fieldName the field name
+	 * @param obj       the obj
+	 */
 	public static void setFloat(float x, String fieldName, Object obj) {
 		setFloat(x, fieldName, obj, obj.getClass());
 	}
 	
+	/**
+	 * Gets static float.
+	 *
+	 * @param fieldName the field name
+	 * @param clazz     the class
+	 * @return the static float
+	 */
 	public static float getStaticFloat(String fieldName, Class clazz) {
 		try {
 			Field f = clazz.getDeclaredField(fieldName);
@@ -281,6 +494,13 @@ public class ReflectionHelper {
 		}
 	}
 	
+	/**
+	 * Sets static float.
+	 *
+	 * @param x         the x
+	 * @param fieldName the field name
+	 * @param clazz     the class
+	 */
 	public static void setStaticFloat(float x, String fieldName, Class clazz) {
 		try {
 			Field f = clazz.getDeclaredField(fieldName);
@@ -291,6 +511,14 @@ public class ReflectionHelper {
 		}
 	}
 	
+	/**
+	 * Gets double.
+	 *
+	 * @param fieldName the field name
+	 * @param obj       the obj
+	 * @param clazz     the class
+	 * @return the double
+	 */
 	public static double getDouble(String fieldName, Object obj, Class clazz) {
 		try {
 			Field f = clazz.getDeclaredField(fieldName);
@@ -302,6 +530,14 @@ public class ReflectionHelper {
 		}
 	}
 	
+	/**
+	 * Sets double.
+	 *
+	 * @param x         the x
+	 * @param fieldName the field name
+	 * @param obj       the obj
+	 * @param clazz     the class
+	 */
 	public static void setDouble(double x, String fieldName, Object obj, Class clazz) {
 		try {
 			Field f = clazz.getDeclaredField(fieldName);
@@ -312,14 +548,35 @@ public class ReflectionHelper {
 		}
 	}
 	
+	/**
+	 * Gets double.
+	 *
+	 * @param fieldName the field name
+	 * @param obj       the obj
+	 * @return the double
+	 */
 	public static double getDouble(String fieldName, Object obj) {
 		return getDouble(fieldName, obj, obj.getClass());
 	}
 	
+	/**
+	 * Sets double.
+	 *
+	 * @param x         the x
+	 * @param fieldName the field name
+	 * @param obj       the obj
+	 */
 	public static void setDouble(double x, String fieldName, Object obj) {
 		setDouble(x, fieldName, obj, obj.getClass());
 	}
 	
+	/**
+	 * Gets static double.
+	 *
+	 * @param fieldName the field name
+	 * @param clazz     the class
+	 * @return the static double
+	 */
 	public static double getStaticDouble(String fieldName, Class clazz) {
 		try {
 			Field f = clazz.getDeclaredField(fieldName);
@@ -331,6 +588,13 @@ public class ReflectionHelper {
 		}
 	}
 	
+	/**
+	 * Sets static double.
+	 *
+	 * @param x         the x
+	 * @param fieldName the field name
+	 * @param clazz     the class
+	 */
 	public static void setStaticDouble(double x, String fieldName, Class clazz) {
 		try {
 			Field f = clazz.getDeclaredField(fieldName);
@@ -341,6 +605,14 @@ public class ReflectionHelper {
 		}
 	}
 	
+	/**
+	 * Gets long.
+	 *
+	 * @param fieldName the field name
+	 * @param obj       the obj
+	 * @param clazz     the class
+	 * @return the long
+	 */
 	public static long getLong(String fieldName, Object obj, Class clazz) {
 		try {
 			Field f = clazz.getDeclaredField(fieldName);
@@ -352,6 +624,14 @@ public class ReflectionHelper {
 		}
 	}
 	
+	/**
+	 * Sets long.
+	 *
+	 * @param x         the x
+	 * @param fieldName the field name
+	 * @param obj       the obj
+	 * @param clazz     the class
+	 */
 	public static void setLong(long x, String fieldName, Object obj, Class clazz) {
 		try {
 			Field f = clazz.getDeclaredField(fieldName);
@@ -362,14 +642,35 @@ public class ReflectionHelper {
 		}
 	}
 	
+	/**
+	 * Gets long.
+	 *
+	 * @param fieldName the field name
+	 * @param obj       the obj
+	 * @return the long
+	 */
 	public static long getLong(String fieldName, Object obj) {
 		return getLong(fieldName, obj, obj.getClass());
 	}
 	
+	/**
+	 * Sets long.
+	 *
+	 * @param x         the x
+	 * @param fieldName the field name
+	 * @param obj       the obj
+	 */
 	public static void setLong(long x, String fieldName, Object obj) {
 		setLong(x, fieldName, obj, obj.getClass());
 	}
 	
+	/**
+	 * Gets static long.
+	 *
+	 * @param fieldName the field name
+	 * @param clazz     the class
+	 * @return the static long
+	 */
 	public static long getStaticLong(String fieldName, Class clazz) {
 		try {
 			Field f = clazz.getDeclaredField(fieldName);
@@ -381,6 +682,13 @@ public class ReflectionHelper {
 		}
 	}
 	
+	/**
+	 * Sets static long.
+	 *
+	 * @param x         the x
+	 * @param fieldName the field name
+	 * @param clazz     the class
+	 */
 	public static void setStaticLong(long x, String fieldName, Class clazz) {
 		try {
 			Field f = clazz.getDeclaredField(fieldName);
@@ -391,6 +699,14 @@ public class ReflectionHelper {
 		}
 	}
 	
+	/**
+	 * Gets object.
+	 *
+	 * @param fieldName the field name
+	 * @param obj       the obj
+	 * @param clazz     the class
+	 * @return the object
+	 */
 	public static Object getObject(String fieldName, Object obj, Class clazz) {
 		try {
 			Field f = clazz.getDeclaredField(fieldName);
@@ -402,6 +718,14 @@ public class ReflectionHelper {
 		}
 	}
 	
+	/**
+	 * Sets object.
+	 *
+	 * @param x         the x
+	 * @param fieldName the field name
+	 * @param obj       the obj
+	 * @param clazz     the class
+	 */
 	public static void setObject(Object x, String fieldName, Object obj, Class clazz) {
 		try {
 			Field f = clazz.getDeclaredField(fieldName);
@@ -412,14 +736,35 @@ public class ReflectionHelper {
 		}
 	}
 	
+	/**
+	 * Gets object.
+	 *
+	 * @param fieldName the field name
+	 * @param obj       the obj
+	 * @return the object
+	 */
 	public static Object getObject(String fieldName, Object obj) {
 		return getObject(fieldName, obj, obj.getClass());
 	}
 	
+	/**
+	 * Sets object.
+	 *
+	 * @param x         the x
+	 * @param fieldName the field name
+	 * @param obj       the obj
+	 */
 	public static void setObject(Object x, String fieldName, Object obj) {
 		setObject(x, fieldName, obj, obj.getClass());
 	}
 	
+	/**
+	 * Gets static object.
+	 *
+	 * @param fieldName the field name
+	 * @param clazz     the class
+	 * @return the static object
+	 */
 	public static Object getStaticObject(String fieldName, Class clazz) {
 		try {
 			Field f = clazz.getDeclaredField(fieldName);
@@ -431,6 +776,13 @@ public class ReflectionHelper {
 		}
 	}
 	
+	/**
+	 * Sets static object.
+	 *
+	 * @param x         the x
+	 * @param fieldName the field name
+	 * @param clazz     the class
+	 */
 	public static void setStaticObject(Object x, String fieldName, Class clazz) {
 		try {
 			Field f = clazz.getDeclaredField(fieldName);
@@ -441,6 +793,14 @@ public class ReflectionHelper {
 		}
 	}
 	
+	/**
+	 * Call constructor.
+	 *
+	 * @param clazz       the class
+	 * @param classParams the class params
+	 * @param params      the params
+	 * @return the object
+	 */
 	public static Object callConstructor(Class clazz, Class[] classParams, Object[] params) {
 		try {
 			Constructor c = clazz.getDeclaredConstructor(classParams);
@@ -452,10 +812,27 @@ public class ReflectionHelper {
 		}
 	}
 	
+	/**
+	 * Call constructor.
+	 *
+	 * @param clazz  the class
+	 * @param params the params
+	 * @return the object
+	 */
 	public static Object callConstructor(Class clazz, Object... params) {
 		return callConstructor(clazz, getClassParams(params), params);
 	}
 	
+	/**
+	 * Call object method.
+	 *
+	 * @param methodName  the method name
+	 * @param obj         the obj
+	 * @param clazz       the class
+	 * @param classParams the class params
+	 * @param params      the params
+	 * @return the object
+	 */
 	public static Object callObjectMethod(String methodName, Object obj, Class clazz, Class[] classParams, Object[] params) {
 		Method m = null;
 		try {
@@ -472,214 +849,675 @@ public class ReflectionHelper {
 		return null;
 	}
 	
+	/**
+	 * Call object method.
+	 *
+	 * @param methodName the method name
+	 * @param obj        the obj
+	 * @param clazz      the class
+	 * @param params     the params
+	 * @return the object
+	 */
 	public static Object callObjectMethod(String methodName, Object obj, Class clazz, Object... params) {
 		return callObjectMethod(methodName, obj, clazz, getClassParams(params), params);
 	}
 	
+	/**
+	 * Call object method.
+	 *
+	 * @param methodName  the method name
+	 * @param obj         the obj
+	 * @param classParams the class params
+	 * @param params      the params
+	 * @return the object
+	 */
 	public static Object callObjectMethod(String methodName, Object obj, Class[] classParams, Object[] params) {
 		return callObjectMethod(methodName, obj, obj.getClass(), classParams, params);
 	}
 	
+	/**
+	 * Call object method.
+	 *
+	 * @param methodName the method name
+	 * @param obj        the obj
+	 * @param params     the params
+	 * @return the object
+	 */
 	public static Object callObjectMethod(String methodName, Object obj, Object... params) {
 		return callObjectMethod(methodName, obj, getClassParams(params), params);
 	}
 	
+	/**
+	 * Call static object method.
+	 *
+	 * @param methodName  the method name
+	 * @param clazz       the class
+	 * @param classParams the class params
+	 * @param params      the params
+	 * @return the object
+	 */
 	public static Object callStaticObjectMethod(String methodName, Class clazz, Class[] classParams, Object[] params) {
 		return callObjectMethod(methodName, null, clazz, classParams, params);
 	}
 	
+	/**
+	 * Call static object method.
+	 *
+	 * @param methodName the method name
+	 * @param clazz      the class
+	 * @param params     the params
+	 * @return the object
+	 */
 	public static Object callStaticObjectMethod(String methodName, Class clazz, Object... params) {
 		return callStaticObjectMethod(methodName, clazz, getClassParams(params), params);
 	}
 	
+	/**
+	 * Call void method.
+	 *
+	 * @param methodName the method name
+	 * @param obj        the obj
+	 * @param clazz      the class
+	 * @param params     the params
+	 */
 	public static void callVoidMethod(String methodName, Object obj, Class clazz, Object[] params) {
 		callVoidMethod(methodName, obj, clazz, getClassParams(params), params);
 	}
 	
+	/**
+	 * Call void method.
+	 *
+	 * @param methodName  the method name
+	 * @param obj         the obj
+	 * @param clazz       the class
+	 * @param classParams the class params
+	 * @param params      the params
+	 */
 	public static void callVoidMethod(String methodName, Object obj, Class clazz, Class[] classParams, Object[] params) {
 		callObjectMethod(methodName, obj, clazz, classParams, params);
 	}
 	
+	/**
+	 * Call void method.
+	 *
+	 * @param methodName  the method name
+	 * @param obj         the obj
+	 * @param classParams the class params
+	 * @param params      the params
+	 */
 	public static void callVoidMethod(String methodName, Object obj, Class[] classParams, Object[] params) {
 		callVoidMethod(methodName, obj, obj.getClass(), classParams, params);
 	}
 	
+	/**
+	 * Call void method.
+	 *
+	 * @param methodName the method name
+	 * @param obj        the obj
+	 * @param params     the params
+	 */
 	public static void callVoidMethod(String methodName, Object obj, Object... params) {
 		callObjectMethod(methodName, obj, getClassParams(params), params);
 	}
 	
+	/**
+	 * Call static void method.
+	 *
+	 * @param methodName the method name
+	 * @param clazz      the class
+	 * @param params     the params
+	 */
 	public static void callStaticVoidMethod(String methodName, Class clazz, Object... params) {
 		callStaticVoidMethod(methodName, clazz, getClassParams(params), params);
 	}
 	
+	/**
+	 * Call static void method.
+	 *
+	 * @param methodName  the method name
+	 * @param clazz       the class
+	 * @param classParams the class params
+	 * @param params      the params
+	 */
 	public static void callStaticVoidMethod(String methodName, Class clazz, Class[] classParams, Object[] params) {
 		callStaticObjectMethod(methodName, clazz, classParams, params);
 	}
 	
+	/**
+	 * Call int method.
+	 *
+	 * @param methodName  the method name
+	 * @param obj         the obj
+	 * @param clazz       the class
+	 * @param classParams the class params
+	 * @param params      the params
+	 * @return the int
+	 */
 	public static int callIntMethod(String methodName, Object obj, Class clazz, Class[] classParams, Object[] params) {
 		return (Integer) callObjectMethod(methodName, obj, clazz, classParams, params);
 	}
 	
+	/**
+	 * Call int method.
+	 *
+	 * @param methodName the method name
+	 * @param obj        the obj
+	 * @param clazz      the class
+	 * @param params     the params
+	 * @return the int
+	 */
 	public static int callIntMethod(String methodName, Object obj, Class clazz, Object... params) {
 		return callIntMethod(methodName, obj, clazz, getClassParams(params), params);
 	}
 	
+	/**
+	 * Call int method.
+	 *
+	 * @param methodName  the method name
+	 * @param obj         the obj
+	 * @param classParams the class params
+	 * @param params      the params
+	 * @return the int
+	 */
 	public static int callIntMethod(String methodName, Object obj, Class[] classParams, Object[] params) {
 		return callIntMethod(methodName, obj, obj.getClass(), classParams, params);
 	}
 	
+	/**
+	 * Call int method.
+	 *
+	 * @param methodName the method name
+	 * @param obj        the obj
+	 * @param params     the params
+	 * @return the int
+	 */
 	public static int callIntMethod(String methodName, Object obj, Object... params) {
 		return callIntMethod(methodName, obj, getClassParams(params), params);
 	}
 	
+	/**
+	 * Call static int method.
+	 *
+	 * @param methodName  the method name
+	 * @param clazz       the class
+	 * @param classParams the class params
+	 * @param params      the params
+	 * @return the int
+	 */
 	public static int callStaticIntMethod(String methodName, Class clazz, Class[] classParams, Object[] params) {
 		return (Integer) callStaticObjectMethod(methodName, clazz, classParams, params);
 	}
 	
+	/**
+	 * Call static int method.
+	 *
+	 * @param methodName the method name
+	 * @param clazz      the class
+	 * @param params     the params
+	 * @return the int
+	 */
 	public static int callStaticIntMethod(String methodName, Class clazz, Object... params) {
 		return callStaticIntMethod(methodName, clazz, getClassParams(params), params);
 	}
 	
+	/**
+	 * Call byte method.
+	 *
+	 * @param methodName  the method name
+	 * @param obj         the obj
+	 * @param clazz       the class
+	 * @param classParams the class params
+	 * @param params      the params
+	 * @return the byte
+	 */
 	public static byte callByteMethod(String methodName, Object obj, Class clazz, Class[] classParams, Object[] params) {
 		return (Byte) callObjectMethod(methodName, obj, clazz, classParams, params);
 	}
 	
+	/**
+	 * Call byte method.
+	 *
+	 * @param methodName the method name
+	 * @param obj        the obj
+	 * @param clazz      the class
+	 * @param params     the params
+	 * @return the byte
+	 */
 	public static byte callByteMethod(String methodName, Object obj, Class clazz, Object... params) {
 		return callByteMethod(methodName, obj, clazz, getClassParams(params), params);
 	}
 	
+	/**
+	 * Call byte method.
+	 *
+	 * @param methodName  the method name
+	 * @param obj         the obj
+	 * @param classParams the class params
+	 * @param params      the params
+	 * @return the byte
+	 */
 	public static byte callByteMethod(String methodName, Object obj, Class[] classParams, Object[] params) {
 		return callByteMethod(methodName, obj, obj.getClass(), classParams, params);
 	}
 	
+	/**
+	 * Call byte method.
+	 *
+	 * @param methodName the method name
+	 * @param obj        the obj
+	 * @param params     the params
+	 * @return the byte
+	 */
 	public static byte callByteMethod(String methodName, Object obj, Object... params) {
 		return callByteMethod(methodName, obj, getClassParams(params), params);
 	}
 	
+	/**
+	 * Call static byte method.
+	 *
+	 * @param methodName  the method name
+	 * @param clazz       the class
+	 * @param classParams the class params
+	 * @param params      the params
+	 * @return the byte
+	 */
 	public static byte callStaticByteMethod(String methodName, Class clazz, Class[] classParams, Object[] params) {
 		return (Byte) callStaticObjectMethod(methodName, clazz, classParams, params);
 	}
 	
+	/**
+	 * Call static byte method.
+	 *
+	 * @param methodName the method name
+	 * @param clazz      the class
+	 * @param params     the params
+	 * @return the byte
+	 */
 	public static byte callStaticByteMethod(String methodName, Class clazz, Object... params) {
 		return callStaticByteMethod(methodName, clazz, getClassParams(params), params);
 	}
 	
+	/**
+	 * Call boolean method.
+	 *
+	 * @param methodName  the method name
+	 * @param obj         the obj
+	 * @param clazz       the class
+	 * @param classParams the class params
+	 * @param params      the params
+	 * @return the boolean
+	 */
 	public static boolean callBooleanMethod(String methodName, Object obj, Class clazz, Class[] classParams, Object[] params) {
 		return (Boolean) callObjectMethod(methodName, obj, clazz, classParams, params);
 	}
 	
+	/**
+	 * Call boolean method.
+	 *
+	 * @param methodName the method name
+	 * @param obj        the obj
+	 * @param clazz      the class
+	 * @param params     the params
+	 * @return the boolean
+	 */
 	public static boolean callBooleanMethod(String methodName, Object obj, Class clazz, Object... params) {
 		return callBooleanMethod(methodName, obj, clazz, getClassParams(params), params);
 	}
 	
+	/**
+	 * Call boolean method.
+	 *
+	 * @param methodName  the method name
+	 * @param obj         the obj
+	 * @param classParams the class params
+	 * @param params      the params
+	 * @return the boolean
+	 */
 	public static boolean callBooleanMethod(String methodName, Object obj, Class[] classParams, Object[] params) {
 		return callBooleanMethod(methodName, obj, obj.getClass(), classParams, params);
 	}
 	
+	/**
+	 * Call boolean method.
+	 *
+	 * @param methodName the method name
+	 * @param obj        the obj
+	 * @param params     the params
+	 * @return the boolean
+	 */
 	public static boolean callBooleanMethod(String methodName, Object obj, Object... params) {
 		return callBooleanMethod(methodName, obj, getClassParams(params), params);
 	}
 	
+	/**
+	 * Call static boolean method.
+	 *
+	 * @param methodName  the method name
+	 * @param clazz       the class
+	 * @param classParams the class params
+	 * @param params      the params
+	 * @return the boolean
+	 */
 	public static boolean callStaticBooleanMethod(String methodName, Class clazz, Class[] classParams, Object[] params) {
 		return (Boolean) callStaticObjectMethod(methodName, clazz, classParams, params);
 	}
 	
+	/**
+	 * Call static boolean method.
+	 *
+	 * @param methodName the method name
+	 * @param clazz      the class
+	 * @param params     the params
+	 * @return the boolean
+	 */
 	public static boolean callStaticBooleanMethod(String methodName, Class clazz, Object... params) {
 		return callStaticBooleanMethod(methodName, clazz, getClassParams(params), params);
 	}
 	
+	/**
+	 * Call char method.
+	 *
+	 * @param methodName  the method name
+	 * @param obj         the obj
+	 * @param clazz       the class
+	 * @param classParams the class params
+	 * @param params      the params
+	 * @return the char
+	 */
 	public static char callCharMethod(String methodName, Object obj, Class clazz, Class[] classParams, Object[] params) {
 		return (Character) callObjectMethod(methodName, obj, clazz, classParams, params);
 	}
 	
+	/**
+	 * Call char method.
+	 *
+	 * @param methodName the method name
+	 * @param obj        the obj
+	 * @param clazz      the class
+	 * @param params     the params
+	 * @return the char
+	 */
 	public static char callCharMethod(String methodName, Object obj, Class clazz, Object... params) {
 		return callCharMethod(methodName, obj, clazz, getClassParams(params), params);
 	}
 	
+	/**
+	 * Call char method.
+	 *
+	 * @param methodName  the method name
+	 * @param obj         the obj
+	 * @param classParams the class params
+	 * @param params      the params
+	 * @return the char
+	 */
 	public static char callCharMethod(String methodName, Object obj, Class[] classParams, Object[] params) {
 		return callCharMethod(methodName, obj, obj.getClass(), classParams, params);
 	}
 	
+	/**
+	 * Call char method.
+	 *
+	 * @param methodName the method name
+	 * @param obj        the obj
+	 * @param params     the params
+	 * @return the char
+	 */
 	public static char callCharMethod(String methodName, Object obj, Object... params) {
 		return callCharMethod(methodName, obj, getClassParams(params), params);
 	}
 	
+	/**
+	 * Call static char method.
+	 *
+	 * @param methodName  the method name
+	 * @param clazz       the class
+	 * @param classParams the class params
+	 * @param params      the params
+	 * @return the char
+	 */
 	public static char callStaticCharMethod(String methodName, Class clazz, Class[] classParams, Object[] params) {
 		return (Character) callStaticObjectMethod(methodName, clazz, classParams, params);
 	}
 	
+	/**
+	 * Call static char method.
+	 *
+	 * @param methodName the method name
+	 * @param clazz      the class
+	 * @param params     the params
+	 * @return the char
+	 */
 	public static char callStaticCharMethod(String methodName, Class clazz, Object... params) {
 		return callStaticCharMethod(methodName, clazz, getClassParams(params), params);
 	}
 	
+	/**
+	 * Call float method.
+	 *
+	 * @param methodName  the method name
+	 * @param obj         the obj
+	 * @param clazz       the class
+	 * @param classParams the class params
+	 * @param params      the params
+	 * @return the float
+	 */
 	public static float callFloatMethod(String methodName, Object obj, Class clazz, Class[] classParams, Object[] params) {
 		return (Float) callObjectMethod(methodName, obj, clazz, classParams, params);
 	}
 	
+	/**
+	 * Call float method.
+	 *
+	 * @param methodName the method name
+	 * @param obj        the obj
+	 * @param clazz      the class
+	 * @param params     the params
+	 * @return the float
+	 */
 	public static float callFloatMethod(String methodName, Object obj, Class clazz, Object... params) {
 		return callFloatMethod(methodName, obj, clazz, getClassParams(params), params);
 	}
 	
+	/**
+	 * Call float method.
+	 *
+	 * @param methodName  the method name
+	 * @param obj         the obj
+	 * @param classParams the class params
+	 * @param params      the params
+	 * @return the float
+	 */
 	public static float callFloatMethod(String methodName, Object obj, Class[] classParams, Object[] params) {
 		return callFloatMethod(methodName, obj, obj.getClass(), classParams, params);
 	}
 	
+	/**
+	 * Call float method.
+	 *
+	 * @param methodName the method name
+	 * @param obj        the obj
+	 * @param params     the params
+	 * @return the float
+	 */
 	public static float callFloatMethod(String methodName, Object obj, Object... params) {
 		return callFloatMethod(methodName, obj, getClassParams(params), params);
 	}
 	
+	/**
+	 * Call static float method.
+	 *
+	 * @param methodName  the method name
+	 * @param clazz       the class
+	 * @param classParams the class params
+	 * @param params      the params
+	 * @return the float
+	 */
 	public static float callStaticFloatMethod(String methodName, Class clazz, Class[] classParams, Object[] params) {
 		return (Float) callStaticObjectMethod(methodName, clazz, classParams, params);
 	}
 	
+	/**
+	 * Call static float method.
+	 *
+	 * @param methodName the method name
+	 * @param clazz      the class
+	 * @param params     the params
+	 * @return the float
+	 */
 	public static float callStaticFloatMethod(String methodName, Class clazz, Object... params) {
 		return callStaticFloatMethod(methodName, clazz, getClassParams(params), params);
 	}
 	
+	/**
+	 * Call double method.
+	 *
+	 * @param methodName  the method name
+	 * @param obj         the obj
+	 * @param clazz       the class
+	 * @param classParams the class params
+	 * @param params      the params
+	 * @return the double
+	 */
 	public static double callDoubleMethod(String methodName, Object obj, Class clazz, Class[] classParams, Object[] params) {
 		return (Double) callObjectMethod(methodName, obj, clazz, classParams, params);
 	}
 	
+	/**
+	 * Call double method.
+	 *
+	 * @param methodName the method name
+	 * @param obj        the obj
+	 * @param clazz      the class
+	 * @param params     the params
+	 * @return the double
+	 */
 	public static double callDoubleMethod(String methodName, Object obj, Class clazz, Object... params) {
 		return callDoubleMethod(methodName, obj, clazz, getClassParams(params), params);
 	}
 	
+	/**
+	 * Call double method.
+	 *
+	 * @param methodName  the method name
+	 * @param obj         the obj
+	 * @param classParams the class params
+	 * @param params      the params
+	 * @return the double
+	 */
 	public static double callDoubleMethod(String methodName, Object obj, Class[] classParams, Object[] params) {
 		return callDoubleMethod(methodName, obj, obj.getClass(), classParams, params);
 	}
 	
+	/**
+	 * Call double method.
+	 *
+	 * @param methodName the method name
+	 * @param obj        the obj
+	 * @param params     the params
+	 * @return the double
+	 */
 	public static double callDoubleMethod(String methodName, Object obj, Object... params) {
 		return callDoubleMethod(methodName, obj, getClassParams(params), params);
 	}
 	
+	/**
+	 * Call static double method.
+	 *
+	 * @param methodName  the method name
+	 * @param clazz       the class
+	 * @param classParams the class params
+	 * @param params      the params
+	 * @return the double
+	 */
 	public static double callStaticDoubleMethod(String methodName, Class clazz, Class[] classParams, Object[] params) {
 		return (Double) callStaticObjectMethod(methodName, clazz, classParams, params);
 	}
 	
+	/**
+	 * Call static double method.
+	 *
+	 * @param methodName the method name
+	 * @param clazz      the class
+	 * @param params     the params
+	 * @return the double
+	 */
 	public static double callStaticDoubleMethod(String methodName, Class clazz, Object... params) {
 		return callStaticDoubleMethod(methodName, clazz, getClassParams(params), params);
 	}
 	
+	/**
+	 * Call long method.
+	 *
+	 * @param methodName  the method name
+	 * @param obj         the obj
+	 * @param clazz       the class
+	 * @param classParams the class params
+	 * @param params      the params
+	 * @return the long
+	 */
 	public static long callLongMethod(String methodName, Object obj, Class clazz, Class[] classParams, Object[] params) {
 		return (Long) callObjectMethod(methodName, obj, clazz, classParams, params);
 	}
 	
+	/**
+	 * Call long method.
+	 *
+	 * @param methodName the method name
+	 * @param obj        the obj
+	 * @param clazz      the class
+	 * @param params     the params
+	 * @return the long
+	 */
 	public static long callLongMethod(String methodName, Object obj, Class clazz, Object... params) {
 		return callLongMethod(methodName, obj, clazz, getClassParams(params), params);
 	}
 	
+	/**
+	 * Call long method.
+	 *
+	 * @param methodName  the method name
+	 * @param obj         the obj
+	 * @param classParams the class params
+	 * @param params      the params
+	 * @return the long
+	 */
 	public static long callLongMethod(String methodName, Object obj, Class[] classParams, Object[] params) {
 		return callLongMethod(methodName, obj, obj.getClass(), classParams, params);
 	}
 	
+	/**
+	 * Call long method.
+	 *
+	 * @param methodName the method name
+	 * @param obj        the obj
+	 * @param params     the params
+	 * @return the long
+	 */
 	public static long callLongMethod(String methodName, Object obj, Object... params) {
 		return callLongMethod(methodName, obj, getClassParams(params), params);
 	}
 	
+	/**
+	 * Call static long method.
+	 *
+	 * @param methodName  the method name
+	 * @param clazz       the class
+	 * @param classParams the class params
+	 * @param params      the params
+	 * @return the long
+	 */
 	public static long callStaticLongMethod(String methodName, Class clazz, Class[] classParams, Object[] params) {
 		return (Long) callStaticObjectMethod(methodName, clazz, classParams, params);
 	}
 	
+	/**
+	 * Call static long method.
+	 *
+	 * @param methodName the method name
+	 * @param clazz      the class
+	 * @param params     the params
+	 * @return the long
+	 */
 	public static long callStaticLongMethod(String methodName, Class clazz, Object... params) {
 		return callStaticLongMethod(methodName, clazz, getClassParams(params), params);
 	}
@@ -797,6 +1635,12 @@ public class ReflectionHelper {
 
 //	end stuff not written by me
 	
+	/**
+	 * Find package names starting with.
+	 *
+	 * @param prefix the prefix
+	 * @return the list
+	 */
 	public static List<String> findPackageNamesStartingWith(String prefix) {
 		List<String> result = new ArrayList<String>();
 		for (Package p : Package.getPackages()) {
@@ -807,6 +1651,12 @@ public class ReflectionHelper {
 		return result;
 	}
 	
+	/**
+	 * Gets class by simple name.
+	 *
+	 * @param simpleName the simple name
+	 * @return the class by simple name
+	 */
 	public static Class getClassBySimpleName(String simpleName) {
 		Package[] packages = Package.getPackages();
 		for (Package p : packages) {
@@ -833,6 +1683,12 @@ public class ReflectionHelper {
 		return null;
 	}
 	
+	/**
+	 * Gets class by full name.
+	 *
+	 * @param className the class name
+	 * @return the class by full name
+	 */
 	public static Class getClassByFullName(String className) {
 		try {
 			return Class.forName(className);
@@ -841,6 +1697,12 @@ public class ReflectionHelper {
 		}
 	}
 	
+	/**
+	 * Get class params.
+	 *
+	 * @param params the params
+	 * @return the class [ ]
+	 */
 	public static Class[] getClassParams(Object[] params) {
 		Class[] classParams = new Class[params.length];
 		for (int i = 0; i < classParams.length; i++) {

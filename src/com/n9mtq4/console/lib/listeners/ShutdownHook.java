@@ -22,13 +22,18 @@ import com.n9mtq4.console.lib.BaseConsole;
  * Runtime.getRuntime().addShutdownHook(new {@link ShutdownHook}());<br>
  * is called.
  *
- * @see java.lang.Runtime
+ * @see
  * @see Runtime#addShutdownHook
  */
 public class ShutdownHook extends Thread {
 	
 	private BaseConsole parent;
 	
+	/**
+	 * Instantiates a new Shutdown hook.
+	 *
+	 * @param console the console
+	 */
 	public ShutdownHook(BaseConsole console) {
 		this.parent = console;
 	}

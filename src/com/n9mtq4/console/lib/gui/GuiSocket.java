@@ -23,6 +23,9 @@ import com.n9mtq4.console.lib.utils.Colour;
  */
 public class GuiSocket extends ConsoleGui {
 	
+	/**
+	 * The Port.
+	 */
 	public int port = 4444;
 	private boolean sendToPluginsInsteadOfPrint = true;
 	
@@ -33,6 +36,9 @@ public class GuiSocket extends ConsoleGui {
 		go();
 	}
 	
+	/**
+	 * Go void.
+	 */
 	public void go() {
 		
 		setDefaultTextColour(null);

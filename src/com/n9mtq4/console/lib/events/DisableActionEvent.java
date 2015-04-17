@@ -22,20 +22,46 @@ import com.n9mtq4.console.lib.BaseConsole;
  */
 public class DisableActionEvent {
 	
+	/**
+	 * The constant NOT_SPECIFIED.
+	 */
 	public static int NOT_SPECIFIED = -1;
+	/**
+	 * The constant WINDOW_CLOSE.
+	 */
 	public static int WINDOW_CLOSE = 0;
+	/**
+	 * The constant CODE_CLOSE.
+	 */
 	public static int CODE_CLOSE = 1;
+	/**
+	 * The constant USER_CLOSE.
+	 */
 	public static int USER_CLOSE = 2;
+	/**
+	 * The constant OTHER_CLOSE.
+	 */
 	public static int OTHER_CLOSE = 10;
 	
 	private BaseConsole baseConsole;
 	private int type;
 	
+	/**
+	 * Instantiates a new Disable action event.
+	 *
+	 * @param baseConsole the base console
+	 */
 	public DisableActionEvent(BaseConsole baseConsole) {
 		this.baseConsole = baseConsole;
 		this.type = NOT_SPECIFIED;
 	}
 	
+	/**
+	 * Instantiates a new Disable action event.
+	 *
+	 * @param baseConsole the base console
+	 * @param type        the type
+	 */
 	public DisableActionEvent(BaseConsole baseConsole, int type) {
 		
 		this.baseConsole = baseConsole;
@@ -43,10 +69,20 @@ public class DisableActionEvent {
 		
 	}
 	
+	/**
+	 * Gets base console.
+	 *
+	 * @return the base console
+	 */
 	public BaseConsole getBaseConsole() {
 		return baseConsole;
 	}
 	
+	/**
+	 * Gets type.
+	 *
+	 * @return the type
+	 */
 	public int getType() {
 		return type;
 	}

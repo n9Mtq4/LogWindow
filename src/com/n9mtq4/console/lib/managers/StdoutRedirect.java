@@ -32,6 +32,11 @@ public class StdoutRedirect extends PrintStream {
 	private boolean showLocation;
 	private boolean on;
 	
+	/**
+	 * Instantiates a new Stdout redirect.
+	 *
+	 * @param baseConsole the base console
+	 */
 	public StdoutRedirect(BaseConsole baseConsole) {
 		super(System.out);
 		this.baseConsole = baseConsole;
@@ -138,6 +143,8 @@ public class StdoutRedirect extends PrintStream {
 	
 	/**
 	 * Getter for the {@link BaseConsole}
+	 *
+	 * @return the base console
 	 */
 	public BaseConsole getBaseConsole() {
 		return baseConsole;
@@ -145,6 +152,8 @@ public class StdoutRedirect extends PrintStream {
 	
 	/**
 	 * Getter for the default System.out
+	 *
+	 * @return the backup
 	 */
 	public PrintStream getBackup() {
 		return backup;
@@ -152,6 +161,8 @@ public class StdoutRedirect extends PrintStream {
 	
 	/**
 	 * Is the redirection showing the location?
+	 *
+	 * @return the boolean
 	 */
 	public boolean isShowLocation() {
 		return showLocation;
@@ -159,6 +170,8 @@ public class StdoutRedirect extends PrintStream {
 	
 	/**
 	 * Is the redirection on?
+	 *
+	 * @return the boolean
 	 */
 	public boolean isOn() {
 		return on;

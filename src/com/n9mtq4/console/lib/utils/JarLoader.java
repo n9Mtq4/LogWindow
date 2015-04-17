@@ -29,14 +29,20 @@ public class JarLoader {
 	private static final Class[] parameters = new Class[]{URL.class};
 	
 	/**
-	 * Add File f to this classpath
+	 * Add File f to this classpath.
+	 *
+	 * @param f the f
+	 * @throws IOException the iO exception
 	 */
 	public static void addFile(File f) throws IOException {
 		addURL(f.toURI().toURL());
 	}
 	
 	/**
-	 * Helper method for addFile
+	 * Helper method for addFile.
+	 *
+	 * @param u the u
+	 * @throws IOException the iO exception
 	 */
 	public static void addURL(URL u) throws IOException {
 		URLClassLoader sysloader = (URLClassLoader) ClassLoader.getSystemClassLoader();

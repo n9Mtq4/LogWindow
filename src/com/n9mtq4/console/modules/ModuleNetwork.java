@@ -38,6 +38,12 @@ public class ModuleNetwork extends ConsoleListener {
 	
 	private SocketManager manager;
 	
+	/**
+	 * Http get.
+	 *
+	 * @param urlToRead the url to read
+	 * @return the string
+	 */
 	public static String httpGet(String urlToRead) {
 		URL url;
 		HttpURLConnection conn;

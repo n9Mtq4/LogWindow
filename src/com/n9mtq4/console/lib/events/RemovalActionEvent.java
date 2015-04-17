@@ -22,10 +22,21 @@ import com.n9mtq4.console.lib.BaseConsole;
  */
 public class RemovalActionEvent extends DisableActionEvent {
 	
+	/**
+	 * Instantiates a new Removal action event.
+	 *
+	 * @param baseConsole the base console
+	 */
 	public RemovalActionEvent(BaseConsole baseConsole) {
 		super(baseConsole);
 	}
 	
+	/**
+	 * Instantiates a new Removal action event.
+	 *
+	 * @param baseConsole the base console
+	 * @param type        the type
+	 */
 	public RemovalActionEvent(BaseConsole baseConsole, int type) {
 		super(baseConsole, type);
 	}

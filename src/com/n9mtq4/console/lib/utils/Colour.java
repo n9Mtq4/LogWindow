@@ -25,7 +25,7 @@ import java.awt.color.ColorSpace;
 /**
  * A modified version of @{link Color} to support ANSI values<br>
  *
- * @see Color
+ * @see
  */
 public class Colour extends Color {
 	
@@ -121,49 +121,83 @@ public class Colour extends Color {
 	private static final String ANSI_WHITE = "\u001B[37m";
 	
 	/**
-	 * @see Color
+	 * Instantiates a new Colour.
+	 *
+	 * @param i  the i
+	 * @param i1 the i 1
+	 * @param i2 the i 2
+	 * @see
 	 */
 	public Colour(int i, int i1, int i2) {
 		super(i, i1, i2);
 	}
 	
 	/**
-	 * @see Color
+	 * Instantiates a new Colour.
+	 *
+	 * @param i  the i
+	 * @param i1 the i 1
+	 * @param i2 the i 2
+	 * @param i3 the i 3
+	 * @see
 	 */
 	public Colour(int i, int i1, int i2, int i3) {
 		super(i, i1, i2, i3);
 	}
 	
 	/**
-	 * @see Color
+	 * Instantiates a new Colour.
+	 *
+	 * @param i the i
+	 * @see
 	 */
 	public Colour(int i) {
 		super(i);
 	}
 	
 	/**
-	 * @see Color
+	 * Instantiates a new Colour.
+	 *
+	 * @param i the i
+	 * @param b the b
+	 * @see
 	 */
 	public Colour(int i, boolean b) {
 		super(i, b);
 	}
 	
 	/**
-	 * @see Color
+	 * Instantiates a new Colour.
+	 *
+	 * @param v  the v
+	 * @param v1 the v 1
+	 * @param v2 the v 2
+	 * @see
 	 */
 	public Colour(float v, float v1, float v2) {
 		super(v, v1, v2);
 	}
 	
 	/**
-	 * @see Color
+	 * Instantiates a new Colour.
+	 *
+	 * @param v  the v
+	 * @param v1 the v 1
+	 * @param v2 the v 2
+	 * @param v3 the v 3
+	 * @see
 	 */
 	public Colour(float v, float v1, float v2, float v3) {
 		super(v, v1, v2, v3);
 	}
 	
 	/**
-	 * @see Color
+	 * Instantiates a new Colour.
+	 *
+	 * @param colorSpace the color space
+	 * @param floats     the floats
+	 * @param v          the v
+	 * @see
 	 */
 	public Colour(ColorSpace colorSpace, float[] floats, float v) {
 		super(colorSpace, floats, v);
@@ -172,8 +206,9 @@ public class Colour extends Color {
 	/**
 	 * Converts {@link Color} into {@link Colour}.
 	 *
-	 * @param color Java's {@link Color}.
-	 * @return The {@link Colour} version with ANSI support.
+	 * @param color Java's
+	 *              .
+	 * @return The  version with ANSI support.
 	 */
 	public static Colour getColour(Color color) {
 		return new Colour(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha());

@@ -101,7 +101,8 @@ public class BaseConsole {
 	/**
 	 * Constructor for {@link BaseConsole}.
 	 *
-	 * @param listener adds the {@link ConsoleListener} to the newly created {@link BaseConsole}
+	 * @param listener adds the
+	 *                 to the newly created
 	 */
 	public BaseConsole(ConsoleListener listener) {
 		init();
@@ -111,7 +112,8 @@ public class BaseConsole {
 	/**
 	 * Constructor for {@link BaseConsole}
 	 *
-	 * @param consoleGui adds the given {@link ConsoleGui} to the newly created {@link BaseConsole}
+	 * @param consoleGui adds the given
+	 *                   to the newly created
 	 */
 	public BaseConsole(ConsoleGui consoleGui) {
 		init();
@@ -210,8 +212,8 @@ public class BaseConsole {
 	/**
 	 * Turns off {@link System#out} redirection
 	 * from
-	 * {@link com.n9mtq4.console.lib.BaseConsole}.
-	 * {@link com.n9mtq4.console.lib.BaseConsole#print}.
+	 * {@link BaseConsole}.
+	 * {@link BaseConsole#print}.
 	 *
 	 * @see BaseConsole#redirectStdoutOn()
 	 * @see BaseConsole#redirectStdoutOn(boolean)
@@ -239,8 +241,8 @@ public class BaseConsole {
 	/**
 	 * Turns on {@link System#out} redirection
 	 * to
-	 * {@link com.n9mtq4.console.lib.BaseConsole}.
-	 * {@link com.n9mtq4.console.lib.BaseConsole#print}.
+	 * {@link BaseConsole}.
+	 * {@link BaseConsole#print}.
 	 *
 	 * @param debug Whether or not to print java file and line number of print statement
 	 * @see BaseConsole#redirectStdoutOff()
@@ -255,20 +257,41 @@ public class BaseConsole {
 		
 	}
 	
-	//	TODO: add javadocs for pushing Objects
+	/**
+	 * Send plugins object.
+	 *
+	 * @param object the object
+	 */
 	public void sendPluginsObject(Object object) {
 		sendPluginsObject(object, "");
 	}
 	
+	/**
+	 * Send plugins object.
+	 *
+	 * @param object  the object
+	 * @param message the message
+	 */
 	public void sendPluginsObject(Object object, String message) {
 		history.add(object.getClass().getName() + " : " + message);
 		pushObject(object, message);
 	}
 	
+	/**
+	 * Push object.
+	 *
+	 * @param object the object
+	 */
 	public void pushObject(Object object) {
 		pushObject(object, "");
 	}
 	
+	/**
+	 * Push object.
+	 *
+	 * @param object  the object
+	 * @param message the message
+	 */
 	public void pushObject(Object object, String message) {
 		try {
 			SentObjectEvent event = new SentObjectEvent(this, object, message);
@@ -293,7 +316,8 @@ public class BaseConsole {
 	 * Note: use me to send input when using a custom {@link ConsoleGui}.<br>
 	 * Takes {@link String} and iterates through all {@link ConsoleListener} on console.
 	 *
-	 * @param text String to send to {@link ConsoleListener#actionPerformed}.
+	 * @param text String to send to
+	 *             .
 	 */
 	public void sendPluginsString(String text) {
 		history.add(text);
@@ -306,7 +330,8 @@ public class BaseConsole {
 	/**
 	 * Low level version of {@link BaseConsole#sendPluginsString}.
 	 *
-	 * @param text Sting to send to {@link ConsoleListener#actionPerformed}.
+	 * @param text Sting to send to
+	 *             .
 	 */
 	public void push(String text) {
 		
@@ -333,7 +358,7 @@ public class BaseConsole {
 	 * Prints the stack trace of a throwable to the {@link BaseConsole} output.
 	 *
 	 * @param throwable Prints the stackTrace.
-	 * @see java.lang.Throwable#printStackTrace
+	 * @see Throwable#printStackTrace
 	 */
 	public void printStackTrace(Throwable throwable) {
 		StringWriter sw = new StringWriter();
@@ -346,7 +371,8 @@ public class BaseConsole {
 	 * Finds all {@link ConsoleListener}s with a given class name and returns them in the form of an array<br>
 	 *
 	 * @param name The name of the class to look for.
-	 * @return an array of {@link ConsoleListener}s with the given class name
+	 * @return an array of
+	 * s with the given class name
 	 */
 	public ConsoleListener[] getListenersByName(String name) {
 		
@@ -385,7 +411,8 @@ public class BaseConsole {
 	/**
 	 * Enables all {@link ConsoleListener} with a given name attached to {@link BaseConsole}.
 	 *
-	 * @param name Class name of the {@link ConsoleListener} to enable.
+	 * @param name Class name of the
+	 *             to enable.
 	 * @see BaseConsole#enableListenerByName
 	 */
 	public void enableListenersByName(String name) {
@@ -403,7 +430,8 @@ public class BaseConsole {
 	/**
 	 * Only enables the first {@link ConsoleListener} with a given name attached to {@link BaseConsole}.
 	 *
-	 * @param name Class name of the {@link ConsoleListener} to enable.
+	 * @param name Class name of the
+	 *             to enable.
 	 * @see BaseConsole#enableListenersByName
 	 */
 	public void enableListenerByName(String name) {
@@ -422,7 +450,8 @@ public class BaseConsole {
 	/**
 	 * Enables the given {@link ConsoleListener} that is attached to {@link BaseConsole}.
 	 *
-	 * @param listener the {@link ConsoleListener} object to enable
+	 * @param listener the
+	 *                 object to enable
 	 * @see BaseConsole#disableListener
 	 * @see BaseConsole#enableListenerByName
 	 */
@@ -435,12 +464,20 @@ public class BaseConsole {
 		
 	}
 	
+	/**
+	 * Disable all listeners.
+	 */
 	public void disableAllListeners() {
 		
 		disableAllListeners(DisableActionEvent.NOT_SPECIFIED);
 		
 	}
 	
+	/**
+	 * Disable all listeners.
+	 *
+	 * @param type the type
+	 */
 	public void disableAllListeners(int type) {
 		
 		for (ConsoleListener l : listeners) {
@@ -451,6 +488,12 @@ public class BaseConsole {
 		
 	}
 	
+	/**
+	 * Disable listeners by name.
+	 *
+	 * @param name the name
+	 * @param type the type
+	 */
 	public void disableListenersByName(String name, int type) {
 		
 		for (ConsoleListener l : listeners) {
@@ -463,12 +506,23 @@ public class BaseConsole {
 		
 	}
 	
+	/**
+	 * Disable listener by name.
+	 *
+	 * @param name the name
+	 */
 	public void disableListenerByName(String name) {
 		
 		disableListenerByName(name, DisableActionEvent.NOT_SPECIFIED);
 		
 	}
 	
+	/**
+	 * Disable listener by name.
+	 *
+	 * @param name the name
+	 * @param type the type
+	 */
 	public void disableListenerByName(String name, int type) {
 		
 		for (ConsoleListener l : listeners) {
@@ -482,12 +536,23 @@ public class BaseConsole {
 		
 	}
 	
+	/**
+	 * Disable listener.
+	 *
+	 * @param listener the listener
+	 */
 	public void disableListener(ConsoleListener listener) {
 		
 		disableListener(listener, DisableActionEvent.NOT_SPECIFIED);
 		
 	}
 	
+	/**
+	 * Disable listener.
+	 *
+	 * @param listener the listener
+	 * @param type     the type
+	 */
 	public void disableListener(ConsoleListener listener, int type) {
 		
 		if (listener.isEnabled()) {
@@ -497,12 +562,23 @@ public class BaseConsole {
 		
 	}
 	
+	/**
+	 * Remove listener by name.
+	 *
+	 * @param name the name
+	 */
 	public void removeListenerByName(String name) {
 		
 		removeListenerByName(name, RemovalActionEvent.NOT_SPECIFIED);
 		
 	}
 	
+	/**
+	 * Remove listener by name.
+	 *
+	 * @param name the name
+	 * @param type the type
+	 */
 	public void removeListenerByName(String name, int type) {
 		
 		for (ConsoleListener l : listeners) {
@@ -516,12 +592,23 @@ public class BaseConsole {
 		
 	}
 	
+	/**
+	 * Remove listeners by name.
+	 *
+	 * @param name the name
+	 */
 	public void removeListenersByName(String name) {
 		
 		removeListenersByName(name, RemovalActionEvent.NOT_SPECIFIED);
 		
 	}
 	
+	/**
+	 * Remove listeners by name.
+	 *
+	 * @param name the name
+	 * @param type the type
+	 */
 	public void removeListenersByName(String name, int type) {
 		
 		for (ConsoleListener l : listeners) {
@@ -534,6 +621,11 @@ public class BaseConsole {
 		
 	}
 	
+	/**
+	 * Remove all listeners.
+	 *
+	 * @param type the type
+	 */
 	public void removeAllListeners(int type) {
 		
 		int i = listeners.size();
@@ -553,12 +645,21 @@ public class BaseConsole {
 		
 	}
 	
+	/**
+	 * Remove all listeners.
+	 */
 	public void removeAllListeners() {
 		
 		removeAllListeners(RemovalActionEvent.NOT_SPECIFIED);
 		
 	}
 	
+	/**
+	 * Add listener by name.
+	 *
+	 * @param name the name
+	 * @throws Exception the exception
+	 */
 	public void addListenerByName(String name) throws Exception {
 		try {
 			ConsoleListener l = ConsoleListener.getNewListenerByName(name);
@@ -568,6 +669,11 @@ public class BaseConsole {
 		}
 	}
 	
+	/**
+	 * Add listener.
+	 *
+	 * @param listener the listener
+	 */
 	@SuppressWarnings("deprecation")
 	public void addListener(ConsoleListener listener) {
 		
@@ -580,12 +686,23 @@ public class BaseConsole {
 		
 	}
 	
+	/**
+	 * Remove listener.
+	 *
+	 * @param listener the listener
+	 */
 	public void removeListener(ConsoleListener listener) {
 		
 		removeListener(listener, RemovalActionEvent.NOT_SPECIFIED);
 		
 	}
 	
+	/**
+	 * Remove listener.
+	 *
+	 * @param listener the listener
+	 * @param type     the type
+	 */
 	@SuppressWarnings("deprecation")
 	public void removeListener(ConsoleListener listener, int type) {
 		
@@ -646,18 +763,40 @@ public class BaseConsole {
 		
 	}
 	
+	/**
+	 * Println void.
+	 *
+	 * @param x the x
+	 */
 	public void println(Object x) {
 		println(x.toString());
 	}
 	
+	/**
+	 * Println void.
+	 *
+	 * @param x      the x
+	 * @param colour the colour
+	 */
 	public void println(Object x, Colour colour) {
 		println(x.toString(), colour);
 	}
 	
+	/**
+	 * Println void.
+	 *
+	 * @param text the text
+	 */
 	public void println(String text) {
 		print(text + "\n");
 	}
 	
+	/**
+	 * Println void.
+	 *
+	 * @param text   the text
+	 * @param colour the colour
+	 */
 	public void println(String text, Colour colour) {
 		print(text + "\n", colour);
 	}
@@ -714,7 +853,8 @@ public class BaseConsole {
 	/**
 	 * Prints an Object to the gui.
 	 *
-	 * @param x The object to print (Uses x.toString)
+	 * @param x      The object to print (Uses x.toString)
+	 * @param colour the colour
 	 */
 	public void print(Object x, Colour colour) {
 		print(x.toString(), colour);
@@ -730,6 +870,10 @@ public class BaseConsole {
 	}
 	
 	/**
+	 * Print void.
+	 *
+	 * @param text  the text
+	 * @param color the color
 	 * @deprecated Use {@link BaseConsole#print(String, Colour)}
 	 */
 	@Deprecated
@@ -756,8 +900,9 @@ public class BaseConsole {
 	/**
 	 * Gets the the listener with a given name, or index.
 	 *
-	 * @param identifier A class name, or a number (in the form a {@link String}).
-	 * @return A {@link ConsoleListener} with the given name of index.
+	 * @param identifier A class name, or a number (in the form a
+	 *                   ).
+	 * @return A with the given name of index.
 	 */
 	@SuppressWarnings("deprecation")
 	public ConsoleListener getListener(String identifier) {
@@ -778,10 +923,12 @@ public class BaseConsole {
 	/**
 	 * Gets a {@link ConsoleListener} with the index in the array.
 	 *
-	 * @param index The index of the desired {@link ConsoleListener}.
-	 * @return The {@link ConsoleListener} with the given class name.
+	 * @param index The index of the desired
+	 *              .
+	 * @return The with the given class name.
 	 * @see BaseConsole#getListener
-	 * @deprecated Use {@link BaseConsole#getListener} instead (index in {@link ConsoleListener} array or name).
+	 * @deprecated Use {@link BaseConsole#getListener(String)} instead (index in
+	 * array or name).
 	 */
 	@Deprecated
 	public ConsoleListener getListenerByIndex(int index) {
@@ -793,10 +940,12 @@ public class BaseConsole {
 	/**
 	 * Gets a {@link ConsoleListener} with a given name.
 	 *
-	 * @param name The class name of the desired {@link ConsoleListener}.
-	 * @return The {@link ConsoleListener} with the given class name.
+	 * @param name The class name of the desired
+	 *             .
+	 * @return The with the given class name.
 	 * @see BaseConsole#getListener
-	 * @deprecated Use {@link BaseConsole#getListener} instead (index in {@link ConsoleListener} array or name).
+	 * @deprecated Use {@link BaseConsole#getListener(String)} instead (index in
+	 * array or name).
 	 */
 	@Deprecated
 	public ConsoleListener getListenerByName(String name) {
@@ -815,22 +964,47 @@ public class BaseConsole {
 		
 	}
 	
+	/**
+	 * Gets history.
+	 *
+	 * @return the history
+	 */
 	public ArrayList<String> getHistory() {
 		return (ArrayList<String>) history.clone();
 	}
 	
+	/**
+	 * Sets history.
+	 *
+	 * @param history the history
+	 */
 	public void setHistory(ArrayList<String> history) {
 		this.history = history;
 	}
 	
+	/**
+	 * Gets listeners.
+	 *
+	 * @return the listeners
+	 */
 	public ArrayList<ConsoleListener> getListeners() {
 		return (ArrayList<ConsoleListener>) listeners.clone();
 	}
 	
+	/**
+	 * Gets stdout redirect.
+	 *
+	 * @return the stdout redirect
+	 */
 	public StdoutRedirect getStdoutRedirect() {
 		return stdoutRedirect;
 	}
 	
+	/**
+	 * Gets gui.
+	 *
+	 * @return the gui
+	 */
 	public ArrayList<ConsoleGui> getGui() {
 		return (ArrayList<ConsoleGui>) gui.clone();
 	}
@@ -838,7 +1012,8 @@ public class BaseConsole {
 	/**
 	 * Returns if the console has a gui attached to it.<br>
 	 *
-	 * @return If the {@link BaseConsole} has at least one gui attached to it
+	 * @return If the
+	 * has at least one gui attached to it
 	 * @deprecated Since the new gui system in version 4 this is unnecessary
 	 */
 	@Deprecated
@@ -847,7 +1022,7 @@ public class BaseConsole {
 	}
 	
 	/**
-	 * Adds a {@link com.n9mtq4.console.lib.gui.ConsoleGui} to the BaseConsole.
+	 * Adds a {@link ConsoleGui} to the BaseConsole.
 	 *
 	 * @param consoleGui the gui to add
 	 */
@@ -857,7 +1032,7 @@ public class BaseConsole {
 	}
 	
 	/**
-	 * Removes a {@link com.n9mtq4.console.lib.gui.ConsoleGui} from the BaseConsole.
+	 * Removes a {@link ConsoleGui} from the BaseConsole.
 	 *
 	 * @param consoleGui the gui to remove
 	 */
@@ -869,7 +1044,7 @@ public class BaseConsole {
 	/**
 	 * Gets the global id of this {@link BaseConsole}.
 	 *
-	 * @return the global ID for this {@link BaseConsole}
+	 * @return the global ID for this
 	 */
 	public int getId() {
 		return id;

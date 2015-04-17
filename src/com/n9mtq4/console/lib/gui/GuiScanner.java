@@ -42,6 +42,9 @@ public class GuiScanner extends ConsoleGui {
 		scan.close();
 	}
 	
+	/**
+	 * Init scanner.
+	 */
 	public void initScanner() {
 		
 		scan = new Scanner(System.in);
@@ -79,14 +82,27 @@ public class GuiScanner extends ConsoleGui {
 //		can't print images to command line
 	}
 	
+	/**
+	 * Stop scan.
+	 */
 	public void stopScan() {
 		shouldScan = false;
 	}
 	
+	/**
+	 * Gets scan.
+	 *
+	 * @return the scan
+	 */
 	public Scanner getScan() {
 		return scan;
 	}
 	
+	/**
+	 * Is should scan.
+	 *
+	 * @return the boolean
+	 */
 	public boolean isShouldScan() {
 		return shouldScan;
 	}

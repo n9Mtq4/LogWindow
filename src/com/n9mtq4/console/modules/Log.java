@@ -52,6 +52,11 @@ public class Log extends ConsoleListener {
 		
 	}
 	
+	/**
+	 * Append void.
+	 *
+	 * @param s the s
+	 */
 	public void append(String s) {
 		
 		try {

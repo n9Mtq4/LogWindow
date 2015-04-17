@@ -37,6 +37,12 @@ public class ConsoleActionEvent {
 	 */
 	private boolean canceled;
 	
+	/**
+	 * Instantiates a new Console action event.
+	 *
+	 * @param baseConsole the base console
+	 * @param command     the command
+	 */
 	public ConsoleActionEvent(BaseConsole baseConsole, ConsoleCommand command) {
 		this.baseConsole = baseConsole;
 		this.command = command;
@@ -44,18 +50,18 @@ public class ConsoleActionEvent {
 	}
 	
 	/**
-	 * Gets the {@link com.n9mtq4.console.lib.BaseConsole} that called this event
+	 * Gets the {@link BaseConsole} that called this event
 	 *
-	 * @return The {@link com.n9mtq4.console.lib.BaseConsole} that called this event
+	 * @return The  that called this event
 	 */
 	public BaseConsole getBaseConsole() {
 		return baseConsole;
 	}
 	
 	/**
-	 * Gets the {@link com.n9mtq4.console.lib.command.ConsoleCommand} that contains the inputed data
+	 * Gets the {@link ConsoleCommand} that contains the inputed data
 	 *
-	 * @return The {@link com.n9mtq4.console.lib.command.ConsoleCommand} that contains the inputed data
+	 * @return The  that contains the inputed data
 	 */
 	public ConsoleCommand getCommand() {
 		return command;
@@ -64,6 +70,8 @@ public class ConsoleActionEvent {
 	/**
 	 * Returns true if a {@link com.n9mtq4.console.lib.ConsoleListener} has
 	 * indicated that this event has been completed / shouldn't continue iterating through listeners
+	 *
+	 * @return the boolean
 	 */
 	public boolean isCanceled() {
 		return canceled;

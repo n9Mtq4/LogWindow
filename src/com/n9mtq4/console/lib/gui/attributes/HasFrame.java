@@ -22,13 +22,15 @@ import javax.swing.*;
  */
 
 /**
- * An interface that flags a {@link com.n9mtq4.console.lib.gui.ConsoleGui} that it contains a {@link javax.swing.JFrame}<br>
+ * An interface that flags a {@link com.n9mtq4.console.lib.gui.ConsoleGui} that it contains a {@link JFrame}<br>
  * use if (consoleGui instanceof HasFrame) {}
  */
 public interface HasFrame {
 	
 	/**
 	 * If the {@link com.n9mtq4.console.lib.gui.ConsoleGui} implements HasFrame, get the jframe
+	 *
+	 * @return the j frame
 	 */
 	JFrame getJFrame();
 	

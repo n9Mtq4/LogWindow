@@ -36,7 +36,7 @@ public class NTextArea extends JTextPane {
 	/**
 	 * Calls parent.
 	 *
-	 * @see javax.swing.JTextPane
+	 * @see
 	 */
 	public NTextArea() {
 		super();
@@ -46,7 +46,8 @@ public class NTextArea extends JTextPane {
 	/**
 	 * Calls parent.
 	 *
-	 * @see javax.swing.JTextPane
+	 * @param styledDocument the styled document
+	 * @see
 	 */
 	public NTextArea(StyledDocument styledDocument) {
 		super(styledDocument);
@@ -113,7 +114,7 @@ public class NTextArea extends JTextPane {
 	 * Can the user edit the text?
 	 *
 	 * @return true if the user edit it; false otherwise
-	 * @see com.n9mtq4.console.lib.parts.NTextArea#setUserEditable
+	 * @see NTextArea#setUserEditable
 	 */
 	public boolean isUserEditable() {
 		return userEditable;
@@ -123,7 +124,7 @@ public class NTextArea extends JTextPane {
 	 * Setter method for userEditable.
 	 *
 	 * @param userEditable true or false of can the user edit it
-	 * @see com.n9mtq4.console.lib.parts.NTextArea#isUserEditable
+	 * @see NTextArea#isUserEditable
 	 */
 	public void setUserEditable(boolean userEditable) {
 		this.userEditable = userEditable;

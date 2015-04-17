@@ -30,6 +30,13 @@ public class SentObjectEvent {
 	private String message;
 	private String objectType;
 	
+	/**
+	 * Instantiates a new Sent object event.
+	 *
+	 * @param baseConsole the base console
+	 * @param object      the object
+	 * @param message     the message
+	 */
 	public SentObjectEvent(BaseConsole baseConsole, Object object, String message) {
 		this.baseConsole = baseConsole;
 		this.object = object;
@@ -39,9 +46,9 @@ public class SentObjectEvent {
 	}
 	
 	/**
-	 * Gets the {@link com.n9mtq4.console.lib.BaseConsole} that called this event.
+	 * Gets the {@link BaseConsole} that called this event.
 	 *
-	 * @return The {@link com.n9mtq4.console.lib.BaseConsole} that called this event
+	 * @return The  that called this event
 	 */
 	public BaseConsole getBaseConsole() {
 		return baseConsole;
@@ -50,6 +57,8 @@ public class SentObjectEvent {
 	/**
 	 * Returns true if a {@link com.n9mtq4.console.lib.ConsoleListener} has
 	 * indicated that this event has been completed / shouldn't continue iterating through listeners
+	 *
+	 * @return the boolean
 	 */
 	public boolean isCanceled() {
 		return canceled;
@@ -57,15 +66,27 @@ public class SentObjectEvent {
 	
 	/**
 	 * Gets the sent object
+	 *
+	 * @return the object
 	 */
 	public Object getObject() {
 		return object;
 	}
 	
+	/**
+	 * Gets message.
+	 *
+	 * @return the message
+	 */
 	public String getMessage() {
 		return message;
 	}
 	
+	/**
+	 * Gets object type.
+	 *
+	 * @return the object type
+	 */
 	public String getObjectType() {
 		return objectType;
 	}

@@ -112,6 +112,11 @@ public class GuiJFrameLite extends ConsoleGui implements Textable, History, HasF
 		
 	}
 	
+	/**
+	 * On field enter.
+	 *
+	 * @param e the e
+	 */
 	public void onFieldEnter(ActionEvent e) {
 		JTextField source = (JTextField) e.getSource();
 		String text = source.getText();
@@ -151,34 +156,74 @@ public class GuiJFrameLite extends ConsoleGui implements Textable, History, HasF
 		this.historyIndex = getParent().getHistory().size();
 	}
 	
+	/**
+	 * Gets no wrap panel.
+	 *
+	 * @return the no wrap panel
+	 */
 	public JPanel getNoWrapPanel() {
 		return noWrapPanel;
 	}
 	
+	/**
+	 * Sets no wrap panel.
+	 *
+	 * @param noWrapPanel the no wrap panel
+	 */
 	public void setNoWrapPanel(JPanel noWrapPanel) {
 		this.noWrapPanel = noWrapPanel;
 	}
 	
+	/**
+	 * Gets area.
+	 *
+	 * @return the area
+	 */
 	public JTextArea getArea() {
 		return area;
 	}
 	
+	/**
+	 * Sets area.
+	 *
+	 * @param area the area
+	 */
 	public void setArea(JTextArea area) {
 		this.area = area;
 	}
 	
+	/**
+	 * Gets field.
+	 *
+	 * @return the field
+	 */
 	public JTextField getField() {
 		return field;
 	}
 	
+	/**
+	 * Sets field.
+	 *
+	 * @param field the field
+	 */
 	public void setField(JTextField field) {
 		this.field = field;
 	}
 	
+	/**
+	 * Gets scroll area.
+	 *
+	 * @return the scroll area
+	 */
 	public JScrollPane getScrollArea() {
 		return scrollArea;
 	}
 	
+	/**
+	 * Sets scroll area.
+	 *
+	 * @param scrollArea the scroll area
+	 */
 	public void setScrollArea(JScrollPane scrollArea) {
 		this.scrollArea = scrollArea;
 	}

@@ -94,6 +94,9 @@ public class SocketManager {
 	
 	/**
 	 * Sets the outgoing socket in this SocketManager to the ip and port
+	 *
+	 * @param ip   the ip
+	 * @param port the port
 	 */
 	public void clientConnect(String ip, int port) {
 		this.s = socketConnect(ip, port);
@@ -112,6 +115,9 @@ public class SocketManager {
 	
 	/**
 	 * Prints an Object to the outgoing socket with {@link Object#toString()}
+	 *
+	 * @param x the x
+	 * @return the boolean
 	 */
 	public boolean clientPrint(Object x) {
 		return socketPrint(this.s, x.toString());
@@ -119,6 +125,9 @@ public class SocketManager {
 	
 	/**
 	 * Prints a string to the outgoing socket
+	 *
+	 * @param x the x
+	 * @return the boolean
 	 */
 	public boolean clientPrint(String x) {
 		return socketPrint(this.s, x);
@@ -174,6 +183,8 @@ public class SocketManager {
 	
 	/**
 	 * Starts a sever on specified port
+	 *
+	 * @param port the port
 	 */
 	public void startServer(int port) {
 		

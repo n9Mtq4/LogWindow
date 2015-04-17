@@ -36,11 +36,16 @@ import static com.n9mtq4.console.lib.utils.ReflectionHelper.getClassByFullName;
 public class PluginManager {
 	
 	private static final Class[] parameters = new Class[]{URL.class};
+	/**
+	 * The constant DEFAULT_PLUGIN_FOLDER.
+	 */
 	public static String DEFAULT_PLUGIN_FOLDER = "plugins/";
 	
 	/**
 	 * Loads all plugins from a specific directory to the BaseConsole.<br>
 	 *
+	 * @param c        the c
+	 * @param filePath the file path
 	 * @see PluginManager#loadPluginsToConsole(BaseConsole, File) Use loadPluginsToConsole(BaseConsole, File) instead
 	 */
 	public static void loadPluginsToConsole(BaseConsole c, String filePath) {
@@ -54,6 +59,9 @@ public class PluginManager {
 	
 	/**
 	 * Loads all plugins from a specific directory to the BaseConsole.<br>
+	 *
+	 * @param c      the c
+	 * @param folder the folder
 	 */
 	public static void loadPluginsToConsole(BaseConsole c, File folder) {
 		
@@ -74,22 +82,25 @@ public class PluginManager {
 	 * Loads a plugin from File f into BaseConsole c.<br>
 	 * This plugin being loaded must be in the new format with a plugin.txt
 	 * in the root of the jar file.
+	 *
+	 * @param f the f
+	 * @param c the c
 	 */
 	public static void loadPlugin(File f, BaseConsole c) {
-
+		
 //		makes sure the file is a jar
 		if (f.getAbsolutePath().trim().toLowerCase().endsWith(".jar")) {
 			
 			try {
-
+				
 //				read plugin.txt from the plugin jar and set the contents to infoText
 				ZipFile zf = new ZipFile(f);
 				InputStream is = zf.getInputStream(zf.getEntry("plugin.txt"));
 				String infoText = streamToString(is);
-
+				
 //				add the jar file to the class loader, so we can reference it
 				addFile(f);
-
+				
 //				for each line in the file
 				String[] lines = infoText.split("\n");
 				for (String line : lines) {
@@ -133,6 +144,9 @@ public class PluginManager {
 	 * jar file that extend ConsoleListener that wants to be added when the plugin
 	 * is loaded.
 	 *
+	 * @param f        the file
+	 * @param c        the BaseConsole
+	 * @param location the location of the file
 	 * @deprecated Use the new plugin format. TODO: THIS WILL BE REMOVED IN VERSION 5.x.x
 	 */
 	@Deprecated

@@ -29,16 +29,18 @@ public interface Textable {
 	/**
 	 * Gets the current text in a compatible {@link com.n9mtq4.console.lib.gui.ConsoleGui}.
 	 *
-	 * @return The text that the {@link com.n9mtq4.console.lib.gui.ConsoleGui} has.
-	 * @see com.n9mtq4.console.lib.gui.attributes.Textable#setText
+	 * @return The text that the
+	 * has.
+	 * @see Textable#setText
 	 */
 	String getText();
 	
 	/**
 	 * Sets the current text in a compatible {@link com.n9mtq4.console.lib.gui.ConsoleGui}.
 	 *
-	 * @param text The text to set the {@link com.n9mtq4.console.lib.gui.ConsoleGui} to.
-	 * @see com.n9mtq4.console.lib.gui.attributes.Textable#getText
+	 * @param text The text to set the
+	 *             to.
+	 * @see Textable#getText
 	 */
 	void setText(String text);
 	
