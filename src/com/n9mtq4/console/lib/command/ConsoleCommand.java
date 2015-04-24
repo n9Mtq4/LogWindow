@@ -51,7 +51,7 @@ public class ConsoleCommand {
 	/**
 	 * The text of the command is split into words.
 	 * getArg returns the word at the given index.
-	 * <p/>
+	 * <p>
 	 * "Hello Java World".getArg(1) returns "Java"<br>
 	 * "Hello Java World".getArg(4) throws {@link StringIndexOutOfBoundsException}
 	 *

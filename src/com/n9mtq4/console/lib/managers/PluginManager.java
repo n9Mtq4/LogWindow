@@ -129,6 +129,9 @@ public class PluginManager {
 	
 	/**
 	 * Turns a InputStream into a String.
+	 * 
+	 * @param is The InputStream to convert
+	 * @return a string representation of the InputStream
 	 */
 	private static String streamToString(InputStream is) {
 		Scanner s = new Scanner(is).useDelimiter("\\A");
@@ -182,6 +185,9 @@ public class PluginManager {
 	
 	/**
 	 * Loads the contents of a file into a string.
+	 * 
+	 * @param filePath The path of the file
+	 * @return the String of the file
 	 */
 	private static String loadStringFromFile(String filePath) {
 		try {

@@ -36,15 +36,10 @@ public abstract class ConsoleListener {
 	 * @throws Exception when something doesn't work
 	 */
 	public static ConsoleListener getNewListenerByName(String name) throws Exception {
-		try {
-			Class<?> clazz = Class.forName(name);
-			Object clazz1 = clazz.newInstance();
-			ConsoleListener l = (ConsoleListener) clazz1;
-			return l;
-//			TODO: delete try block
-		}catch (Exception e) {
-			throw e;
-		}
+		Class<?> clazz = Class.forName(name);
+		Object clazz1 = clazz.newInstance();
+		ConsoleListener l = (ConsoleListener) clazz1;
+		return l;
 	}
 	
 	private ArrayList<BaseConsole> linkedBaseConsoles;
@@ -91,7 +86,6 @@ public abstract class ConsoleListener {
 	 * @param e the SentObjectEvent
 	 */
 	public void objectReceived(SentObjectEvent e) {
-		
 	}
 	
 	/**

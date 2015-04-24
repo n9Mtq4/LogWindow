@@ -317,7 +317,6 @@ public class BaseConsole {
 	 * Takes {@link String} and iterates through all {@link ConsoleListener} on console.
 	 *
 	 * @param text String to send to
-	 *             .
 	 */
 	public void sendPluginsString(String text) {
 		history.add(text);
@@ -331,7 +330,6 @@ public class BaseConsole {
 	 * Low level version of {@link BaseConsole#sendPluginsString}.
 	 *
 	 * @param text Sting to send to
-	 *             .
 	 */
 	public void push(String text) {
 		
@@ -387,11 +385,7 @@ public class BaseConsole {
 			
 		}
 		
-		if (list.size() > 0) {
-			return (ConsoleListener[]) list.toArray();
-		}else {
-			return null;
-		}
+		return (ConsoleListener[]) list.toArray();
 		
 	}
 	
@@ -450,8 +444,7 @@ public class BaseConsole {
 	/**
 	 * Enables the given {@link ConsoleListener} that is attached to {@link BaseConsole}.
 	 *
-	 * @param listener the
-	 *                 object to enable
+	 * @param listener the object to enable
 	 * @see BaseConsole#disableListener
 	 * @see BaseConsole#enableListenerByName
 	 */
