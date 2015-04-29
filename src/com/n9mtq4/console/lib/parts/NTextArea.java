@@ -19,6 +19,7 @@ import javax.swing.*;
 import javax.swing.text.*;
 import java.awt.*;
 import java.io.File;
+import java.io.Serializable;
 import java.net.MalformedURLException;
 
 /**
@@ -26,7 +27,10 @@ import java.net.MalformedURLException;
  * A custom JTextPane / JTextArea that supports colors
  * and images.
  */
-public class NTextArea extends JTextPane {
+public class NTextArea extends JTextPane 
+		implements Serializable {
+	
+	private static final long serialVersionUID = 7396962834170203316L;
 	
 	/**
 	 * Can the user edit the text?

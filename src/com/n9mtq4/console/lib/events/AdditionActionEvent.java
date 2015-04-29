@@ -17,10 +17,15 @@ package com.n9mtq4.console.lib.events;
 
 import com.n9mtq4.console.lib.BaseConsole;
 
+import java.io.Serializable;
+
 /**
  * Created by Will on 11/2/14.
  */
-public class AdditionActionEvent extends EnableActionEvent {
+public class AdditionActionEvent extends EnableActionEvent
+		implements Serializable {
+	
+	private static final long serialVersionUID = 2242955097552735284L;
 	
 	/**
 	 * Instantiates a new Addition action event.

@@ -17,11 +17,15 @@ package com.n9mtq4.console.lib.events;
 
 import com.n9mtq4.console.lib.BaseConsole;
 
+import java.io.Serializable;
+
 /**
  * Created by will on 3/31/15.<br>
  * Event that is passed to {@link com.n9mtq4.console.lib.ConsoleListener}s by the {@link BaseConsole}
  */
-public class SentObjectEvent {
+public class SentObjectEvent implements Serializable {
+	
+	private static final long serialVersionUID = 1595683797944824474L;
 	
 	private BaseConsole baseConsole;
 	private boolean canceled;

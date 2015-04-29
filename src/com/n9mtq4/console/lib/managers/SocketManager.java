@@ -17,10 +17,7 @@ package com.n9mtq4.console.lib.managers;
 
 import com.n9mtq4.console.lib.BaseConsole;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
+import java.io.*;
 import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -29,7 +26,9 @@ import java.net.SocketAddress;
 /**
  * Created by Will on 11/17/14.
  */
-public class SocketManager {
+public class SocketManager implements Serializable {
+	
+	private static final long serialVersionUID = 7827987558255161011L;
 	
 	private Socket s;
 	private ServerSocket serverSocket;

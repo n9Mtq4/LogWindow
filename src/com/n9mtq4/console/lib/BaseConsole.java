@@ -25,10 +25,12 @@ import com.n9mtq4.console.lib.managers.StdoutRedirect;
 import com.n9mtq4.console.lib.modules.ModuleJarLoader;
 import com.n9mtq4.console.lib.modules.ModuleListener;
 import com.n9mtq4.console.lib.utils.Colour;
+import com.n9mtq4.console.lib.utils.ObjectUtils;
 
 import java.awt.*;
 import java.io.File;
 import java.io.PrintWriter;
+import java.io.Serializable;
 import java.io.StringWriter;
 import java.util.ArrayList;
 import java.util.ConcurrentModificationException;
@@ -41,7 +43,13 @@ import java.util.ConcurrentModificationException;
  * The class that handles all User to Listener interactions.
  */
 @SuppressWarnings("unused")
-public class BaseConsole {
+public class BaseConsole implements Serializable {
+	
+	/**
+	 * Adds support for saving the BaseConsole.
+	 * The number is randomly generated.
+	 * */
+	private static final long serialVersionUID = 5490740956289542664L;
 	
 	/**
 	 * Keeps the ids of all {@link BaseConsole}s.
@@ -128,7 +136,7 @@ public class BaseConsole {
 	}
 	
 	/**
-	 * Handles global {@link BaseConsole} initilizing<br>
+	 * Handles global {@link BaseConsole} initializing<br>
 	 * Is called in the constructor
 	 */
 	private void initConsole() {
@@ -144,13 +152,28 @@ public class BaseConsole {
 	
 	/**
 	 * Note: Override me!<br>
+	 * TODO: remove in v5<br>
 	 * Note: Make a BaseConsole and addGui a gui instead of overriding BaseConsole
 	 * Insert your {@link ConsoleGui} here with<br>
 	 * this.addGui(new ThingThatExtendsConsoleGui());
+	 * @deprecated
 	 */
 	@Deprecated
 	public void initGui() {
 		
+	}
+	
+	public boolean save(File file) {
+		try {
+			saveDirty(file);
+			return true;
+		}catch (Exception e) {
+			return false;
+		}
+	}
+	
+	public void saveDirty(File file) throws Exception {
+		ObjectUtils.writeSerializable(this, file);
 	}
 	
 	/**
@@ -295,6 +318,7 @@ public class BaseConsole {
 	public void pushObject(Object object, String message) {
 		try {
 			SentObjectEvent event = new SentObjectEvent(this, object, message);
+//			SentObjectEvent</*object.getClass()?*/> event = new SentObjectEvent</*object.getClass()?*/>(this, object, message); // maybe add generics?
 			for (ConsoleListener l : listeners) {
 				try {
 					if (l.isEnabled() && (!event.isCanceled() || l.hasIgnoreDone())) {
@@ -305,6 +329,8 @@ public class BaseConsole {
 //					bubbling up and hurting the rest of the program
 					this.printStackTrace(e);
 					e.printStackTrace();
+					println("Listener " + l.getClass().getName() + " has an error!");
+					System.out.println("Listener " + l.getClass().getName() + " has an error!");
 				}
 			}
 		}catch (ConcurrentModificationException e1) {
@@ -329,7 +355,7 @@ public class BaseConsole {
 	/**
 	 * Low level version of {@link BaseConsole#sendPluginsString}.
 	 *
-	 * @param text Sting to send to
+	 * @param text String to send to the listeners
 	 */
 	public void push(String text) {
 		
@@ -344,6 +370,8 @@ public class BaseConsole {
 				}catch (Exception e) {
 					this.printStackTrace(e);
 					e.printStackTrace();
+					println("Listener " + p.getClass().getName() + " has an error!");
+					System.out.println("Listener " + p.getClass().getName() + " has an error!");
 				}
 			}
 		}catch (ConcurrentModificationException e1) {
@@ -568,6 +596,7 @@ public class BaseConsole {
 	
 	/**
 	 * Remove listener by name.
+	 * Only removes the first listener with the given name.
 	 *
 	 * @param name the name
 	 * @param type the type

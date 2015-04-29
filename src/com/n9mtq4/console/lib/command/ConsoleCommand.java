@@ -17,11 +17,15 @@ package com.n9mtq4.console.lib.command;
 
 import com.sun.istack.internal.NotNull;
 
+import java.io.Serializable;
+
 /**
  * Created by Will on 10/20/14.
  */
 @SuppressWarnings("unused")
-public class ConsoleCommand {
+public class ConsoleCommand implements Serializable {
+	
+	private static final long serialVersionUID = 1080818199066420180L;
 	
 	/**
 	 * Stores the raw text that has been inputed.

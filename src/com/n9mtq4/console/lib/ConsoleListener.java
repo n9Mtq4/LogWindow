@@ -19,13 +19,16 @@ import com.n9mtq4.console.lib.command.ConsoleCommand;
 import com.n9mtq4.console.lib.events.*;
 import com.n9mtq4.console.lib.utils.Colour;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.ConcurrentModificationException;
 
 /**
  * Created by Will on 10/20/14.
  */
-public abstract class ConsoleListener {
+public abstract class ConsoleListener implements Serializable {
+	
+	private static final long serialVersionUID = 3170856814584823192L;
 	
 	/**
 	 * A method that takes a string and returns a new instance of a ConsoleListener with the name

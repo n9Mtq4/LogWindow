@@ -20,12 +20,15 @@ import com.n9mtq4.console.lib.utils.Colour;
 import com.sun.istack.internal.Nullable;
 
 import java.io.File;
+import java.io.Serializable;
 import java.util.Random;
 
 /**
  * Created by Will on 12/29/14.
  */
-public class ConsoleGui {
+public class ConsoleGui implements Serializable {
+	
+	private static final long serialVersionUID = 8131872165773219445L;
 	
 	/**
 	 * Parent BaseConsole

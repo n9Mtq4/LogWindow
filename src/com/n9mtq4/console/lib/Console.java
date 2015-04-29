@@ -19,7 +19,8 @@ import com.n9mtq4.console.lib.gui.GuiJFrame;
 
 /**
  * Created by Will on 11/13/14.
- *
+ * TODO: remove in v5<br>
+ * 
  * @deprecated Use: new {@link com.n9mtq4.console.lib.BaseConsole#addGui}(new
  * {@link com.n9mtq4.console.lib.gui.GuiJFrame}());
  */

@@ -17,10 +17,15 @@ package com.n9mtq4.console.lib.events;
 
 import com.n9mtq4.console.lib.BaseConsole;
 
+import java.io.Serializable;
+
 /**
  * Created by Will on 11/2/14.
  */
-public class RemovalActionEvent extends DisableActionEvent {
+public class RemovalActionEvent extends DisableActionEvent
+		implements Serializable {
+	
+	private static final long serialVersionUID = 7928707744295602780L;
 	
 	/**
 	 * Instantiates a new Removal action event.

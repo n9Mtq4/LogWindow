@@ -18,6 +18,7 @@ package com.n9mtq4.console.lib.managers;
 import com.n9mtq4.console.lib.BaseConsole;
 
 import java.io.PrintStream;
+import java.io.Serializable;
 import java.text.MessageFormat;
 
 /**
@@ -25,7 +26,10 @@ import java.text.MessageFormat;
  * A class that redirected System.out.prints and prints them to a
  * {@link BaseConsole}
  */
-public class StdoutRedirect extends PrintStream {
+public class StdoutRedirect extends PrintStream 
+		implements Serializable {
+	
+	private static final long serialVersionUID = 9180321456734075207L;
 	
 	private BaseConsole baseConsole;
 	private PrintStream backup;

@@ -17,10 +17,14 @@ package com.n9mtq4.console.lib.events;
 
 import com.n9mtq4.console.lib.BaseConsole;
 
+import java.io.Serializable;
+
 /**
  * Created by Will on 10/23/14.
  */
-public class EnableActionEvent {
+public class EnableActionEvent implements Serializable {
+	
+	private static final long serialVersionUID = 6629615733570224391L;
 	
 	private BaseConsole baseConsole;
 	

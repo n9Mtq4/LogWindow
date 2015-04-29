@@ -17,6 +17,8 @@ package com.n9mtq4.console.lib.listeners;
 
 import com.n9mtq4.console.lib.BaseConsole;
 
+import java.io.Serializable;
+
 /**
  * The {@link ShutdownHook#run} method in this class is called when the Runtime closes if<br>
  * Runtime.getRuntime().addShutdownHook(new {@link ShutdownHook}());<br>
@@ -24,7 +26,10 @@ import com.n9mtq4.console.lib.BaseConsole;
  *
  * @see Runtime#addShutdownHook
  */
-public class ShutdownHook extends Thread {
+public class ShutdownHook extends Thread 
+		implements Serializable {
+	
+	private static final long serialVersionUID = 8309347169410881059L;
 	
 	private BaseConsole parent;
 	
