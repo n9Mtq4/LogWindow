@@ -707,14 +707,14 @@ public class ReflectionHelper {
 	 * @param clazz     the class
 	 * @return the object
 	 */
-	public static Object getObject(String fieldName, Object obj, Class clazz) {
+	public static <E> E getObject(String fieldName, Object obj, Class clazz) {
 		try {
 			Field f = clazz.getDeclaredField(fieldName);
 			f.setAccessible(true);
-			return f.get(obj);
+			return (E) f.get(obj);
 		}catch (Exception e) {
 			e.printStackTrace();
-			return 0;
+			return null;
 		}
 	}
 	
@@ -743,7 +743,7 @@ public class ReflectionHelper {
 	 * @param obj       the obj
 	 * @return the object
 	 */
-	public static Object getObject(String fieldName, Object obj) {
+	public static <E> E getObject(String fieldName, Object obj) {
 		return getObject(fieldName, obj, obj.getClass());
 	}
 	
@@ -765,14 +765,14 @@ public class ReflectionHelper {
 	 * @param clazz     the class
 	 * @return the static object
 	 */
-	public static Object getStaticObject(String fieldName, Class clazz) {
+	public static <E> E getStaticObject(String fieldName, Class clazz) {
 		try {
 			Field f = clazz.getDeclaredField(fieldName);
 			f.setAccessible(true);
-			return f.get(null);
+			return (E) f.get(null);
 		}catch (Exception e) {
 			e.printStackTrace();
-			return 0;
+			return null;
 		}
 	}
 	
@@ -801,11 +801,11 @@ public class ReflectionHelper {
 	 * @param params      the params
 	 * @return the object
 	 */
-	public static Object callConstructor(Class clazz, Class[] classParams, Object[] params) {
+	public static <E> E callConstructor(Class clazz, Class[] classParams, Object[] params) {
 		try {
 			Constructor c = clazz.getDeclaredConstructor(classParams);
 			c.setAccessible(true);
-			return c.newInstance(params);
+			return (E) c.newInstance(params);
 		}catch (Exception e) {
 			e.printStackTrace();
 			return null;
@@ -819,7 +819,7 @@ public class ReflectionHelper {
 	 * @param params the params
 	 * @return the object
 	 */
-	public static Object callConstructor(Class clazz, Object... params) {
+	public static <E> E callConstructor(Class clazz, Object... params) {
 		return callConstructor(clazz, getClassParams(params), params);
 	}
 	
@@ -833,12 +833,12 @@ public class ReflectionHelper {
 	 * @param params      the params
 	 * @return the object
 	 */
-	public static Object callObjectMethod(String methodName, Object obj, Class clazz, Class[] classParams, Object[] params) {
+	public static <E> E callObjectMethod(String methodName, Object obj, Class clazz, Class[] classParams, Object[] params) {
 		Method m = null;
 		try {
 			m = clazz.getDeclaredMethod(methodName, classParams);
 			m.setAccessible(true);
-			return m.invoke(obj, params);
+			return (E) m.invoke(obj, params);
 		}catch (NoSuchMethodException e) {
 			e.printStackTrace();
 		}catch (InvocationTargetException e) {
@@ -858,7 +858,7 @@ public class ReflectionHelper {
 	 * @param params     the params
 	 * @return the object
 	 */
-	public static Object callObjectMethod(String methodName, Object obj, Class clazz, Object... params) {
+	public static <E> E callObjectMethod(String methodName, Object obj, Class clazz, Object... params) {
 		return callObjectMethod(methodName, obj, clazz, getClassParams(params), params);
 	}
 	
@@ -871,7 +871,7 @@ public class ReflectionHelper {
 	 * @param params      the params
 	 * @return the object
 	 */
-	public static Object callObjectMethod(String methodName, Object obj, Class[] classParams, Object[] params) {
+	public static <E> E callObjectMethod(String methodName, Object obj, Class[] classParams, Object[] params) {
 		return callObjectMethod(methodName, obj, obj.getClass(), classParams, params);
 	}
 	
@@ -883,7 +883,7 @@ public class ReflectionHelper {
 	 * @param params     the params
 	 * @return the object
 	 */
-	public static Object callObjectMethod(String methodName, Object obj, Object... params) {
+	public static <E> E callObjectMethod(String methodName, Object obj, Object... params) {
 		return callObjectMethod(methodName, obj, getClassParams(params), params);
 	}
 	
@@ -896,7 +896,7 @@ public class ReflectionHelper {
 	 * @param params      the params
 	 * @return the object
 	 */
-	public static Object callStaticObjectMethod(String methodName, Class clazz, Class[] classParams, Object[] params) {
+	public static <E> E callStaticObjectMethod(String methodName, Class clazz, Class[] classParams, Object[] params) {
 		return callObjectMethod(methodName, null, clazz, classParams, params);
 	}
 	
@@ -908,7 +908,7 @@ public class ReflectionHelper {
 	 * @param params     the params
 	 * @return the object
 	 */
-	public static Object callStaticObjectMethod(String methodName, Class clazz, Object... params) {
+	public static <E> E callStaticObjectMethod(String methodName, Class clazz, Object... params) {
 		return callStaticObjectMethod(methodName, clazz, getClassParams(params), params);
 	}
 	
@@ -1521,8 +1521,9 @@ public class ReflectionHelper {
 	public static long callStaticLongMethod(String methodName, Class clazz, Object... params) {
 		return callStaticLongMethod(methodName, clazz, getClassParams(params), params);
 	}
-
+	
 //	start stuff not written by me
+//	BrainStorm @ https://stackoverflow.com/questions/520328/can-you-find-all-classes-in-a-package-using-reflection
 	
 	/**
 	 * Attempts to list all the classes in the specified package as determined
@@ -1632,7 +1633,7 @@ public class ReflectionHelper {
 			}
 		}
 	}
-
+	
 //	end stuff not written by me
 	
 	/**
