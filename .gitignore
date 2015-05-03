@@ -1,8 +1,12 @@
+# intellij idea junk
 .idea/
-plugins/*
+# baseConsole test plugins
+plugins/
+# compiled classes
 out/
-.DS_Store
-console.iml
-ConsoleWindow.jar
+# javadocs in html format
 doc/
+# more intellij idea junk
+*.iml
+# stupid apple files that it creates to store metadata
 ._*
