@@ -15,6 +15,7 @@
 
 package com.n9mtq4.console.lib.modules;
 
+import com.n9mtq4.console.lib.BaseConsole;
 import com.n9mtq4.console.lib.ConsoleListener;
 import com.n9mtq4.console.lib.events.ConsoleActionEvent;
 
@@ -24,10 +25,10 @@ import com.n9mtq4.console.lib.events.ConsoleActionEvent;
 public class ModuleExit extends ConsoleListener {
 	
 	@Override
-	public void actionPerformed(ConsoleActionEvent e) {
+	public void actionPerformed(ConsoleActionEvent e, BaseConsole baseConsole) {
 		
 		if (e.getCommand().eqt("exit")) {
-			e.getBaseConsole().dispose();
+			baseConsole.dispose();
 		}
 		
 	}

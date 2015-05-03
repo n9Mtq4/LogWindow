@@ -15,6 +15,7 @@
 
 package com.n9mtq4.console.lib.modules;
 
+import com.n9mtq4.console.lib.BaseConsole;
 import com.n9mtq4.console.lib.ConsoleListener;
 import com.n9mtq4.console.lib.events.ConsoleActionEvent;
 import com.n9mtq4.console.lib.managers.PluginManager;
@@ -31,12 +32,12 @@ import java.io.File;
 public class ModulePluginManager extends ConsoleListener {
 	
 	@Override
-	public void actionPerformed(ConsoleActionEvent e) {
+	public void actionPerformed(ConsoleActionEvent e, BaseConsole baseConsole) {
 		
 		if (e.getCommand().eqt("loadplugins")) {
-			e.getBaseConsole().println("loading plugins...");
-			PluginManager.loadPluginsToConsole(e.getBaseConsole(), PluginManager.DEFAULT_PLUGIN_FOLDER);
-			e.getBaseConsole().println("done loading plugins");
+			baseConsole.println("loading plugins...");
+			PluginManager.loadPluginsToConsole(baseConsole, PluginManager.DEFAULT_PLUGIN_FOLDER);
+			baseConsole.println("done loading plugins");
 			return;
 		}
 		
@@ -44,10 +45,10 @@ public class ModulePluginManager extends ConsoleListener {
 			String plPath = e.getCommand().getWordsStartingFrom(1);
 			File f = new File(plPath);
 			if (!f.exists()) {
-				e.getBaseConsole().println(plPath + " does not exist");
+				baseConsole.println(plPath + " does not exist");
 				return;
 			}
-			PluginManager.loadPlugin(new File(plPath), e.getBaseConsole());
+			PluginManager.loadPlugin(new File(plPath), baseConsole);
 		}
 		
 	}

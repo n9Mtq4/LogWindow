@@ -26,6 +26,7 @@ import com.n9mtq4.console.lib.modules.ModuleJarLoader;
 import com.n9mtq4.console.lib.modules.ModuleListener;
 import com.n9mtq4.console.lib.utils.Colour;
 import com.n9mtq4.console.lib.utils.ObjectUtils;
+import com.n9mtq4.console.lib.utils.ReflectionHelper;
 
 import java.awt.*;
 import java.io.File;
@@ -88,6 +89,30 @@ public class BaseConsole implements Serializable {
 	 * The thread that is called when the program exits
 	 */
 	private ShutdownHook shutdownHook;
+	
+	/**
+	 * Loads a BaseConsole from a previously
+	 * saved file from <code>baseConsole.save(file)</code>.
+	 *
+	 * @param file the file
+	 * @return the base console that has been loaded
+	 */
+	public static BaseConsole load(File file) {
+		try {
+			BaseConsole bc = ObjectUtils.readSerializable(file);
+			ArrayList<ConsoleGui> gs = bc.getGui();
+			bc.gui = new ArrayList<ConsoleGui>();
+			for (ConsoleGui g : gs) {
+				ConsoleGui g1 = ReflectionHelper.callConstructor(g.getClass());
+				bc.addGui(g1);
+			}
+			return bc;
+		}catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+		
+	}
 	
 	/**
 	 * Constructor for {@link BaseConsole}.

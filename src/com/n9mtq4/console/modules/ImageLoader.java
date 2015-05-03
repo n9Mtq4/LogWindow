@@ -15,6 +15,7 @@
 
 package com.n9mtq4.console.modules;
 
+import com.n9mtq4.console.lib.BaseConsole;
 import com.n9mtq4.console.lib.ConsoleListener;
 import com.n9mtq4.console.lib.events.ConsoleActionEvent;
 
@@ -26,12 +27,12 @@ import java.io.File;
 public class ImageLoader extends ConsoleListener {
 	
 	@Override
-	public void actionPerformed(ConsoleActionEvent e) {
+	public void actionPerformed(ConsoleActionEvent e, BaseConsole baseConsole) {
 		
 		if (e.getCommand().getLength() >= 2 && e.getCommand().getArg(0).equalsIgnoreCase("imageload")) {
 			
 			String fileLocation = e.getCommand().getWordsStartingFrom(1);
-			e.getBaseConsole().printlnImage(new File(fileLocation));
+			baseConsole.printlnImage(new File(fileLocation));
 			
 		}
 		

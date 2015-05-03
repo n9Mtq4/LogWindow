@@ -15,6 +15,7 @@
 
 package com.n9mtq4.console.lib.modules;
 
+import com.n9mtq4.console.lib.BaseConsole;
 import com.n9mtq4.console.lib.ConsoleListener;
 import com.n9mtq4.console.lib.events.ConsoleActionEvent;
 import com.n9mtq4.console.lib.gui.ConsoleGui;
@@ -33,25 +34,25 @@ import java.util.ArrayList;
 public class ModuleHistory extends ConsoleListener {
 	
 	@Override
-	public void actionPerformed(ConsoleActionEvent e) {
+	public void actionPerformed(ConsoleActionEvent e, BaseConsole baseConsole) {
 		
 		if (e.getCommand().contains("history")) {
 			
 			if (e.getCommand().getLength() == 1) {
 				if (e.getCommand().getArg(0).equalsIgnoreCase("history")) {
-					for (String s : e.getBaseConsole().getHistory()) {
-						e.getBaseConsole().println(s, Colour.MAGENTA);
+					for (String s : baseConsole.getHistory()) {
+						baseConsole.println(s, Colour.MAGENTA);
 					}
 				}
 			}else if (e.getCommand().getLength() == 2) {
 				if (e.getCommand().getArg(1).equalsIgnoreCase("clear")) {
-					e.getBaseConsole().setHistory(new ArrayList<String>());
-					for (ConsoleGui g : e.getBaseConsole().getGui()) {
+					baseConsole.setHistory(new ArrayList<String>());
+					for (ConsoleGui g : baseConsole.getGui()) {
 						if (g instanceof History) {
 							((History) g).historyUpdate();
 						}
 					}
-					e.getBaseConsole().println("Cleared history", Colour.CYAN);
+					baseConsole.println("Cleared history", Colour.CYAN);
 				}
 			}
 			

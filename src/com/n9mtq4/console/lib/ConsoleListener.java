@@ -15,7 +15,6 @@
 
 package com.n9mtq4.console.lib;
 
-import com.n9mtq4.console.lib.command.ConsoleCommand;
 import com.n9mtq4.console.lib.events.*;
 import com.n9mtq4.console.lib.utils.Colour;
 
@@ -80,15 +79,17 @@ public abstract class ConsoleListener implements Serializable {
 	 * Action performed.
 	 *
 	 * @param e the ConsoleActionEvent
+	 * @param baseConsole The baseConsole that is being used.
 	 */
-	public abstract void actionPerformed(ConsoleActionEvent e);
+	public abstract void actionPerformed(ConsoleActionEvent e, BaseConsole baseConsole);
 	
 	/**
 	 * Object received.
 	 *
 	 * @param e the SentObjectEvent
+	 * @param baseConsole The baseConsole that is being used.
 	 */
-	public void objectReceived(SentObjectEvent e) {
+	public void objectReceived(SentObjectEvent e, BaseConsole baseConsole) {
 	}
 	
 	/**
@@ -138,26 +139,6 @@ public abstract class ConsoleListener implements Serializable {
 	}
 	
 	/**
-	 * Sends this listener a String.
-	 *
-	 * @param text The string to send to actionPerformed
-	 * @see ConsoleListener#push(ConsoleActionEvent)
-	 * @deprecated use {@link ConsoleListener#push(ConsoleActionEvent)} instead.
-	 */
-	@Deprecated
-	public void push(String text) {
-		
-		ConsoleCommand command = new ConsoleCommand(text);
-		try {
-			for (BaseConsole c : linkedBaseConsoles) {
-				this.actionPerformed(new ConsoleActionEvent(c, command));
-			}
-		}catch (ConcurrentModificationException e) {
-		}
-		
-	}
-	
-	/**
 	 * Sends this listener a SentObjectEvent.
 	 *
 	 * @param sentObjectEvent The event to send.
@@ -165,9 +146,8 @@ public abstract class ConsoleListener implements Serializable {
 	public void pushObject(SentObjectEvent sentObjectEvent) {
 		
 		try {
-//		TODO: fix this bug: consoleActionEvent has the base console, so it doesn't loop properly
 			for (BaseConsole c : linkedBaseConsoles) {
-				this.objectReceived(sentObjectEvent);
+				this.objectReceived(sentObjectEvent, c);
 			}
 		}catch (ConcurrentModificationException e1) {
 //			This is expected sometimes, and isn't a big deal
@@ -183,9 +163,8 @@ public abstract class ConsoleListener implements Serializable {
 	public void push(ConsoleActionEvent consoleActionEvent) {
 		
 		try {
-//			TODO: fix this bug: consoleActionEvent has the base console, so it doesn't loop properly
 			for (BaseConsole c : linkedBaseConsoles) {
-				this.actionPerformed(consoleActionEvent);
+				this.actionPerformed(consoleActionEvent, c);
 			}
 		}catch (ConcurrentModificationException e1) {
 		}

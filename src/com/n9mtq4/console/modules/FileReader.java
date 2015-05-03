@@ -15,6 +15,7 @@
 
 package com.n9mtq4.console.modules;
 
+import com.n9mtq4.console.lib.BaseConsole;
 import com.n9mtq4.console.lib.ConsoleListener;
 import com.n9mtq4.console.lib.events.ConsoleActionEvent;
 import com.n9mtq4.console.lib.utils.Colour;
@@ -28,7 +29,7 @@ import java.io.File;
 public class FileReader extends ConsoleListener {
 	
 	@Override
-	public void actionPerformed(ConsoleActionEvent e) {
+	public void actionPerformed(ConsoleActionEvent e, BaseConsole baseConsole) {
 		
 		if (!e.getCommand().startsWith("file ")) return;
 		if (e.getCommand().getLength() == 3) {
@@ -51,10 +52,10 @@ public class FileReader extends ConsoleListener {
 						}
 						String everything = sb.toString();
 						br.close();
-						e.getBaseConsole().println(everything);
+						baseConsole.println(everything);
 					}catch (Exception e1) {
-						e.getBaseConsole().print("[ERROR]: ", Colour.RED);
-						e.getBaseConsole().println(e1.toString());
+						baseConsole.print("[ERROR]: ", Colour.RED);
+						baseConsole.println(e1.toString());
 					}
 					
 				}

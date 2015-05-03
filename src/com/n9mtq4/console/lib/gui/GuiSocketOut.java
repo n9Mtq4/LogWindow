@@ -15,6 +15,7 @@
 
 package com.n9mtq4.console.lib.gui;
 
+import com.n9mtq4.console.lib.BaseConsole;
 import com.n9mtq4.console.lib.ConsoleListener;
 import com.n9mtq4.console.lib.events.ConsoleActionEvent;
 import com.n9mtq4.console.lib.events.DisableActionEvent;
@@ -166,7 +167,7 @@ public class GuiSocketOut extends ConsoleGui {
 		}
 		
 		@Override
-		public void actionPerformed(ConsoleActionEvent e) {
+		public void actionPerformed(ConsoleActionEvent e, BaseConsole baseConsole) {
 			
 			if (e.getCommand().getLength() == 3) {
 				if (e.getCommand().getText().toLowerCase().startsWith("socketsender port")) {
@@ -175,8 +176,8 @@ public class GuiSocketOut extends ConsoleGui {
 						parent.setPort(port);
 						parent.refresh();
 					}catch (NumberFormatException e1) {
-						e.getBaseConsole().print("Error: ", Colour.RED);
-						e.getBaseConsole().println(e1.getMessage());
+						baseConsole.print("Error: ", Colour.RED);
+						baseConsole.println(e1.getMessage());
 					}
 				}else if (e.getCommand().getText().toLowerCase().startsWith("socketsender ip")) {
 					String ip = e.getCommand().getArg(2);

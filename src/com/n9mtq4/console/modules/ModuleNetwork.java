@@ -15,6 +15,7 @@
 
 package com.n9mtq4.console.modules;
 
+import com.n9mtq4.console.lib.BaseConsole;
 import com.n9mtq4.console.lib.ConsoleListener;
 import com.n9mtq4.console.lib.command.ConsoleCommand;
 import com.n9mtq4.console.lib.events.AdditionActionEvent;
@@ -73,7 +74,7 @@ public class ModuleNetwork extends ConsoleListener {
 	}
 	
 	@Override
-	public void actionPerformed(ConsoleActionEvent e) {
+	public void actionPerformed(ConsoleActionEvent e, BaseConsole baseConsole) {
 		
 		ConsoleCommand c = e.getCommand();
 		if (c.getArg(0).equalsIgnoreCase("http")) {
@@ -82,7 +83,7 @@ public class ModuleNetwork extends ConsoleListener {
 				if (c.getArg(1).equalsIgnoreCase("get")) {
 					String url = c.getWordsStartingFrom(2);
 					String result = httpGet(url);
-					e.getBaseConsole().println(result);
+					baseConsole.println(result);
 				}else if (c.getArg(1).equalsIgnoreCase("post")) {
 //					TODO: http post request
 				}
@@ -103,7 +104,7 @@ public class ModuleNetwork extends ConsoleListener {
 							int port = Integer.parseInt(portString);
 							manager.clientConnect(ip, port);
 						}catch (NumberFormatException e1) {
-							e.getBaseConsole().println(e1.toString());
+							baseConsole.println(e1.toString());
 						}
 					}
 					
@@ -112,15 +113,15 @@ public class ModuleNetwork extends ConsoleListener {
 					String portString = c.getArg(2);
 					try {
 						
-						e.getBaseConsole().println("starting server on port " + portString);
+						baseConsole.println("starting server on port " + portString);
 						int port = Integer.parseInt(portString);
-						e.getBaseConsole().println("Awaiting client connection to socket");
+						baseConsole.println("Awaiting client connection to socket");
 						manager.startServer(port);
-						manager.startServerListenerToConsole(e.getBaseConsole(), false);
+						manager.startServerListenerToConsole(baseConsole, false);
 						
 					}catch (NumberFormatException e1) {
-						e.getBaseConsole().println("port must be an int");
-						e.getBaseConsole().println(e1.toString());
+						baseConsole.println("port must be an int");
+						baseConsole.println(e1.toString());
 					}
 				}
 			}else if (c.getLength() >= 3) {

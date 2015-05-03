@@ -31,7 +31,7 @@ public class ConsoleActionEvent implements Serializable {
 	/**
 	 * The {@link com.n9mtq4.console.lib.BaseConsole} that made this event
 	 */
-	private BaseConsole baseConsole;
+	private BaseConsole initiatingBaseConsole;
 	/**
 	 * The {@link com.n9mtq4.console.lib.command.ConsoleCommand} that stores the inputed data
 	 */
@@ -44,11 +44,11 @@ public class ConsoleActionEvent implements Serializable {
 	/**
 	 * Instantiates a new Console action event.
 	 *
-	 * @param baseConsole the base console
+	 * @param initiatingBaseConsole the base console
 	 * @param command     the command
 	 */
-	public ConsoleActionEvent(BaseConsole baseConsole, ConsoleCommand command) {
-		this.baseConsole = baseConsole;
+	public ConsoleActionEvent(BaseConsole initiatingBaseConsole, ConsoleCommand command) {
+		this.initiatingBaseConsole = initiatingBaseConsole;
 		this.command = command;
 		this.canceled = false;
 	}
@@ -58,8 +58,8 @@ public class ConsoleActionEvent implements Serializable {
 	 *
 	 * @return The  that called this event
 	 */
-	public BaseConsole getBaseConsole() {
-		return baseConsole;
+	public BaseConsole getInitiatingBaseConsole() {
+		return initiatingBaseConsole;
 	}
 	
 	/**

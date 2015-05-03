@@ -15,6 +15,7 @@
 
 package com.n9mtq4.console.modules;
 
+import com.n9mtq4.console.lib.BaseConsole;
 import com.n9mtq4.console.lib.ConsoleListener;
 import com.n9mtq4.console.lib.events.AdditionActionEvent;
 import com.n9mtq4.console.lib.events.ConsoleActionEvent;
@@ -46,7 +47,7 @@ public class Log extends ConsoleListener {
 	}
 	
 	@Override
-	public void actionPerformed(ConsoleActionEvent e) {
+	public void actionPerformed(ConsoleActionEvent e, BaseConsole baseConsole) {
 		
 		append(e.getCommand().getText());
 		

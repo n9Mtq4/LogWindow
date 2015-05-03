@@ -15,6 +15,7 @@
 
 package com.n9mtq4.console.lib.modules;
 
+import com.n9mtq4.console.lib.BaseConsole;
 import com.n9mtq4.console.lib.ConsoleListener;
 import com.n9mtq4.console.lib.events.ConsoleActionEvent;
 import com.n9mtq4.console.lib.events.DisableActionEvent;
@@ -35,23 +36,23 @@ import java.io.IOException;
 public class ModuleJarLoader extends ConsoleListener {
 	
 	@Override
-	public void actionPerformed(ConsoleActionEvent e) {
+	public void actionPerformed(ConsoleActionEvent e, BaseConsole baseConsole) {
 		
 		if (e.getCommand().trim().toLowerCase().startsWith("jarloader ") && e.getCommand().getLength() >= 2) {
 			
 			String filePath = e.getCommand().getText().substring(e.getCommand().getText().indexOf("jarloader ") + "jarloader ".length());
 			File jarFile = new File(filePath);
 			if (!jarFile.exists()) {
-				e.getBaseConsole().println("[ERROR]: " + jarFile.getPath() + " doesn't exist");
+				baseConsole.println("[ERROR]: " + jarFile.getPath() + " doesn't exist");
 				return;
 			}
-			e.getBaseConsole().println("Adding jar file: " + jarFile, Colour.BLUE);
+			baseConsole.println("Adding jar file: " + jarFile, Colour.BLUE);
 			try {
 				JarLoader.addFile(jarFile);
 			}catch (IOException e1) {
-				e.getBaseConsole().println("[ERROR]: " + e1.toString(), Colour.RED);
+				baseConsole.println("[ERROR]: " + e1.toString(), Colour.RED);
 			}
-			e.getBaseConsole().println("done loading " + filePath, Colour.BLUE);
+			baseConsole.println("done loading " + filePath, Colour.BLUE);
 			
 		}
 		

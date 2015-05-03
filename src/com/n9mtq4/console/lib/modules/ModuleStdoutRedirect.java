@@ -15,6 +15,7 @@
 
 package com.n9mtq4.console.lib.modules;
 
+import com.n9mtq4.console.lib.BaseConsole;
 import com.n9mtq4.console.lib.ConsoleListener;
 import com.n9mtq4.console.lib.command.ConsoleCommand;
 import com.n9mtq4.console.lib.events.ConsoleActionEvent;
@@ -29,7 +30,7 @@ import com.n9mtq4.console.lib.events.ConsoleActionEvent;
 public class ModuleStdoutRedirect extends ConsoleListener {
 	
 	@Override
-	public void actionPerformed(ConsoleActionEvent e) {
+	public void actionPerformed(ConsoleActionEvent e, BaseConsole baseConsole) {
 		
 		ConsoleCommand c = e.getCommand();
 		if (c.getArg(0).equalsIgnoreCase("stdout")) {
@@ -46,13 +47,13 @@ public class ModuleStdoutRedirect extends ConsoleListener {
 					
 					if (c.getArg(2).equalsIgnoreCase("on")) {
 						
-						e.getBaseConsole().redirectStdoutOn();
+						baseConsole.redirectStdoutOn();
 						System.out.println("Hello World! This was printed using System.out.println()");
 						
 					}else if (c.getArg(2).equalsIgnoreCase("off")) {
 						
-						e.getBaseConsole().println("turned off stdout redirection");
-						e.getBaseConsole().redirectStdoutOff();
+						baseConsole.println("turned off stdout redirection");
+						baseConsole.redirectStdoutOff();
 						
 					}
 					
@@ -64,7 +65,7 @@ public class ModuleStdoutRedirect extends ConsoleListener {
 					
 					if (c.getArg(2).equalsIgnoreCase("on")) {
 						
-						e.getBaseConsole().redirectStdoutOn(Boolean.parseBoolean(c.getArg(3)));
+						baseConsole.redirectStdoutOn(Boolean.parseBoolean(c.getArg(3)));
 						System.out.println("Hello World! This was printed using System.out.println()");
 						
 					}
