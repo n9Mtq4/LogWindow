@@ -15,11 +15,14 @@
 
 package com.n9mtq4.console.lib;
 
+import com.n9mtq4.console.lib.annotation.Async;
 import com.n9mtq4.console.lib.events.*;
 import com.n9mtq4.console.lib.utils.Colour;
 
 import java.io.Serializable;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.ConcurrentModificationException;
 
 /**
@@ -47,6 +50,8 @@ public abstract class ConsoleListener implements Serializable {
 	private ArrayList<BaseConsole> linkedBaseConsoles;
 	private boolean enabled;
 	private boolean ignoreDone;
+	private boolean isAsyncString;
+	private boolean isAsyncObject;
 	
 	/**
 	 * Makes a new {@link ConsoleListener} object.
@@ -56,6 +61,8 @@ public abstract class ConsoleListener implements Serializable {
 		linkedBaseConsoles = new ArrayList<BaseConsole>();
 		this.enabled = true;
 		this.ignoreDone = false;
+		this.isAsyncString = false;
+		this.isAsyncObject = false;
 		
 	}
 	
@@ -145,6 +152,24 @@ public abstract class ConsoleListener implements Serializable {
 	 */
 	public void pushObject(SentObjectEvent sentObjectEvent) {
 		
+//		TODO: very ugly
+		if (isAsyncObject) {
+			
+			final SentObjectEvent sentObjectEvent1 = sentObjectEvent;
+			new Thread(new Runnable() {
+				@Override
+				public void run() {
+					pushSendObjectEvent(sentObjectEvent1);
+				}
+			}).start();
+			
+		}else {
+			pushSendObjectEvent(sentObjectEvent);
+		}
+		
+	}
+	
+	private void pushSendObjectEvent(SentObjectEvent sentObjectEvent) {
 		try {
 			for (BaseConsole c : linkedBaseConsoles) {
 				this.objectReceived(sentObjectEvent, c);
@@ -152,7 +177,6 @@ public abstract class ConsoleListener implements Serializable {
 		}catch (ConcurrentModificationException e1) {
 //			This is expected sometimes, and isn't a big deal
 		}
-		
 	}
 	
 	/**
@@ -162,13 +186,56 @@ public abstract class ConsoleListener implements Serializable {
 	 */
 	public void push(ConsoleActionEvent consoleActionEvent) {
 		
+//		TODO: very ugly
+		if (isAsyncString) {
+			
+			final ConsoleActionEvent consoleActionEvent1 = consoleActionEvent;
+			new Thread(new Runnable() {
+				@Override
+				public void run() {
+					pushConsoleActionEvent(consoleActionEvent1);
+				}
+			}).start();
+			
+		}else {
+			pushConsoleActionEvent(consoleActionEvent);
+		}
+		
+	}
+	
+	private void pushConsoleActionEvent(ConsoleActionEvent consoleActionEvent) {
 		try {
 			for (BaseConsole c : linkedBaseConsoles) {
-				this.actionPerformed(consoleActionEvent, c);
+				ConsoleListener.this.actionPerformed(consoleActionEvent, c);
 			}
 		}catch (ConcurrentModificationException e1) {
 		}
-		
+	}
+	
+	private void annotations() {
+//		actionPerformed annotation checks
+		try {
+			Method action = this.getClass().getDeclaredMethod("actionPerformed", ConsoleActionEvent.class, BaseConsole.class);
+			if (action.isAnnotationPresent(Async.class)) {
+				Async annotation = action.getAnnotation(Async.class);
+//				System.out.println(annotation.async());
+				this.isAsyncString = annotation.async();
+			}
+		}catch (Exception e) {
+//			e.printStackTrace();
+			System.err.println("[WARNING]: something isn't quit right with Async annotation (" + this.getClass().getName() + ")!");
+		}
+//		objectReceived annotation checks
+		try {
+			Method action = this.getClass().getDeclaredMethod("objectReceived", SentObjectEvent.class, BaseConsole.class);
+			if (action.isAnnotationPresent(Async.class)) {
+				Async annotation = action.getAnnotation(Async.class);
+				this.isAsyncObject = annotation.async();
+			}
+		}catch (Exception e) {
+//			e.printStackTrace();
+//			this is expected as objectReceived isn't abstract
+		}
 	}
 	
 	/**
@@ -185,6 +252,7 @@ public abstract class ConsoleListener implements Serializable {
 		if (!linkedBaseConsoles.contains(baseConsole) || !baseConsole.getListeners().contains(this)) {
 			linkedBaseConsoles.add(baseConsole);
 			baseConsole.addListener(this);
+			annotations();
 		}
 		
 	}
@@ -259,6 +327,14 @@ public abstract class ConsoleListener implements Serializable {
 	 */
 	public boolean hasIgnoreDone() {
 		return ignoreDone;
+	}
+	
+	public boolean isAsyncString() {
+		return isAsyncString;
+	}
+	
+	public boolean isAsyncObject() {
+		return isAsyncObject;
 	}
 	
 }
