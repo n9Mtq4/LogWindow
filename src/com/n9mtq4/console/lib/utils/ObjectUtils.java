@@ -15,8 +15,6 @@
 
 package com.n9mtq4.console.lib.utils;
 
-import com.sun.javaws.exceptions.InvalidArgumentException;
-
 import java.io.*;
 
 /**
@@ -65,7 +63,7 @@ public class ObjectUtils {
 	 */
 	public static void writeSerializable(Object object, File file) throws Exception {
 		
-		if (!(object instanceof Serializable)) throw new InvalidArgumentException(new String[] {"The object must be Serializable"});
+		if (!(object instanceof Serializable)) throw new IllegalArgumentException("The object must be Serializable");
 		
 		FileOutputStream fileOutputStream = new FileOutputStream(file);
 		ObjectOutputStream objectOutputStream = new ObjectOutputStream(fileOutputStream);
