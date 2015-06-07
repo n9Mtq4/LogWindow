@@ -1,6 +1,11 @@
-#LogWindow#
+#LogWindow [![Build Status](https://travis-ci.org/n9Mtq4/LogWindow.svg?branch=gradle)](https://travis-ci.org/n9Mtq4/LogWindow)#
 
-A library for modular/plugin based commands in a text window
+------------------
+##ReadMe is a WIP
+##What is it?
+This is a java library for debugging or handling sending events globally through the program or system.
+You can easily create a subclass of BaseConsole, create a custom gui/input interface for it, or make
+your own modules that can handle input received by it.
 
 - Version numbering guide:
  - A typical version will look like this 2.7.12
@@ -23,13 +28,3 @@ public class MyPlugin extends ConsoleListener {
 	}
 }
 ```
-- Here's when each method is called
- - onAddition is called when your listener is added to the parent console
- - onEnable is called when your listener is enabled
- - actionTab is called when the user pushes tab in the input (for tab auto-complete) 
- - actionPreformed is called when the user pushes the enter key and submits the text in the input
- - onDisable is called when your listener is being disabled
- - onRemoval is called when your listener is being removed from the parent console
- - Note: When your listener is added to the console it also gets enabled
- - Note: When your listener is removed from the console it also gets disabled
- - Note: onAddition can be used as a constructor
