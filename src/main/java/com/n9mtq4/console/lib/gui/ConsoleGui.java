@@ -17,7 +17,6 @@ package com.n9mtq4.console.lib.gui;
 
 import com.n9mtq4.console.lib.BaseConsole;
 import com.n9mtq4.console.lib.utils.Colour;
-import com.sun.istack.internal.Nullable;
 
 import java.io.File;
 import java.io.Serializable;
@@ -109,7 +108,7 @@ public class ConsoleGui implements Serializable {
 	 * @see ConsoleGui#setDefaultTextColour
 	 * @see ConsoleGui#getDefaultTextColour
 	 */
-	public void print(String text, @Nullable Colour colour) {
+	public void print(String text, Colour colour) {
 		
 	}
 	

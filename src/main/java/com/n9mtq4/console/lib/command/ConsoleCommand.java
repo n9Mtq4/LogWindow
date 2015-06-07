@@ -15,8 +15,6 @@
 
 package com.n9mtq4.console.lib.command;
 
-import com.sun.istack.internal.NotNull;
-
 import java.io.Serializable;
 
 /**
@@ -200,7 +198,7 @@ public class ConsoleCommand implements Serializable {
 	 * @see ConsoleCommand#contains
 	 * @see String#contains
 	 */
-	public boolean containsIgnoreCase(@NotNull CharSequence s) {
+	public boolean containsIgnoreCase(CharSequence s) {
 		return text.toLowerCase().contains(String.valueOf(s).toLowerCase());
 	}
 	
@@ -211,7 +209,7 @@ public class ConsoleCommand implements Serializable {
 	 * @return if the text inputed has the String given
 	 * @see String#contains
 	 */
-	public boolean contains(@NotNull CharSequence s) {
+	public boolean contains(CharSequence s) {
 		return text.contains(s);
 	}
 	

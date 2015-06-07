@@ -1,0 +1,14 @@
+group 'LogWindowApi'
+version '4.2.0'
+
+apply plugin: 'java'
+
+sourceCompatibility = 1.5
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile 'com.intellij:annotations:+@jar'
+}
