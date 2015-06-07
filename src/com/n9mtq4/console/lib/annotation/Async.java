@@ -21,12 +21,17 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Created by will on 5/26/15 at 10:18 PM.
+ * This annotation is added the the actionPerformed or objectReceived methods in
+ * ConsoleListener. Adding this annotation makes the method run in a seperate thread than the
+ * rest.
  */
 @Target(ElementType.METHOD)
 @Retention(value = RetentionPolicy.RUNTIME)
 public @interface Async {
 	
+	/**
+	 * If the method should run in another thread.
+	 * */
 	boolean async() default true;
 	
 }
