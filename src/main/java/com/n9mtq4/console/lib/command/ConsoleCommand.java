@@ -243,4 +243,14 @@ public class ConsoleCommand implements Serializable {
 		return text.length();
 	}
 	
+	/**
+	 * Gives you all the args separated by spaces.
+	 *
+	 * @return The array of words
+	 * @see ConsoleCommand#getArg
+	 * */
+	public String[] getArgs() {
+		return words;
+	}
+	
 }
