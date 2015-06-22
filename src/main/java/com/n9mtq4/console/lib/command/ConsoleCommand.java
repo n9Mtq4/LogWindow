@@ -250,7 +250,7 @@ public class ConsoleCommand implements Serializable {
 	 * @see ConsoleCommand#getArg
 	 * */
 	public String[] getArgs() {
-		return words;
+		return words.clone();
 	}
 	
 }

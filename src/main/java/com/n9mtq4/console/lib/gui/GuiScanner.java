@@ -18,6 +18,7 @@ package com.n9mtq4.console.lib.gui;
 import com.n9mtq4.console.lib.utils.Colour;
 
 import java.io.File;
+import java.io.Serializable;
 import java.util.Scanner;
 
 /**

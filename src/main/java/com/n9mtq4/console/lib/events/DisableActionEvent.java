@@ -29,19 +29,19 @@ public class DisableActionEvent implements Serializable {
 	/**
 	 * The constant NOT_SPECIFIED.
 	 */
-	public static int NOT_SPECIFIED = -1;
+	public static final int NOT_SPECIFIED = -1;
 	/**
 	 * The constant WINDOW_CLOSE.
 	 */
-	public static int WINDOW_CLOSE = 0;
+	public static final int WINDOW_CLOSE = 0;
 	/**
 	 * The constant CODE_CLOSE.
 	 */
-	public static int CODE_CLOSE = 1;
+	public static final int CODE_CLOSE = 1;
 	/**
 	 * The constant USER_CLOSE.
 	 */
-	public static int USER_CLOSE = 2;
+	public static final int USER_CLOSE = 2;
 	/**
 	 * The constant OTHER_CLOSE.
 	 */

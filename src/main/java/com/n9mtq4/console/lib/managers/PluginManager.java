@@ -39,7 +39,7 @@ public class PluginManager {
 	/**
 	 * The constant DEFAULT_PLUGIN_FOLDER.
 	 */
-	public static String DEFAULT_PLUGIN_FOLDER = "plugins/";
+	public static final String DEFAULT_PLUGIN_FOLDER = "plugins/";
 	
 	/**
 	 * Loads all plugins from a specific directory to the BaseConsole.<br>

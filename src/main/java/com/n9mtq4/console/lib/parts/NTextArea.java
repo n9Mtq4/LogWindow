@@ -27,6 +27,7 @@ import java.net.MalformedURLException;
  * A custom JTextPane / JTextArea that supports colors
  * and images.
  */
+@SuppressWarnings("unused")
 public class NTextArea extends JTextPane 
 		implements Serializable {
 	

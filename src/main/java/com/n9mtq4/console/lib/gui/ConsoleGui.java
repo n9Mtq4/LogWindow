@@ -28,6 +28,7 @@ import java.util.Random;
 public class ConsoleGui implements Serializable {
 	
 	private static final long serialVersionUID = 8131872165773219445L;
+	private static final Random random = new Random();
 	
 	/**
 	 * Parent BaseConsole
@@ -49,7 +50,7 @@ public class ConsoleGui implements Serializable {
 	 * Makes a new {@link ConsoleGui} object.
 	 */
 	public ConsoleGui() {
-		this.name = this.getClass().getName() + ":" + String.valueOf(new Random(10000).nextInt());
+		this.name = this.getClass().getName() + ":" + String.valueOf(random.nextInt());
 	}
 	
 	/**

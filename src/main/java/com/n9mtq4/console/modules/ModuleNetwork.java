@@ -50,14 +50,16 @@ public class ModuleNetwork extends ConsoleListener {
 		HttpURLConnection conn;
 		BufferedReader rd;
 		String line;
-		String result = "";
+		StringBuffer result = new StringBuffer();
 		try {
 			url = new URL(urlToRead);
 			conn = (HttpURLConnection) url.openConnection();
 			conn.setRequestMethod("GET");
 			rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 			while ((line = rd.readLine()) != null) {
-				result += line + "\n";
+//				result += line + "\n";
+				result.append(line);
+				result.append("\n");
 			}
 			rd.close();
 		}catch (IOException e) {
@@ -65,7 +67,7 @@ public class ModuleNetwork extends ConsoleListener {
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
-		return result;
+		return result.toString();
 	}
 	
 	@Override

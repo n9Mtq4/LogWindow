@@ -55,7 +55,7 @@ public class BaseConsole implements Serializable {
 	/**
 	 * Keeps the ids of all {@link BaseConsole}s.
 	 */
-	public static ArrayList<BaseConsole> globalList = new ArrayList<BaseConsole>();
+	public static final ArrayList<BaseConsole> globalList = new ArrayList<BaseConsole>();
 	
 	/**
 	 * The array containing all the listeners attached to the {@link BaseConsole}.
@@ -438,7 +438,7 @@ public class BaseConsole implements Serializable {
 			
 		}
 		
-		return (ConsoleListener[]) list.toArray();
+		return list.toArray(new ConsoleListener[list.size()]);
 		
 	}
 	
