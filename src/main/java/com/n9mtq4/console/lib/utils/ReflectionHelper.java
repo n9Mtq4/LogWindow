@@ -1469,6 +1469,27 @@ public class ReflectionHelper {
 	 * Call object method.
 	 *
 	 * @param <E>  the type parameter
+	 * @param method the method
+	 * @param obj the obj
+	 * @param params the params
+	 * @return the e
+	 */
+	public static <E> E callObjectMethod(Method method, Object obj, Object... params) {
+		method.setAccessible(true);
+		try {
+			return (E) method.invoke(obj, params);
+		}catch (IllegalAccessException e) {
+			e.printStackTrace();
+		}catch (InvocationTargetException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	/**
+	 * Call object method.
+	 *
+	 * @param <E>  the type parameter
 	 * @param methodName the method name
 	 * @param obj the obj
 	 * @param clazz the class
@@ -1477,16 +1498,10 @@ public class ReflectionHelper {
 	 * @return the object
 	 */
 	public static <E> E callObjectMethod(String methodName, Object obj, Class clazz, Class[] classParams, Object[] params) {
-		Method m = null;
 		try {
-			m = getAllDeclaredMethod(methodName, classParams, clazz);
-			m.setAccessible(true);
-			return (E) m.invoke(obj, params);
+			Method m = getAllDeclaredMethod(methodName, classParams, clazz);
+			return callObjectMethod(m, obj, params);
 		}catch (NoSuchMethodException e) {
-			e.printStackTrace();
-		}catch (InvocationTargetException e) {
-			e.printStackTrace();
-		}catch (IllegalAccessException e) {
 			e.printStackTrace();
 		}
 		return null;
@@ -1537,6 +1552,18 @@ public class ReflectionHelper {
 	 * Call static object method.
 	 *
 	 * @param <E>  the type parameter
+	 * @param method the method
+	 * @param params the params
+	 * @return the e
+	 */
+	public static <E> E callStaticObjectMethod(Method method, Object... params) {
+		return callObjectMethod(method, null, params);
+	}
+	
+	/**
+	 * Call static object method.
+	 *
+	 * @param <E>  the type parameter
 	 * @param methodName the method name
 	 * @param clazz the class
 	 * @param classParams the class params
@@ -1544,7 +1571,12 @@ public class ReflectionHelper {
 	 * @return the object
 	 */
 	public static <E> E callStaticObjectMethod(String methodName, Class clazz, Class[] classParams, Object[] params) {
-		return callObjectMethod(methodName, null, clazz, classParams, params);
+		try {
+			return callStaticObjectMethod(getAllDeclaredMethod(methodName, classParams, clazz));
+		}catch (NoSuchMethodException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
 	/**
@@ -2282,6 +2314,67 @@ public class ReflectionHelper {
 		}
 	}
 	
+	/**
+	 * Produce a List<String> which contains every combination which can be
+	 * made by taking one String from each inner String array within the
+	 * provided two-dimensional String array.
+	 * @param twoDimArray a two-dimensional String array which contains
+	 * String arrays of variable length.
+	 * @return a List which contains every String which can be formed by taking
+	 * one String from each String array within the specified two-dimensional
+	 * array.<br>
+	 * Slightly modified code from
+	 * Bobulous @ https://stackoverflow.com/questions/15868914/how-to-get-2d-array-possible-combinations/15869610
+	 */
+	private static List<List<Class>> combinations(ArrayList<ArrayList<Class>> twoDimArray) {
+//		TODO: find a better algorithm
+		// keep track of the size of each inner String array
+		int sizeArray[] = new int[twoDimArray.size()];
+		
+		// keep track of the index of each inner String array which will be used
+		// to make the next combination
+		int counterArray[] = new int[twoDimArray.size()];
+		
+		// Discover the size of each inner array and populate sizeArray.
+		// Also calculate the total number of combinations possible using the
+		// inner String array sizes.
+		int totalCombinationCount = 1;
+		for(int i = 0; i < twoDimArray.size(); ++i) {
+			sizeArray[i] = twoDimArray.get(i).size();
+			totalCombinationCount *= twoDimArray.get(i).size();
+		}
+		
+		// Store the combinations in a List of String objects
+		List<List<Class>> combinationList = new ArrayList<List<Class>>(totalCombinationCount);
+		
+		for (int countdown = totalCombinationCount; countdown > 0; --countdown) {
+			// Run through the inner arrays, grabbing the member from the index
+			// specified by the counterArray for each inner array, and build a
+			// combination string.
+			ArrayList<Class> obs = new ArrayList<Class>();
+			for(int i = 0; i < twoDimArray.size(); ++i) {
+				obs.add(twoDimArray.get(i).get(counterArray[i]));
+			}
+			combinationList.add(obs);  // add new combination to list
+			
+			// Now we need to increment the counterArray so that the next
+			// combination is taken on the next iteration of this loop.
+			for(int incIndex = twoDimArray.size() - 1; incIndex >= 0; --incIndex) {
+				if(counterArray[incIndex] + 1 < sizeArray[incIndex]) {
+					++counterArray[incIndex];
+					// None of the indices of higher significance need to be
+					// incremented, so jump out of this for loop at this point.
+					break;
+				}
+				// The index at this position is at its max value, so zero it
+				// and continue this loop to increment the index which is more
+				// significant than this one.
+				counterArray[incIndex] = 0;
+			}
+		}
+		return combinationList;
+	}
+
 //	end stuff not written by me
 	
 	/**
@@ -2346,6 +2439,18 @@ public class ReflectionHelper {
 		}
 	}
 	
+	/**
+	 * Tries to get a class by its full name. If that fails, then
+	 * it will try to get the class by its simple name.
+	 *
+	 * @param name The name of the Class.
+	 * @return The class, or null if no class is found
+	 * */
+	public static Class getClass(String name) {
+		Class c = getClassByFullName(name);
+		if (c != null) return c;
+		return getClassBySimpleName(name);
+	}
 	
 	/**
 	 * This fixes the issue in java of getDeclaredFields not searching
@@ -2388,13 +2493,13 @@ public class ReflectionHelper {
 	}
 	
 	public static Method[] getAllDeclaredMethods(Class clazz) {
-		ArrayList<Field> methods = new ArrayList<Field>();
-		
+		ArrayList<Method> methods = new ArrayList<Method>();
+
 //		loop through all super classes until getSuperClass == null
 		Class currentClass = clazz;
 		while (currentClass != null) {
-			methods.addAll(Arrays.asList(currentClass.getDeclaredFields()));
-			currentClass = clazz.getSuperclass();
+			methods.addAll(Arrays.asList(currentClass.getDeclaredMethods()));
+			currentClass = currentClass.getSuperclass();
 		}
 		
 		Method[] methods1 = new Method[methods.size()];
@@ -2403,15 +2508,70 @@ public class ReflectionHelper {
 	}
 	
 	public static Method getAllDeclaredMethod(String name, Class[] params, Class clazz) throws NoSuchMethodException {
+		try {
+			Method m = findAllDeclaredMethodByParams(name, params, clazz);
+			return m;
+		}catch (NoSuchMethodException e) {}
+		
+		Class currentClass = clazz;
+		while (currentClass != null) {
+			
+			Method[] methods = getAllDeclaredMethods(currentClass);
+			ArrayList<Method> possibleMethods = new ArrayList<Method>();
+			for (Method method : methods) {
+				if (method.getName().equals(name)) possibleMethods.add(method);
+			}
+
+//			if there is only one possible method
+			if (possibleMethods.size() == 1 && possibleMethods.get(0).getParameterCount() == params.length) {
+				return possibleMethods.get(0);
+			}
+
+//			if there are more than one, try to isolate by number of params
+			ArrayList<Method> nPossibleMethods = new ArrayList<Method>();
+			for (Method method : possibleMethods) {
+				if (method.getParameterCount() == params.length) nPossibleMethods.add(method);
+			}
+			possibleMethods = nPossibleMethods;
+			if (possibleMethods.size() == 1) return possibleMethods.get(0);
+
+//			if there are still more than one, try to narrow it down by superclasses
+//			get all the superclasses for the list of params
+//			this following code is TERRIBLE, but it (sometimes) works
+			ArrayList<ArrayList<Class>> superClasses = new ArrayList<ArrayList<Class>>();
+			ArrayList<Class> classes = new ArrayList<Class>();
+			for (Class c : params) {
+				Class currentClass1 = c;
+				while (currentClass1 != null) {
+					classes.add(currentClass1);
+					currentClass1 = currentClass1.getSuperclass();
+				}
+				superClasses.add(classes);
+			}
+			
+			List<List<Class>> combinations = combinations(superClasses);
+			for (List<Class> combination : combinations) {
+				Class[] c = combination.toArray(new Class[combination.size()]);
+				try {
+					Method m = findAllDeclaredMethodByParams(name, c, clazz);
+					return m;
+				}catch (NoSuchMethodException e) {}
+			}
+			
+			currentClass = currentClass.getSuperclass();
+		}
+		
+		throw new NoSuchMethodException(name);
+		
+	}
+	
+	public static Method findAllDeclaredMethodByParams(String name, Class[] params, Class clazz) throws NoSuchMethodException {
 		Class currentClass = clazz;
 		while (currentClass != null) {
 			try {
-				
 				Method m = currentClass.getDeclaredMethod(name, params);
 				return m;
-				
-			}catch (NoSuchMethodException e) {
-			}
+			}catch (NoSuchMethodException e) {}
 			currentClass = currentClass.getSuperclass();
 		}
 		throw new NoSuchMethodException(name);
