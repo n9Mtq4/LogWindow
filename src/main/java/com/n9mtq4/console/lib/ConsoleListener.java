@@ -18,11 +18,11 @@ package com.n9mtq4.console.lib;
 import com.n9mtq4.console.lib.annotation.Async;
 import com.n9mtq4.console.lib.events.*;
 import com.n9mtq4.console.lib.utils.Colour;
+import com.n9mtq4.console.lib.utils.ReflectionHelper;
 
 import java.io.Serializable;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.ConcurrentModificationException;
 
 /**
@@ -41,7 +41,7 @@ public abstract class ConsoleListener implements Serializable {
 	 * @throws Exception when something doesn't work
 	 */
 	public static ConsoleListener getNewListenerByName(String name) throws Exception {
-		Class<?> clazz = Class.forName(name);
+		Class clazz = ReflectionHelper.getClass(name);
 		Object clazz1 = clazz.newInstance();
 		ConsoleListener l = (ConsoleListener) clazz1;
 		return l;

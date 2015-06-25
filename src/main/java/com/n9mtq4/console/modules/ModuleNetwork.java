@@ -33,7 +33,7 @@ import java.net.URL;
  */
 
 /**
- * A module to access http and sockets from the console
+ * A module to access http and sockets from the console.
  */
 public class ModuleNetwork extends ConsoleListener {
 	
