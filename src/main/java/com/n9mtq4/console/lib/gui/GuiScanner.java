@@ -17,8 +17,8 @@ package com.n9mtq4.console.lib.gui;
 
 import com.n9mtq4.console.lib.utils.Colour;
 
+import java.io.Console;
 import java.io.File;
-import java.io.Serializable;
 import java.util.Scanner;
 
 /**
@@ -27,20 +27,46 @@ import java.util.Scanner;
 public class GuiScanner extends ConsoleGui {
 	
 	private Scanner scan;
+	private Console console;
 	private boolean shouldScan;
 	private boolean ansi;
 	
 	@Override
 	public void init() {
 		setDefaultTextColour(null);
-		initScanner();
+		initInput();
 		ansi = !(System.getProperty("os.name").toLowerCase().contains("window"));
 	}
 	
 	@Override
 	public void dispose() {
 		stopScan();
-		scan.close();
+		if (scan != null) scan.close();
+	}
+	
+	private void initInput() {
+		if (System.console() == null) {
+			initScanner();
+		}else {
+			initConsole();
+		}
+	}
+	
+	public void initConsole() {
+		
+		this.console = System.console();
+		this.shouldScan = true;
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				while (GuiScanner.this.isShouldScan()) {
+					System.out.print("> ");
+					String s = GuiScanner.this.console.readLine();
+					GuiScanner.this.getParent().sendPluginsString(s);
+				}
+			}
+		}, "Console Input Listener").start();
+		
 	}
 	
 	/**
@@ -48,16 +74,15 @@ public class GuiScanner extends ConsoleGui {
 	 */
 	public void initScanner() {
 		
-		scan = new Scanner(System.in);
-		shouldScan = true;
-		final GuiScanner thiz = this;
+		this.scan = new Scanner(System.in);
+		this.shouldScan = true;
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
-				while (thiz.isShouldScan()) {
+				while (GuiScanner.this.isShouldScan()) {
 					System.out.print("> ");
 					String s = scan.nextLine();
-					thiz.getParent().sendPluginsString(s);
+					GuiScanner.this.getParent().sendPluginsString(s);
 				}
 			}
 		}, "Scanner Input Listener").start();
@@ -66,6 +91,7 @@ public class GuiScanner extends ConsoleGui {
 	
 	@Override
 	public void print(String text, Colour colour) {
+		
 		if (colour != null) {
 			if (ansi) {
 				System.out.print(colour.getANSI() + text + Colour.getAnsiReset());
