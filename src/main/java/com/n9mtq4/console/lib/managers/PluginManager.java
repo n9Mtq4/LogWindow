@@ -114,12 +114,12 @@ public class PluginManager {
 				String[] lines = infoText.split("\n");
 				for (String line : lines) {
 //					if the line isn't a comment
-					if (!line.startsWith("#") || !line.trim().equals("")) {
+					if (!line.startsWith("#") && !line.trim().equals("")) {
 						try {
 //							try to add this listener to the base console using reflection
 							ConsoleListener listener = callConstructor(getClassByFullName(line.trim()));
-							listeners.add(listener);
 							c.addDisabledListener(listener);
+							listeners.add(listener);
 						}catch (Exception e1) {
 							e1.printStackTrace();
 							c.printStackTrace(e1);
