@@ -20,6 +20,7 @@ import com.n9mtq4.console.lib.ConsoleListener;
 
 import java.io.*;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.zip.ZipFile;
 
@@ -69,11 +70,17 @@ public class PluginManager {
 			return;
 		}
 		File[] children = folder.listFiles();
-		assert children != null;
+		if (children == null) return;
+		
+		ArrayList<ConsoleListener> listeners = new ArrayList<ConsoleListener>();
 		for (File f : children) {
 			
-			loadPlugin(f, c);
+			listeners.addAll(loadPlugin(f, c));
 			
+		}
+		
+		for (ConsoleListener listener : listeners) {
+			c.enableListener(listener);
 		}
 		
 	}
@@ -86,7 +93,9 @@ public class PluginManager {
 	 * @param f the f
 	 * @param c the c
 	 */
-	public static void loadPlugin(File f, BaseConsole c) {
+	public static ArrayList<ConsoleListener> loadPlugin(File f, BaseConsole c) {
+		
+		ArrayList<ConsoleListener> listeners = new ArrayList<ConsoleListener>();
 		
 //		makes sure the file is a jar
 		if (f.getAbsolutePath().trim().toLowerCase().endsWith(".jar")) {
@@ -105,17 +114,20 @@ public class PluginManager {
 				String[] lines = infoText.split("\n");
 				for (String line : lines) {
 //					if the line isn't a comment
-					if (!line.startsWith("#")) {
+					if (!line.startsWith("#") || !line.trim().equals("")) {
 						try {
 //							try to add this listener to the base console using reflection
-							ConsoleListener listener = (ConsoleListener) callConstructor(getClassByFullName(line.trim()));
-							c.addListener(listener);
+							ConsoleListener listener = callConstructor(getClassByFullName(line.trim()));
+							listeners.add(listener);
+							c.addDisabledListener(listener);
 						}catch (Exception e1) {
 							e1.printStackTrace();
 							c.printStackTrace(e1);
 						}
 					}
 				}
+				
+				return listeners;
 				
 			}catch (IOException e) {
 				e.printStackTrace();
@@ -124,6 +136,8 @@ public class PluginManager {
 			
 			
 		}
+		
+		return listeners;
 		
 	}
 	

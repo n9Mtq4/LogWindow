@@ -734,6 +734,21 @@ public class BaseConsole implements Serializable {
 	}
 	
 	/**
+	 * Adds a listener without calling onEnable
+	 * */
+	@Deprecated
+	public void addDisabledListener(ConsoleListener listener) {
+		
+		if (!listeners.contains(listener) || !listener.getLinkedBaseConsoles().contains(this)) {
+			listener.setEnabled(false);
+			listeners.add(listener);
+			listener.onAddition(new AdditionActionEvent(this));
+			listener.addToConsole(this);
+		}
+		
+	}
+	
+	/**
 	 * Remove listener.
 	 *
 	 * @param listener the listener
