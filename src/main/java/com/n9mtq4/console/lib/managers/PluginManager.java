@@ -17,6 +17,7 @@ package com.n9mtq4.console.lib.managers;
 
 import com.n9mtq4.console.lib.BaseConsole;
 import com.n9mtq4.console.lib.ConsoleListener;
+import com.n9mtq4.console.lib.events.EnableActionEvent;
 
 import java.io.*;
 import java.net.URL;
@@ -80,7 +81,7 @@ public class PluginManager {
 		}
 		
 		for (ConsoleListener listener : listeners) {
-			c.enableListener(listener);
+			listener.onEnable(new EnableActionEvent(c));
 		}
 		
 	}
