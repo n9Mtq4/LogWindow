@@ -1,6 +1,6 @@
 /*
- * NOTE: This is added by intellij IDE. Disregard this message if there is another copyright later in the file.
- * Copyright (C) 2014-2015  Will (n9Mtq4) Bresnahan
+ * NOTE: This is added by intellij IDE. Disregard this copyright if there is another copyright later in the file.
+ * Copyright (C) 2015  Will (n9Mtq4) Bresnahan
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -13,7 +13,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.n9mtq4.console.lib.listeners;
+package com.n9mtq4.console.lib.dispose;
 
 import com.n9mtq4.console.lib.BaseConsole;
 
