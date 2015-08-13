@@ -15,13 +15,16 @@
 
 package com.n9mtq4.console.lib.gui;
 
+import com.n9mtq4.console.lib.BaseConsole;
 import com.n9mtq4.console.lib.managers.SocketManager;
 import com.n9mtq4.console.lib.utils.Colour;
+
+import java.io.File;
 
 /**
  * Created by Will on 12/29/14.
  */
-public class GuiSocket extends ConsoleGui {
+public class GuiSocket extends SimpleConsoleGui {
 	
 	/**
 	 * The Port.
@@ -30,6 +33,10 @@ public class GuiSocket extends ConsoleGui {
 	private boolean sendToPluginsInsteadOfPrint = true;
 	
 	private SocketManager s = new SocketManager();
+	
+	public GuiSocket(BaseConsole parent) {
+		super(parent);
+	}
 	
 	@Override
 	public void init() {
@@ -48,7 +55,7 @@ public class GuiSocket extends ConsoleGui {
 	}
 	
 	@Override
-	public void print(String text, Colour colour) {
+	public void printText(String text, Colour colour) {
 		if (colour != null) {
 			System.out.println(colour.getANSI() + text);
 		}else {
@@ -59,6 +66,11 @@ public class GuiSocket extends ConsoleGui {
 	@Override
 	public void dispose() {
 		s.close();
+	}
+	
+	@Override
+	public void printImage(File file) {
+		
 	}
 	
 }

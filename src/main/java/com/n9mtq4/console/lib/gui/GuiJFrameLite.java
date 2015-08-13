@@ -15,6 +15,7 @@
 
 package com.n9mtq4.console.lib.gui;
 
+import com.n9mtq4.console.lib.BaseConsole;
 import com.n9mtq4.console.lib.gui.attributes.HasFrame;
 import com.n9mtq4.console.lib.gui.attributes.History;
 import com.n9mtq4.console.lib.gui.attributes.Textable;
@@ -32,7 +33,7 @@ import java.io.File;
 /**
  * Created by Will on 12/29/14.
  */
-public class GuiJFrameLite extends ConsoleGui implements Textable, History, HasFrame {
+public class GuiJFrameLite extends SimpleConsoleGui implements Textable, History, HasFrame {
 	
 	private JFrame frame;
 	private JPanel noWrapPanel;
@@ -40,6 +41,10 @@ public class GuiJFrameLite extends ConsoleGui implements Textable, History, HasF
 	private JTextField field;
 	private JScrollPane scrollArea;
 	private int historyIndex;
+	
+	public GuiJFrameLite(BaseConsole parent) {
+		super(parent);
+	}
 	
 	@Override
 	public void init() {
@@ -128,7 +133,7 @@ public class GuiJFrameLite extends ConsoleGui implements Textable, History, HasF
 	}
 	
 	@Override
-	public void print(String text, Colour colour) {
+	public void printText(String text, Colour colour) {
 		DefaultCaret caret = (DefaultCaret) area.getCaret();
 		caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
 		area.append(text);

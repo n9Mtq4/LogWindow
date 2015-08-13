@@ -29,7 +29,7 @@ public class ConsoleNetwork extends BaseConsole {
 	
 	@Override
 	public void initGui() {
-		this.addGui(new GuiSocket());
+		this.addGui(new GuiSocket(this));
 	}
 	
 }

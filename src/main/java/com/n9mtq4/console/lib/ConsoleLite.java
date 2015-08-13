@@ -29,7 +29,7 @@ public class ConsoleLite extends BaseConsole {
 	
 	@Override
 	public void initGui() {
-		this.addGui(new GuiJFrameLite());
+		this.addGui(new GuiJFrameLite(this));
 	}
 	
 }

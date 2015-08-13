@@ -29,7 +29,7 @@ public class TextConsole extends BaseConsole {
 	
 	@Override
 	public void initGui() {
-		this.addGui(new GuiScanner());
+		this.addGui(new GuiScanner(this));
 	}
 	
 }

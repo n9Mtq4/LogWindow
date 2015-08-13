@@ -20,83 +20,27 @@ import com.n9mtq4.console.lib.utils.Colour;
 
 import java.io.File;
 import java.io.Serializable;
-import java.util.Random;
 
 /**
- * Created by Will on 12/29/14.
+ * Created by Will on 12/29/14.<br>
+ * The interface that declares that the class is a gui for
+ * a BaseConsole.
  */
-public class ConsoleGui implements Serializable {
-	
-	private static final long serialVersionUID = 8131872165773219445L;
-	private static final Random random = new Random();
-	
-	/**
-	 * Parent BaseConsole
-	 */
-	private BaseConsole parent;
-	/**
-	 * Identifier ID
-	 */
-	private String name;
-	/**
-	 * The default text colour for print when no colour is specified.
-	 *
-	 * @see ConsoleGui#setDefaultTextColour
-	 * @see ConsoleGui#getDefaultTextColour
-	 */
-	private Colour defaultTextColour;
-	
-	/**
-	 * Makes a new {@link ConsoleGui} object.
-	 */
-	public ConsoleGui() {
-		this.name = this.getClass().getName() + ":" + String.valueOf(random.nextInt());
-	}
+public interface ConsoleGui extends Serializable {
 	
 	/**
 	 * Note: Override me!<br>
 	 * Note: Add your gui stuff here when making a custom {@link ConsoleGui}<br>
 	 * Called when {@link ConsoleGui} is added to {@link BaseConsole}.
 	 */
-	public void init() {
-		
-	}
+	void init();
 	
 	/**
 	 * Note: Override me!<br>
 	 * Note: Close streams or dispose {@link javax.swing.JFrame} here.<br>
 	 * Called when {@link BaseConsole} is closing or your {@link ConsoleGui} is removed.
 	 */
-	public void dispose() {
-		
-	}
-	
-	/**
-	 * Note: DO NOT OVERRIDE!<br>
-	 * Binds the object to a parent {@link BaseConsole}.
-	 *
-	 * @param parent the parent
-	 */
-	public void add(BaseConsole parent) {
-		this.parent = parent;
-		init();
-	}
-	
-	/**
-	 * Note: Don't override me! Override {@link ConsoleGui#print} instead<br>
-	 * Note: Don't use me!<br>
-	 * A small helper method that {@link BaseConsole} calls. This method adds support for default text color.
-	 *
-	 * @param text   the text
-	 * @param colour the colour
-	 * @see ConsoleGui#print
-	 * @deprecated Helper method only meant to be used by
-	 */
-	@Deprecated
-	public void lowPrint(String text, Colour colour) {
-		if (colour == null) colour = this.defaultTextColour;
-		print(text, colour);
-	}
+	void dispose();
 	
 	/**
 	 * Note: Override me!<br>
@@ -106,12 +50,8 @@ public class ConsoleGui implements Serializable {
 	 * @param colour The colour that the user wants to print the text in. If colour is null, it will be
 	 *               automatically set to the defaultTextColour, however, if you haven't given
 	 *               defaultTextColour a colour be prepared for colour to be null
-	 * @see ConsoleGui#setDefaultTextColour
-	 * @see ConsoleGui#getDefaultTextColour
 	 */
-	public void print(String text, Colour colour) {
-		
-	}
+	void print(String text, Colour colour);
 	
 	/**
 	 * Note: Override me!<br>
@@ -119,62 +59,6 @@ public class ConsoleGui implements Serializable {
 	 *
 	 * @param file the file
 	 */
-	public void printImage(File file) {
-		
-	}
-	
-	/**
-	 * Gets the parent {@link BaseConsole}.
-	 *
-	 * @return The  this
-	 * is linked to.
-	 * @see ConsoleGui#setParent
-	 */
-	public BaseConsole getParent() {
-		return parent;
-	}
-	
-	/**
-	 * Sets the parent {@link BaseConsole}.
-	 *
-	 * @param parent Sets the parent to the new parent given.
-	 * @see ConsoleGui#getParent
-	 */
-	public void setParent(BaseConsole parent) {
-		this.parent = parent;
-	}
-	
-	/**
-	 * Gets the Identifier Name of this {@link ConsoleGui}.
-	 *
-	 * @return The identifier id.
-	 */
-	public String getName() {
-		return name;
-	}
-	
-	/**
-	 * Gets the default text colour to use when one is not specified<br>
-	 * If you called setDefaultTextColour - no need to do anything. It's handled on a
-	 * lower level.
-	 *
-	 * @return The colour that is the default colour to be used when one isn't specified
-	 * @see ConsoleGui#setDefaultTextColour
-	 */
-	public Colour getDefaultTextColour() {
-		return defaultTextColour;
-	}
-	
-	/**
-	 * Sets the default text colour to use when one is not specified<br>
-	 * The super class will set the colour in print to whatever is set here - no need to do anything. It's handled on a
-	 * lower level.
-	 *
-	 * @param defaultTextColour The colour that is the default colour to be used when one isn't specified
-	 * @see ConsoleGui#getDefaultTextColour
-	 */
-	public void setDefaultTextColour(Colour defaultTextColour) {
-		this.defaultTextColour = defaultTextColour;
-	}
+	void printImage(File file);
 	
 }

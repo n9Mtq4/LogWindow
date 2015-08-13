@@ -251,7 +251,7 @@ public class ModuleListener extends ConsoleListener {
 					ConsoleListener l = baseConsole.getListener(name);
 					for (BaseConsole c : l.getLinkedBaseConsoles()) {
 						if (baseConsole.hasGuiAttached()) {
-							baseConsole.println(c.getClass().getName() + ": " + baseConsole.getId() + ": " + c.getGui().get(0).getName());
+							baseConsole.println(c.getClass().getName() + ": " + baseConsole.getId() + ": " + c.getGuiEntries().get(0).getGivenName());
 						}else {
 							baseConsole.print(c.getClass().getName() + ": " + baseConsole.getId());
 						}

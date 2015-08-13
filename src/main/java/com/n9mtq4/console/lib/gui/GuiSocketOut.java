@@ -33,7 +33,7 @@ import java.io.File;
  * A {@link ConsoleGui} that takes any output and
  * Sends it over a socket for a client somewhere to recieve
  */
-public class GuiSocketOut extends ConsoleGui {
+public class GuiSocketOut extends SimpleConsoleGui {
 	
 	/**
 	 * The ip to connect to
@@ -51,6 +51,10 @@ public class GuiSocketOut extends ConsoleGui {
 	 * A {@link com.n9mtq4.console.lib.ConsoleListener} to help this gui
 	 */
 	private GuiSocketOut.SocketInputSender helperListener;
+	
+	public GuiSocketOut(BaseConsole parent) {
+		super(parent);
+	}
 	
 	public void init() {
 		
@@ -75,7 +79,7 @@ public class GuiSocketOut extends ConsoleGui {
 	 * Get all output and send it to ip:port
 	 */
 	@Override
-	public void print(String text, Colour colour) {
+	public void printText(String text, Colour colour) {
 		
 		socketManager.clientConnect(ip, port);
 		socketManager.clientPrint(text);

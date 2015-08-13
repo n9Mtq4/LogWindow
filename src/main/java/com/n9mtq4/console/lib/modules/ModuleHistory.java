@@ -19,6 +19,7 @@ import com.n9mtq4.console.lib.BaseConsole;
 import com.n9mtq4.console.lib.ConsoleListener;
 import com.n9mtq4.console.lib.events.ConsoleActionEvent;
 import com.n9mtq4.console.lib.gui.ConsoleGui;
+import com.n9mtq4.console.lib.gui.GuiEntry;
 import com.n9mtq4.console.lib.gui.attributes.History;
 import com.n9mtq4.console.lib.utils.Colour;
 
@@ -47,9 +48,9 @@ public class ModuleHistory extends ConsoleListener {
 			}else if (e.getCommand().getLength() == 2) {
 				if (e.getCommand().getArg(1).equalsIgnoreCase("clear")) {
 					baseConsole.setHistory(new ArrayList<String>());
-					for (ConsoleGui g : baseConsole.getGui()) {
-						if (g instanceof History) {
-							((History) g).historyUpdate();
+					for (GuiEntry g : baseConsole.getGuiEntries()) {
+						if (g.getGui() instanceof History) {
+							((History) g.getGui()).historyUpdate();
 						}
 					}
 					baseConsole.println("Cleared history", Colour.CYAN);

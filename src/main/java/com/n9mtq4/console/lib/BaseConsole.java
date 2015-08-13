@@ -18,6 +18,7 @@ package com.n9mtq4.console.lib;
 import com.n9mtq4.console.lib.command.ConsoleCommand;
 import com.n9mtq4.console.lib.events.*;
 import com.n9mtq4.console.lib.gui.ConsoleGui;
+import com.n9mtq4.console.lib.gui.GuiEntry;
 import com.n9mtq4.console.lib.gui.attributes.History;
 import com.n9mtq4.console.lib.listeners.ShutdownHook;
 import com.n9mtq4.console.lib.managers.PluginManager;
@@ -82,9 +83,9 @@ public class BaseConsole implements Serializable {
 	 * Contains all {@link ConsoleGui}s attached.
 	 *
 	 * @see BaseConsole#addGui
-	 * @see BaseConsole#removeGui
+	 * @see BaseConsole#removeGuiEntry
 	 */
-	private ArrayList<ConsoleGui> gui;
+	private ArrayList<GuiEntry> gui;
 	/**
 	 * The thread that is called when the program exits
 	 */
@@ -100,10 +101,10 @@ public class BaseConsole implements Serializable {
 	public static BaseConsole load(File file) {
 		try {
 			BaseConsole bc = ObjectUtils.readSerializable(file);
-			ArrayList<ConsoleGui> gs = bc.getGui();
-			bc.gui = new ArrayList<ConsoleGui>();
-			for (ConsoleGui g : gs) {
-				ConsoleGui g1 = ReflectionHelper.callConstructor(g.getClass());
+			ArrayList<GuiEntry> gs = bc.getGuiEntries();
+			bc.gui = new ArrayList<GuiEntry>();
+			for (GuiEntry g : gs) {
+				ConsoleGui g1 = ReflectionHelper.callConstructor(g.getGui().getClass());
 				bc.addGui(g1);
 			}
 			return bc;
@@ -168,7 +169,7 @@ public class BaseConsole implements Serializable {
 		
 		globalList.add(this);
 		this.id = globalList.indexOf(this);
-		gui = new ArrayList<ConsoleGui>();
+		gui = new ArrayList<GuiEntry>();
 		initGui();
 		shutdownHook = new ShutdownHook(this);
 		Runtime.getRuntime().addShutdownHook(shutdownHook);
@@ -224,12 +225,12 @@ public class BaseConsole implements Serializable {
 				
 			}
 		}
-		ArrayList<ConsoleGui> guis;
-		while ((guis = this.getGui()).size() > 0) {
+		ArrayList<GuiEntry> guis;
+		while ((guis = this.getGuiEntries()).size() > 0) {
 			try {
-				for (ConsoleGui g : guis) {
+				for (GuiEntry g : guis) {
 					
-					this.removeGui(g);
+					this.removeGuiEntry(g);
 					
 				}
 			}catch (ConcurrentModificationException e) {
@@ -371,8 +372,8 @@ public class BaseConsole implements Serializable {
 	 */
 	public void sendPluginsString(String text) {
 		history.add(text);
-		for (ConsoleGui g : gui) {
-			if (g instanceof History) ((History) g).historyUpdate();
+		for (GuiEntry g : gui) {
+			if (g.getGui() instanceof History) ((History) g).historyUpdate();
 		}
 		push(text);
 	}
@@ -896,8 +897,8 @@ public class BaseConsole implements Serializable {
 	 */
 	public void printImage(File file) {
 		
-		for (ConsoleGui g : gui) {
-			g.printImage(file);
+		for (GuiEntry g : gui) {
+			g.getGui().printImage(file);
 		}
 		
 	}
@@ -952,8 +953,8 @@ public class BaseConsole implements Serializable {
 	@SuppressWarnings("deprecation")
 	public void print(String text, Colour colour) {
 		
-		for (ConsoleGui g : gui) {
-			g.lowPrint(text, colour);
+		for (GuiEntry g : gui) {
+			g.getGui().print(text, colour);
 		}
 		
 	}
@@ -1066,8 +1067,8 @@ public class BaseConsole implements Serializable {
 	 *
 	 * @return the gui
 	 */
-	public ArrayList<ConsoleGui> getGui() {
-		return (ArrayList<ConsoleGui>) gui.clone();
+	public ArrayList<GuiEntry> getGuiEntries() {
+		return (ArrayList<GuiEntry>) gui.clone();
 	}
 	
 	/**
@@ -1088,8 +1089,18 @@ public class BaseConsole implements Serializable {
 	 * @param consoleGui the gui to add
 	 */
 	public void addGui(ConsoleGui consoleGui) {
-		gui.add(consoleGui);
-		consoleGui.add(this);
+		gui.add(new GuiEntry(consoleGui));
+		consoleGui.init();
+	}
+	
+	/**
+	 * Removes a {@link GuiEntry} from the BaseConsole.
+	 *
+	 * @param guiEntry the gui to remove
+	 */
+	protected void removeGuiEntry(GuiEntry guiEntry) {
+		gui.remove(guiEntry);
+		guiEntry.getGui().dispose();
 	}
 	
 	/**
@@ -1098,7 +1109,15 @@ public class BaseConsole implements Serializable {
 	 * @param consoleGui the gui to remove
 	 */
 	public void removeGui(ConsoleGui consoleGui) {
-		gui.remove(consoleGui);
+//		this prevents a concurrency issue.
+		int ir = 0;
+		for (int i = 0; i < gui.size(); i++) {
+			if (gui.get(i).getGui().equals(consoleGui)) {
+				ir = i;
+				break;
+			}
+		}
+		gui.remove(ir);
 		consoleGui.dispose();
 	}
 	

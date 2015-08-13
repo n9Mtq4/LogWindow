@@ -29,7 +29,7 @@ public class Console extends BaseConsole {
 	
 	@Override
 	public void initGui() {
-		this.addGui(new GuiJFrame());
+		this.addGui(new GuiJFrame(this));
 	}
 	
 }

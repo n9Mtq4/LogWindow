@@ -15,6 +15,7 @@
 
 package com.n9mtq4.console.lib.gui;
 
+import com.n9mtq4.console.lib.BaseConsole;
 import com.n9mtq4.console.lib.utils.Colour;
 
 import java.io.Console;
@@ -24,12 +25,16 @@ import java.util.Scanner;
 /**
  * Created by Will on 12/11/14.
  */
-public class GuiScanner extends ConsoleGui {
+public class GuiScanner extends SimpleConsoleGui {
 	
 	private Scanner scan;
 	private Console console;
 	private boolean shouldScan;
 	private boolean ansi;
+	
+	public GuiScanner(BaseConsole parent) {
+		super(parent);
+	}
 	
 	@Override
 	public void init() {
@@ -90,7 +95,7 @@ public class GuiScanner extends ConsoleGui {
 	}
 	
 	@Override
-	public void print(String text, Colour colour) {
+	public void printText(String text, Colour colour) {
 		
 		if (colour != null) {
 			if (ansi) {

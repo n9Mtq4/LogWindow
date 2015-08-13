@@ -92,7 +92,8 @@ public class ModuleListenerManager extends ConsoleListener {
 			
 			if (e.getCommand().getArg(1).equalsIgnoreCase("listallconsoles")) {
 				for (BaseConsole c : BaseConsole.globalList) {
-					baseConsole.println(c.getClass().getName() + ": " + baseConsole.getId() + ": " + c.getGui().get(0).getName());
+//					baseConsole.println(c.getClass().getName() + ": " + baseConsole.getId() + ": " + c.getGuiEntries().get(0).getName());
+					baseConsole.println(c.getClass().getName() + ": " + baseConsole.getId() + ": " + c.getGuiEntries().get(0).getGivenName());
 				}
 			}
 			
