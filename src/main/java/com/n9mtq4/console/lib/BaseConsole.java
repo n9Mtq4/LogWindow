@@ -375,7 +375,7 @@ public class BaseConsole implements Serializable {
 	public void sendPluginsString(String text) {
 		history.add(text);
 		for (GuiEntry g : gui) {
-			if (g.getGui() instanceof History) ((History) g).historyUpdate();
+			if (g.getGui() instanceof History) ((History) g.getGui()).historyUpdate();
 		}
 		push(text);
 	}

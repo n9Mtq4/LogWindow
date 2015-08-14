@@ -75,6 +75,7 @@ public class ListenerEntry implements Serializable {
 	
 	private ListenerEntry(ListenerAttribute listener) {
 		this.listener = listener;
+		this.linkedBaseConsoles = new ArrayList<BaseConsole>();
 		this.enabled = true;
 		this.ignoreDone = false;
 		this.isAsyncString = false;
@@ -128,14 +129,12 @@ public class ListenerEntry implements Serializable {
 	
 	private void pushConsoleActionEvent(ConsoleActionEvent consoleActionEvent) {
 		if (listener instanceof StringListener) {
-			if (listener instanceof ObjectListener) {
-				try {
-					for (BaseConsole c : linkedBaseConsoles) {
-						((StringListener) listener).actionPerformed(consoleActionEvent, c);
-					}
-				}catch (ConcurrentModificationException e1) {
-//			This is expected sometimes, and isn't a big deal
+			try {
+				for (BaseConsole c : linkedBaseConsoles) {
+					((StringListener) listener).actionPerformed(consoleActionEvent, c);
 				}
+			}catch (ConcurrentModificationException e1) {
+//				This is expected sometimes, and isn't a big deal
 			}
 		}
 	}
