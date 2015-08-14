@@ -172,22 +172,8 @@ public class BaseConsole implements Serializable {
 		globalList.add(this);
 		this.id = globalList.indexOf(this);
 		gui = new ArrayList<GuiEntry>();
-		initGui();
 		shutdownHook = new ShutdownHook(this);
 		Runtime.getRuntime().addShutdownHook(shutdownHook);
-		
-	}
-	
-	/**
-	 * Note: Override me!<br>
-	 * TODO: remove in v5<br>
-	 * Note: Make a BaseConsole and addGui a gui instead of overriding BaseConsole
-	 * Insert your {@link ConsoleGui} here with<br>
-	 * this.addGui(new ThingThatExtendsConsoleGui());
-	 * @deprecated
-	 */
-	@Deprecated
-	public void initGui() {
 		
 	}
 	

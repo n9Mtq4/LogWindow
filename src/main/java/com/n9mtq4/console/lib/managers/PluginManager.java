@@ -154,49 +154,6 @@ public class PluginManager {
 	}
 	
 	/**
-	 * Loads plugin from File f, at location into BaseConsole c.<br>
-	 * This plugin must be in the old format with a jar file, and another text
-	 * file with the same name (case sensitive) containing all the classes in the
-	 * jar file that extend ConsoleListener that wants to be added when the plugin
-	 * is loaded.
-	 *
-	 * @param f        the file
-	 * @param c        the BaseConsole
-	 * @param location the location of the file
-	 * @deprecated Use the new plugin format. TODO: THIS WILL BE REMOVED IN VERSION 5.x.x
-	 */
-	@Deprecated
-	public static void loadPluginOLDFORMAT(File f, BaseConsole c, String location) {
-		if (f.getAbsolutePath().trim().endsWith(".jar")) {
-			
-			String name = f.getName().substring(0, f.getName().lastIndexOf(".jar")).trim();
-			if (new File(location + name + ".txt").exists()) {
-				
-				try {
-					addFile(f);
-				}catch (IOException e) {
-					e.printStackTrace();
-				}
-				
-				String text = loadStringFromFile(location + name + ".txt");
-				String[] tokens = text.split("\n");
-				for (String t : tokens) {
-					if (!t.startsWith("# ")) {
-						try {
-							ListenerAttribute l = callConstructor(Class.forName(t.trim()));
-							c.addListener(l);
-						}catch (Exception e) {
-							e.printStackTrace();
-						}
-					}
-				}
-				
-			}
-			
-		}
-	}
-	
-	/**
 	 * Loads the contents of a file into a string.
 	 * 
 	 * @param filePath The path of the file
