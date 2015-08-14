@@ -20,7 +20,8 @@ import com.n9mtq4.console.lib.events.AdditionActionEvent;
 import java.io.Serializable;
 
 /**
- * Created by will on 8/13/15 at 2:23 PM.
+ * Created by will on 8/13/15 at 2:23 PM.<br>
+ * Has onAddition
  */
 public interface AdditionListener extends Serializable, ListenerAttribute {
 	
