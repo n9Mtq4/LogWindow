@@ -15,7 +15,7 @@
 
 package com.n9mtq4.console.lib.modules;
 
-import com.n9mtq4.console.lib.BaseConsole;
+/*import com.n9mtq4.console.lib.BaseConsole;
 import com.n9mtq4.console.lib.ConsoleListener;
 import com.n9mtq4.console.lib.events.AdditionActionEvent;
 import com.n9mtq4.console.lib.events.ConsoleActionEvent;
@@ -23,22 +23,22 @@ import com.n9mtq4.console.lib.events.DisableActionEvent;
 import com.n9mtq4.console.lib.events.RemovalActionEvent;
 import com.n9mtq4.console.lib.utils.Colour;
 
-import java.util.ArrayList;
+import java.util.ArrayList;*/
 
 /**
  * Created by will on 6/21/15 at 8:31 PM.<br>
  * A module to add, remove, enable, and disable listeners on the console.
  * TODO: WIP
  */
-public class ModuleListenerManager extends ConsoleListener {
+public class ModuleListenerManager /*extends ConsoleListener*/ {
 	
-	@Override
+/*	@Override
 	public void onAddition(AdditionActionEvent e) {
 		BaseConsole b = e.getBaseConsole();
 		b.addListener(new ListenerAdd());
 		b.addListener(new ListenerOther());
 //		conflicts with older ModuleListener, so (forcible) remove it
-		b.removeListener(b.getListener("com.n9mtq4.console.lib.modules.ModuleListener"), RemovalActionEvent.WINDOW_CLOSE);
+		b.removeListener(b.getListener("com.n9mtq4.console.lib.modules.ModuleListener"), RemovalActionEvent.CONSOLE_DISPOSE);
 	}
 	
 	@Override
@@ -97,7 +97,7 @@ public class ModuleListenerManager extends ConsoleListener {
 			if (e.getCommand().getLength() != 2) return;
 			
 			if (e.getCommand().getArg(1).equalsIgnoreCase("list")) {
-				ArrayList<ConsoleListener> listeners = baseConsole.getListeners();
+				ArrayList<ConsoleListener> listeners = baseConsole.getListenerEntries();
 				for (int i = 0; i < listeners.size(); i++) {
 					baseConsole.print("[" + i + "]: ");
 					baseConsole.println(listeners.get(i).getClass().getName(), listeners.get(i).isEnabled() ? Colour.GREEN : Colour.RED);
@@ -124,6 +124,6 @@ public class ModuleListenerManager extends ConsoleListener {
 			stopRemoval(e);
 		}
 		
-	}
+	}*/
 	
 }

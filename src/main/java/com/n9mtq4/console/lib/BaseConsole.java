@@ -21,6 +21,8 @@ import com.n9mtq4.console.lib.gui.ConsoleGui;
 import com.n9mtq4.console.lib.gui.GuiEntry;
 import com.n9mtq4.console.lib.gui.attributes.History;
 import com.n9mtq4.console.lib.dispose.ShutdownHook;
+import com.n9mtq4.console.lib.listener.ListenerAttribute;
+import com.n9mtq4.console.lib.listener.ListenerEntry;
 import com.n9mtq4.console.lib.managers.PluginManager;
 import com.n9mtq4.console.lib.managers.StdoutRedirect;
 import com.n9mtq4.console.lib.modules.ModuleJarLoader;
@@ -61,7 +63,7 @@ public class BaseConsole implements Serializable {
 	/**
 	 * The array containing all the listeners attached to the {@link BaseConsole}.
 	 */
-	private ArrayList<ConsoleListener> listeners;
+	private ArrayList<ListenerEntry> listenerEntries;
 	/**
 	 * Keeps a record of the input.
 	 */
@@ -138,7 +140,7 @@ public class BaseConsole implements Serializable {
 	 * @param listener adds the
 	 *                 to the newly created
 	 */
-	public BaseConsole(ConsoleListener listener) {
+	public BaseConsole(ListenerAttribute listener) {
 		init();
 		addListener(listener);
 	}
@@ -155,7 +157,7 @@ public class BaseConsole implements Serializable {
 	}
 	
 	private void init() {
-		listeners = new ArrayList<ConsoleListener>();
+		listenerEntries = new ArrayList<ListenerEntry>();
 		initMandatoryListeners();
 		history = new ArrayList<String>();
 		initConsole();
@@ -203,22 +205,22 @@ public class BaseConsole implements Serializable {
 	}
 	
 	/**
-	 * Handles closing down the {@link ConsoleListener}s and {@link ConsoleGui}s.<br>
-	 * Note: if overriding make sure to call super to close {@link ConsoleListener} and {@link ConsoleGui}.<br>
+	 * Handles closing down the {@link ListenerAttribute}s and {@link ConsoleGui}s.<br>
+	 * Note: if overriding make sure to call super to close {@link ListenerAttribute} and {@link ConsoleGui}.<br>
 	 *
 	 * @see ConsoleGui#dispose
-	 * @see ConsoleListener#onDisable
-	 * @see ConsoleListener#onRemoval
+	 * @see com.n9mtq4.console.lib.listener.DisableListener#onDisable
+	 * @see com.n9mtq4.console.lib.listener.RemovalListener#onRemoval
 	 */
 	public void dispose() {
 		
 		System.out.println("Disposing of BaseConsole with id of " + globalList.indexOf(this));
-		ArrayList<ConsoleListener> listeners;
-		while ((listeners = this.listeners).size() > 0) {
+		ArrayList<ListenerEntry> listenerEntries1;
+		while ((listenerEntries1 = this.listenerEntries).size() > 0) {
 			try {
-				for (ConsoleListener l : listeners) {
+				for (ListenerEntry l : listenerEntries1) {
 					
-					this.removeListener(l, RemovalActionEvent.WINDOW_CLOSE);
+					this.removeListenerEntry(l, RemovalActionEvent.CONSOLE_DISPOSE);
 					
 				}
 			}catch (ConcurrentModificationException e) {
@@ -248,7 +250,7 @@ public class BaseConsole implements Serializable {
 	}
 	
 	/**
-	 * Adds required {@link ConsoleListener}s to the {@link BaseConsole}.<br>
+	 * Adds required {@link ListenerAttribute}s to the {@link BaseConsole}.<br>
 	 * This is called in the constructor.
 	 */
 	private void initMandatoryListeners() {
@@ -345,7 +347,7 @@ public class BaseConsole implements Serializable {
 		try {
 			SentObjectEvent event = new SentObjectEvent(this, object, message);
 //			SentObjectEvent</*object.getClass()?*/> event = new SentObjectEvent</*object.getClass()?*/>(this, object, message); // maybe add generics?
-			for (ConsoleListener l : listeners) {
+			for (ListenerEntry l : listenerEntries) {
 				try {
 					if (l.isEnabled() && (!event.isCanceled() || l.hasIgnoreDone())) {
 						l.pushObject(event);
@@ -355,8 +357,8 @@ public class BaseConsole implements Serializable {
 //					bubbling up and hurting the rest of the program
 					this.printStackTrace(e);
 					e.printStackTrace();
-					println("Listener " + l.getClass().getName() + " has an error!");
-					System.out.println("Listener " + l.getClass().getName() + " has an error!");
+					println("Listener " + l.getListener().getClass().getName() + " has an error!");
+					System.out.println("Listener " + l.getListener().getClass().getName() + " has an error!");
 				}
 			}
 		}catch (ConcurrentModificationException e1) {
@@ -366,7 +368,7 @@ public class BaseConsole implements Serializable {
 	
 	/**
 	 * Note: use me to send input when using a custom {@link ConsoleGui}.<br>
-	 * Takes {@link String} and iterates through all {@link ConsoleListener} on console.
+	 * Takes {@link String} and iterates through all {@link ListenerAttribute} on console.
 	 *
 	 * @param text String to send to
 	 */
@@ -388,16 +390,16 @@ public class BaseConsole implements Serializable {
 		try {
 			ConsoleCommand command = new ConsoleCommand(text);
 			ConsoleActionEvent event = new ConsoleActionEvent(this, command);
-			for (ConsoleListener p : listeners) {
+			for (ListenerEntry listenerEntry : listenerEntries) {
 				try {
-					if (p.isEnabled() && (!event.isCanceled() || p.hasIgnoreDone())) {
-						p.push(event);
+					if (listenerEntry.isEnabled() && (!event.isCanceled() || listenerEntry.hasIgnoreDone())) {
+						listenerEntry.pushString(event);
 					}
 				}catch (Exception e) {
 					this.printStackTrace(e);
 					e.printStackTrace();
-					println("Listener " + p.getClass().getName() + " has an error!");
-					System.out.println("Listener " + p.getClass().getName() + " has an error!");
+					println("Listener " + listenerEntry.getListener().getClass().getName() + " has an error!");
+					System.out.println("Listener " + listenerEntry.getListener().getClass().getName() + " has an error!");
 				}
 			}
 		}catch (ConcurrentModificationException e1) {
@@ -420,18 +422,38 @@ public class BaseConsole implements Serializable {
 	}
 	
 	/**
-	 * Finds all {@link ConsoleListener}s with a given class name and returns them in the form of an array<br>
+	 * Finds all {@link ListenerAttribute}s with a given class name and returns them in the form of an array.<br>
 	 *
 	 * @param name The name of the class to look for.
 	 * @return an array of
 	 * s with the given class name
 	 */
-	public ConsoleListener[] getListenersByName(String name) {
+	public ListenerAttribute[] getListenersByName(String name) {
 		
-		ArrayList<ConsoleListener> list = new ArrayList<ConsoleListener>();
-		for (ConsoleListener l : listeners) {
+		ListenerEntry[] listenerEntries1 = getListenerEntriesByName(name);
+		ListenerAttribute[] listeners = new ListenerAttribute[listenerEntries1.length];
+		
+		for (int i = 0; i < listenerEntries1.length; i++) {
+			listeners[i] = listenerEntries1[i].getListener();
+		}
+		
+		return listeners;
+		
+	}
+	
+	
+	/**
+	 * Finds all {@link ListenerEntry}s with a listener of the given class name and returns them in the form of an array.
+	 * 
+	 * @param name The name of the listener class to look for.
+	 * @return an array of ListenerEntries with a listener of the given class name.
+	 * */
+	public ListenerEntry[] getListenerEntriesByName(String name) {
+		
+		ArrayList<ListenerEntry> list = new ArrayList<ListenerEntry>();
+		for (ListenerEntry l : listenerEntries) {
 			
-			if (l.getClass().getName().equalsIgnoreCase(name)) {
+			if (l.getListener().getClass().getName().equalsIgnoreCase(name)) {
 				
 				list.add(l);
 				
@@ -439,25 +461,25 @@ public class BaseConsole implements Serializable {
 			
 		}
 		
-		return list.toArray(new ConsoleListener[list.size()]);
+		return list.toArray(new ListenerEntry[list.size()]);
 		
 	}
 	
 	/**
-	 * Enables all {@link ConsoleListener}s that have been added to @{BaseConsole}
+	 * Enables all {@link ListenerEntry}s that have been added to @{BaseConsole}
 	 */
 	public void enableAllListeners() {
 		
-		for (ConsoleListener l : listeners) {
+		for (ListenerEntry l : listenerEntries) {
 			
-			enableListener(l);
+			enableListenerEntry(l);
 			
 		}
 		
 	}
 	
 	/**
-	 * Enables all {@link ConsoleListener} with a given name attached to {@link BaseConsole}.
+	 * Enables all {@link ListenerEntry} with a given name attached to {@link BaseConsole}.
 	 *
 	 * @param name Class name of the
 	 *             to enable.
@@ -465,10 +487,10 @@ public class BaseConsole implements Serializable {
 	 */
 	public void enableListenersByName(String name) {
 		
-		for (ConsoleListener l : listeners) {
+		for (ListenerEntry l : listenerEntries) {
 			
-			if (l.getClass().getName().equals(name)) {
-				enableListener(l);
+			if (l.getListener().getClass().getName().equals(name)) {
+				enableListenerEntry(l);
 			}
 			
 		}
@@ -476,7 +498,7 @@ public class BaseConsole implements Serializable {
 	}
 	
 	/**
-	 * Only enables the first {@link ConsoleListener} with a given name attached to {@link BaseConsole}.
+	 * Only enables the first {@link ListenerAttribute} with a given name attached to {@link BaseConsole}.
 	 *
 	 * @param name Class name of the
 	 *             to enable.
@@ -484,10 +506,10 @@ public class BaseConsole implements Serializable {
 	 */
 	public void enableListenerByName(String name) {
 		
-		for (ConsoleListener l : listeners) {
+		for (ListenerEntry l : listenerEntries) {
 			
-			if (l.getClass().getName().equals(name)) {
-				enableListener(l);
+			if (l.getListener().getClass().getName().equals(name)) {
+				enableListenerEntry(l);
 				break;
 			}
 			
@@ -496,17 +518,29 @@ public class BaseConsole implements Serializable {
 	}
 	
 	/**
-	 * Enables the given {@link ConsoleListener} that is attached to {@link BaseConsole}.
+	 * Enables the given {@link ListenerAttribute} that is attached to {@link BaseConsole}.
 	 *
 	 * @param listener the object to enable
 	 * @see BaseConsole#disableListener
 	 * @see BaseConsole#enableListenerByName
 	 */
-	public void enableListener(ConsoleListener listener) {
+	public void enableListener(ListenerAttribute listener) {
 		
-		if (!listener.isEnabled()) {
-			listener.setEnabled(true);
-			listener.onEnable(new EnableActionEvent(this));
+		enableListenerEntry(getListenerEntryFromListener(listener));
+		
+	}
+	
+	
+	/**
+	 * Enables the given listener entry.
+	 *
+	 * @param listenerEntry the listener entry
+	 */
+	public void enableListenerEntry(ListenerEntry listenerEntry) {
+		
+		if (!listenerEntry.isEnabled()) {
+			listenerEntry.setEnabled(true);
+			listenerEntry.pushEnabled(new EnableActionEvent(this));
 		}
 		
 	}
@@ -527,9 +561,9 @@ public class BaseConsole implements Serializable {
 	 */
 	public void disableAllListeners(int type) {
 		
-		for (ConsoleListener l : listeners) {
+		for (ListenerEntry l : listenerEntries) {
 			
-			disableListener(l, type);
+			disableListenerEntry(l, type);
 			
 		}
 		
@@ -543,10 +577,10 @@ public class BaseConsole implements Serializable {
 	 */
 	public void disableListenersByName(String name, int type) {
 		
-		for (ConsoleListener l : listeners) {
+		for (ListenerEntry l : listenerEntries) {
 			
-			if (l.getClass().getName().equals(name)) {
-				disableListener(l, type);
+			if (l.getListener().getClass().getName().equals(name)) {
+				disableListenerEntry(l, type);
 			}
 			
 		}
@@ -572,10 +606,10 @@ public class BaseConsole implements Serializable {
 	 */
 	public void disableListenerByName(String name, int type) {
 		
-		for (ConsoleListener l : listeners) {
+		for (ListenerEntry l : listenerEntries) {
 			
-			if (l.getClass().getName().equals(name)) {
-				disableListener(l, type);
+			if (l.getListener().getClass().getName().equals(name)) {
+				disableListenerEntry(l, type);
 				break;
 			}
 			
@@ -588,7 +622,7 @@ public class BaseConsole implements Serializable {
 	 *
 	 * @param listener the listener
 	 */
-	public void disableListener(ConsoleListener listener) {
+	public void disableListener(ListenerAttribute listener) {
 		
 		disableListener(listener, DisableActionEvent.NOT_SPECIFIED);
 		
@@ -600,11 +634,23 @@ public class BaseConsole implements Serializable {
 	 * @param listener the listener
 	 * @param type     the type
 	 */
-	public void disableListener(ConsoleListener listener, int type) {
+	public void disableListener(ListenerAttribute listener, int type) {
 		
-		if (listener.isEnabled()) {
-			listener.setEnabled(false);
-			listener.onDisable(new DisableActionEvent(this, type));
+		disableListenerEntry(getListenerEntryFromListener(listener), type);
+		
+	}
+	
+	/**
+	 * Disables the given listener entry.
+	 *
+	 * @param listenerEntry the listener entry to disable
+	 * @param type the type disable type
+	 */
+	public void disableListenerEntry(ListenerEntry listenerEntry, int type) {
+		
+		if (listenerEntry.isEnabled()) {
+			listenerEntry.setEnabled(false);
+			listenerEntry.pushDisabled(new DisableActionEvent(this, type));
 		}
 		
 	}
@@ -629,10 +675,10 @@ public class BaseConsole implements Serializable {
 	 */
 	public void removeListenerByName(String name, int type) {
 		
-		for (ConsoleListener l : listeners) {
+		for (ListenerEntry l : listenerEntries) {
 			
-			if (l.getClass().getName().equals(name)) {
-				removeListener(l);
+			if (l.getListener().getClass().getName().equals(name)) {
+				removeListenerEntry(l);
 				break;
 			}
 			
@@ -659,14 +705,33 @@ public class BaseConsole implements Serializable {
 	 */
 	public void removeListenersByName(String name, int type) {
 		
-		for (ConsoleListener l : listeners) {
+		for (ListenerEntry l : listenerEntries) {
 			
-			if (l.getClass().getName().equals(name)) {
-				removeListener(l, type);
+			if (l.getListener().getClass().getName().equals(name)) {
+				removeListenerEntry(l, type);
 			}
 			
 		}
 		
+	}
+	
+	/**
+	 * Removes a listener attribute and its listener entry
+	 *
+	 * @param listenerAttribute the listener attribute to remove
+	 * */
+	public void removeListener(ListenerAttribute listenerAttribute) {
+		removeListener(listenerAttribute, RemovalActionEvent.NOT_SPECIFIED);
+	}
+	
+	/**
+	 * Removes a listener attribute and its listener entry
+	 * 
+	 * @param listenerAttribute the listener attribute to remove
+	 * @param type the type
+	 * */
+	public void removeListener(ListenerAttribute listenerAttribute, int type) {
+		removeListenerEntry(getListenerEntryFromListener(listenerAttribute), type);
 	}
 	
 	/**
@@ -676,17 +741,17 @@ public class BaseConsole implements Serializable {
 	 */
 	public void removeAllListeners(int type) {
 		
-		int i = listeners.size();
+		int i = listenerEntries.size();
 		int c = 0;
-		while (listeners.size() > 0 && i > c) {
+		while (listenerEntries.size() > 0 && i > c) {
 			try {
-				for (ConsoleListener l : listeners) {
+				for (ListenerEntry l : listenerEntries) {
 					
-					removeListener(l, type);
+					removeListenerEntry(l, type);
 					
 				}
 			}catch (ConcurrentModificationException e) {
-				
+//				this is expected
 			}
 			c++;
 		}
@@ -703,33 +768,32 @@ public class BaseConsole implements Serializable {
 	}
 	
 	/**
-	 * Add listener by name.
-	 *
-	 * @param name the name
-	 * @throws Exception the exception
-	 */
-	public void addListenerByName(String name) throws Exception {
-		try {
-			ConsoleListener l = ConsoleListener.getNewListenerByName(name);
-			this.addListener(l);
-		}catch (Exception e) {
-			throw e;
-		}
-	}
-	
-	/**
 	 * Add listener.
 	 *
 	 * @param listener the listener
 	 */
 	@SuppressWarnings("deprecation")
-	public void addListener(ConsoleListener listener) {
+	public void addListener(ListenerAttribute listener) {
 		
-		if (!listeners.contains(listener) || !listener.getLinkedBaseConsoles().contains(this)) {
-			listeners.add(listener);
-			listener.onAddition(new AdditionActionEvent(this));
-			listener.onEnable(new EnableActionEvent(this));
-			listener.addToConsole(this);
+		if (!containsListener(listener)) {
+			ListenerEntry le = ListenerEntry.makeListenerEntry(listener);
+			addListenerEntry(le);
+		}
+		
+	}
+	
+	/**
+	 * Adds a Listener Entry.
+	 * 
+	 * @param listenerEntry The Listener entry.
+	 * */
+	public void addListenerEntry(ListenerEntry listenerEntry) {
+		
+		if (!listenerEntries.contains(listenerEntry) || !listenerEntry.getLinkedBaseConsoles().contains(this)) {
+			listenerEntry.pushAdded(new AdditionActionEvent(this));
+			listenerEntries.add(listenerEntry);
+			listenerEntry.pushEnabled(new EnableActionEvent(this));
+			listenerEntry.addToConsole(this);
 		}
 		
 	}
@@ -738,43 +802,63 @@ public class BaseConsole implements Serializable {
 	 * Adds a listener without calling onEnable
 	 * */
 	@Deprecated
-	public void addDisabledListener(ConsoleListener listener) {
+	public void addDisabledListener(ListenerAttribute listener) {
 		
-		if (!listeners.contains(listener) || !listener.getLinkedBaseConsoles().contains(this)) {
-			listeners.add(listener);
-			listener.onAddition(new AdditionActionEvent(this));
-			listener.addToConsole(this);
+		if (!containsListener(listener)) {
+			ListenerEntry le = ListenerEntry.makeListenerEntry(listener);
+			addDisabledListenerEntry(le);
 		}
 		
 	}
 	
 	/**
-	 * Remove listener.
-	 *
-	 * @param listener the listener
-	 */
-	public void removeListener(ConsoleListener listener) {
+	 * Adds a listener without calling onEnable
+	 * */
+	@Deprecated
+	public void addDisabledListenerEntry(ListenerEntry listenerEntry) {
 		
-		removeListener(listener, RemovalActionEvent.NOT_SPECIFIED);
+		if (!listenerEntries.contains(listenerEntry) || !listenerEntry.getLinkedBaseConsoles().contains(this)) {
+			listenerEntries.add(listenerEntry);
+			listenerEntry.pushAdded(new AdditionActionEvent(this));
+			listenerEntry.addToConsole(this);
+		}
 		
 	}
 	
 	/**
-	 * Remove listener.
+	 * Removes the listener entry from the BaseConsole.
 	 *
-	 * @param listener the listener
+	 * @param listenerEntry the listener entry
+	 */
+	public void removeListenerEntry(ListenerEntry listenerEntry) {
+		
+		removeListenerEntry(listenerEntry, RemovalActionEvent.NOT_SPECIFIED);
+		
+	}
+	
+	/**
+	 * Removes a listener entry.
+	 *
+	 * @param listenerEntry the listener entry
 	 * @param type     the type
 	 */
 	@SuppressWarnings("deprecation")
-	public void removeListener(ConsoleListener listener, int type) {
+	public void removeListenerEntry(ListenerEntry listenerEntry, int type) {
 		
-		if (listeners.contains(listener) || listener.getLinkedBaseConsoles().contains(this)) {
-			listeners.remove(listener);
-			listener.removeFromConsole(this);
-			listener.onDisable(new DisableActionEvent(this, type));
-			listener.onRemoval(new RemovalActionEvent(this, type));
+		if (listenerEntries.contains(listenerEntry) || listenerEntry.getLinkedBaseConsoles().contains(this)) {
+			listenerEntries.remove(listenerEntry);
+			listenerEntry.pushDisabled(new DisableActionEvent(this, type));
+			listenerEntry.removeFromConsole(this);
+			listenerEntry.pushRemoved(new RemovalActionEvent(this, type));
 		}
 		
+	}
+	
+	private boolean containsListener(ListenerAttribute listenerAttribute) {
+		for (ListenerEntry l : listenerEntries) {
+			if (l.getListener().equals(listenerAttribute)) return true;
+		}
+		return false;
 	}
 	
 	/**
@@ -792,6 +876,8 @@ public class BaseConsole implements Serializable {
 	 * Loads plugins to this console from "./plugins".<br>
 	 *
 	 * @see BaseConsole#loadPlugins(String)
+	 * @see PluginManager#loadPluginsToConsole(BaseConsole, File)
+	 * @see PluginManager#loadPluginsToConsole(BaseConsole, String)
 	 */
 	public void loadPlugins() {
 		
@@ -962,12 +1048,11 @@ public class BaseConsole implements Serializable {
 	/**
 	 * Gets the the listener with a given name, or index.
 	 *
-	 * @param identifier A class name, or a number (in the form a
-	 *                   ).
+	 * @param identifier A class name, or a number (in the form an int or string).
 	 * @return A with the given name of index.
 	 */
 	@SuppressWarnings("deprecation")
-	public ConsoleListener getListener(String identifier) {
+	public ListenerAttribute getListener(String identifier) {
 		
 		try {
 			int i = Integer.parseInt(identifier);
@@ -983,24 +1068,23 @@ public class BaseConsole implements Serializable {
 	}
 	
 	/**
-	 * Gets a {@link ConsoleListener} with the index in the array.
+	 * Gets a {@link ListenerAttribute} with the index in the array.
 	 *
-	 * @param index The index of the desired
-	 *              .
-	 * @return The with the given class name.
+	 * @param index The index of the desired listener attribute.
+	 * @return The listener attribute with the given class name.
 	 * @see BaseConsole#getListener
 	 * @deprecated Use {@link BaseConsole#getListener(String)} instead (index in
 	 * array or name).
 	 */
 	@Deprecated
-	public ConsoleListener getListenerByIndex(int index) {
+	public ListenerAttribute getListenerByIndex(int index) {
 		
-		return listeners.get(index);
+		return listenerEntries.get(index).getListener();
 		
 	}
 	
 	/**
-	 * Gets a {@link ConsoleListener} with a given name.
+	 * Gets a {@link ListenerAttribute} with a given name.
 	 *
 	 * @param name The class name of the desired
 	 *             .
@@ -1010,18 +1094,43 @@ public class BaseConsole implements Serializable {
 	 * array or name).
 	 */
 	@Deprecated
-	public ConsoleListener getListenerByName(String name) {
+	public ListenerAttribute getListenerByName(String name) {
 		
-		for (ConsoleListener l : listeners) {
+		for (ListenerEntry l : listenerEntries) {
 			
-			if (l.getClass().getName().equalsIgnoreCase(name)) {
+			if (l.getListener().getClass().getName().equalsIgnoreCase(name)) {
 				
-				return l;
+				return l.getListener();
 				
 			}
 			
 		}
 		
+		return null;
+		
+	}
+	
+	/**
+	 * Gets a listener entry from its id (name or index)
+	 * 
+	 * @param id The id either the name or index in the list
+	 * @return the wanted listener entry or null
+	 * */
+	public ListenerEntry getListenerEntry(String id) {
+		return getListenerEntryFromListener(getListener(id));
+	}
+	
+	/**
+	 * Gets a listener entry from a listener
+	 * 
+	 * @param listenerAttribute the Listener attribute
+	 * @return the Listener Entry that contains the listener attribute
+	 * */
+	public ListenerEntry getListenerEntryFromListener(ListenerAttribute listenerAttribute) {
+		
+		for (ListenerEntry listenerEntry : listenerEntries) {
+			if (listenerEntry.getListener().equals(listenerAttribute)) return listenerEntry;
+		}
 		return null;
 		
 	}
@@ -1045,12 +1154,12 @@ public class BaseConsole implements Serializable {
 	}
 	
 	/**
-	 * Gets listeners.
+	 * Gets the listener entries.
 	 *
-	 * @return the listeners
+	 * @return the listener entries
 	 */
-	public ArrayList<ConsoleListener> getListeners() {
-		return (ArrayList<ConsoleListener>) listeners.clone();
+	public ArrayList<ListenerEntry> getListenerEntries() {
+		return (ArrayList<ListenerEntry>) listenerEntries.clone();
 	}
 	
 	/**

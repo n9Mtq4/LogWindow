@@ -16,16 +16,17 @@
 package com.n9mtq4.console.modules;
 
 import com.n9mtq4.console.lib.BaseConsole;
-import com.n9mtq4.console.lib.ConsoleListener;
 import com.n9mtq4.console.lib.events.AdditionActionEvent;
 import com.n9mtq4.console.lib.events.ConsoleActionEvent;
+import com.n9mtq4.console.lib.listener.AdditionListener;
+import com.n9mtq4.console.lib.listener.StringListener;
 
 import java.io.*;
 
 /**
  * Created by Will on 11/3/14.
  */
-public class Log extends ConsoleListener {
+public class Log implements AdditionListener, StringListener {
 	
 	private String filePath = "plugins/log.txt";
 	private File file;

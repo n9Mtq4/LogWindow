@@ -16,11 +16,11 @@
 package com.n9mtq4.console.lib.managers;
 
 import com.n9mtq4.console.lib.BaseConsole;
-import com.n9mtq4.console.lib.ConsoleListener;
 import com.n9mtq4.console.lib.events.EnableActionEvent;
+import com.n9mtq4.console.lib.listener.ListenerAttribute;
+import com.n9mtq4.console.lib.listener.ListenerEntry;
 
 import java.io.*;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.zip.ZipFile;
@@ -37,7 +37,6 @@ import static com.n9mtq4.console.lib.utils.ReflectionHelper.getClassByFullName;
 //TODO: finish javadocs
 public class PluginManager {
 	
-	private static final Class[] parameters = new Class[]{URL.class};
 	/**
 	 * The constant DEFAULT_PLUGIN_FOLDER.
 	 */
@@ -73,16 +72,14 @@ public class PluginManager {
 		File[] children = folder.listFiles();
 		if (children == null) return;
 		
-		ArrayList<ConsoleListener> listeners = new ArrayList<ConsoleListener>();
+		ArrayList<ListenerEntry> listeners = new ArrayList<ListenerEntry>();
 		for (File f : children) {
 			
 			listeners.addAll(loadPlugin(f, c));
 			
 		}
 		
-		for (ConsoleListener listener : listeners) {
-			listener.onEnable(new EnableActionEvent(c));
-		}
+		for (ListenerEntry listener : listeners) listener.pushEnabled(new EnableActionEvent(c));
 		
 	}
 	
@@ -94,9 +91,9 @@ public class PluginManager {
 	 * @param f the f
 	 * @param c the c
 	 */
-	public static ArrayList<ConsoleListener> loadPlugin(File f, BaseConsole c) {
+	public static ArrayList<ListenerEntry> loadPlugin(File f, BaseConsole c) {
 		
-		ArrayList<ConsoleListener> listeners = new ArrayList<ConsoleListener>();
+		ArrayList<ListenerEntry> listeners = new ArrayList<ListenerEntry>();
 		
 //		makes sure the file is a jar
 		if (f.getAbsolutePath().trim().toLowerCase().endsWith(".jar")) {
@@ -118,9 +115,10 @@ public class PluginManager {
 					if (!line.startsWith("#") && !line.trim().equals("")) {
 						try {
 //							try to add this listener to the base console using reflection
-							ConsoleListener listener = callConstructor(getClassByFullName(line.trim()));
-							c.addDisabledListener(listener);
-							listeners.add(listener);
+							ListenerAttribute listener = callConstructor(getClassByFullName(line.trim()));
+							ListenerEntry le = ListenerEntry.makeListenerEntry(listener);
+							c.addDisabledListenerEntry(le);
+							listeners.add(le);
 						}catch (Exception e1) {
 							e1.printStackTrace();
 							c.printStackTrace(e1);
@@ -185,7 +183,7 @@ public class PluginManager {
 				for (String t : tokens) {
 					if (!t.startsWith("# ")) {
 						try {
-							ConsoleListener l = (ConsoleListener) callConstructor(Class.forName(t.trim()));
+							ListenerAttribute l = callConstructor(Class.forName(t.trim()));
 							c.addListener(l);
 						}catch (Exception e) {
 							e.printStackTrace();

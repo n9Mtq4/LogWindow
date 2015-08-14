@@ -16,9 +16,9 @@
 package com.n9mtq4.console.lib.modules;
 
 import com.n9mtq4.console.lib.BaseConsole;
-import com.n9mtq4.console.lib.ConsoleListener;
 import com.n9mtq4.console.lib.command.ConsoleCommand;
 import com.n9mtq4.console.lib.events.ConsoleActionEvent;
+import com.n9mtq4.console.lib.listener.StringListener;
 
 /**
  * Created by Will on 10/30/14.
@@ -27,7 +27,7 @@ import com.n9mtq4.console.lib.events.ConsoleActionEvent;
 /**
  * A module to enable or disable the redirection of StdOut to the console
  */
-public class ModuleStdoutRedirect extends ConsoleListener {
+public class ModuleStdoutRedirect implements StringListener {
 	
 	@Override
 	public void actionPerformed(ConsoleActionEvent e, BaseConsole baseConsole) {

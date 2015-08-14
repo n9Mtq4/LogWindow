@@ -16,10 +16,11 @@
 package com.n9mtq4.console.modules;
 
 import com.n9mtq4.console.lib.BaseConsole;
-import com.n9mtq4.console.lib.ConsoleListener;
 import com.n9mtq4.console.lib.command.ConsoleCommand;
 import com.n9mtq4.console.lib.events.AdditionActionEvent;
 import com.n9mtq4.console.lib.events.ConsoleActionEvent;
+import com.n9mtq4.console.lib.listener.AdditionListener;
+import com.n9mtq4.console.lib.listener.StringListener;
 import com.n9mtq4.console.lib.managers.SocketManager;
 
 import java.io.BufferedReader;
@@ -35,7 +36,7 @@ import java.net.URL;
 /**
  * A module to access http and sockets from the console.
  */
-public class ModuleNetwork extends ConsoleListener {
+public class ModuleNetwork implements AdditionListener, StringListener {
 	
 	private SocketManager manager;
 	

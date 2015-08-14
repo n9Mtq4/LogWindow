@@ -16,8 +16,8 @@
 package com.n9mtq4.console.lib.modules;
 
 import com.n9mtq4.console.lib.BaseConsole;
-import com.n9mtq4.console.lib.ConsoleListener;
 import com.n9mtq4.console.lib.events.ConsoleActionEvent;
+import com.n9mtq4.console.lib.listener.StringListener;
 import com.n9mtq4.console.lib.managers.PluginManager;
 
 import java.io.File;
@@ -29,7 +29,7 @@ import java.io.File;
 /**
  * A module to load plugins to the console
  */
-public class ModulePluginManager extends ConsoleListener {
+public class ModulePluginManager implements StringListener {
 	
 	@Override
 	public void actionPerformed(ConsoleActionEvent e, BaseConsole baseConsole) {

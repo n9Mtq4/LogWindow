@@ -16,11 +16,10 @@
 package com.n9mtq4.console.lib.modules;
 
 import com.n9mtq4.console.lib.BaseConsole;
-import com.n9mtq4.console.lib.ConsoleListener;
 import com.n9mtq4.console.lib.events.ConsoleActionEvent;
-import com.n9mtq4.console.lib.gui.ConsoleGui;
 import com.n9mtq4.console.lib.gui.GuiEntry;
 import com.n9mtq4.console.lib.gui.attributes.History;
+import com.n9mtq4.console.lib.listener.StringListener;
 import com.n9mtq4.console.lib.utils.Colour;
 
 import java.util.ArrayList;
@@ -32,7 +31,7 @@ import java.util.ArrayList;
 /**
  * A module for getting a list of the history and clearing the history
  */
-public class ModuleHistory extends ConsoleListener {
+public class ModuleHistory implements StringListener {
 	
 	@Override
 	public void actionPerformed(ConsoleActionEvent e, BaseConsole baseConsole) {

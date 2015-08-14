@@ -16,10 +16,13 @@
 package com.n9mtq4.console.lib.gui;
 
 import com.n9mtq4.console.lib.BaseConsole;
-import com.n9mtq4.console.lib.ConsoleListener;
 import com.n9mtq4.console.lib.events.ConsoleActionEvent;
 import com.n9mtq4.console.lib.events.DisableActionEvent;
 import com.n9mtq4.console.lib.events.RemovalActionEvent;
+import com.n9mtq4.console.lib.listener.DisableListener;
+import com.n9mtq4.console.lib.listener.ListenerEntry;
+import com.n9mtq4.console.lib.listener.RemovalListener;
+import com.n9mtq4.console.lib.listener.StringListener;
 import com.n9mtq4.console.lib.managers.SocketManager;
 import com.n9mtq4.console.lib.utils.Colour;
 
@@ -48,7 +51,7 @@ public class GuiSocketOut extends SimpleConsoleGui {
 	 */
 	public SocketManager socketManager = new SocketManager();
 	/**
-	 * A {@link com.n9mtq4.console.lib.ConsoleListener} to help this gui
+	 * A {@link com.n9mtq4.console.lib.listener.ListenerAttribute} to help this gui
 	 */
 	private GuiSocketOut.SocketInputSender helperListener;
 	
@@ -71,7 +74,7 @@ public class GuiSocketOut extends SimpleConsoleGui {
 	 */
 	@Override
 	public void dispose() {
-		getParent().removeListener(helperListener, RemovalActionEvent.WINDOW_CLOSE);
+		getParent().removeListener(helperListener, RemovalActionEvent.CONSOLE_DISPOSE);
 		socketManager.close();
 	}
 	
@@ -157,7 +160,7 @@ public class GuiSocketOut extends SimpleConsoleGui {
 	/**
 	 * A helper class for {@link GuiSocketOut}
 	 */
-	public static class SocketInputSender extends ConsoleListener {
+	public static class SocketInputSender implements StringListener, DisableListener, RemovalListener {
 		
 		private GuiSocketOut parent;
 		
@@ -196,12 +199,14 @@ public class GuiSocketOut extends SimpleConsoleGui {
 		
 		@Override
 		public void onDisable(DisableActionEvent e) {
-			stopDisable(e);
+//			stopDisable(e);
+			ListenerEntry.stopDisable(this, e);
 		}
 		
 		@Override
 		public void onRemoval(RemovalActionEvent e) {
-			stopRemoval(e);
+//			stopRemoval(e);
+			ListenerEntry.stopRemoval(this, e);
 		}
 		
 	}

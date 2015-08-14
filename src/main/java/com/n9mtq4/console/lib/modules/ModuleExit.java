@@ -16,13 +16,13 @@
 package com.n9mtq4.console.lib.modules;
 
 import com.n9mtq4.console.lib.BaseConsole;
-import com.n9mtq4.console.lib.ConsoleListener;
 import com.n9mtq4.console.lib.events.ConsoleActionEvent;
+import com.n9mtq4.console.lib.listener.StringListener;
 
 /**
  * Created by will on 3/2/15.
  */
-public class ModuleExit extends ConsoleListener {
+public class ModuleExit implements StringListener {
 	
 	@Override
 	public void actionPerformed(ConsoleActionEvent e, BaseConsole baseConsole) {

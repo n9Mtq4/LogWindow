@@ -16,10 +16,8 @@
 package com.n9mtq4.console.lib.modules;
 
 import com.n9mtq4.console.lib.BaseConsole;
-import com.n9mtq4.console.lib.ConsoleListener;
 import com.n9mtq4.console.lib.events.ConsoleActionEvent;
-import com.n9mtq4.console.lib.events.DisableActionEvent;
-import com.n9mtq4.console.lib.events.RemovalActionEvent;
+import com.n9mtq4.console.lib.listener.StringListener;
 import com.n9mtq4.console.lib.utils.Colour;
 import com.n9mtq4.console.lib.utils.JarLoader;
 
@@ -33,7 +31,7 @@ import java.io.IOException;
 /**
  * A module to load jar files into the class path from a console
  */
-public class ModuleJarLoader extends ConsoleListener {
+public class ModuleJarLoader implements StringListener {
 	
 	@Override
 	public void actionPerformed(ConsoleActionEvent e, BaseConsole baseConsole) {
@@ -56,16 +54,6 @@ public class ModuleJarLoader extends ConsoleListener {
 			
 		}
 		
-	}
-	
-	@Override
-	public void onDisable(DisableActionEvent e) {
-		stopDisable(e);
-	}
-	
-	@Override
-	public void onRemoval(RemovalActionEvent e) {
-		stopRemoval(e);
 	}
 	
 }

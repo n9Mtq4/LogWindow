@@ -13,29 +13,17 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.n9mtq4.console.modules;
+package com.n9mtq4.console.lib.listener;
 
-import com.n9mtq4.console.lib.BaseConsole;
-import com.n9mtq4.console.lib.events.ConsoleActionEvent;
-import com.n9mtq4.console.lib.listener.StringListener;
+import com.n9mtq4.console.lib.events.RemovalActionEvent;
 
-import java.io.File;
+import java.io.Serializable;
 
 /**
- * Created by Will on 10/31/14.
+ * Created by will on 8/13/15 at 2:25 PM.
  */
-public class ImageLoader implements StringListener {
+public interface RemovalListener extends Serializable, ListenerAttribute {
 	
-	@Override
-	public void actionPerformed(ConsoleActionEvent e, BaseConsole baseConsole) {
-		
-		if (e.getCommand().getLength() >= 2 && e.getCommand().getArg(0).equalsIgnoreCase("imageload")) {
-			
-			String fileLocation = e.getCommand().getWordsStartingFrom(1);
-			baseConsole.printlnImage(new File(fileLocation));
-			
-		}
-		
-	}
+	void onRemoval(RemovalActionEvent removalActionEvent);
 	
 }
