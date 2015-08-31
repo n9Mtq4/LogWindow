@@ -54,7 +54,7 @@ public final class SentObjectEvent implements Serializable {
 		this.message = message;
 		//noinspection deprecation
 		this.canceled = false;
-		this.objectType = object.getClass().getName();
+		this.objectType = object == null ? "null" : object.getClass().getName();
 	}
 	
 	/**
