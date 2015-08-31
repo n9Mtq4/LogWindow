@@ -1,5 +1,5 @@
-group 'LogWindowApi'
-version '4'
+group 'LogWindowFramework'
+version '5.0-prerelease'
 
 apply plugin: 'java'
 
@@ -10,5 +10,5 @@ repositories {
 }
 
 dependencies {
-    compile 'com.intellij:annotations:+@jar'
+//    compile 'com.intellij:annotations:+@jar'
 }
