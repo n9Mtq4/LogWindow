@@ -164,6 +164,12 @@ public final class ListenerContainer implements Serializable {
 	}
 	
 	private void annotations() {
+		actionPerformedAnnotation();
+		objectReceivedAnnotation();
+	}
+	
+	private void actionPerformedAnnotation() {
+		if (!(listener instanceof StringListener)) return;
 //		actionPerformed annotation checks
 		try {
 			Method action = listener.getClass().getDeclaredMethod("actionPerformed", ConsoleActionEvent.class, BaseConsole.class);
@@ -174,8 +180,12 @@ public final class ListenerContainer implements Serializable {
 			}
 		}catch (Exception e) {
 			e.printStackTrace();
-			System.err.println("[WARNING]: something isn't quit right with Async annotation (" + this.getClass().getName() + ")!");
+			System.err.println("[WARNING]: something isn't quit right with actionPerformed Async annotation (" + this.getClass().getName() + ")!");
 		}
+	}
+	
+	private void objectReceivedAnnotation() {
+		if (!(listener instanceof ObjectListener)) return;
 //		objectReceived annotation checks
 		try {
 			Method action = listener.getClass().getDeclaredMethod("objectReceived", SentObjectEvent.class, BaseConsole.class);
@@ -184,8 +194,8 @@ public final class ListenerContainer implements Serializable {
 				this.isAsyncObject = annotation.async();
 			}
 		}catch (Exception e) {
-//			e.printStackTrace();
-//			this is expected as objectReceived isn't abstract
+			e.printStackTrace();
+			System.err.println("[WARNING]: something isn't quit right with objectReceived Async annotation (" + this.getClass().getName() + ")!");
 		}
 	}
 	
