@@ -23,7 +23,6 @@ import com.n9mtq4.logwindow.listener.ListenerAttribute;
 import com.n9mtq4.logwindow.listener.ListenerContainer;
 import com.n9mtq4.logwindow.listener.RemovalListener;
 import com.n9mtq4.logwindow.managers.PluginManager;
-import com.n9mtq4.logwindow.managers.StdoutRedirect;
 import com.n9mtq4.logwindow.modules.ModuleJarLoader;
 import com.n9mtq4.logwindow.modules.ModuleListener;
 import com.n9mtq4.logwindow.ui.ConsoleUI;
@@ -53,7 +52,7 @@ public final class BaseConsole implements Serializable {
 	/**
 	 * Keeps the ids of all {@link BaseConsole}s.
 	 */
-	public static final ArrayList<BaseConsole> globalList = new ArrayList<BaseConsole>();
+	protected static final ArrayList<BaseConsole> globalList = new ArrayList<BaseConsole>();
 	
 	/**
 	 * The array containing all the listeners attached to the {@link BaseConsole}.
@@ -67,15 +66,6 @@ public final class BaseConsole implements Serializable {
 	 * Has the local id for the {@link BaseConsole}.
 	 */
 	private final int id;
-	/**
-	 * The object that handles setOut for redirection.
-	 *
-	 * @see StdoutRedirect
-	 * @see BaseConsole#redirectStdoutOn
-	 * @see BaseConsole#redirectStdoutOn(boolean)
-	 * @see BaseConsole#redirectStdoutOff
-	 */
-	private StdoutRedirect stdoutRedirect;
 	/**
 	 * Contains all {@link ConsoleUI}s attached.
 	 *
@@ -216,54 +206,6 @@ public final class BaseConsole implements Serializable {
 	 */
 	public final void println(Object object) {
 		print(String.valueOf(object) + "\n");
-	}
-	
-	/**
-	 * Turns off {@link System#out} redirection
-	 * from
-	 * {@link BaseConsole}.
-	 * {@link BaseConsole#print}.
-	 *
-	 * @see BaseConsole#redirectStdoutOn()
-	 * @see BaseConsole#redirectStdoutOn(boolean)
-	 */
-	public final void redirectStdoutOff() {
-		
-		if (stdoutRedirect != null) stdoutRedirect.turnOff();
-		
-	}
-	
-	/**
-	 * Turns on {@link System#out} redirection
-	 * to
-	 * {@link BaseConsole}.{@link BaseConsole#print}
-	 *
-	 * @see BaseConsole#redirectStdoutOff()
-	 * @see BaseConsole#redirectStdoutOn(boolean)
-	 */
-	public final void redirectStdoutOn() {
-		
-		redirectStdoutOn(false);
-		
-	}
-	
-	/**
-	 * Turns on {@link System#out} redirection
-	 * to
-	 * {@link BaseConsole}.
-	 * {@link BaseConsole#print}.
-	 *
-	 * @param debug Whether or not to print java file and line number of print statement
-	 * @see BaseConsole#redirectStdoutOff()
-	 * @see BaseConsole#redirectStdoutOn
-	 */
-	public final void redirectStdoutOn(boolean debug) {
-		
-		if (stdoutRedirect == null) {
-			stdoutRedirect = new StdoutRedirect(this);
-		}
-		stdoutRedirect.turnOn(debug);
-		
 	}
 	
 	/**
@@ -633,15 +575,6 @@ public final class BaseConsole implements Serializable {
 	 */
 	public final ArrayList<ListenerContainer> getListenerContainers() {
 		return (ArrayList<ListenerContainer>) listenerContainers.clone();
-	}
-	
-	/**
-	 * Gets stdout redirect.
-	 *
-	 * @return the stdout redirect
-	 */
-	public final StdoutRedirect getStdoutRedirect() {
-		return stdoutRedirect;
 	}
 	
 	/**
