@@ -38,8 +38,13 @@ import java.util.jar.JarFile;
 /**
  * Note: Use static import for best results.<br>
  * Class to simplify reflection calls.<br>
+ * @deprecated This is meant for use in the com.n9mtq4.logwindow package ONLY. This class
+ * may be outdated and/or will be removed soon. If you want to use these methods in your
+ * code, you can use the ReflectionHelper library which can be downloaded here
+ * https://github.com/n9Mtq4/ReflectionHelper
  */
 @SuppressWarnings("unused")
+@Deprecated
 public class ReflectionHelper {
 	
 	/**
