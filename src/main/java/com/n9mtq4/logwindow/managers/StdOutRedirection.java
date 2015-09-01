@@ -16,6 +16,12 @@
 package com.n9mtq4.logwindow.managers;
 
 import com.n9mtq4.logwindow.BaseConsole;
+import com.n9mtq4.logwindow.events.AdditionActionEvent;
+import com.n9mtq4.logwindow.events.DisableActionEvent;
+import com.n9mtq4.logwindow.events.EnableActionEvent;
+import com.n9mtq4.logwindow.listener.AdditionListener;
+import com.n9mtq4.logwindow.listener.DisableListener;
+import com.n9mtq4.logwindow.listener.EnableListener;
 
 import java.io.PrintStream;
 import java.io.Serializable;
@@ -26,30 +32,79 @@ import java.text.MessageFormat;
  * A class that redirected System.out.prints and prints them to a
  * {@link BaseConsole}
  */
-public final class StdoutRedirect extends PrintStream 
-		implements Serializable {
+public final class StdOutRedirection extends PrintStream 
+		implements AdditionListener, EnableListener, DisableListener, Serializable {
 	
 	private static final long serialVersionUID = 9180321456734075207L;
+	public static final boolean SHOW_LOCATION_DEFAULT_VALUE = false;
 	
-	private final BaseConsole baseConsole;
+	/**
+	 * Adds a new instance of StdOutRedirect to the given base console.
+	 * Enables the show location if {@link StdOutRedirection#SHOW_LOCATION_DEFAULT_VALUE}
+	 * is true. If you want to override the default value use
+	 * {@link StdOutRedirection#addToBaseConsole(BaseConsole, boolean)}
+	 * 
+	 * @param baseConsole The BaseConsole to add the redirection to
+	 * @see StdOutRedirection#addToBaseConsole(BaseConsole, boolean)
+	 * */
+	public static void addToBaseConsole(BaseConsole baseConsole) {
+		addToBaseConsole(baseConsole, SHOW_LOCATION_DEFAULT_VALUE);
+	}
+	
+	/**
+	 * Adds a new instance of StdOutRedirect to the given base console.
+	 * Enables the show location if the showLocation param
+	 * is true. If you want to use the default value use
+	 * {@link StdOutRedirection#addToBaseConsole(BaseConsole)}
+	 *
+	 * @param baseConsole The BaseConsole to add the redirection to
+	 * @param showLocation Should the redirection show the line of code the call came from?
+	 * @see StdOutRedirection#addToBaseConsole(BaseConsole)
+	 * */
+	public static void addToBaseConsole(BaseConsole baseConsole, boolean showLocation) {
+		baseConsole.addListenerAttribute(new StdOutRedirection(showLocation));
+	}
+	
+	private BaseConsole baseConsole;
 	private PrintStream backup;
 	private boolean showLocation;
 	private boolean on;
 	
 	/**
-	 * Instantiates a new Stdout redirect.
-	 *
-	 * @param baseConsole the base console
-	 */
-	public StdoutRedirect(BaseConsole baseConsole) {
+	 * Makes a new StdOutRedirect instance
+	 * */
+	private StdOutRedirection() {
 		super(System.out);
-		this.baseConsole = baseConsole;
+		this.showLocation = SHOW_LOCATION_DEFAULT_VALUE;
+	}
+	
+	/**
+	 * Makes a new StdOutRedirect instance with show location
+	 * */
+	private StdOutRedirection(boolean showLocation) {
+		super(System.out);
+		this.showLocation = showLocation;
+	}
+	
+	@Override
+	public final void onAddition(AdditionActionEvent additionActionEvent) {
+		this.baseConsole = additionActionEvent.getBaseConsole();
+	}
+	
+	@Override
+	public final void onEnable(EnableActionEvent enableActionEvent) {
+		turnOn(showLocation);
+	}
+	
+	@Override
+	public final void onDisable(DisableActionEvent disableActionEvent) {
+		turnOff();
 	}
 	
 	/**
 	 * Turns on the console redirection
 	 *
-	 * @see StdoutRedirect#turnOn(boolean)
+	 * @see StdOutRedirection#turnOn(boolean)
 	 */
 	public final void turnOn() {
 		turnOn(false);
@@ -79,8 +134,10 @@ public final class StdoutRedirect extends PrintStream
 		
 	}
 	
+//	START Overriding methods from PrintStream START
 	@Override
 	public final void print(String s) {
+		if (baseConsole == null) backup.print(s);
 		StackTraceElement element = Thread.currentThread().getStackTrace()[2];
 		if (!element.getMethodName().contains("print")) {
 			if (showLocation) {
@@ -93,9 +150,9 @@ public final class StdoutRedirect extends PrintStream
 		}
 	}
 	
-	//	START Overriding methods from PrintStream START
 	@Override
 	public final void print(Object o) {
+		if (baseConsole == null) backup.print(o);
 		StackTraceElement element = Thread.currentThread().getStackTrace()[2];
 		if (!element.getMethodName().contains("print")) {
 			if (showLocation) {
@@ -110,6 +167,7 @@ public final class StdoutRedirect extends PrintStream
 	
 	@Override
 	public final void println(Object x) {
+		if (baseConsole == null) backup.print(x);
 		StackTraceElement element = Thread.currentThread().getStackTrace()[2];
 		if (!element.getMethodName().contains("print")) {
 			if (showLocation) {
@@ -124,6 +182,7 @@ public final class StdoutRedirect extends PrintStream
 	
 	@Override
 	public final void println(String x) {
+		if (baseConsole == null) backup.print(x);
 		StackTraceElement element = Thread.currentThread().getStackTrace()[2];
 		if (!element.getMethodName().contains("print")) {
 			if (showLocation) {
@@ -140,7 +199,7 @@ public final class StdoutRedirect extends PrintStream
 	/**
 	 * Gets the location of where the print was called f rom
 	 */
-	private String getLocation() {
+	private final String getLocation() {
 		StackTraceElement element = Thread.currentThread().getStackTrace()[3];
 		return MessageFormat.format("({0}:{1, number,#}): ", element.getFileName(), element.getLineNumber());
 	}
