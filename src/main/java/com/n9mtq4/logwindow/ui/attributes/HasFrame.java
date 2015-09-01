@@ -13,37 +13,27 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.n9mtq4.logwindow.gui.attributes;
+package com.n9mtq4.logwindow.ui.attributes;
+
+import com.n9mtq4.logwindow.ui.ConsoleUI;
+
+import javax.swing.*;
 
 /**
- * Created by Will on 1/1/15.
+ * Created by will on 1/7/15.
  */
-
-import com.n9mtq4.logwindow.gui.ConsoleGui;
 
 /**
- * A interface that flags a {@link ConsoleGui} as having
- * full control over the text that has been pushed to them and that the ConsoleGui
- * can set the text that has already been sent to it.
+ * An interface that flags a {@link ConsoleUI} that it contains a {@link JFrame}<br>
+ * use if (consoleGui instanceof HasFrame) {}
  */
-public interface Textable {
+public interface HasFrame {
 	
 	/**
-	 * Gets the current text in a compatible {@link ConsoleGui}.
+	 * If the {@link ConsoleUI} implements HasFrame, get the jframe
 	 *
-	 * @return The text that the
-	 * has.
-	 * @see Textable#setText
+	 * @return the j frame
 	 */
-	String getText();
-	
-	/**
-	 * Sets the current text in a compatible {@link ConsoleGui}.
-	 *
-	 * @param text The text to set the
-	 *             to.
-	 * @see Textable#getText
-	 */
-	void setText(String text);
+	JFrame getJFrame();
 	
 }

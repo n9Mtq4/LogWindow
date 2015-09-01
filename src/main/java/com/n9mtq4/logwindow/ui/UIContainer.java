@@ -13,7 +13,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.n9mtq4.logwindow.gui;
+package com.n9mtq4.logwindow.ui;
 
 import com.n9mtq4.logwindow.BaseConsole;
 import com.n9mtq4.logwindow.listener.ListenerAttribute;
@@ -25,21 +25,21 @@ import java.util.Random;
 /**
  * Created by will on 8/13/15 at 2:58 AM.
  */
-public final class GuiEntry {
+public final class UIContainer {
 	
 	private static final Random random = new Random();
 	
-	private final ConsoleGui gui;
+	private final ConsoleUI gui;
 	private final String givenName;
 	
-	public GuiEntry(ConsoleGui gui) {
+	public UIContainer(ConsoleUI gui) {
 		this.gui = gui;
 		this.givenName = gui.getClass().getName() + ":" + String.valueOf(random.nextInt());
 	}
 	
 	/**
-	 * Note: Add your gui stuff here when making a custom {@link ConsoleGui}<br>
-	 * Called when {@link ConsoleGui} is added to {@link BaseConsole}.
+	 * Note: Add your gui stuff here when making a custom {@link ConsoleUI}<br>
+	 * Called when {@link ConsoleUI} is added to {@link BaseConsole}.
 	 * */
 	public final void init() {
 		gui.init();
@@ -47,7 +47,7 @@ public final class GuiEntry {
 	
 	/**
 	 * Note: Close streams or dispose {@link javax.swing.JFrame} here.<br>
-	 * Called when {@link BaseConsole} is closing or your {@link ConsoleGui} is removed.
+	 * Called when {@link BaseConsole} is closing or your {@link ConsoleUI} is removed.
 	 * */
 	public final void dispose() {
 		gui.dispose();
@@ -74,7 +74,7 @@ public final class GuiEntry {
 		gui.printImage(image);
 	}
 	
-	public final ConsoleGui getGui() {
+	public final ConsoleUI getGui() {
 		return gui;
 	}
 	

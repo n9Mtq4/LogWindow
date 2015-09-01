@@ -17,9 +17,9 @@ package com.n9mtq4.logwindow.modules;
 
 import com.n9mtq4.logwindow.BaseConsole;
 import com.n9mtq4.logwindow.events.ConsoleActionEvent;
-import com.n9mtq4.logwindow.gui.GuiEntry;
-import com.n9mtq4.logwindow.gui.attributes.History;
 import com.n9mtq4.logwindow.listener.StringListener;
+import com.n9mtq4.logwindow.ui.UIContainer;
+import com.n9mtq4.logwindow.ui.attributes.History;
 import com.n9mtq4.logwindow.utils.Colour;
 
 /**
@@ -45,7 +45,7 @@ public final class ModuleHistory implements StringListener {
 			}else if (e.getCommand().getLength() == 2) {
 				if (e.getCommand().getArg(1).equalsIgnoreCase("clear")) {
 					while (baseConsole.getHistory().size() > 0) baseConsole.getHistory().remove(0);
-					for (GuiEntry g : baseConsole.getGuiEntries()) {
+					for (UIContainer g : baseConsole.getGuiEntries()) {
 						if (g.getGui() instanceof History) {
 							((History) g.getGui()).historyUpdate();
 						}

@@ -13,7 +13,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.n9mtq4.logwindow.gui;
+package com.n9mtq4.logwindow.ui;
 
 import com.n9mtq4.logwindow.BaseConsole;
 import com.n9mtq4.logwindow.utils.Colour;
@@ -24,19 +24,19 @@ import java.awt.*;
  * Created by will on 8/13/15 at 2:24 AM.<br>
  * A default implementation of ConsoleGui
  */
-public abstract class SimpleConsoleGui implements ConsoleGui {
+public abstract class SimpleConsoleUI implements ConsoleUI {
 	
 	private final BaseConsole parent;
 	private Colour defaultTextColour;
 	
-	public SimpleConsoleGui(BaseConsole parent) {
+	public SimpleConsoleUI(BaseConsole parent) {
 		this.parent = parent;
 	}
 	
 	/**
 	 * Note: Override me!<br>
-	 * Note: Add your gui stuff here when making a custom {@link ConsoleGui}<br>
-	 * Called when {@link ConsoleGui} is added to {@link BaseConsole}.
+	 * Note: Add your gui stuff here when making a custom {@link ConsoleUI}<br>
+	 * Called when {@link ConsoleUI} is added to {@link BaseConsole}.
 	 */
 	@Override
 	public abstract void init();
@@ -44,19 +44,19 @@ public abstract class SimpleConsoleGui implements ConsoleGui {
 	/**
 	 * Note: Override me!<br>
 	 * Note: Close streams or dispose {@link javax.swing.JFrame} here.<br>
-	 * Called when {@link BaseConsole} is closing or your {@link ConsoleGui} is removed.
+	 * Called when {@link BaseConsole} is closing or your {@link ConsoleUI} is removed.
 	 */
 	@Override
 	public abstract void dispose();
 	
 	/**
-	 * Note: Don't override me! Override {@link ConsoleGui#print} instead<br>
+	 * Note: Don't override me! Override {@link ConsoleUI#print} instead<br>
 	 * Note: Don't use me!<br>
 	 * A small helper method that {@link BaseConsole} calls. This method adds support for default text color.
 	 *
 	 * @param text   the text
 	 * @param colour the colour
-	 * @see ConsoleGui#print
+	 * @see ConsoleUI#print
 	 */
 	@Deprecated
 	@Override
@@ -76,8 +76,8 @@ public abstract class SimpleConsoleGui implements ConsoleGui {
 	 * @param colour The colour that the user wants to print the text in. If colour is null, it will be
 	 *               automatically set to the defaultTextColour, however, if you haven't given
 	 *               defaultTextColour a colour be prepared for colour to be null
-	 * @see SimpleConsoleGui#setDefaultTextColour
-	 * @see SimpleConsoleGui#getDefaultTextColour
+	 * @see SimpleConsoleUI#setDefaultTextColour
+	 * @see SimpleConsoleUI#getDefaultTextColour
 	 */
 	public abstract void printText(String text, Colour colour);
 	
@@ -96,7 +96,7 @@ public abstract class SimpleConsoleGui implements ConsoleGui {
 	 * lower level.
 	 *
 	 * @return The colour that is the default colour to be used when one isn't specified
-	 * @see SimpleConsoleGui#setDefaultTextColour
+	 * @see SimpleConsoleUI#setDefaultTextColour
 	 */
 	public final Colour getDefaultTextColour() {
 		return defaultTextColour;
@@ -108,7 +108,7 @@ public abstract class SimpleConsoleGui implements ConsoleGui {
 	 * lower level.
 	 *
 	 * @param defaultTextColour The colour that is the default colour to be used when one isn't specified
-	 * @see SimpleConsoleGui#getDefaultTextColour
+	 * @see SimpleConsoleUI#getDefaultTextColour
 	 */
 	public final void setDefaultTextColour(Colour defaultTextColour) {
 		this.defaultTextColour = defaultTextColour;

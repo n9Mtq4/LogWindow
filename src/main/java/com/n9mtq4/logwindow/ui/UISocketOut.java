@@ -13,7 +13,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.n9mtq4.logwindow.gui;
+package com.n9mtq4.logwindow.ui;
 
 import com.n9mtq4.logwindow.BaseConsole;
 import com.n9mtq4.logwindow.events.ConsoleActionEvent;
@@ -30,10 +30,10 @@ import java.awt.*;
  */
 
 /**
- * A {@link ConsoleGui} that takes any output and
+ * A {@link ConsoleUI} that takes any output and
  * Sends it over a socket for a client somewhere to recieve
  */
-public class GuiSocketOut extends SimpleConsoleGui {
+public class UISocketOut extends SimpleConsoleUI {
 	
 	/**
 	 * The ip to connect to
@@ -50,9 +50,9 @@ public class GuiSocketOut extends SimpleConsoleGui {
 	/**
 	 * A {@link ListenerAttribute} to help this gui
 	 */
-	private GuiSocketOut.SocketInputSender helperListener;
+	private UISocketOut.SocketInputSender helperListener;
 	
-	public GuiSocketOut(BaseConsole parent) {
+	public UISocketOut(BaseConsole parent) {
 		super(parent);
 	}
 	
@@ -60,7 +60,7 @@ public class GuiSocketOut extends SimpleConsoleGui {
 		
 		setDefaultTextColour(Colour.BLACK);
 //		A helper listener for this gui
-		helperListener = new GuiSocketOut.SocketInputSender(this);
+		helperListener = new UISocketOut.SocketInputSender(this);
 		getParent().addListenerAttribute(helperListener);
 		
 	}
@@ -104,7 +104,7 @@ public class GuiSocketOut extends SimpleConsoleGui {
 	 * Gets the ip
 	 *
 	 * @return the ip
-	 * @see GuiSocketOut#setIp
+	 * @see UISocketOut#setIp
 	 */
 	public final String getIp() {
 		return ip;
@@ -114,7 +114,7 @@ public class GuiSocketOut extends SimpleConsoleGui {
 	 * Gets the port
 	 *
 	 * @return the port
-	 * @see GuiSocketOut#setPort
+	 * @see UISocketOut#setPort
 	 */
 	public final int getPort() {
 		return port;
@@ -133,7 +133,7 @@ public class GuiSocketOut extends SimpleConsoleGui {
 	 * Sets the ip
 	 *
 	 * @param ip the new ip to set
-	 * @see GuiSocketOut#getIp
+	 * @see UISocketOut#getIp
 	 */
 	public final void setIp(String ip) {
 		this.ip = ip;
@@ -143,25 +143,25 @@ public class GuiSocketOut extends SimpleConsoleGui {
 	 * Sets the port
 	 *
 	 * @param port the new port to set
-	 * @see GuiSocketOut#getPort
+	 * @see UISocketOut#getPort
 	 */
 	public final void setPort(int port) {
 		this.port = port;
 	}
 	
 	/**
-	 * A helper class for {@link GuiSocketOut}
+	 * A helper class for {@link UISocketOut}
 	 */
 	public static final class SocketInputSender implements StringListener, DisableListener, RemovalListener {
 		
-		private final GuiSocketOut parent;
+		private final UISocketOut parent;
 		
 		/**
 		 * Instantiates a new Socket input sender.
 		 *
 		 * @param parent the parent
 		 */
-		public SocketInputSender(GuiSocketOut parent) {
+		public SocketInputSender(UISocketOut parent) {
 			this.parent = parent;
 		}
 		

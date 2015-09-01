@@ -13,7 +13,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.n9mtq4.logwindow.gui;
+package com.n9mtq4.logwindow.ui;
 
 import com.n9mtq4.logwindow.BaseConsole;
 import com.n9mtq4.logwindow.managers.SocketManager;
@@ -24,7 +24,7 @@ import java.awt.*;
 /**
  * Created by Will on 12/29/14.
  */
-public class GuiSocket extends SimpleConsoleGui {
+public class UISocket extends SimpleConsoleUI {
 	
 	/**
 	 * The Port to open the server on.
@@ -34,7 +34,7 @@ public class GuiSocket extends SimpleConsoleGui {
 	
 	private SocketManager s = new SocketManager();
 	
-	public GuiSocket(BaseConsole parent) {
+	public UISocket(BaseConsole parent) {
 		super(parent);
 	}
 	

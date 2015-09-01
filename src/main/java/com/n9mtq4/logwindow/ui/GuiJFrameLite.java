@@ -13,16 +13,16 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.n9mtq4.logwindow.gui;
+package com.n9mtq4.logwindow.ui;
 
 import com.n9mtq4.logwindow.BaseConsole;
-import com.n9mtq4.logwindow.gui.attributes.HasFrame;
-import com.n9mtq4.logwindow.gui.attributes.History;
-import com.n9mtq4.logwindow.gui.attributes.Textable;
-import com.n9mtq4.logwindow.parts.NTextArea;
+import com.n9mtq4.logwindow.ui.attributes.HasFrame;
+import com.n9mtq4.logwindow.ui.attributes.History;
+import com.n9mtq4.logwindow.ui.attributes.Textable;
 import com.n9mtq4.logwindow.utils.Colour;
 
 import javax.swing.*;
+import javax.swing.text.DefaultCaret;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -32,16 +32,16 @@ import java.awt.event.KeyListener;
 /**
  * Created by Will on 12/29/14.
  */
-public final class GuiJFrame extends SimpleConsoleGui implements Textable, History, HasFrame {
+public final class GuiJFrameLite extends SimpleConsoleUI implements Textable, History, HasFrame {
 	
 	private JFrame frame;
 	private JPanel noWrapPanel;
-	private NTextArea area;
+	private JTextArea area;
 	private JTextField field;
 	private JScrollPane scrollArea;
 	private int historyIndex;
 	
-	public GuiJFrame(BaseConsole parent) {
+	public GuiJFrameLite(BaseConsole parent) {
 		super(parent);
 	}
 	
@@ -55,10 +55,13 @@ public final class GuiJFrame extends SimpleConsoleGui implements Textable, Histo
 		}
 		setDefaultTextColour(Colour.BLACK);
 		this.historyIndex = getParent().getHistory().size();
-		frame = new JFrame("Console");
+		frame = new JFrame("Console Lite");
 		
-		area = new NTextArea();
-		area.setUserEditable(false);
+		area = new JTextArea();
+		area.setEditable(false);
+		DefaultCaret caret = (DefaultCaret) area.getCaret();
+		caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
+		
 		noWrapPanel = new JPanel(new BorderLayout());
 		noWrapPanel.add(area);
 		scrollArea = new JScrollPane(noWrapPanel);
@@ -91,14 +94,13 @@ public final class GuiJFrame extends SimpleConsoleGui implements Textable, Histo
 			
 			@Override
 			public void keyPressed(KeyEvent keyEvent) {
-//				support for arrow up/down for scrolling through history
-				if (keyEvent.getKeyCode() == KeyEvent.VK_UP) { // up
+				if (keyEvent.getKeyCode() == KeyEvent.VK_UP) {
 					if (historyIndex > 0) {
 						historyIndex--;
 						field.setText(getParent().getHistory().get(historyIndex));
 						field.setCaretPosition(field.getText().length());
 					}
-				}else if (keyEvent.getKeyCode() == KeyEvent.VK_DOWN) { // down
+				}else if (keyEvent.getKeyCode() == KeyEvent.VK_DOWN) {
 					if (historyIndex < getParent().getHistory().size() - 1) {
 						historyIndex++;
 						field.setText(getParent().getHistory().get(historyIndex));
@@ -120,52 +122,42 @@ public final class GuiJFrame extends SimpleConsoleGui implements Textable, Histo
 	 * @param e the e
 	 */
 	public final void onFieldEnter(ActionEvent e) {
-		JTextField source = (JTextField) e.getSource(); // get the JTextField
-		String text = source.getText(); // get the text in the JTextField
-		if (!text.trim().equals("")) { // if there's something entered
-			source.setText(""); // clear the field
-			getParent().sendPluginsString(text); // send it to the BaseConsole
+		JTextField source = (JTextField) e.getSource();
+		String text = source.getText();
+		historyIndex = getParent().getHistory().size();
+		if (!text.trim().equals("")) {
+			source.setText("");
+			getParent().sendPluginsString(text);
 		}
 	}
 	
 	@Override
-	public final void dispose() {
-		this.getJFrame().dispose();
+	public final void printText(String text, Colour colour) {
+		DefaultCaret caret = (DefaultCaret) area.getCaret();
+		caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
+		area.append(text);
 	}
 	
 	@Override
 	public final void printImage(Image image) {
-		
-		area.appendPicture(image);
-		
+//		TODO: open a pop-up window with the image.
 	}
 	
 	@Override
-	public final void printText(String text, Colour colour) {
-		
-		area.append(text, colour);
-		
+	public final void dispose() {
+		this.frame.dispose();
 	}
 	
-	/**
-	 * NOTE: Attribute override!<br>
-	 */
 	@Override
 	public final String getText() {
 		return area.getText();
 	}
 	
-	/**
-	 * NOTE: Attribute override!<br>
-	 */
 	@Override
 	public final void setText(String text) {
 		area.setText(text);
 	}
 	
-	/**
-	 * NOTE: Attribute override!<br>
-	 */
 	@Override
 	public final void historyUpdate() {
 		this.historyIndex = getParent().getHistory().size();
@@ -194,7 +186,7 @@ public final class GuiJFrame extends SimpleConsoleGui implements Textable, Histo
 	 *
 	 * @return the area
 	 */
-	public final NTextArea getArea() {
+	public final JTextArea getArea() {
 		return area;
 	}
 	
@@ -203,7 +195,7 @@ public final class GuiJFrame extends SimpleConsoleGui implements Textable, Histo
 	 *
 	 * @param area the area
 	 */
-	public final void setArea(NTextArea area) {
+	public final void setArea(JTextArea area) {
 		this.area = area;
 	}
 	
@@ -243,12 +235,8 @@ public final class GuiJFrame extends SimpleConsoleGui implements Textable, Histo
 		this.scrollArea = scrollArea;
 	}
 	
-	/**
-	 * NOTE: Attribute override!<br>
-	 */
 	@Override
 	public final JFrame getJFrame() {
 		return this.frame;
 	}
-	
 }

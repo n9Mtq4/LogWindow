@@ -18,9 +18,6 @@ package com.n9mtq4.logwindow;
 import com.n9mtq4.logwindow.command.ConsoleCommand;
 import com.n9mtq4.logwindow.dispose.ShutdownHook;
 import com.n9mtq4.logwindow.events.*;
-import com.n9mtq4.logwindow.gui.ConsoleGui;
-import com.n9mtq4.logwindow.gui.GuiEntry;
-import com.n9mtq4.logwindow.gui.attributes.History;
 import com.n9mtq4.logwindow.listener.DisableListener;
 import com.n9mtq4.logwindow.listener.ListenerAttribute;
 import com.n9mtq4.logwindow.listener.ListenerContainer;
@@ -29,6 +26,9 @@ import com.n9mtq4.logwindow.managers.PluginManager;
 import com.n9mtq4.logwindow.managers.StdoutRedirect;
 import com.n9mtq4.logwindow.modules.ModuleJarLoader;
 import com.n9mtq4.logwindow.modules.ModuleListener;
+import com.n9mtq4.logwindow.ui.ConsoleUI;
+import com.n9mtq4.logwindow.ui.UIContainer;
+import com.n9mtq4.logwindow.ui.attributes.History;
 import com.n9mtq4.logwindow.utils.Colour;
 
 import java.io.File;
@@ -77,12 +77,12 @@ public final class BaseConsole implements Serializable {
 	 */
 	private StdoutRedirect stdoutRedirect;
 	/**
-	 * Contains all {@link ConsoleGui}s attached.
+	 * Contains all {@link ConsoleUI}s attached.
 	 *
 	 * @see BaseConsole#addGui
 	 * @see BaseConsole#removeGuiEntry
 	 */
-	private final ArrayList<GuiEntry> guis;
+	private final ArrayList<UIContainer> guis;
 	/**
 	 * The thread that is called when the program exits
 	 */
@@ -97,7 +97,7 @@ public final class BaseConsole implements Serializable {
 		this.history = new ArrayList<String>();
 		globalList.add(this);
 		this.id = globalList.indexOf(this);
-		this.guis = new ArrayList<GuiEntry>();
+		this.guis = new ArrayList<UIContainer>();
 		this.shutdownHook = new ShutdownHook(this);
 		Runtime.getRuntime().addShutdownHook(shutdownHook);
 	}
@@ -115,18 +115,18 @@ public final class BaseConsole implements Serializable {
 	/**
 	 * Instantiates a new Base console.
 	 *
-	 * @param consoleGui the console gui
+	 * @param consoleUI the console gui
 	 */
-	public BaseConsole(ConsoleGui consoleGui) {
+	public BaseConsole(ConsoleUI consoleUI) {
 		this();
-		addGui(consoleGui);
+		addGui(consoleUI);
 	}
 	
 	/**
-	 * Handles closing down the {@link ListenerAttribute}s and {@link ConsoleGui}s.<br>
-	 * Note: if overriding make sure to call super to close {@link ListenerAttribute} and {@link ConsoleGui}.<br>
+	 * Handles closing down the {@link ListenerAttribute}s and {@link ConsoleUI}s.<br>
+	 * Note: if overriding make sure to call super to close {@link ListenerAttribute} and {@link ConsoleUI}.<br>
 	 *
-	 * @see ConsoleGui#dispose
+	 * @see ConsoleUI#dispose
 	 * @see DisableListener#onDisable
 	 * @see RemovalListener#onRemoval
 	 */
@@ -145,10 +145,10 @@ public final class BaseConsole implements Serializable {
 				
 			}
 		}
-		ArrayList<GuiEntry> guis;
+		ArrayList<UIContainer> guis;
 		while ((guis = this.getGuiEntries()).size() > 0) {
 			try {
-				for (GuiEntry g : guis) {
+				for (UIContainer g : guis) {
 					
 					this.removeGuiEntry(g);
 					
@@ -185,7 +185,7 @@ public final class BaseConsole implements Serializable {
 	 * @param colour The colour to print the text in.
 	 */
 	public final void print(Object object, Colour colour) {
-		for (GuiEntry gui : guis) {
+		for (UIContainer gui : guis) {
 			gui.print(String.valueOf(object), colour);
 		}
 	}
@@ -329,14 +329,14 @@ public final class BaseConsole implements Serializable {
 	}
 	
 	/**
-	 * Note: use me to send input when using a custom {@link ConsoleGui}.<br>
+	 * Note: use me to send input when using a custom {@link ConsoleUI}.<br>
 	 * Takes {@link String} and iterates through all {@link ListenerAttribute} on console.
 	 *
 	 * @param text String to send to
 	 */
 	public final void sendPluginsString(String text) {
 		history.add(text);
-		for (GuiEntry g : guis) {
+		for (UIContainer g : guis) {
 			if (g.getGui() instanceof History) ((History) g.getGui()).historyUpdate();
 		}
 		push(text);
@@ -649,8 +649,8 @@ public final class BaseConsole implements Serializable {
 	 *
 	 * @return the gui
 	 */
-	public final ArrayList<GuiEntry> getGuiEntries() {
-		return (ArrayList<GuiEntry>) guis.clone();
+	public final ArrayList<UIContainer> getGuiEntries() {
+		return (ArrayList<UIContainer>) guis.clone();
 	}
 	
 	/**
@@ -664,41 +664,41 @@ public final class BaseConsole implements Serializable {
 	}
 	
 	/**
-	 * Adds a {@link ConsoleGui} to the BaseConsole.
+	 * Adds a {@link ConsoleUI} to the BaseConsole.
 	 *
-	 * @param consoleGui the gui to add
+	 * @param consoleUI the gui to add
 	 */
-	public final void addGui(ConsoleGui consoleGui) {
-		guis.add(new GuiEntry(consoleGui));
-		consoleGui.init();
+	public final void addGui(ConsoleUI consoleUI) {
+		guis.add(new UIContainer(consoleUI));
+		consoleUI.init();
 	}
 	
 	/**
-	 * Removes a {@link GuiEntry} from the BaseConsole.
+	 * Removes a {@link UIContainer} from the BaseConsole.
 	 *
-	 * @param guiEntry the gui to remove
+	 * @param UIContainer the gui to remove
 	 */
-	public final void removeGuiEntry(GuiEntry guiEntry) {
-		guis.remove(guiEntry);
-		guiEntry.getGui().dispose();
+	public final void removeGuiEntry(UIContainer UIContainer) {
+		guis.remove(UIContainer);
+		UIContainer.getGui().dispose();
 	}
 	
 	/**
-	 * Removes a {@link ConsoleGui} from the BaseConsole.
+	 * Removes a {@link ConsoleUI} from the BaseConsole.
 	 *
-	 * @param consoleGui the gui to remove
+	 * @param consoleUI the gui to remove
 	 */
-	public final void removeGui(ConsoleGui consoleGui) {
+	public final void removeGui(ConsoleUI consoleUI) {
 //		this prevents a concurrency issue.
 		int ir = 0;
 		for (int i = 0; i < guis.size(); i++) {
-			if (guis.get(i).getGui().equals(consoleGui)) {
+			if (guis.get(i).getGui().equals(consoleUI)) {
 				ir = i;
 				break;
 			}
 		}
 		guis.remove(ir);
-		consoleGui.dispose();
+		consoleUI.dispose();
 	}
 	
 	/**

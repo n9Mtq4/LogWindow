@@ -13,25 +13,37 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.n9mtq4.logwindow.gui.attributes;
+package com.n9mtq4.logwindow.ui.attributes;
 
 /**
  * Created by Will on 1/1/15.
  */
 
-import com.n9mtq4.logwindow.BaseConsole;
-import com.n9mtq4.logwindow.gui.ConsoleGui;
+import com.n9mtq4.logwindow.ui.ConsoleUI;
 
 /**
- * If a {@link ConsoleGui} has native support for history,
- * it might need a call when a {@link ConsoleGui} calls
- * {@link BaseConsole#sendPluginsString}
+ * A interface that flags a {@link ConsoleUI} as having
+ * full control over the text that has been pushed to them and that the ConsoleGui
+ * can set the text that has already been sent to it.
  */
-public interface History {
+public interface Textable {
 	
 	/**
-	 * Called when {@link BaseConsole#sendPluginsString} is called
+	 * Gets the current text in a compatible {@link ConsoleUI}.
+	 *
+	 * @return The text that the
+	 * has.
+	 * @see Textable#setText
 	 */
-	void historyUpdate();
+	String getText();
+	
+	/**
+	 * Sets the current text in a compatible {@link ConsoleUI}.
+	 *
+	 * @param text The text to set the
+	 *             to.
+	 * @see Textable#getText
+	 */
+	void setText(String text);
 	
 }

@@ -13,7 +13,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.n9mtq4.logwindow.gui;
+package com.n9mtq4.logwindow.ui;
 
 import com.n9mtq4.logwindow.BaseConsole;
 import com.n9mtq4.logwindow.utils.Colour;
@@ -25,14 +25,14 @@ import java.util.Scanner;
 /**
  * Created by Will on 12/11/14.
  */
-public final class GuiScanner extends SimpleConsoleGui {
+public final class UIScanner extends SimpleConsoleUI {
 	
 	private Scanner scan;
 	private Console console;
 	private boolean shouldScan;
 	private boolean ansi;
 	
-	public GuiScanner(BaseConsole parent) {
+	public UIScanner(BaseConsole parent) {
 		super(parent);
 	}
 	
@@ -64,10 +64,10 @@ public final class GuiScanner extends SimpleConsoleGui {
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
-				while (GuiScanner.this.isShouldScan()) {
+				while (UIScanner.this.isShouldScan()) {
 					System.out.print("> ");
-					String s = GuiScanner.this.console.readLine();
-					GuiScanner.this.getParent().sendPluginsString(s);
+					String s = UIScanner.this.console.readLine();
+					UIScanner.this.getParent().sendPluginsString(s);
 				}
 			}
 		}, "Console Input Listener").start();
@@ -84,10 +84,10 @@ public final class GuiScanner extends SimpleConsoleGui {
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
-				while (GuiScanner.this.isShouldScan()) {
+				while (UIScanner.this.isShouldScan()) {
 					System.out.print("> ");
 					String s = scan.nextLine();
-					GuiScanner.this.getParent().sendPluginsString(s);
+					UIScanner.this.getParent().sendPluginsString(s);
 				}
 			}
 		}, "Scanner Input Listener").start();

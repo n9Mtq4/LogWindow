@@ -13,27 +13,25 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.n9mtq4.logwindow.gui.attributes;
-
-import com.n9mtq4.logwindow.gui.ConsoleGui;
-
-import javax.swing.*;
+package com.n9mtq4.logwindow.ui.attributes;
 
 /**
- * Created by will on 1/7/15.
+ * Created by Will on 1/1/15.
  */
 
+import com.n9mtq4.logwindow.BaseConsole;
+import com.n9mtq4.logwindow.ui.ConsoleUI;
+
 /**
- * An interface that flags a {@link ConsoleGui} that it contains a {@link JFrame}<br>
- * use if (consoleGui instanceof HasFrame) {}
+ * If a {@link ConsoleUI} has native support for history,
+ * it might need a call when a {@link ConsoleUI} calls
+ * {@link BaseConsole#sendPluginsString}
  */
-public interface HasFrame {
+public interface History {
 	
 	/**
-	 * If the {@link ConsoleGui} implements HasFrame, get the jframe
-	 *
-	 * @return the j frame
+	 * Called when {@link BaseConsole#sendPluginsString} is called
 	 */
-	JFrame getJFrame();
+	void historyUpdate();
 	
 }

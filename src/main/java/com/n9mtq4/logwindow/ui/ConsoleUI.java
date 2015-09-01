@@ -13,7 +13,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.n9mtq4.logwindow.gui;
+package com.n9mtq4.logwindow.ui;
 
 import com.n9mtq4.logwindow.BaseConsole;
 import com.n9mtq4.logwindow.listener.ListenerAttribute;
@@ -27,17 +27,17 @@ import java.io.Serializable;
  * The interface that declares that the class is a gui for
  * a BaseConsole.
  */
-public interface ConsoleGui extends Serializable {
+public interface ConsoleUI extends Serializable {
 	
 	/**
-	 * Note: Add your gui stuff here when making a custom {@link ConsoleGui}<br>
-	 * Called when {@link ConsoleGui} is added to {@link BaseConsole}.
+	 * Note: Add your gui stuff here when making a custom {@link ConsoleUI}<br>
+	 * Called when {@link ConsoleUI} is added to {@link BaseConsole}.
 	 */
 	void init();
 	
 	/**
 	 * Note: Close streams or dispose {@link javax.swing.JFrame} here.<br>
-	 * Called when {@link BaseConsole} is closing or your {@link ConsoleGui} is removed.
+	 * Called when {@link BaseConsole} is closing or your {@link ConsoleUI} is removed.
 	 */
 	void dispose();
 	
