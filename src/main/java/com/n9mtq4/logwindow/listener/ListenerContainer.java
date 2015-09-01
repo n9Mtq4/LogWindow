@@ -70,133 +70,205 @@ public final class ListenerContainer implements Serializable {
 	private ArrayList<BaseConsole> linkedBaseConsoles;
 	private boolean enabled;
 	private boolean ignoreDone;
+	private boolean isAsyncAddition;
+	private boolean isAsyncEnable;
 	private boolean isAsyncString;
 	private boolean isAsyncObject;
+	private boolean isAsyncDisable;
+	private boolean isAsyncRemoval;
 	
 	private ListenerContainer(ListenerAttribute listener) {
 		this.listener = listener;
 		this.linkedBaseConsoles = new ArrayList<BaseConsole>();
 		this.enabled = false;
 		this.ignoreDone = false;
+		this.isAsyncAddition = false;
 		this.isAsyncString = false;
 		this.isAsyncObject = false;
+		this.isAsyncEnable = false;
+		this.isAsyncDisable = false;
+		this.isAsyncRemoval = false;
 		annotations();
 	}
 	
 	public final void pushObject(SentObjectEvent sentObjectEvent) {
-		if (isAsyncObject) {
-			
-			final SentObjectEvent sentObjectEvent1 = sentObjectEvent;
-			new Thread(new Runnable() {
-				@Override
-				public void run() {
-					pushSendObjectEvent(sentObjectEvent1);
-				}
-			}).start();
-			
-		}else {
-			pushSendObjectEvent(sentObjectEvent);
-		}
-	}
-	
-	public final void pushString(ConsoleActionEvent consoleActionEvent) {
-		if (isAsyncString) {
-			
-			final ConsoleActionEvent consoleActionEvent1 = consoleActionEvent;
-			new Thread(new Runnable() {
-				@Override
-				public void run() {
-					pushConsoleActionEvent(consoleActionEvent1);
-				}
-			}).start();
-			
-		}else {
-			pushConsoleActionEvent(consoleActionEvent);
-		}
-	}
-	
-	private void pushSendObjectEvent(SentObjectEvent sentObjectEvent) {
 		if (listener instanceof ObjectListener) {
-			try {
-				for (BaseConsole c : linkedBaseConsoles) {
-					((ObjectListener) listener).objectReceived(sentObjectEvent, c);
-				}
-			}catch (ConcurrentModificationException e1) {
-//			This is expected sometimes, and isn't a big deal
+			if (isAsyncObject) {
+				
+				final SentObjectEvent sentObjectEvent1 = sentObjectEvent;
+				new Thread(new Runnable() {
+					@Override
+					public void run() {
+						pushObjectEvent(sentObjectEvent1);
+					}
+				}).start();
+				
+			}else {
+				pushObjectEvent(sentObjectEvent);
 			}
 		}
 	}
 	
-	private void pushConsoleActionEvent(ConsoleActionEvent consoleActionEvent) {
+	public final void pushString(ConsoleActionEvent consoleActionEvent) {
 		if (listener instanceof StringListener) {
-			try {
-				for (BaseConsole c : linkedBaseConsoles) {
-					((StringListener) listener).actionPerformed(consoleActionEvent, c);
-				}
-			}catch (ConcurrentModificationException e1) {
-//				This is expected sometimes, and isn't a big deal
+			if (isAsyncString) {
+				
+				final ConsoleActionEvent consoleActionEvent1 = consoleActionEvent;
+				new Thread(new Runnable() {
+					@Override
+					public void run() {
+						pushStringEvent(consoleActionEvent1);
+					}
+				}).start();
+				
+			}else {
+				pushStringEvent(consoleActionEvent);
 			}
 		}
 	}
 	
 	public final void pushAdded(AdditionActionEvent additionActionEvent) {
 		if (listener instanceof AdditionListener) {
-			((AdditionListener) listener).onAddition(additionActionEvent);
+			if (isAsyncAddition) {
+				
+				final AdditionActionEvent additionActionEvent1 = additionActionEvent;
+				new Thread(new Runnable() {
+					@Override
+					public void run() {
+						pushAddedEvent(additionActionEvent1);
+					}
+				}).start();
+				
+			}else {
+				pushAddedEvent(additionActionEvent);
+			}
 		}
 	}
 	
 	public final void pushEnabled(EnableActionEvent enableActionEvent) {
 		if (listener instanceof EnableListener) {
-			((EnableListener) listener).onEnable(enableActionEvent);
+			if (isAsyncEnable) {
+				
+				final EnableActionEvent enableActionEvent1 = enableActionEvent;
+				new Thread(new Runnable() {
+					@Override
+					public void run() {
+						pushEnabledEvent(enableActionEvent1);
+					}
+				}).start();
+				
+			}else {
+				pushEnabledEvent(enableActionEvent);
+			}
 		}
 	}
 	
 	public final void pushDisabled(DisableActionEvent disableActionEvent) {
 		if (listener instanceof DisableListener) {
-			((DisableListener) listener).onDisable(disableActionEvent);
+			if (isAsyncDisable) {
+				
+				final DisableActionEvent disableActionEvent1 = disableActionEvent;
+				new Thread(new Runnable() {
+					@Override
+					public void run() {
+						pushDisabledEvent(disableActionEvent1);
+					}
+				}).start();
+				
+			}else {
+				pushDisabledEvent(disableActionEvent);
+			}
 		}
 	}
 	
 	public final void pushRemoved(RemovalActionEvent removalActionEvent) {
 		if (listener instanceof RemovalListener) {
-			((RemovalListener) listener).onRemoval(removalActionEvent);
+			if (isAsyncRemoval) {
+				
+				final RemovalActionEvent removalActionEvent1 = removalActionEvent;
+				new Thread(new Runnable() {
+					@Override
+					public void run() {
+						pushRemovedEvent(removalActionEvent1);
+					}
+				}).start();
+				
+			}else {
+				pushRemovedEvent(removalActionEvent);
+			}
 		}
 	}
+	
+	private void pushObjectEvent(SentObjectEvent sentObjectEvent) {
+		try {
+			for (BaseConsole c : linkedBaseConsoles) {
+				((ObjectListener) listener).objectReceived(sentObjectEvent, c);
+			}
+		}catch (ConcurrentModificationException e) {
+//			this is expected sometimes, and isn't a big deal
+		}
+	}
+	
+	private void pushStringEvent(ConsoleActionEvent consoleActionEvent) {
+		try {
+			for (BaseConsole c : linkedBaseConsoles) {
+				((StringListener) listener).actionPerformed(consoleActionEvent, c);
+			}
+		}catch (ConcurrentModificationException e) {
+//			this is expected sometimes, and isn't a big deal
+		}
+	}
+	
+	private void pushAddedEvent(AdditionActionEvent additionActionEvent) {
+		((AdditionListener) listener).onAddition(additionActionEvent);
+	}
+	
+	private void pushEnabledEvent(EnableActionEvent enableActionEvent) {
+		((EnableListener) listener).onEnable(enableActionEvent);
+	}
+	
+	private void pushDisabledEvent(DisableActionEvent disableActionEvent) {
+		((DisableListener) listener).onDisable(disableActionEvent);
+	}
+	
+	private void pushRemovedEvent(RemovalActionEvent removalActionEvent) {
+		((RemovalListener) listener).onRemoval(removalActionEvent);
+	}
+	
 	
 	private void annotations() {
-		actionPerformedAnnotation();
-		objectReceivedAnnotation();
-	}
-	
-	private void actionPerformedAnnotation() {
-		if (!(listener instanceof StringListener)) return;
-//		actionPerformed annotation checks
-		try {
-			Method action = listener.getClass().getDeclaredMethod("actionPerformed", ConsoleActionEvent.class, BaseConsole.class);
-			if (action.isAnnotationPresent(Async.class)) {
-				Async annotation = action.getAnnotation(Async.class);
-//				System.out.println(annotation.async());
-				this.isAsyncString = annotation.async();
-			}
-		}catch (Exception e) {
-			e.printStackTrace();
-			System.err.println("[WARNING]: something isn't quit right with actionPerformed Async annotation (" + this.getClass().getName() + ")!");
+		if (listener instanceof AdditionListener) {
+			this.isAsyncAddition = shouldBeAsync("onAddition", AdditionActionEvent.class);
+		}
+		if (listener instanceof EnableListener) {
+			this.isAsyncEnable = shouldBeAsync("onEnable", EnableActionEvent.class);
+		}
+		if (listener instanceof StringListener) {
+			this.isAsyncString = shouldBeAsync("actionPerformed", ConsoleActionEvent.class, BaseConsole.class);
+		}
+		if (listener instanceof ObjectListener) {
+			this.isAsyncObject = shouldBeAsync("objectReceived", SentObjectEvent.class, BaseConsole.class);
+		}
+		if (listener instanceof DisableListener) {
+			this.isAsyncDisable = shouldBeAsync("onDisable", DisableActionEvent.class);
+		}
+		if (listener instanceof RemovalListener) {
+			this.isAsyncRemoval = shouldBeAsync("onRemoval", RemovalActionEvent.class);
 		}
 	}
 	
-	private void objectReceivedAnnotation() {
-		if (!(listener instanceof ObjectListener)) return;
-//		objectReceived annotation checks
+	private boolean shouldBeAsync(String methodName, Class... params) {
 		try {
-			Method action = listener.getClass().getDeclaredMethod("objectReceived", SentObjectEvent.class, BaseConsole.class);
+			Method action = listener.getClass().getDeclaredMethod(methodName, params);
 			if (action.isAnnotationPresent(Async.class)) {
 				Async annotation = action.getAnnotation(Async.class);
-				this.isAsyncObject = annotation.async();
+				return annotation.async();
 			}
 		}catch (Exception e) {
 			e.printStackTrace();
-			System.err.println("[WARNING]: something isn't quit right with objectReceived Async annotation (" + this.getClass().getName() + ")!");
+			System.err.println("[WARNING]: something isn't quit right with " + methodName + " Async annotation (" + this.getClass().getName() + ")!");
 		}
+		return false;
 	}
 	
 	/**
