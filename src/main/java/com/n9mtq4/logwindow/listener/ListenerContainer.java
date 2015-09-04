@@ -70,6 +70,7 @@ public final class ListenerContainer implements Serializable {
 	private ArrayList<BaseConsole> linkedBaseConsoles;
 	private boolean enabled;
 	private boolean ignoreDone;
+	
 	private boolean isAsyncAddition;
 	private boolean isAsyncEnable;
 	private boolean isAsyncString;
@@ -284,7 +285,7 @@ public final class ListenerContainer implements Serializable {
 		
 		if (!linkedBaseConsoles.contains(baseConsole) || !baseConsole.getListenerContainers().contains(this)) {
 			linkedBaseConsoles.add(baseConsole);
-			baseConsole.addListenerContainer(this);
+			baseConsole.addListenerContainerRaw(this);
 			annotations();
 		}
 		
