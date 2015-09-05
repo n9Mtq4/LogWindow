@@ -16,6 +16,7 @@
 package com.n9mtq4.logwindow.managers;
 
 import com.n9mtq4.logwindow.BaseConsole;
+import com.n9mtq4.logwindow.events.EnableActionEvent;
 import com.n9mtq4.logwindow.listener.ListenerAttribute;
 import com.n9mtq4.logwindow.listener.ListenerContainer;
 import com.n9mtq4.logwindow.utils.JarLoader;
@@ -76,8 +77,8 @@ public class PluginManager {
 			
 		}
 		
-//		for (ListenerContainer listener : listeners) listener.pushEnabled(new EnableActionEvent(c));
-		for (ListenerContainer listener : listeners) c.enableListenerContainer(listener);
+		for (ListenerContainer listener : listeners) listener.pushEnabled(new EnableActionEvent(c));
+//		for (ListenerContainer listener : listeners) c.enableListenerContainer(listener);
 		
 	}
 	

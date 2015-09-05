@@ -81,7 +81,7 @@ public final class ListenerContainer implements Serializable {
 	private ListenerContainer(ListenerAttribute listener) {
 		this.listener = listener;
 		this.linkedBaseConsoles = new ArrayList<BaseConsole>();
-		this.enabled = false;
+		this.enabled = true;
 		this.ignoreDone = false;
 		this.isAsyncAddition = false;
 		this.isAsyncString = false;
