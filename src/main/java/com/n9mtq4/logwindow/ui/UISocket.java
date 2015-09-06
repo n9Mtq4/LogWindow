@@ -55,9 +55,9 @@ public class UISocket extends SimpleConsoleUI {
 	@Override
 	public final void printObject(Object object, Colour colour) {
 		if (colour != null) {
-			System.out.println(colour.getANSI() + String.valueOf(object));
+			System.out.println(colour.getANSI() + objectToString(object));
 		}else {
-			System.out.println(String.valueOf(object));
+			System.out.println(objectToString(object));
 		}
 	}
 	

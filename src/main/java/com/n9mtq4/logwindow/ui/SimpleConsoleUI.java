@@ -18,11 +18,28 @@ package com.n9mtq4.logwindow.ui;
 import com.n9mtq4.logwindow.BaseConsole;
 import com.n9mtq4.logwindow.utils.Colour;
 
+import java.util.Arrays;
+import java.util.Collection;
+
 /**
  * Created by will on 8/13/15 at 2:24 AM.<br>
  * A default implementation of ConsoleGui
  */
 public abstract class SimpleConsoleUI implements ConsoleUI {
+	
+	/**
+	 * Turns an object into a string.<br>
+	 * null -> "null"<br>
+	 * Object[] -> [arg0, arg1...]<br>
+	 * Collection -> [arg0, arg1...]<br>
+	 * Object -> String.valueOf(object)<br>
+	 * */
+	public static String objectToString(Object object) {
+		if (object == null) return "null";
+		if (object instanceof Object[]) return Arrays.toString((Object[]) object);
+		if (object instanceof Collection) return Arrays.toString(((Collection) object).toArray());
+		return String.valueOf(object);
+	}
 	
 	private final BaseConsole parent;
 	private Colour defaultTextColour;

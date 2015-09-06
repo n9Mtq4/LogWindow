@@ -135,7 +135,7 @@ public final class GuiJFrameLite extends SimpleConsoleUI implements Textable, Hi
 	public final void printObject(Object object, Colour colour) {
 		DefaultCaret caret = (DefaultCaret) area.getCaret();
 		caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
-		area.append(String.valueOf(object));
+		area.append(objectToString(object));
 	}
 	
 	@Override

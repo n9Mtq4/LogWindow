@@ -98,12 +98,12 @@ public final class UIScanner extends SimpleConsoleUI {
 		
 		if (colour != null) {
 			if (ansi) {
-				System.out.print(colour.getANSI() + String.valueOf(object) + Colour.getAnsiReset());
+				System.out.print(colour.getANSI() + objectToString(object) + Colour.getAnsiReset());
 			}else {
-				System.out.print(String.valueOf(object));
+				System.out.print(objectToString(object));
 			}
 		}else {
-			System.out.print(String.valueOf(object));
+			System.out.print(objectToString(object));
 		}
 		
 	}

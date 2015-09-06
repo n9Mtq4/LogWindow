@@ -80,7 +80,7 @@ public class UISocketOut extends SimpleConsoleUI {
 	public void printObject(Object object, Colour colour) {
 		
 		socketManager.clientConnect(ip, port);
-		socketManager.clientPrint(String.valueOf(object));
+		socketManager.clientPrint(objectToString(object));
 		socketManager.clientDisconnect();
 		
 	}

@@ -139,7 +139,7 @@ public final class GuiJFrame extends SimpleConsoleUI implements Textable, Histor
 		if (object instanceof Image) {
 			printImage((Image) object);
 		}else {
-			area.append(String.valueOf(object), colour);
+			area.append(objectToString(object), colour);
 		}
 		
 	}
