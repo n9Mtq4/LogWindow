@@ -132,15 +132,10 @@ public final class GuiJFrameLite extends SimpleConsoleUI implements Textable, Hi
 	}
 	
 	@Override
-	public final void printText(String text, Colour colour) {
+	public final void printObject(Object object, Colour colour) {
 		DefaultCaret caret = (DefaultCaret) area.getCaret();
 		caret.setUpdatePolicy(DefaultCaret.ALWAYS_UPDATE);
-		area.append(text);
-	}
-	
-	@Override
-	public final void printImage(Image image) {
-//		TODO: open a pop-up window with the image.
+		area.append(String.valueOf(object));
 	}
 	
 	@Override
@@ -239,4 +234,5 @@ public final class GuiJFrameLite extends SimpleConsoleUI implements Textable, Hi
 	public final JFrame getJFrame() {
 		return this.frame;
 	}
+	
 }

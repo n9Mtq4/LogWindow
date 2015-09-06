@@ -176,7 +176,7 @@ public final class BaseConsole implements Serializable {
 	 */
 	public final void print(Object object, Colour colour) {
 		for (UIContainer gui : guis) {
-			gui.print(String.valueOf(object), colour);
+			gui.print(object, colour);
 		}
 	}
 	
@@ -186,7 +186,7 @@ public final class BaseConsole implements Serializable {
 	 * @param object The object to print.
 	 */
 	public final void print(Object object) {
-		print(String.valueOf(object), null);
+		print(object, null);
 	}
 	
 	/**
@@ -196,7 +196,8 @@ public final class BaseConsole implements Serializable {
 	 * @param colour The colour to print the object in.
 	 */
 	public final void println(Object object, Colour colour) {
-		print(String.valueOf(object) + "\n", colour);
+		print(object, colour);
+		println();
 	}
 	
 	/**
@@ -205,7 +206,14 @@ public final class BaseConsole implements Serializable {
 	 * @param object The object to print.
 	 */
 	public final void println(Object object) {
-		print(String.valueOf(object) + "\n");
+		println(object, null);
+	}
+	
+	/**
+	 * Prints a new line.
+	 * */
+	public final void println() {
+		print("\n");
 	}
 	
 	/**

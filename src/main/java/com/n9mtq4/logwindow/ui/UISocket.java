@@ -19,8 +19,6 @@ import com.n9mtq4.logwindow.BaseConsole;
 import com.n9mtq4.logwindow.managers.SocketManager;
 import com.n9mtq4.logwindow.utils.Colour;
 
-import java.awt.*;
-
 /**
  * Created by Will on 12/29/14.
  */
@@ -55,22 +53,17 @@ public class UISocket extends SimpleConsoleUI {
 	}
 	
 	@Override
-	public final void printText(String text, Colour colour) {
+	public final void printObject(Object object, Colour colour) {
 		if (colour != null) {
-			System.out.println(colour.getANSI() + text);
+			System.out.println(colour.getANSI() + String.valueOf(object));
 		}else {
-			System.out.println(text);
+			System.out.println(String.valueOf(object));
 		}
 	}
 	
 	@Override
 	public final void dispose() {
 		s.close();
-	}
-	
-	@Override
-	public final void printImage(Image image) {
-//		no support for sending images over sockets... YET
 	}
 	
 }

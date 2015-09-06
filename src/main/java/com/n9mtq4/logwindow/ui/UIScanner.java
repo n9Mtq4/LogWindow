@@ -18,7 +18,6 @@ package com.n9mtq4.logwindow.ui;
 import com.n9mtq4.logwindow.BaseConsole;
 import com.n9mtq4.logwindow.utils.Colour;
 
-import java.awt.*;
 import java.io.Console;
 import java.util.Scanner;
 
@@ -95,23 +94,18 @@ public final class UIScanner extends SimpleConsoleUI {
 	}
 	
 	@Override
-	public final void printText(String text, Colour colour) {
+	public final void printObject(Object object, Colour colour) {
 		
 		if (colour != null) {
 			if (ansi) {
-				System.out.print(colour.getANSI() + text + Colour.getAnsiReset());
+				System.out.print(colour.getANSI() + String.valueOf(object) + Colour.getAnsiReset());
 			}else {
-				System.out.print(text);
+				System.out.print(String.valueOf(object));
 			}
 		}else {
-			System.out.print(text);
+			System.out.print(String.valueOf(object));
 		}
 		
-	}
-	
-	@Override
-	public final void printImage(Image image) {
-//		can't print images to command line
 	}
 	
 	/**

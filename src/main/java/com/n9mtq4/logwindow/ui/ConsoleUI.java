@@ -19,7 +19,6 @@ import com.n9mtq4.logwindow.BaseConsole;
 import com.n9mtq4.logwindow.listener.ListenerAttribute;
 import com.n9mtq4.logwindow.utils.Colour;
 
-import java.awt.*;
 import java.io.Serializable;
 
 /**
@@ -44,18 +43,11 @@ public interface ConsoleUI extends Serializable {
 	/**
 	 * Called when a {@link ListenerAttribute} wants to print something.<br>
 	 *
-	 * @param text   The string that the user wants to print that should be handled
-	 * @param colour The colour that the user wants to print the text in. If colour is null, it will be
+	 * @param object The object that the user wants to print that should be handled
+	 * @param colour The colour that the user wants to print the object in. If colour is null, it will be
 	 *               automatically set to the defaultTextColour, however, if you haven't given
 	 *               defaultTextColour a colour be prepared for colour to be null
 	 */
-	void print(String text, Colour colour);
-	
-	/**
-	 * Called when a {@link ListenerAttribute} wants to print an image.
-	 *
-	 * @param image the image
-	 */
-	void printImage(Image image);
+	void print(Object object, Colour colour);
 	
 }

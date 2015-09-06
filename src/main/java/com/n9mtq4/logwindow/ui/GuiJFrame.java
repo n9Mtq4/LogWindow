@@ -134,16 +134,19 @@ public final class GuiJFrame extends SimpleConsoleUI implements Textable, Histor
 	}
 	
 	@Override
-	public final void printImage(Image image) {
+	public final void printObject(Object object, Colour colour) {
 		
-		area.appendPicture(image);
+		if (object instanceof Image) {
+			printImage((Image) object);
+		}else {
+			area.append(String.valueOf(object), colour);
+		}
 		
 	}
 	
-	@Override
-	public final void printText(String text, Colour colour) {
+	private void printImage(Image image) {
 		
-		area.append(text, colour);
+		area.appendPicture(image);
 		
 	}
 	

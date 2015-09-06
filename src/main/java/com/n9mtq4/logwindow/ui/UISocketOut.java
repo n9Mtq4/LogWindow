@@ -23,8 +23,6 @@ import com.n9mtq4.logwindow.listener.*;
 import com.n9mtq4.logwindow.managers.SocketManager;
 import com.n9mtq4.logwindow.utils.Colour;
 
-import java.awt.*;
-
 /**
  * Created by will on 2/24/15.
  */
@@ -79,17 +77,12 @@ public class UISocketOut extends SimpleConsoleUI {
 	 * Get all output and send it to ip:port
 	 */
 	@Override
-	public void printText(String text, Colour colour) {
+	public void printObject(Object object, Colour colour) {
 		
 		socketManager.clientConnect(ip, port);
-		socketManager.clientPrint(text);
+		socketManager.clientPrint(String.valueOf(object));
 		socketManager.clientDisconnect();
 		
-	}
-	
-	@Override
-	public void printImage(Image image) {
-//		no support for the image... YET
 	}
 	
 	/**

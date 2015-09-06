@@ -18,8 +18,6 @@ package com.n9mtq4.logwindow.ui;
 import com.n9mtq4.logwindow.BaseConsole;
 import com.n9mtq4.logwindow.utils.Colour;
 
-import java.awt.*;
-
 /**
  * Created by will on 8/13/15 at 2:24 AM.<br>
  * A default implementation of ConsoleGui
@@ -54,32 +52,29 @@ public abstract class SimpleConsoleUI implements ConsoleUI {
 	 * Note: Don't use me!<br>
 	 * A small helper method that {@link BaseConsole} calls. This method adds support for default text color.
 	 *
-	 * @param text   the text
+	 * @param object the object to print
 	 * @param colour the colour
 	 * @see ConsoleUI#print
 	 */
 	@Deprecated
 	@Override
-	public void print(String text, Colour colour) {
+	public final void print(Object object, Colour colour) {
 		if (colour == null) colour = this.defaultTextColour;
-		printText(text, colour);
+		printObject(object, colour);
 	}
-	
-	@Override
-	public abstract void printImage(Image image);
 	
 	/**
 	 * Note: Override me!<br>
 	 * Called when a {@link BaseConsole} wants to print something.<br>
 	 *
-	 * @param text   The string that the user wants to print that should be handled
-	 * @param colour The colour that the user wants to print the text in. If colour is null, it will be
+	 * @param object The object that the user wants to print that should be handled
+	 * @param colour The colour that the user wants to print the object in. If colour is null, it will be
 	 *               automatically set to the defaultTextColour, however, if you haven't given
 	 *               defaultTextColour a colour be prepared for colour to be null
 	 * @see SimpleConsoleUI#setDefaultTextColour
 	 * @see SimpleConsoleUI#getDefaultTextColour
 	 */
-	public abstract void printText(String text, Colour colour);
+	public abstract void printObject(Object object, Colour colour);
 	
 	/**
 	 * Gets the parent {@link BaseConsole}.
