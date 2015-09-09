@@ -32,6 +32,12 @@ public final class ListenerContainer implements Serializable {
 	
 	private static final long serialVersionUID = 3878570265471623572L;
 	
+	/**
+	 * Make listener entry.
+	 *
+	 * @param listener the listener
+	 * @return the listener container
+	 */
 	public static ListenerContainer makeListenerEntry(ListenerAttribute listener) {
 		return new ListenerContainer(listener);
 	}
@@ -41,6 +47,7 @@ public final class ListenerContainer implements Serializable {
 	 * Call this method in the {@link ConsoleListener#onDisable}
 	 * and give it the {@link DisableActionEvent}
 	 *
+	 * @param listener the listener
 	 * @param e the DisableActionEvent
 	 */
 	public static void stopDisable(ListenerAttribute listener, DisableActionEvent e) {
@@ -56,6 +63,7 @@ public final class ListenerContainer implements Serializable {
 	 * Call this method in the {@link ConsoleListener#onRemoval}
 	 * and give it the {@link RemovalActionEvent}
 	 *
+	 * @param listener the listener
 	 * @param e the e
 	 */
 	public static void stopRemoval(ListenerAttribute listener, RemovalActionEvent e) {
@@ -70,6 +78,7 @@ public final class ListenerContainer implements Serializable {
 	private ArrayList<BaseConsole> linkedBaseConsoles;
 	private boolean enabled;
 	private boolean ignoreDone;
+	private boolean hasBeenEnabled;
 	
 	private boolean isAsyncAddition;
 	private boolean isAsyncEnable;
@@ -82,6 +91,7 @@ public final class ListenerContainer implements Serializable {
 		this.listener = listener;
 		this.linkedBaseConsoles = new ArrayList<BaseConsole>();
 		this.enabled = true;
+		this.hasBeenEnabled = false;
 		this.ignoreDone = false;
 		this.isAsyncAddition = false;
 		this.isAsyncString = false;
@@ -92,6 +102,11 @@ public final class ListenerContainer implements Serializable {
 		annotations();
 	}
 	
+	/**
+	 * Push object.
+	 *
+	 * @param sentObjectEvent the sent object event
+	 */
 	public final void pushObject(SentObjectEvent sentObjectEvent) {
 		if (listener instanceof ObjectListener) {
 			if (isAsyncObject) {
@@ -110,6 +125,11 @@ public final class ListenerContainer implements Serializable {
 		}
 	}
 	
+	/**
+	 * Push string.
+	 *
+	 * @param consoleActionEvent the console action event
+	 */
 	public final void pushString(ConsoleActionEvent consoleActionEvent) {
 		if (listener instanceof StringListener) {
 			if (isAsyncString) {
@@ -128,6 +148,11 @@ public final class ListenerContainer implements Serializable {
 		}
 	}
 	
+	/**
+	 * Push added.
+	 *
+	 * @param additionActionEvent the addition action event
+	 */
 	public final void pushAdded(AdditionActionEvent additionActionEvent) {
 		if (listener instanceof AdditionListener) {
 			if (isAsyncAddition) {
@@ -146,7 +171,13 @@ public final class ListenerContainer implements Serializable {
 		}
 	}
 	
+	/**
+	 * Push enabled.
+	 *
+	 * @param enableActionEvent the enable action event
+	 */
 	public final void pushEnabled(EnableActionEvent enableActionEvent) {
+		this.hasBeenEnabled = true;
 		if (listener instanceof EnableListener) {
 			if (isAsyncEnable) {
 				
@@ -164,6 +195,11 @@ public final class ListenerContainer implements Serializable {
 		}
 	}
 	
+	/**
+	 * Push disabled.
+	 *
+	 * @param disableActionEvent the disable action event
+	 */
 	public final void pushDisabled(DisableActionEvent disableActionEvent) {
 		if (listener instanceof DisableListener) {
 			if (isAsyncDisable) {
@@ -182,6 +218,11 @@ public final class ListenerContainer implements Serializable {
 		}
 	}
 	
+	/**
+	 * Push removed.
+	 *
+	 * @param removalActionEvent the removal action event
+	 */
 	public final void pushRemoved(RemovalActionEvent removalActionEvent) {
 		if (listener instanceof RemovalListener) {
 			if (isAsyncRemoval) {
@@ -277,8 +318,8 @@ public final class ListenerContainer implements Serializable {
 	 *
 	 * @param baseConsole the
 	 *                    to add this listener to.
-	 * @see BaseConsole#addListenerContainer(ListenerContainer) 
-	 * @deprecated use {@link BaseConsole#addListenerContainer(ListenerContainer)} instead.
+	 * @see BaseConsole#addListenerContainer(ListenerContainer)
+	 * @deprecated use  instead.
 	 */
 	@Deprecated
 	public final void addToConsole(BaseConsole baseConsole) {
@@ -295,8 +336,8 @@ public final class ListenerContainer implements Serializable {
 	 * Removes this listener from a {@link BaseConsole}.
 	 *
 	 * @param baseConsole the to remove this listener from.
-	 * @see BaseConsole#removeListenerContainer(ListenerContainer)  
-	 * @deprecated use {@link BaseConsole#removeListenerContainer(ListenerContainer)} instead.
+	 * @see BaseConsole#removeListenerContainer(ListenerContainer)
+	 * @deprecated use  instead.
 	 */
 	@Deprecated
 	public final void removeFromConsole(BaseConsole baseConsole) {
@@ -308,58 +349,136 @@ public final class ListenerContainer implements Serializable {
 		
 	}
 	
+	/**
+	 * Has been enabled.
+	 *
+	 * @return the boolean
+	 */
+	public final boolean hasBeenEnabled() {
+		return hasBeenEnabled;
+	}
+	
+	/**
+	 * Sets enabled.
+	 *
+	 * @param enabled the enabled
+	 * @return the enabled
+	 */
 	public final ListenerContainer setEnabled(boolean enabled) {
 		this.enabled = enabled;
 		return this;
 	}
 	
+	/**
+	 * Is ignore done.
+	 *
+	 * @return the boolean
+	 */
 	public final boolean isIgnoreDone() {
 		return ignoreDone;
 	}
 	
+	/**
+	 * Sets ignore done.
+	 *
+	 * @param ignoreDone the ignore done
+	 * @return the ignore done
+	 */
 	public final ListenerContainer setIgnoreDone(boolean ignoreDone) {
 		this.ignoreDone = ignoreDone;
 		return this;
 	}
 	
+	/**
+	 * Is async string.
+	 *
+	 * @return the boolean
+	 */
 	public final boolean isAsyncString() {
 		return isAsyncString;
 	}
 	
+	/**
+	 * Sets is async string.
+	 *
+	 * @param isAsyncString the is async string
+	 * @return the is async string
+	 */
 	public final ListenerContainer setIsAsyncString(boolean isAsyncString) {
 		this.isAsyncString = isAsyncString;
 		return this;
 	}
 	
+	/**
+	 * Is async object.
+	 *
+	 * @return the boolean
+	 */
 	public final boolean isAsyncObject() {
 		return isAsyncObject;
 	}
 	
+	/**
+	 * Sets is async object.
+	 *
+	 * @param isAsyncObject the is async object
+	 * @return the is async object
+	 */
 	public final ListenerContainer setIsAsyncObject(boolean isAsyncObject) {
 		this.isAsyncObject = isAsyncObject;
 		return this;
 	}
 	
+	/**
+	 * Gets attribute.
+	 *
+	 * @return the attribute
+	 */
 	public final ListenerAttribute getAttribute() {
 		return listener;
 	}
 	
+	/**
+	 * Gets linked base consoles.
+	 *
+	 * @return the linked base consoles
+	 */
 	public final ArrayList<BaseConsole> getLinkedBaseConsoles() {
 		return linkedBaseConsoles;
 	}
 	
+	/**
+	 * Is enabled.
+	 *
+	 * @return the boolean
+	 */
 	public final boolean isEnabled() {
 		return enabled;
 	}
 	
+	/**
+	 * Has ignore done.
+	 *
+	 * @return the boolean
+	 */
 	public final boolean hasIgnoreDone() {
 		return ignoreDone;
 	}
 	
+	/**
+	 * Has async string.
+	 *
+	 * @return the boolean
+	 */
 	public final boolean hasAsyncString() {
 		return isAsyncString;
 	}
 	
+	/**
+	 * Has async object.
+	 *
+	 * @return the boolean
+	 */
 	public final boolean hasAsyncObject() {
 		return isAsyncObject;
 	}

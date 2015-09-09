@@ -18,10 +18,8 @@ package com.n9mtq4.logwindow;
 import com.n9mtq4.logwindow.command.ConsoleCommand;
 import com.n9mtq4.logwindow.dispose.ShutdownHook;
 import com.n9mtq4.logwindow.events.*;
-import com.n9mtq4.logwindow.listener.DisableListener;
 import com.n9mtq4.logwindow.listener.ListenerAttribute;
 import com.n9mtq4.logwindow.listener.ListenerContainer;
-import com.n9mtq4.logwindow.listener.RemovalListener;
 import com.n9mtq4.logwindow.managers.PluginManager;
 import com.n9mtq4.logwindow.modules.ModuleJarLoader;
 import com.n9mtq4.logwindow.modules.ModuleListener;
@@ -93,16 +91,6 @@ public final class BaseConsole implements Serializable {
 	}
 	
 	/**
-	 * Constructor for {@link BaseConsole}.
-	 *
-	 * @param pluginDirectory loads all plugins in this file path.
-	 */
-	public BaseConsole(String pluginDirectory) {
-		this();
-		this.loadPlugins(pluginDirectory);
-	}
-	
-	/**
 	 * Instantiates a new Base console.
 	 *
 	 * @param consoleUI the console gui
@@ -117,8 +105,6 @@ public final class BaseConsole implements Serializable {
 	 * Note: if overriding make sure to call super to close {@link ListenerAttribute} and {@link ConsoleUI}.<br>
 	 *
 	 * @see ConsoleUI#dispose
-	 * @see DisableListener#onDisable
-	 * @see RemovalListener#onRemoval
 	 */
 	public final void dispose() {
 		
@@ -445,7 +431,7 @@ public final class BaseConsole implements Serializable {
 	 * @param listenerContainer the listener container
 	 */
 	public final void enableListenerContainer(ListenerContainer listenerContainer) {
-		if (!listenerContainer.isEnabled()) {
+		if (!listenerContainer.isEnabled() || !listenerContainer.hasBeenEnabled()) {
 			listenerContainer.setEnabled(true);
 			listenerContainer.pushEnabled(new EnableActionEvent(this));
 		}

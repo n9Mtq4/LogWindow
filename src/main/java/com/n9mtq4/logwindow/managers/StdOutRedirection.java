@@ -80,22 +80,33 @@ public final class StdOutRedirection extends PrintStream
 	
 	/**
 	 * Makes a new StdOutRedirect instance with show location
+	 * 
+	 * @param showLocation Should it show the location?
 	 * */
 	private StdOutRedirection(boolean showLocation) {
 		super(System.out);
 		this.showLocation = showLocation;
 	}
 	
+	/**
+	 * {@inheritDoc}
+	 * */
 	@Override
 	public final void onAddition(AdditionActionEvent additionActionEvent) {
 		this.baseConsole = additionActionEvent.getBaseConsole();
 	}
 	
+	/**
+	 * {@inheritDoc}
+	 * */
 	@Override
 	public final void onEnable(EnableActionEvent enableActionEvent) {
 		turnOn(showLocation);
 	}
 	
+	/**
+	 * {@inheritDoc}
+	 * */
 	@Override
 	public final void onDisable(DisableActionEvent disableActionEvent) {
 		turnOff();
@@ -197,7 +208,9 @@ public final class StdOutRedirection extends PrintStream
 //	END Overriding methods from PrintStream END
 	
 	/**
-	 * Gets the location of where the print was called f rom
+	 * Gets the location of where the print was called from
+	 * 
+	 * @return the line number and file from where it was called 4 stack traces ago.
 	 */
 	private final String getLocation() {
 		StackTraceElement element = Thread.currentThread().getStackTrace()[3];
