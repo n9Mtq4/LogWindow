@@ -23,16 +23,22 @@ import java.util.Collection;
 
 /**
  * Created by will on 8/13/15 at 2:24 AM.<br>
- * A default implementation of ConsoleGui
+ * A default implementation of ConsoleGui.
+ * 
+ * @since v5.0
+ * @author Will "n9Mtq4" Bresnahan
  */
 public abstract class SimpleConsoleUI implements ConsoleUI {
 	
 	/**
 	 * Turns an object into a string.<br>
-	 * null -> "null"<br>
-	 * Object[] -> [arg0, arg1...]<br>
-	 * Collection -> [arg0, arg1...]<br>
-	 * Object -> String.valueOf(object)<br>
+	 * null = "null"<br>
+	 * Object[] = [arg0, arg1...]<br>
+	 * Collection = [arg0, arg1...]<br>
+	 * Object = String.valueOf(object)<br>
+	 * 
+	 * @param object The Object to turn into a string
+	 * @return The string value of that object
 	 * */
 	public static String objectToString(Object object) {
 		if (object == null) return "null";

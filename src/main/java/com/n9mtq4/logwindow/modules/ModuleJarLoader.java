@@ -29,7 +29,10 @@ import java.io.IOException;
  */
 
 /**
- * A module to load jar files into the class path from a console
+ * A module to load jar files into the class path from a console.
+ * 
+ * @since v0.2
+ * @author Will "n9Mtq4" Bresnahan
  */
 public final class ModuleJarLoader implements StringListener {
 	

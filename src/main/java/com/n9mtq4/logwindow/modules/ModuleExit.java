@@ -20,7 +20,12 @@ import com.n9mtq4.logwindow.events.ConsoleActionEvent;
 import com.n9mtq4.logwindow.listener.StringListener;
 
 /**
- * Created by will on 3/2/15.
+ * Support for typing "exit" and the {@link BaseConsole} being closed.
+ * 
+ * <p>Created by will on 3/2/15.</p>
+ * 
+ * @since v4.0
+ * @author Will "n9Mtq4" Bresnahan
  */
 public final class ModuleExit implements StringListener {
 	

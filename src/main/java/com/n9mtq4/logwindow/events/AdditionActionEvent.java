@@ -20,7 +20,15 @@ import com.n9mtq4.logwindow.BaseConsole;
 import java.io.Serializable;
 
 /**
- * Created by Will on 11/2/14.
+ * The event that is given to the
+ * {@link com.n9mtq4.logwindow.listener.AdditionListener}.
+ * 
+ * <p>Created by Will on 11/2/14.</p>
+ * 
+ * @see EnableActionEvent
+ * @see com.n9mtq4.logwindow.listener.AdditionListener
+ * @since v1.3
+ * @author Will "n9Mtq4" Bresnahan
  */
 public final class AdditionActionEvent extends EnableActionEvent
 		implements Serializable {
@@ -30,7 +38,7 @@ public final class AdditionActionEvent extends EnableActionEvent
 	/**
 	 * Instantiates a new Addition action event.
 	 *
-	 * @param baseConsole the base console
+	 * @param baseConsole The {@link BaseConsole} that sent this {@link AdditionActionEvent}
 	 */
 	public AdditionActionEvent(BaseConsole baseConsole) {
 		super(baseConsole);

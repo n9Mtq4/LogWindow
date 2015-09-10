@@ -24,6 +24,17 @@ import java.io.Serializable;
  */
 public interface DisableListener extends Serializable, ListenerAttribute {
 	
+	/**
+	 * This method is called when the listener is disabled.
+	 * When the listener is disabled, it wont receive objects or strings.
+	 *
+	 * @see com.n9mtq4.logwindow.BaseConsole#disableListenerAttribute(ListenerAttribute)
+	 * @see com.n9mtq4.logwindow.BaseConsole#disableListenerAttribute(ListenerAttribute, int)
+	 * @see com.n9mtq4.logwindow.BaseConsole#disableListenerContainer(ListenerContainer)
+	 * @see com.n9mtq4.logwindow.BaseConsole#disableListenerContainer(ListenerContainer, int)
+	 * @since v5.0
+	 * @param disableActionEvent The disable action event
+	 * */
 	void onDisable(DisableActionEvent disableActionEvent);
 	
 }

@@ -15,24 +15,25 @@
 
 package com.n9mtq4.logwindow.ui.attributes;
 
-import com.n9mtq4.logwindow.ui.ConsoleUI;
-
 import javax.swing.*;
 
 /**
- * Created by will on 1/7/15.
- */
-
-/**
- * An interface that flags a {@link ConsoleUI} that it contains a {@link JFrame}<br>
- * use if (consoleGui instanceof HasFrame) {}
+ * An interface that flags a {@link com.n9mtq4.logwindow.ui.ConsoleUI} that it contains a {@link JFrame}.
+ * Allows code to get a {@link com.n9mtq4.logwindow.ui.ConsoleUI}'s {@link JFrame}.
+ * 
+ * <p>Created by will on 1/7/15.</p>
+ * 
+ * @see #getJFrame()
+ * @since v4.0
+ * @author Will "n9Mtq4" Bresnahan
  */
 public interface HasFrame {
 	
 	/**
-	 * If the {@link ConsoleUI} implements HasFrame, get the jframe
-	 *
-	 * @return the j frame
+	 * If the {@link com.n9mtq4.logwindow.ui.ConsoleUI} implements HasFrame, get the {@link JFrame}
+	 * 
+	 * @since v4.0
+	 * @return The {@link com.n9mtq4.logwindow.ui.ConsoleUI}'s {@link JFrame}
 	 */
 	JFrame getJFrame();
 	

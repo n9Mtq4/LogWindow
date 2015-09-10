@@ -25,7 +25,10 @@ import java.net.SocketAddress;
 
 /**
  * Created by Will on 11/17/14.
+ * 
+ * @deprecated Not yet stable for use.
  */
+@Deprecated
 public class SocketManager implements Serializable {
 	
 	private static final long serialVersionUID = 7827987558255161011L;

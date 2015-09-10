@@ -23,6 +23,9 @@ import java.util.Random;
 
 /**
  * Created by will on 8/13/15 at 2:58 AM.
+ * 
+ * @since v5.0
+ * @author Will "n9Mtq4" Bresnahan
  */
 public final class UIContainer {
 	

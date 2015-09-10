@@ -23,6 +23,9 @@ import java.lang.annotation.Target;
 /**
  * This annotation is added to methods in the ConsoleListener interface
  * ConsoleListener. Adding this annotation makes the method run in its own thread
+ * 
+ * @since v4.3
+ * @author Will "n9Mtq4" Bresnahan
  */
 @Target(ElementType.METHOD)
 @Retention(value = RetentionPolicy.RUNTIME)
@@ -30,6 +33,15 @@ public @interface Async {
 	
 	/**
 	 * If the method should run in another thread.
+	 * Can only be applied to {@link com.n9mtq4.logwindow.listener.AdditionListener#onAddition(com.n9mtq4.logwindow.events.AdditionActionEvent)},
+	 * {@link com.n9mtq4.logwindow.listener.EnableListener#onEnable(com.n9mtq4.logwindow.events.EnableActionEvent)},
+	 * {@link com.n9mtq4.logwindow.listener.ObjectListener#objectReceived(com.n9mtq4.logwindow.events.SentObjectEvent, com.n9mtq4.logwindow.BaseConsole)},
+	 * {@link com.n9mtq4.logwindow.listener.StringListener#actionPerformed(com.n9mtq4.logwindow.events.ConsoleActionEvent, com.n9mtq4.logwindow.BaseConsole)},
+	 * {@link com.n9mtq4.logwindow.listener.DisableListener#onDisable(com.n9mtq4.logwindow.events.DisableActionEvent)}, and
+	 * {@link com.n9mtq4.logwindow.listener.RemovalListener#onRemoval(com.n9mtq4.logwindow.events.RemovalActionEvent)}
+	 * 
+	 * @since v4.3
+	 * @return A boolean. true if the method should be in its own thread, false if not.
 	 * */
 	boolean async() default true;
 	

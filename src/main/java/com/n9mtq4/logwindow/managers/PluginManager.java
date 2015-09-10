@@ -29,22 +29,24 @@ import java.util.zip.ZipFile;
 
 /**
  * Created by Will on 10/26/14.<br>
- * Handles all the loading from plugin jar files into the baseconsole.
+ * Handles all the loading from plugin jar files into the {@link BaseConsole}.
  */
 //TODO: finish javadocs
 public class PluginManager {
 	
 	/**
 	 * The constant DEFAULT_PLUGIN_FOLDER.
+	 * The default location for the plugins folder.<br>
+	 * Currently, it is "plugins/"
 	 */
 	public static final String DEFAULT_PLUGIN_FOLDER = "plugins/";
 	
 	/**
 	 * Loads all plugins from a specific directory to the BaseConsole.<br>
-	 *
-	 * @param c        the c
-	 * @param filePath the file path
-	 * @see PluginManager#loadPluginsToConsole(BaseConsole, File) Use loadPluginsToConsole(BaseConsole, File) instead
+	 * 
+	 * @see PluginManager#loadPluginsToConsole(BaseConsole, File)
+	 * @param c The {@link BaseConsole} to add the plugins to
+	 * @param filePath The file path of the plugins directory
 	 */
 	public static void loadPluginsToConsole(BaseConsole c, String filePath) {
 		if (!filePath.endsWith("/")) {
@@ -58,8 +60,8 @@ public class PluginManager {
 	/**
 	 * Loads all plugins from a specific directory to the BaseConsole.<br>
 	 *
-	 * @param c      the c
-	 * @param folder the folder
+	 * @param c The {@link BaseConsole} to add the plugins to
+	 * @param folder The file of the plugins directory
 	 */
 	public static void loadPluginsToConsole(BaseConsole c, File folder) {
 		
@@ -85,9 +87,10 @@ public class PluginManager {
 	 * Loads a plugin from File f into BaseConsole c.<br>
 	 * This plugin being loaded must be in the new format with a plugin.txt
 	 * in the root of the jar file.
-	 *
-	 * @param f the f
-	 * @param c the c
+	 * 
+	 * @param f The {@link File}
+	 * @param c The {@link BaseConsole}
+	 * @return An ArrayList of all the ListenerContainers that have been added.
 	 */
 	public static ArrayList<ListenerContainer> loadPlugin(File f, BaseConsole c) {
 		

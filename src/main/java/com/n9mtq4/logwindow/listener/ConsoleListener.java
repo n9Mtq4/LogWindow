@@ -18,7 +18,16 @@ package com.n9mtq4.logwindow.listener;
 import java.io.Serializable;
 
 /**
- * Created by will on 8/13/15 at 2:27 PM.
+ * Interface for classes that wish to get notified when the listener is enabled.
+ *
+ * @see com.n9mtq4.logwindow.listener.AdditionListener
+ * @see com.n9mtq4.logwindow.listener.EnableListener
+ * @see com.n9mtq4.logwindow.listener.ObjectListener
+ * @see com.n9mtq4.logwindow.listener.StringListener
+ * @see com.n9mtq4.logwindow.listener.DisableListener
+ * @see com.n9mtq4.logwindow.listener.RemovalListener
+ * @since v5.0
+ * @author Will "n9Mtq4" Bresnahan
  */
 public interface ConsoleListener extends AdditionListener, EnableListener, 
 		StringListener, ObjectListener, DisableListener, RemovalListener, Serializable {

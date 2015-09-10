@@ -21,9 +21,13 @@ import java.awt.*;
 import java.io.Serializable;
 
 /**
- * Created by Will on 10/20/14.<br>
  * A custom JTextPane / JTextArea that supports colors
  * and images.
+ * 
+ * <p>Created by Will on 10/20/14.</p>
+ * 
+ * @since v0.1
+ * @author Will "n9Mtq4" Bresnahan
  */
 @SuppressWarnings("unused")
 public class NTextArea extends JTextPane 
@@ -37,7 +41,10 @@ public class NTextArea extends JTextPane
 	private boolean userEditable;
 	
 	/**
-	 * Calls parent.
+	 * {@inheritDoc}
+	 * 
+	 * @see JTextPane#JTextPane()
+	 * 
 	 */
 	public NTextArea() {
 		super();
@@ -45,8 +52,9 @@ public class NTextArea extends JTextPane
 	}
 	
 	/**
-	 * Calls parent.
-	 *
+	 * {@inheritDoc}
+	 * 
+	 * @see JTextPane#JTextPane(StyledDocument)
 	 * @param styledDocument the styled document
 	 */
 	public NTextArea(StyledDocument styledDocument) {
@@ -82,7 +90,8 @@ public class NTextArea extends JTextPane
 	
 	/**
 	 * Sets the text of the {@link NTextArea}<br>
-	 *
+	 * 
+	 * @since v0.1
 	 * @param string The new String to set the text to
 	 */
 	@Override
@@ -95,7 +104,8 @@ public class NTextArea extends JTextPane
 	
 	/**
 	 * Adds an image to the component.
-	 *
+	 * 
+	 * @since v0.1
 	 * @param image the picture to append.
 	 */
 	public void appendPicture(Image image) {
@@ -109,8 +119,9 @@ public class NTextArea extends JTextPane
 	/**
 	 * Can the user edit the text?
 	 *
-	 * @return true if the user edit it; false otherwise
 	 * @see NTextArea#setUserEditable
+	 * @since v0.1
+	 * @return true if the user edit it; false otherwise
 	 */
 	public final boolean isUserEditable() {
 		return userEditable;
@@ -119,8 +130,9 @@ public class NTextArea extends JTextPane
 	/**
 	 * Setter method for userEditable.
 	 *
-	 * @param userEditable true or false of can the user edit it
 	 * @see NTextArea#isUserEditable
+	 * @since v0.1
+	 * @param userEditable true or false of can the user edit it
 	 */
 	public final void setUserEditable(boolean userEditable) {
 		this.userEditable = userEditable;

@@ -19,18 +19,22 @@ package com.n9mtq4.logwindow.ui.attributes;
  * Created by Will on 1/1/15.
  */
 
-import com.n9mtq4.logwindow.BaseConsole;
-import com.n9mtq4.logwindow.ui.ConsoleUI;
-
 /**
- * If a {@link ConsoleUI} has native support for history,
- * it might need a call when a {@link ConsoleUI} calls
- * {@link BaseConsole#sendPluginsString}
+ * An interface that flags a {@link com.n9mtq4.logwindow.ui.ConsoleUI} that it supports
+ * the {@link com.n9mtq4.logwindow.BaseConsole}'s history.
+ *
+ * <p>Created by will on 1/1/15.</p>
+ *
+ * @see #historyUpdate()
+ * @since v4.0
+ * @author Will "n9Mtq4" Bresnahan
  */
 public interface History {
 	
 	/**
-	 * Called when {@link BaseConsole#sendPluginsString} is called
+	 * Called when {@link com.n9mtq4.logwindow.BaseConsole#sendPluginsString(String)} is called.
+	 * 
+	 * @since v4.0
 	 */
 	void historyUpdate();
 	

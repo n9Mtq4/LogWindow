@@ -26,11 +26,12 @@ import com.n9mtq4.logwindow.utils.ReflectionHelper;
 import java.util.ArrayList;
 
 /**
- * Created by Will on 10/21/14.
- */
-
-/**
- * A module to add, remove, enable, and disable listeners on the console
+ * A module to add, remove, enable, and disable listeners on the console.
+ * 
+ * <p>Created by Will on 10/21/14.</p>
+ * 
+ * @since v0.1
+ * @author Will "n9Mtq4" Bresnahan 
  */
 public class ModuleListener implements StringListener, DisableListener, RemovalListener {
 	

@@ -20,11 +20,25 @@ import com.n9mtq4.logwindow.events.AdditionActionEvent;
 import java.io.Serializable;
 
 /**
- * Created by will on 8/13/15 at 2:23 PM.<br>
- * Has onAddition
+ * Interface for classes that wish to get notified when the listener is added.
+ *
+ * @see #onAddition(AdditionActionEvent)
+ * @since v5.0
+ * @author Will "n9Mtq4" Bresnahan
  */
 public interface AdditionListener extends Serializable, ListenerAttribute {
 	
+	/**
+	 * This method is called when the listener has been added to
+	 * the {@link com.n9mtq4.logwindow.BaseConsole}.
+	 * 
+	 * @see com.n9mtq4.logwindow.BaseConsole#addListenerAttribute(ListenerAttribute)
+	 * @see com.n9mtq4.logwindow.BaseConsole#addListenerAttributeRaw(ListenerAttribute)
+	 * @see com.n9mtq4.logwindow.BaseConsole#addListenerContainer(ListenerContainer)
+	 * @see com.n9mtq4.logwindow.BaseConsole#addListenerContainerRaw(ListenerContainer)
+	 * @since v5.0
+	 * @param additionActionEvent The addition action event
+	 * */
 	void onAddition(AdditionActionEvent additionActionEvent);
 	
 }

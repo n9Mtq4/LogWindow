@@ -16,13 +16,18 @@
 package com.n9mtq4.logwindow.events;
 
 import com.n9mtq4.logwindow.BaseConsole;
-import com.n9mtq4.logwindow.listener.ObjectListener;
 
 import java.io.Serializable;
 
 /**
- * Created by will on 3/31/15.<br>
- * Event that is passed to {@link ObjectListener}s by the {@link BaseConsole}
+ * Event that is given to the
+ * {@link com.n9mtq4.logwindow.listener.ObjectListener}
+ *
+ * <p>Created by will on 3/31/15.</p>
+ *
+ * @see com.n9mtq4.logwindow.listener.ObjectListener
+ * @since v4.1
+ * @author Will "n9Mtq4" Bresnahan
  */
 public final class SentObjectEvent implements Serializable {
 	
@@ -32,6 +37,8 @@ public final class SentObjectEvent implements Serializable {
 	
 	/**
 	 * Has this event been canceled
+	 * 
+	 * @since v4.1
 	 * @deprecated Not official supported and can be dangerous; only use if you know what you are doing.
 	 * */
 	@Deprecated
@@ -43,10 +50,11 @@ public final class SentObjectEvent implements Serializable {
 	
 	/**
 	 * Instantiates a new Sent object event.
-	 *
-	 * @param baseConsole the base console
-	 * @param object      the object
-	 * @param message     the message
+	 * 
+	 * @since v4.1
+	 * @param baseConsole The {@link BaseConsole}
+	 * @param object The object being sent to the {@link com.n9mtq4.logwindow.listener.ObjectListener}
+	 * @param message The message going along with the object
 	 */
 	public SentObjectEvent(BaseConsole baseConsole, Object object, String message) {
 		this.baseConsole = baseConsole;
@@ -59,45 +67,50 @@ public final class SentObjectEvent implements Serializable {
 	
 	/**
 	 * Gets the {@link BaseConsole} that called this event.
-	 *
-	 * @return The  that called this event
+	 * 
+	 * @since v4.1
+	 * @return The {@link BaseConsole} that called this event
 	 */
 	public final BaseConsole getBaseConsole() {
 		return baseConsole;
 	}
 	
 	/**
-	 * Returns true if a {@link ObjectListener} has
+	 * Returns true if a {@link com.n9mtq4.logwindow.listener.ObjectListener} has
 	 * indicated that this event has been completed / shouldn't continue iterating through listeners
-	 *
-	 * @return the boolean
+	 * 
+	 * @since v4.1
+	 * @return a boolean of whether this event has been canceled
 	 */
 	public final boolean isCanceled() {
 		return canceled;
 	}
 	
 	/**
-	 * Gets the sent object
-	 *
-	 * @return the object
+	 * Gets the object being sent to the {@link com.n9mtq4.logwindow.listener.ObjectListener}.
+	 * 
+	 * @since v4.1
+	 * @return The {@link Object}
 	 */
 	public final Object getObject() {
 		return object;
 	}
 	
 	/**
-	 * Gets message.
-	 *
-	 * @return the message
+	 * Gets the message going along with the object
+	 * 
+	 * @since v4.1
+	 * @return The message going along with the object
 	 */
 	public final String getMessage() {
 		return message;
 	}
 	
 	/**
-	 * Gets object type.
-	 *
-	 * @return the object type
+	 * Gets object type in the form of a string.
+	 * 
+	 * @since v4.1
+	 * @return object.getClass().getName(), or "null"
 	 */
 	public final String getObjectType() {
 		return objectType;

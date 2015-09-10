@@ -19,66 +19,67 @@ import java.awt.*;
 import java.awt.color.ColorSpace;
 
 /**
- * Created by Will on 11/24/14.
- */
-
-/**
- * A modified version of @{link Color} to support ANSI values<br>
+ * A modified version of {@link Color} to support ANSI values.<br>
+ * 
+ * <p>Created by Will on 11/24/14.</p>
+ * 
+ * @since v3.1
+ * @author Will "n9Mtq4" Bresnahan
  */
 public class Colour extends Color {
 	
 	/**
-	 * The Color white.
+	 * The Colour white.
 	 */
 	public static final Colour WHITE = getColour(Color.WHITE);
 	/**
-	 * The Color light gray.
+	 * The Colour light gray.
 	 */
 	public static final Colour LIGHT_GRAY = getColour(Color.LIGHT_GRAY);
 	/**
-	 * The Color gray.
+	 * The Colour gray.
 	 */
 	public static final Colour GRAY = getColour(Color.GRAY);
 	/**
-	 * The Color red.
+	 * The Colour red.
 	 */
 	public static final Colour RED = getColour(Color.RED);
 	/**
-	 * The Color pink.
+	 * The Colour pink.
 	 */
 	public static final Colour PINK = getColour(Color.PINK);
 	/**
-	 * The Color orange.
+	 * The Colour orange.
 	 */
 	public static final Colour ORANGE = getColour(Color.ORANGE);
 	/**
-	 * The Color yellow.
+	 * The Colour yellow.
 	 */
 	public static final Colour YELLOW = getColour(Color.YELLOW);
 	/**
-	 * The Color green.
+	 * The Colour green.
 	 */
 	public static final Colour GREEN = getColour(Color.GREEN);
 	/**
-	 * The Color magenta.
+	 * The Colour magenta.
 	 */
 	public static final Colour MAGENTA = getColour(Color.MAGENTA);
 
 //	ANSI TO COLOUR SEPARATOR
 	/**
-	 * The Color blue.
+	 * The Colour blue.
 	 */
 	public static final Colour BLUE = getColour(Color.BLUE);
 	/**
-	 * The Color cyan.
+	 * The Colour cyan.
 	 */
 	public static final Colour CYAN = getColour(Color.CYAN);
 	/**
-	 * The Color black.
+	 * The Colour black.
 	 */
 	public static final Colour BLACK = getColour(Color.BLACK);
 	/**
-	 * The Color purple.
+	 * The Colour purple.
 	 */
 	public static final Colour PURPLE = new Colour(128, 0, 128);
 	/**
@@ -119,76 +120,70 @@ public class Colour extends Color {
 	private static final String ANSI_WHITE = "\u001B[37m";
 	
 	/**
-	 * Instantiates a new Colour.
-	 *
-	 * @param i  the i
-	 * @param i1 the i 1
-	 * @param i2 the i 2
+	 * {@inheritDoc}
+	 * 
+	 * @since v3.1
+	 * @see Color#Color(int, int, int)
 	 */
 	public Colour(int i, int i1, int i2) {
 		super(i, i1, i2);
 	}
 	
 	/**
-	 * Instantiates a new Colour.
-	 *
-	 * @param i  the i
-	 * @param i1 the i 1
-	 * @param i2 the i 2
-	 * @param i3 the i 3
+	 * {@inheritDoc}
+	 * 
+	 * @since v3.1
+	 * @see Color#Color(int, int, int, int)
 	 */
 	public Colour(int i, int i1, int i2, int i3) {
 		super(i, i1, i2, i3);
 	}
 	
 	/**
-	 * Instantiates a new Colour.
-	 *
-	 * @param i the i
+	 * {@inheritDoc}
+	 * 
+	 * @since v3.1
+	 * @see Color#Color(int)
 	 */
 	public Colour(int i) {
 		super(i);
 	}
 	
 	/**
-	 * Instantiates a new Colour.
-	 *
-	 * @param i the i
-	 * @param b the b
+	 * {@inheritDoc}
+	 * 
+	 * @since v3.1
+	 * @see Color#Color(int, boolean)
 	 */
 	public Colour(int i, boolean b) {
 		super(i, b);
 	}
 	
 	/**
-	 * Instantiates a new Colour.
-	 *
-	 * @param v  the v
-	 * @param v1 the v 1
-	 * @param v2 the v 2
+	 * {@inheritDoc}
+	 * 
+	 * @since v3.1
+	 * @see Color#Color(float, float, float)
 	 */
 	public Colour(float v, float v1, float v2) {
 		super(v, v1, v2);
 	}
 	
 	/**
-	 * Instantiates a new Colour.
-	 *
-	 * @param v  the v
-	 * @param v1 the v 1
-	 * @param v2 the v 2
-	 * @param v3 the v 3
+	 * {@inheritDoc}
+	 * 
+	 * @since v3.1
+	 * @see Color#Color(float, float, float, float)
 	 */
 	public Colour(float v, float v1, float v2, float v3) {
 		super(v, v1, v2, v3);
 	}
 	
 	/**
-	 * Instantiates a new Colour.
-	 *
-	 * @param colorSpace the color space
-	 * @param floats     the floats
-	 * @param v          the v
+	 * {@inheritDoc}
+	 * 
+	 * @since v3.1
+	 * @see Color#Color(ColorSpace, float[], float)
 	 */
 	public Colour(ColorSpace colorSpace, float[] floats, float v) {
 		super(colorSpace, floats, v);
@@ -196,10 +191,10 @@ public class Colour extends Color {
 	
 	/**
 	 * Converts {@link Color} into {@link Colour}.
-	 *
-	 * @param color Java's
-	 *              .
-	 * @return The  version with ANSI support.
+	 * 
+	 * @since v3.1
+	 * @param color Java's {@link Color}.
+	 * @return The Colour version with ANSI support.
 	 */
 	public static Colour getColour(Color color) {
 		return new Colour(color.getRed(), color.getGreen(), color.getBlue(), color.getAlpha());
@@ -207,7 +202,8 @@ public class Colour extends Color {
 	
 	/**
 	 * Gives the color reset ANSI code.<br>
-	 *
+	 * 
+	 * @since v3.1
 	 * @return The ANSI code for resetting the colors.
 	 */
 	public static String getAnsiReset() {
@@ -217,7 +213,8 @@ public class Colour extends Color {
 	/**
 	 * Turns this {@link Colour} into an ANSI code.<br>
 	 * Note: only works for some constants. (won't work with custom RGB).<br>
-	 *
+	 * 
+	 * @since v3.1
 	 * @return the ANSI string of the color for terminal colors.
 	 */
 	public final String getANSI() {

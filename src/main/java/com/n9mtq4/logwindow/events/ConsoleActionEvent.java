@@ -17,14 +17,20 @@ package com.n9mtq4.logwindow.events;
 
 import com.n9mtq4.logwindow.BaseConsole;
 import com.n9mtq4.logwindow.command.ConsoleCommand;
-import com.n9mtq4.logwindow.listener.StringListener;
 
 import java.io.Serializable;
 
 /**
- * Created by Will on 10/20/14.<br>
- * Event that is passed to {@link StringListener}s by the {@link BaseConsole}
+ * Event that is given to the
+ * {@link com.n9mtq4.logwindow.listener.StringListener}
+ * 
+ * <p>Created by Will on 10/20/14.</p>
+ * 
+ * @see com.n9mtq4.logwindow.listener.StringListener
+ * @since v0.2
+ * @author Will "n9Mtq4" Bresnahan
  */
+@SuppressWarnings("unused")
 public final class ConsoleActionEvent implements Serializable {
 	
 	private static final long serialVersionUID = 1705101834722619856L;
@@ -45,8 +51,8 @@ public final class ConsoleActionEvent implements Serializable {
 	/**
 	 * Instantiates a new Console action event.
 	 *
-	 * @param initiatingBaseConsole the base console
-	 * @param command     the command
+	 * @param initiatingBaseConsole The {@link BaseConsole} that initiated the event.
+	 * @param command The {@link ConsoleCommand} with the inputed text
 	 */
 	public ConsoleActionEvent(BaseConsole initiatingBaseConsole, ConsoleCommand command) {
 		this.initiatingBaseConsole = initiatingBaseConsole;
@@ -57,7 +63,7 @@ public final class ConsoleActionEvent implements Serializable {
 	/**
 	 * Gets the {@link BaseConsole} that called this event
 	 *
-	 * @return The  that called this event
+	 * @return The {@link BaseConsole} that called this event
 	 */
 	public final BaseConsole getInitiatingBaseConsole() {
 		return initiatingBaseConsole;
@@ -66,17 +72,17 @@ public final class ConsoleActionEvent implements Serializable {
 	/**
 	 * Gets the {@link ConsoleCommand} that contains the inputed data
 	 *
-	 * @return The  that contains the inputed data
+	 * @return The {@link ConsoleCommand} that contains the inputed data
 	 */
 	public final ConsoleCommand getCommand() {
 		return command;
 	}
 	
 	/**
-	 * Returns true if a {@link StringListener} has
+	 * Returns true if a {@link com.n9mtq4.logwindow.listener.StringListener} has
 	 * indicated that this event has been completed / shouldn't continue iterating through listeners
 	 *
-	 * @return the boolean
+	 * @return the boolean of if the event has been canceled
 	 */
 	public final boolean isCanceled() {
 		return canceled;

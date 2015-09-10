@@ -21,10 +21,23 @@ import com.n9mtq4.logwindow.events.ConsoleActionEvent;
 import java.io.Serializable;
 
 /**
- * Created by will on 8/13/15 at 2:26 PM.
+ * Interface for classes that wish to get notified when the listener is sent a {@link String}.
+ *
+ * @see #actionPerformed(ConsoleActionEvent, BaseConsole)
+ * @since v5.0
+ * @author Will "n9Mtq4" Bresnahan
  */
 public interface StringListener extends Serializable, ListenerAttribute {
 	
+	/**
+	 * This method is called when the listener is sent a {@link String}.
+	 * 
+	 * @see BaseConsole#push(String)
+	 * @see BaseConsole#sendPluginsString(String)
+	 * @since v5.0
+	 * @param consoleActionEvent The {@link ConsoleActionEvent}, contains the {@link com.n9mtq4.logwindow.command.ConsoleCommand}
+	 * @param baseConsole The {@link BaseConsole} the listener should use
+	 */
 	void actionPerformed(ConsoleActionEvent consoleActionEvent, BaseConsole baseConsole);
 	
 }

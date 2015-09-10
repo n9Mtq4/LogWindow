@@ -22,6 +22,17 @@ import java.io.Serializable;
 /**
  * Created by Will on 11/2/14.
  */
+/**
+ * The event that is given to the
+ * {@link com.n9mtq4.logwindow.listener.RemovalListener}.
+ * 
+ * <p>Created by Will on 11/2/14.</p>
+ * 
+ * @see DisableActionEvent
+ * @see com.n9mtq4.logwindow.listener.RemovalListener
+ * @since v1.3
+ * @author Will "n9Mtq4" Bresnahan
+ */
 public final class RemovalActionEvent extends DisableActionEvent
 		implements Serializable {
 	
@@ -29,8 +40,8 @@ public final class RemovalActionEvent extends DisableActionEvent
 	
 	/**
 	 * Instantiates a new Removal action event.
-	 *
-	 * @param baseConsole the base console
+	 * 
+	 * @param baseConsole The {@link BaseConsole} that sent this listener
 	 */
 	public RemovalActionEvent(BaseConsole baseConsole) {
 		super(baseConsole);
@@ -39,8 +50,10 @@ public final class RemovalActionEvent extends DisableActionEvent
 	/**
 	 * Instantiates a new Removal action event.
 	 *
-	 * @param baseConsole the base console
-	 * @param type        the type
+	 * @see #getType()
+	 * @since v1.1
+	 * @param baseConsole The {@link BaseConsole}
+	 * @param type The source of the disabling (type)
 	 */
 	public RemovalActionEvent(BaseConsole baseConsole, int type) {
 		super(baseConsole, type);

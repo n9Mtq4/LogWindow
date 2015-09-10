@@ -23,25 +23,37 @@ import java.io.Serializable;
  * The {@link ShutdownHook#run} method in this class is called when the Runtime closes if<br>
  * Runtime.getRuntime().addShutdownHook(new {@link ShutdownHook}());<br>
  * is called.
- *
+ * 
  * @see Runtime#addShutdownHook
+ * @since v4.0
+ * @author Will "n9Mtq4" Bresnahan
  */
 public final class ShutdownHook extends Thread 
 		implements Serializable {
 	
 	private static final long serialVersionUID = 8309347169410881059L;
 	
+	/**
+	 * The parent {@link BaseConsole}. This {@link ShutdownHook} calls the
+	 * {@link BaseConsole#dispose()} method when the JVM shutdowns.
+	 * */
 	private final BaseConsole parent;
 	
 	/**
 	 * Instantiates a new Shutdown hook.
 	 *
-	 * @param console the console
+	 * @param console The {@link BaseConsole} that made this {@link ShutdownHook}
 	 */
 	public ShutdownHook(BaseConsole console) {
 		this.parent = console;
 	}
 	
+	/**
+	 * Calls baseConsole.dispose
+	 * 
+	 * @see BaseConsole#dispose()
+	 * @since v4.0
+	 * */
 	@Override
 	public void run() {
 		

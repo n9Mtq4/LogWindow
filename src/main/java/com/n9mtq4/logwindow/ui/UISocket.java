@@ -21,6 +21,9 @@ import com.n9mtq4.logwindow.utils.Colour;
 
 /**
  * Created by Will on 12/29/14.
+ * 
+ * @since v5.0
+ * @author Will "n9Mtq4" Bresnahan
  */
 public class UISocket extends SimpleConsoleUI {
 	

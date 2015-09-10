@@ -31,6 +31,9 @@ import java.awt.event.KeyListener;
 
 /**
  * Created by Will on 12/29/14.
+ * 
+ * @since v5.0
+ * @author Will "n9Mtq4" Bresnahan
  */
 public final class GuiJFrameLite extends SimpleConsoleUI implements Textable, History, HasFrame {
 	

@@ -20,10 +20,24 @@ import com.n9mtq4.logwindow.events.EnableActionEvent;
 import java.io.Serializable;
 
 /**
- * Created by will on 8/13/15 at 2:22 PM.
+ * Interface for classes that wish to get notified when the listener is enabled.
+ * 
+ * @see #onEnable(EnableActionEvent)
+ * @since v5.0
+ * @author Will "n9Mtq4" Bresnahan
  */
 public interface EnableListener extends Serializable, ListenerAttribute {
 	
+	/**
+	 * This method is called when the Listener is enabled.
+	 * When loading from a plugin all the plugins will be loaded
+	 * before this is called.
+	 * 
+	 * @see com.n9mtq4.logwindow.BaseConsole#enableListenerAttribute(ListenerAttribute)
+	 * @see com.n9mtq4.logwindow.BaseConsole#enableListenerContainer(ListenerContainer)
+	 * @since v5.0
+	 * @param enableActionEvent The enable action event
+	 * */
 	void onEnable(EnableActionEvent enableActionEvent);
 	
 }

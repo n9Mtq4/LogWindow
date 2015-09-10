@@ -26,14 +26,14 @@ import java.util.ArrayList;
 import java.util.ConcurrentModificationException;
 
 /**
- * Created by will on 8/13/15 at 2:17 PM.
+ * @since v5.0
  */
 public final class ListenerContainer implements Serializable {
 	
 	private static final long serialVersionUID = 3878570265471623572L;
 	
 	/**
-	 * Make listener entry.
+	 * Makes a new listener entry.
 	 *
 	 * @param listener the listener
 	 * @return the listener container

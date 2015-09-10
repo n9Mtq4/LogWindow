@@ -20,10 +20,27 @@ import com.n9mtq4.logwindow.events.RemovalActionEvent;
 import java.io.Serializable;
 
 /**
- * Created by will on 8/13/15 at 2:25 PM.
+ * Interface for classes that wish to get notified when the listener is removed.
+ *
+ * @see #onRemoval(RemovalActionEvent) 
+ * @since v5.0
+ * @author Will "n9Mtq4" Bresnahan
  */
 public interface RemovalListener extends Serializable, ListenerAttribute {
 	
+	/**
+	 * This method is called when the listener is removed.
+	 * 
+	 * @see RemovalActionEvent
+	 * @see com.n9mtq4.logwindow.BaseConsole#removeListenerAttribute(ListenerAttribute)
+	 * @see com.n9mtq4.logwindow.BaseConsole#removeListenerAttribute(ListenerAttribute, int)
+	 * @see com.n9mtq4.logwindow.BaseConsole#removeListenerAttributeRaw(ListenerAttribute, int)
+	 * @see com.n9mtq4.logwindow.BaseConsole#removeListenerContainer(ListenerContainer)
+	 * @see com.n9mtq4.logwindow.BaseConsole#removeListenerContainer(ListenerContainer, int)
+	 * @see com.n9mtq4.logwindow.BaseConsole#removeListenerContainerRaw(ListenerContainer, int)
+	 * @since v5.0
+	 * @param removalActionEvent The {@link RemovalActionEvent}, contains info about the removal
+	 */
 	void onRemoval(RemovalActionEvent removalActionEvent);
 	
 }

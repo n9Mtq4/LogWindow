@@ -41,6 +41,9 @@ import java.util.ConcurrentModificationException;
 
 /**
  * The class that handles all User to Listener interactions.
+ * 
+ * @since v0.1
+ * @author Will "n9Mtq4" Bresnahan
  */
 @SuppressWarnings("unused")
 public final class BaseConsole implements Serializable {
@@ -49,7 +52,10 @@ public final class BaseConsole implements Serializable {
 	
 	/**
 	 * Keeps the ids of all {@link BaseConsole}s.
+	 * 
+	 * @deprecated Not used, and not necessary, since I discovered {@link Runtime#addShutdownHook(Thread)}
 	 */
+	@Deprecated
 	protected static final ArrayList<BaseConsole> globalList = new ArrayList<BaseConsole>();
 	
 	/**
@@ -58,7 +64,11 @@ public final class BaseConsole implements Serializable {
 	private final ArrayList<ListenerContainer> listenerContainers;
 	/**
 	 * Keeps a record of the input.
+	 * TODO: remove deprecated field?
+	 * 
+	 * @deprecated Not a necessary feature, may be removed before v5 release
 	 */
+	@Deprecated
 	private final ArrayList<String> history;
 	/**
 	 * Has the local id for the {@link BaseConsole}.
@@ -91,7 +101,15 @@ public final class BaseConsole implements Serializable {
 	}
 	
 	/**
-	 * Instantiates a new Base console.
+	 * Instantiates a new {@link BaseConsole} while adding
+	 * a gui. This is equivalent to:<br>
+	 * 
+	 * <code>
+	 *     
+	 *     BaseConsole baseConsole = new BaseConsole();<br>
+	 *     baseConsole.addGui(consoleUi);
+	 *     
+	 * </code>
 	 *
 	 * @param consoleUI the console gui
 	 */
@@ -101,10 +119,12 @@ public final class BaseConsole implements Serializable {
 	}
 	
 	/**
-	 * Handles closing down the {@link ListenerAttribute}s and {@link ConsoleUI}s.<br>
+	 * Handles disposing down the {@link ListenerAttribute}s and {@link ConsoleUI}s.<br>
 	 * Note: if overriding make sure to call super to close {@link ListenerAttribute} and {@link ConsoleUI}.<br>
 	 *
 	 * @see ConsoleUI#dispose
+	 * @see com.n9mtq4.logwindow.listener.DisableListener#onDisable(DisableActionEvent)
+	 * @see com.n9mtq4.logwindow.listener.RemovalListener#onRemoval(RemovalActionEvent)
 	 */
 	public final void dispose() {
 		
@@ -155,7 +175,7 @@ public final class BaseConsole implements Serializable {
 	}
 	
 	/**
-	 * Prints text in colour to the ConsoleGuis.
+	 * Prints text in colour to the {@link ConsoleUI}s
 	 *
 	 * @param object The object to print.
 	 * @param colour The colour to print the text in.

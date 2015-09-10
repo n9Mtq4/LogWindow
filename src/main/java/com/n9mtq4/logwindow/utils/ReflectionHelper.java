@@ -1286,7 +1286,8 @@ public class ReflectionHelper {
 	
 	/**
 	 * Gets a object.
-	 *
+	 * 
+	 * @param <E> the object type to return
 	 * @param field the field
 	 * @param obj the obj
 	 * @return the object
@@ -1303,7 +1304,8 @@ public class ReflectionHelper {
 	
 	/**
 	 * Gets a object.
-	 *
+	 * 
+	 * @param <E> the object type to return
 	 * @param fieldName the field name
 	 * @param obj the obj
 	 * @param clazz the class
@@ -1354,7 +1356,8 @@ public class ReflectionHelper {
 	
 	/**
 	 * Gets a object.
-	 *
+	 * 
+	 * @param <E> the object type to return
 	 * @param fieldName the field name
 	 * @param obj the obj
 	 * @return the object
@@ -1376,7 +1379,8 @@ public class ReflectionHelper {
 	
 	/**
 	 * Gets a static object.
-	 *
+	 * 
+	 * @param <E> the object type to return
 	 * @param field the field
 	 * @return the static object
 	 */
@@ -1392,7 +1396,8 @@ public class ReflectionHelper {
 	
 	/**
 	 * Gets a static object.
-	 *
+	 * 
+	 * @param <E> the object type to return
 	 * @param fieldName the field name
 	 * @param clazz the class
 	 * @return the static object
@@ -1441,7 +1446,7 @@ public class ReflectionHelper {
 	/**
 	 * Call constructor.
 	 *
-	 * @param <E>  the type parameter
+	 * @param <E>   the type parameter
 	 * @param clazz the class
 	 * @param classParams the class params
 	 * @param params the params
@@ -1461,7 +1466,7 @@ public class ReflectionHelper {
 	/**
 	 * Call constructor.
 	 *
-	 * @param <E>  the type parameter
+	 * @param <E>   the type parameter
 	 * @param clazz the class
 	 * @param params the params
 	 * @return the object
@@ -1473,7 +1478,7 @@ public class ReflectionHelper {
 	/**
 	 * Call object method.
 	 *
-	 * @param <E>  the type parameter
+	 * @param <E>   the type parameter
 	 * @param method the method
 	 * @param obj the obj
 	 * @param params the params
@@ -1494,7 +1499,7 @@ public class ReflectionHelper {
 	/**
 	 * Call object method.
 	 *
-	 * @param <E>  the type parameter
+	 * @param <E>   the type parameter
 	 * @param methodName the method name
 	 * @param obj the obj
 	 * @param clazz the class
@@ -1515,7 +1520,7 @@ public class ReflectionHelper {
 	/**
 	 * Call object method.
 	 *
-	 * @param <E>  the type parameter
+	 * @param <E>   the type parameter
 	 * @param methodName the method name
 	 * @param obj the obj
 	 * @param clazz the class
@@ -1529,7 +1534,7 @@ public class ReflectionHelper {
 	/**
 	 * Call object method.
 	 *
-	 * @param <E>  the type parameter
+	 * @param <E>   the type parameter
 	 * @param methodName the method name
 	 * @param obj the obj
 	 * @param classParams the class params
@@ -1543,7 +1548,7 @@ public class ReflectionHelper {
 	/**
 	 * Call object method.
 	 *
-	 * @param <E>  the type parameter
+	 * @param <E>   the type parameter
 	 * @param methodName the method name
 	 * @param obj the obj
 	 * @param params the params
@@ -1556,7 +1561,7 @@ public class ReflectionHelper {
 	/**
 	 * Call static object method.
 	 *
-	 * @param <E>  the type parameter
+	 * @param <E>   the type parameter
 	 * @param method the method
 	 * @param params the params
 	 * @return the e
@@ -1568,7 +1573,7 @@ public class ReflectionHelper {
 	/**
 	 * Call static object method.
 	 *
-	 * @param <E>  the type parameter
+	 * @param <E>   the type parameter
 	 * @param methodName the method name
 	 * @param clazz the class
 	 * @param classParams the class params
@@ -1587,7 +1592,7 @@ public class ReflectionHelper {
 	/**
 	 * Call static object method.
 	 *
-	 * @param <E>  the type parameter
+	 * @param <E>   the type parameter
 	 * @param methodName the method name
 	 * @param clazz the class
 	 * @param params the params
@@ -2450,7 +2455,7 @@ public class ReflectionHelper {
 	 *
 	 * @param name The name of the Class.
 	 * @return The class, or null if no class is found
-	 * */
+	 */
 	public static Class getClass(String name) {
 		Class c = getClassByFullName(name);
 		if (c != null) return c;
@@ -2460,7 +2465,9 @@ public class ReflectionHelper {
 	/**
 	 * This fixes the issue in java of getDeclaredFields not searching
 	 * the class's inherited methods.
-	 * */
+	 * @param clazz the clazz
+	 * @return the field [ ]
+	 */
 	public static Field[] getAllDeclaredFields(Class clazz) {
 		
 		ArrayList<Field> fields = new ArrayList<Field>();
@@ -2480,7 +2487,11 @@ public class ReflectionHelper {
 	
 	/**
 	 * Get a field by name. Also searches inherited fields.
-	 * */
+	 * @param name the name
+	 * @param clazz the clazz
+	 * @return the all declared field
+	 * @throws NoSuchFieldException the no such field exception
+	 */
 	public static Field getAllDeclaredField(String name, Class clazz) throws NoSuchFieldException {
 		Class currentClass = clazz;
 		while (currentClass != null) {
@@ -2497,6 +2508,12 @@ public class ReflectionHelper {
 		throw new NoSuchFieldException(name);
 	}
 	
+	/**
+	 * Get all declared methods.
+	 *
+	 * @param clazz the clazz
+	 * @return the method [ ]
+	 */
 	public static Method[] getAllDeclaredMethods(Class clazz) {
 		ArrayList<Method> methods = new ArrayList<Method>();
 
@@ -2512,6 +2529,15 @@ public class ReflectionHelper {
 		return methods1;
 	}
 	
+	/**
+	 * Gets all declared method.
+	 *
+	 * @param name the name
+	 * @param params the params
+	 * @param clazz the clazz
+	 * @return the all declared method
+	 * @throws NoSuchMethodException the no such method exception
+	 */
 	public static Method getAllDeclaredMethod(String name, Class[] params, Class clazz) throws NoSuchMethodException {
 		try {
 			Method m = findAllDeclaredMethodByParams(name, params, clazz);
@@ -2570,6 +2596,15 @@ public class ReflectionHelper {
 		
 	}
 	
+	/**
+	 * Find all declared method by params.
+	 *
+	 * @param name the name
+	 * @param params the params
+	 * @param clazz the clazz
+	 * @return the method
+	 * @throws NoSuchMethodException the no such method exception
+	 */
 	public static Method findAllDeclaredMethodByParams(String name, Class[] params, Class clazz) throws NoSuchMethodException {
 		Class currentClass = clazz;
 		while (currentClass != null) {
@@ -2607,7 +2642,7 @@ public class ReflectionHelper {
 	 * @param clazz The class to check
 	 * @return If the class given has a primitive version
 	 * @see ReflectionHelper#isPrimitive(Class)
-	 * */
+	 */
 	public static boolean canBePrimitive(Class clazz) {
 		return getPrimitiveClass(clazz) != null;
 	}
@@ -2618,7 +2653,7 @@ public class ReflectionHelper {
 	 * @param clazz The class to check
 	 * @return If the class is primitive
 	 * @see ReflectionHelper#canBePrimitive(Class)
-	 * */
+	 */
 	public static boolean isPrimitive(Class clazz) {
 		return getObjectClass(clazz) != null;
 	}
@@ -2633,7 +2668,7 @@ public class ReflectionHelper {
 	 * @param clazz The Object class to get the primitive version
 	 * @return The Primitive version, or null if there isn't one
 	 * @see ReflectionHelper#getObjectClass(Class)
-	 * */
+	 */
 	public static Class getPrimitiveClass(Class clazz) {
 		if (clazz == Boolean.class) return boolean.class;
 		if (clazz == Byte.class) return byte.class;
@@ -2656,7 +2691,7 @@ public class ReflectionHelper {
 	 * @param clazz The primitive class to get the Object version
 	 * @return The Object version, or null if there isn't one
 	 * @see ReflectionHelper#getPrimitiveClass(Class)
-	 * */
+	 */
 	public static Class getObjectClass(Class clazz) {
 		if (clazz == boolean.class) return Boolean.class;
 		if (clazz == byte.class) return Byte.class;

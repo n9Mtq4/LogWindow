@@ -22,7 +22,11 @@ import java.net.URL;
 import java.net.URLClassLoader;
 
 /**
- * Created by will on 3/31/15.
+ * A class that handles adding jars to the classpath.
+ * 
+ * <p>Created by will on 3/31/15.</p>
+ * 
+ * @since v4.1
  */
 public class JarLoader {
 	
@@ -31,8 +35,8 @@ public class JarLoader {
 	/**
 	 * Add File f to this classpath.
 	 *
-	 * @param f the f
-	 * @throws IOException the iO exception
+	 * @param f the file
+	 * @throws IOException if something didn't work
 	 */
 	public static void addFile(File f) throws IOException {
 		addURL(f.toURI().toURL());
@@ -41,8 +45,8 @@ public class JarLoader {
 	/**
 	 * Helper method for addFile.
 	 *
-	 * @param u the u
-	 * @throws IOException the iO exception
+	 * @param u the url
+	 * @throws IOException if something didn't work
 	 */
 	public static void addURL(URL u) throws IOException {
 		URLClassLoader sysloader = (URLClassLoader) ClassLoader.getSystemClassLoader();

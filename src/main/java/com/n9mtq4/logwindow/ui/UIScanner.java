@@ -23,6 +23,9 @@ import java.util.Scanner;
 
 /**
  * Created by Will on 12/11/14.
+ * 
+ * @since v5.0
+ * @author Will "n9Mtq4" Bresnahan
  */
 public final class UIScanner extends SimpleConsoleUI {
 	

@@ -20,30 +20,54 @@ import com.n9mtq4.logwindow.BaseConsole;
 import java.io.Serializable;
 
 /**
- * Created by Will on 10/23/14.
+ * Event that is given to the
+ * {@link com.n9mtq4.logwindow.listener.AdditionListener}.
+ * 
+ * <p>Created by Will on 10/23/14.</p>
+ * 
+ * @see com.n9mtq4.logwindow.listener.DisableListener
+ * @since v0.2
+ * @author Will "n9Mtq4" Bresnshan
  */
 public class DisableActionEvent implements Serializable {
 	
 	private static final long serialVersionUID = 5554200220845774623L;
 	
 	/**
-	 * The constant NOT_SPECIFIED.
+	 * The constant NOT_SPECIFIED.<br>
+	 * The not specified reason for disabling
+	 * 
+	 * @since v1.1
 	 */
 	public static final int NOT_SPECIFIED = -1;
 	/**
-	 * The constant CONSOLE_DISPOSE.
+	 * The constant CONSOLE_DISPOSE.<br>
+	 * The reason of the {@link BaseConsole} being disposed
+	 * 
+	 * @since v1.1
 	 */
 	public static final int CONSOLE_DISPOSE = 0;
 	/**
-	 * The constant CODE_CLOSE.
+	 * The constant CODE_CLOSE.<br>
+	 * The reason of some code disabling the listener
+	 * 
+	 * @since v1.1
 	 */
 	public static final int CODE_CLOSE = 1;
 	/**
-	 * The constant USER_CLOSE.
+	 * The constant USER_CLOSE.<br>
+	 * The reason of the user disabling the listener
+	 * 
+	 * @see com.n9mtq4.logwindow.modules.ModuleListener
+	 * 
+	 * @since v1.1
 	 */
 	public static final int USER_CLOSE = 2;
 	/**
-	 * The constant OTHER_CLOSE.
+	 * The constant OTHER_CLOSE.<br>
+	 * Some other reason for disabling the listener
+	 * 
+	 * @since v4.0
 	 */
 	public static int OTHER_CLOSE = 10;
 	
@@ -52,8 +76,9 @@ public class DisableActionEvent implements Serializable {
 	
 	/**
 	 * Instantiates a new Disable action event.
-	 *
-	 * @param baseConsole the base console
+	 * 
+	 * @since v0.2
+	 * @param baseConsole The {@link BaseConsole} that sent this listener
 	 */
 	public DisableActionEvent(BaseConsole baseConsole) {
 		this.baseConsole = baseConsole;
@@ -62,9 +87,11 @@ public class DisableActionEvent implements Serializable {
 	
 	/**
 	 * Instantiates a new Disable action event.
-	 *
-	 * @param baseConsole the base console
-	 * @param type        the type
+	 * 
+	 * @see #getType()
+	 * @since v1.1
+	 * @param baseConsole The {@link BaseConsole}
+	 * @param type The source of the disabling (type)
 	 */
 	public DisableActionEvent(BaseConsole baseConsole, int type) {
 		
@@ -74,18 +101,25 @@ public class DisableActionEvent implements Serializable {
 	}
 	
 	/**
-	 * Gets base console.
-	 *
-	 * @return the base console
+	 * Gets the {@link BaseConsole}.
+	 * 
+	 * @since v0.2
+	 * @return The {@link BaseConsole}
 	 */
 	public final BaseConsole getBaseConsole() {
 		return baseConsole;
 	}
 	
 	/**
-	 * Gets type.
-	 *
-	 * @return the type
+	 * Gets the source of the disabling (type).
+	 * 
+	 * @see #NOT_SPECIFIED
+	 * @see #CONSOLE_DISPOSE
+	 * @see #CODE_CLOSE
+	 * @see #USER_CLOSE
+	 * @see #OTHER_CLOSE
+	 * @since v1.1
+	 * @return The source of the disabling (type)
 	 */
 	public final int getType() {
 		return type;

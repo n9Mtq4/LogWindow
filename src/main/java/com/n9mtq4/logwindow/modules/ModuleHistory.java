@@ -23,11 +23,12 @@ import com.n9mtq4.logwindow.ui.attributes.History;
 import com.n9mtq4.logwindow.utils.Colour;
 
 /**
- * Created by Will on 10/20/14.
- */
-
-/**
- * A module for getting a list of the history and clearing the history
+ * A module for getting a list of the history and clearing the history.
+ * 
+ * <p>Created by Will on 10/20/14.</p>
+ * 
+ * @since v0.1
+ * @author Will "n9Mtq4" Bresnahan
  */
 public final class ModuleHistory implements StringListener {
 	

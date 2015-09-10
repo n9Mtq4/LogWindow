@@ -24,12 +24,13 @@ import com.n9mtq4.logwindow.managers.SocketManager;
 import com.n9mtq4.logwindow.utils.Colour;
 
 /**
- * Created by will on 2/24/15.
- */
-
-/**
  * A {@link ConsoleUI} that takes any output and
- * Sends it over a socket for a client somewhere to recieve
+ * Sends it over a socket for a client somewhere to receive.
+ * 
+ * <p>Created by will on 2/24/15.</p>
+ * 
+ * @since v5.0
+ * @author Will "n9Mtq4" Bresnahan
  */
 public class UISocketOut extends SimpleConsoleUI {
 	

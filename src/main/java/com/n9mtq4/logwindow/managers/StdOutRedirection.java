@@ -73,7 +73,9 @@ public final class StdOutRedirection extends PrintStream
 	/**
 	 * Makes a new StdOutRedirect instance
 	 * */
+	@Deprecated
 	private StdOutRedirection() {
+//		TODO: not being used, so remove in future version
 		super(System.out);
 		this.showLocation = SHOW_LOCATION_DEFAULT_VALUE;
 	}

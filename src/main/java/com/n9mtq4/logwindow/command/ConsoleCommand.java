@@ -18,7 +18,11 @@ package com.n9mtq4.logwindow.command;
 import java.io.Serializable;
 
 /**
- * Created by Will on 10/20/14.
+ * Contains the text, that is sent to the {@link com.n9mtq4.logwindow.BaseConsole},
+ * as well as some String manipulation methods.
+ * 
+ * @since v0.1
+ * @author Will "n9Mtq4" Bresnahan
  */
 @SuppressWarnings("unused")
 public final class ConsoleCommand implements Serializable {
@@ -33,7 +37,8 @@ public final class ConsoleCommand implements Serializable {
 	
 	/**
 	 * Instantiates a new Console command.
-	 *
+	 * 
+	 * @since v0.1
 	 * @param text the text
 	 */
 	public ConsoleCommand(String text) {
@@ -47,8 +52,9 @@ public final class ConsoleCommand implements Serializable {
 	 * <p>
 	 * "Hello Java World".getArg(1) returns "Java"<br>
 	 * "Hello Java World".getArg(4) throws {@link StringIndexOutOfBoundsException}
-	 *
-	 * @param i the i
+	 * 
+	 * @since v0.1
+	 * @param i the index of the word
 	 * @return The word at the given index.
 	 * @throws StringIndexOutOfBoundsException when the index is more than the number of words - 1 (first word is 0)
 	 */
@@ -60,7 +66,8 @@ public final class ConsoleCommand implements Serializable {
 	
 	/**
 	 * Trims off the whitespace at the end of the text of the command.<br>
-	 *
+	 * 
+	 * @since v0.1
 	 * @return the trimmed string.
 	 * @see String#trim
 	 */
@@ -73,10 +80,10 @@ public final class ConsoleCommand implements Serializable {
 	/**
 	 * Does the same thing as {@link String}.trim().equalsIgnoreCase()<br>
 	 * trims the string then equalsIgnoreCase
-	 *
+	 * 
+	 * @since v0.1
 	 * @param s The comparing
-	 * @return The boolean of
-	 * .trim().equalsIgnoreCase(s)
+	 * @return The boolean of string.trim().equalsIgnoreCase(s)
 	 * @see String#trim
 	 * @see String#equalsIgnoreCase
 	 */
@@ -87,10 +94,10 @@ public final class ConsoleCommand implements Serializable {
 	/**
 	 * Returns if the text of the command starts with the given {@link String}<br>
 	 * Same as getText().startsWith(s)
-	 *
+	 * 
+	 * @since v0.1
 	 * @param s The comparing
-	 * @return boolean of
-	 * .startsWith(s);
+	 * @return boolean of string.startsWith(s);
 	 * @see String#startsWith
 	 */
 	public final boolean startsWith(String s) {
@@ -104,10 +111,10 @@ public final class ConsoleCommand implements Serializable {
 	 * "Hello Java World".getWordsStartingFrom(0) returns "Hello Java World"<br>
 	 * "Hello Java World".getWordsStartingFrom(1) returns "Java World"<br>
 	 * "Hello Java World".getWordsStartingFrom(4) returns null<br>
-	 *
+	 * 
+	 * @since v0.1
 	 * @param startIndex Index of the word to get the string there-on.
-	 * @return The cropped
-	 * .
+	 * @return The cropped string.
 	 */
 	public final String getWordsStartingFrom(int startIndex) {
 		String before = getText();
@@ -127,7 +134,8 @@ public final class ConsoleCommand implements Serializable {
 	/**
 	 * Gets the string before a pattern.<br>
 	 * "Hello Java World".getBeforePattern("Java") returns "Hello "<br>
-	 *
+	 * 
+	 * @since v0.1
 	 * @param pattern The pattern to search for.
 	 * @return The string before the pattern.
 	 */
@@ -146,7 +154,8 @@ public final class ConsoleCommand implements Serializable {
 	/**
 	 * Gets the string after a pattern.<br>
 	 * "Hello Java World".getBeforePattern("Java") returns " World"<br>
-	 *
+	 * 
+	 * @since v0.1
 	 * @param pattern The pattern to search for.
 	 * @return the String after the pattern.
 	 */
@@ -166,7 +175,8 @@ public final class ConsoleCommand implements Serializable {
 	 * Gets the string in between two other strings.<br>
 	 * "Hello World".getBetween("lo", "ld") returns " wor"<br>
 	 * "first second third first again".getBetween("second", "first") returns " third "<br>
-	 *
+	 * 
+	 * @since v0.1
 	 * @param before The string before.
 	 * @param after  The string after.
 	 * @return The string in between.
@@ -183,7 +193,8 @@ public final class ConsoleCommand implements Serializable {
 	
 	/**
 	 * Runs a contains on the text with ignoring the case.
-	 *
+	 * 
+	 * @since v0.1
 	 * @param s The string to compare
 	 * @return if the text inputed has the String given
 	 * @see ConsoleCommand#contains
@@ -195,7 +206,8 @@ public final class ConsoleCommand implements Serializable {
 	
 	/**
 	 * Runs a contains on the text.
-	 *
+	 * 
+	 * @since v0.1
 	 * @param s The string to compare
 	 * @return if the text inputed has the String given
 	 * @see String#contains
@@ -206,7 +218,8 @@ public final class ConsoleCommand implements Serializable {
 	
 	/**
 	 * Gives you the raw text that the command contains.<br>
-	 *
+	 * 
+	 * @since v0.1
 	 * @return the raw text.
 	 */
 	public final String getText() {
@@ -215,7 +228,8 @@ public final class ConsoleCommand implements Serializable {
 	
 	/**
 	 * Gives you the number of words that the user inputed.
-	 *
+	 * 
+	 * @since v0.1
 	 * @return words.length length
 	 */
 	public final int getLength() {
@@ -226,7 +240,8 @@ public final class ConsoleCommand implements Serializable {
 	
 	/**
 	 * Gives you the character count of the {@link String} the user inputed.
-	 *
+	 * 
+	 * @since v0.1
 	 * @return the text length
 	 * @see String#length
 	 */
@@ -236,7 +251,8 @@ public final class ConsoleCommand implements Serializable {
 	
 	/**
 	 * Gives you all the args separated by spaces.
-	 *
+	 * 
+	 * @since v0.1
 	 * @return The array of words
 	 * @see ConsoleCommand#getArg
 	 * */

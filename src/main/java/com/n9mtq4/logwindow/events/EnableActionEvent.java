@@ -20,7 +20,14 @@ import com.n9mtq4.logwindow.BaseConsole;
 import java.io.Serializable;
 
 /**
- * Created by Will on 10/23/14.
+ * The event that is given to the
+ * {@link com.n9mtq4.logwindow.listener.EnableListener}.
+ *
+ * <p>Created by Will on 10/23/14.</p>
+ *
+ * @see com.n9mtq4.logwindow.listener.EnableListener
+ * @since v0.2
+ * @author Will "n9Mtq4" Bresnahan
  */
 public class EnableActionEvent implements Serializable {
 	
@@ -31,7 +38,7 @@ public class EnableActionEvent implements Serializable {
 	/**
 	 * Instantiates a new Enable action event.
 	 *
-	 * @param baseConsole the base console
+	 * @param baseConsole The {@link BaseConsole} that sent this {@link EnableActionEvent}
 	 */
 	public EnableActionEvent(BaseConsole baseConsole) {
 		
@@ -40,9 +47,9 @@ public class EnableActionEvent implements Serializable {
 	}
 	
 	/**
-	 * Gets base console.
+	 * Gets the {@link BaseConsole} that sent this {@link EnableActionEvent}.
 	 *
-	 * @return the base console
+	 * @return The {@link BaseConsole} that sent this {@link EnableActionEvent}
 	 */
 	public final BaseConsole getBaseConsole() {
 		return baseConsole;

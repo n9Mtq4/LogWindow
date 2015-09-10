@@ -21,10 +21,25 @@ import com.n9mtq4.logwindow.events.SentObjectEvent;
 import java.io.Serializable;
 
 /**
- * Created by will on 8/13/15 at 2:25 PM.
+ * Interface for classes that wish to get notified when the listener is enabled.
+ *
+ * @see #objectReceived(SentObjectEvent, BaseConsole)
+ * @since v5.0
+ * @author Will "n9Mtq4" Bresnahan
  */
 public interface ObjectListener extends Serializable, ListenerAttribute {
 	
+	/**
+	 * This method will be called when an object is sent to a {@link BaseConsole}.
+	 * 
+	 * @see BaseConsole#pushObject(Object)
+	 * @see BaseConsole#pushObject(Object, String)
+	 * @see BaseConsole#sendPluginsObject(Object)
+	 * @see BaseConsole#sendPluginsObject(Object, String)
+	 * @since v5.0
+	 * @param sentObjectEvent The SentObjectEvent, contains the object
+	 * @param baseConsole The {@link BaseConsole} that the listener should use
+	 */
 	void objectReceived(SentObjectEvent sentObjectEvent, BaseConsole baseConsole);
 	
 }

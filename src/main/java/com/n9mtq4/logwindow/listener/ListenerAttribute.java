@@ -16,7 +16,16 @@
 package com.n9mtq4.logwindow.listener;
 
 /**
- * Created by will on 8/13/15 at 3:42 PM.
+ * Created by will on 8/13/15 at 3:42 PM.<br>
+ * This interface is extended by {@link AdditionListener},
+ * {@link EnableListener}, {@link ObjectListener}, {@link StringListener},
+ * {@link DisableListener}, and {@link RemovalListener}.
+ * This interface's only job is to allow multiple types to be passed to a method.
+ * 
+ * @since v5.0
+ * @author Will "n9Mtq4" Bresnahan
+ * @deprecated Not meant for use outside the com.n9mtq4.logwindow package
  */
+@Deprecated
 public interface ListenerAttribute {
 }

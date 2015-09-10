@@ -24,25 +24,33 @@ import java.io.Serializable;
 /**
  * Created by Will on 12/29/14.<br>
  * The interface that declares that the class is a gui for
- * a BaseConsole.
+ * a {@link BaseConsole}.
+ * 
+ * @since v5.0
+ * @author Will "n9Mtq4" Bresnahan
  */
 public interface ConsoleUI extends Serializable {
 	
 	/**
 	 * Note: Add your gui stuff here when making a custom {@link ConsoleUI}<br>
 	 * Called when {@link ConsoleUI} is added to {@link BaseConsole}.
+	 * 
+	 * @since v5.0
 	 */
 	void init();
 	
 	/**
 	 * Note: Close streams or dispose {@link javax.swing.JFrame} here.<br>
 	 * Called when {@link BaseConsole} is closing or your {@link ConsoleUI} is removed.
+	 * 
+	 * @since v5.0
 	 */
 	void dispose();
 	
 	/**
 	 * Called when a {@link ListenerAttribute} wants to print something.<br>
-	 *
+	 * 
+	 * @since v5.0
 	 * @param object The object that the user wants to print that should be handled
 	 * @param colour The colour that the user wants to print the object in. If colour is null, it will be
 	 *               automatically set to the defaultTextColour, however, if you haven't given
