@@ -2307,6 +2307,7 @@ public class ReflectionHelper {
 		
 		if (directory.exists() && directory.isDirectory()) {
 			final String[] files = directory.list();
+			if (files == null) return;
 			
 			for (final String file : files) {
 				if (file.endsWith(".class")) {

@@ -127,6 +127,9 @@ public class PluginManager {
 					}
 				}
 				
+				zf.close(); //the input stream should close the zip file
+				is.close();
+				
 				return listeners;
 				
 			}catch (IOException e) {

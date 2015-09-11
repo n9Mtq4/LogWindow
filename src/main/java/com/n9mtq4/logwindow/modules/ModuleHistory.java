@@ -46,7 +46,7 @@ public final class ModuleHistory implements StringListener {
 			}else if (e.getCommand().getLength() == 2) {
 				if (e.getCommand().getArg(1).equalsIgnoreCase("clear")) {
 					while (baseConsole.getHistory().size() > 0) baseConsole.getHistory().remove(0);
-					for (UIContainer g : baseConsole.getGuiEntries()) {
+					for (UIContainer g : baseConsole.getUIContainers()) {
 						if (g.getGui() instanceof History) {
 							((History) g.getGui()).historyUpdate();
 						}

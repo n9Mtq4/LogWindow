@@ -22,6 +22,12 @@ package com.n9mtq4.logwindow.listener;
  * {@link DisableListener}, and {@link RemovalListener}.
  * This interface's only job is to allow multiple types to be passed to a method.
  * 
+ * @see AdditionListener
+ * @see EnableListener
+ * @see StringListener
+ * @see ObjectListener
+ * @see DisableListener
+ * @see RemovalListener
  * @since v5.0
  * @author Will "n9Mtq4" Bresnahan
  * @deprecated Not meant for use outside the com.n9mtq4.logwindow package

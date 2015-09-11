@@ -103,13 +103,14 @@ public class ModuleListener implements StringListener, DisableListener, RemovalL
 					try {
 						Class t = ReflectionHelper.getClass(e.getCommand().getArg(2));
 						ListenerAttribute l1 = (ListenerAttribute) (t.newInstance());
-//						baseConsole.addListener(l1);
+//					baseConsole.addListener(l1);
 						baseConsole.addListenerAttribute(l1);
 						baseConsole.print("[OUT]: ", Colour.BLUE);
 						baseConsole.println("done adding: " + l1.getClass().getName());
-					}catch (Exception e2) {
-						baseConsole.println("No Such listener");
-						return;
+					}catch (InstantiationException e1) {
+						e1.printStackTrace();
+					}catch (IllegalAccessException e1) {
+						e1.printStackTrace();
 					}
 					
 				}else if (e.getCommand().getArg(1).equalsIgnoreCase("remove")) {
@@ -198,7 +199,7 @@ public class ModuleListener implements StringListener, DisableListener, RemovalL
 					ListenerContainer l = baseConsole.getContainerFromId(name);
 					for (BaseConsole c : l.getLinkedBaseConsoles()) {
 						if (baseConsole.hasGuiAttached()) {
-							baseConsole.println(c.getClass().getName() + ": " + baseConsole.getId() + ": " + c.getGuiEntries().get(0).getGivenName());
+							baseConsole.println(c.getClass().getName() + ": " + baseConsole.getId() + ": " + c.getUIContainers().get(0).getGivenName());
 						}else {
 							baseConsole.print(c.getClass().getName() + ": " + baseConsole.getId());
 						}

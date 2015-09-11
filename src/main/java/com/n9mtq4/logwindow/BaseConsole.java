@@ -33,7 +33,6 @@ import java.io.PrintWriter;
 import java.io.Serializable;
 import java.io.StringWriter;
 import java.util.ArrayList;
-import java.util.ConcurrentModificationException;
 
 /**
  * Created by Will on 10/20/14.
@@ -51,12 +50,18 @@ public final class BaseConsole implements Serializable {
 	private static final long serialVersionUID = 992050290203752760L;
 	
 	/**
+	 * When {@link #pushObject(Object)} or {@link #sendPluginsObject(Object)}
+	 * is called the message is set to the DEFAULT_OBJECT_PUSH_MESSAGE.
+	 */
+	private static final String DEFAULT_OBJECT_PUSH_MESSAGE = "";
+	
+	/**
 	 * Keeps the ids of all {@link BaseConsole}s.
 	 * 
 	 * @deprecated Not used, and not necessary, since I discovered {@link Runtime#addShutdownHook(Thread)}
 	 */
 	@Deprecated
-	protected static final ArrayList<BaseConsole> globalList = new ArrayList<BaseConsole>();
+	private static final ArrayList<BaseConsole> globalList = new ArrayList<BaseConsole>();
 	
 	/**
 	 * The array containing all the listeners attached to the {@link BaseConsole}.
@@ -77,14 +82,18 @@ public final class BaseConsole implements Serializable {
 	/**
 	 * Contains all {@link ConsoleUI}s attached.
 	 *
-	 * @see BaseConsole#addGui
-	 * @see BaseConsole#removeGuiEntry
+	 * @see BaseConsole#addConsoleUi
+	 * @see BaseConsole#removeUiContainer
 	 */
-	private final ArrayList<UIContainer> guis;
+	private final ArrayList<UIContainer> uiContainers;
 	/**
 	 * The thread that is called when the program exits
 	 */
 	private final ShutdownHook shutdownHook;
+	/**
+	 * Has this BaseConsole been disposed?
+	 * */
+	private boolean disposed;
 	
 	/**
 	 * Constructor for {@link BaseConsole}.
@@ -95,7 +104,7 @@ public final class BaseConsole implements Serializable {
 		this.history = new ArrayList<String>();
 		globalList.add(this);
 		this.id = globalList.indexOf(this);
-		this.guis = new ArrayList<UIContainer>();
+		this.uiContainers = new ArrayList<UIContainer>();
 		this.shutdownHook = new ShutdownHook(this);
 		Runtime.getRuntime().addShutdownHook(shutdownHook);
 	}
@@ -107,7 +116,7 @@ public final class BaseConsole implements Serializable {
 	 * <code>
 	 *     
 	 *     BaseConsole baseConsole = new BaseConsole();<br>
-	 *     baseConsole.addGui(consoleUi);
+	 *     baseConsole.addConsoleUi(consoleUi);
 	 *     
 	 * </code>
 	 *
@@ -115,7 +124,7 @@ public final class BaseConsole implements Serializable {
 	 */
 	public BaseConsole(ConsoleUI consoleUI) {
 		this();
-		addGui(consoleUI);
+		addConsoleUi(consoleUI);
 	}
 	
 	/**
@@ -128,38 +137,25 @@ public final class BaseConsole implements Serializable {
 	 */
 	public final void dispose() {
 		
-		System.out.println("Disposing of BaseConsole with id of " + globalList.indexOf(this));
-		ArrayList<ListenerContainer> listenerEntries1;
-		while ((listenerEntries1 = this.listenerContainers).size() > 0) {
-			try {
-				for (ListenerContainer l : listenerEntries1) {
-					
-					this.removeListenerContainer(l, RemovalActionEvent.CONSOLE_DISPOSE);
-					
-				}
-			}catch (ConcurrentModificationException e) {
-				
-			}
+		System.out.println("Disposing of BaseConsole with id of " + getId());
+		
+//		remove the listeners, while trying to protect against Concurrent Modification
+		ArrayList<ListenerContainer> listenerContainers1 = getListenerContainers();
+		for (ListenerContainer listenerContainer : listenerContainers1) {
+			removeListenerContainer(listenerContainer, RemovalActionEvent.CONSOLE_DISPOSE);
 		}
-		ArrayList<UIContainer> guis;
-		while ((guis = this.getGuiEntries()).size() > 0) {
-			try {
-				for (UIContainer g : guis) {
-					
-					this.removeGuiEntry(g);
-					
-				}
-			}catch (ConcurrentModificationException e) {
-			}
+		
+//		remove the ConsoleUIs, while trying to protect against Concurrent Modification
+		ArrayList<UIContainer> uiContainers1 = getUIContainers();
+		for (UIContainer uiContainer : uiContainers1) {
+			removeUiContainer(uiContainer);
 		}
-//		removes shutdown hook if this method wasn't called from the shutdown hook
+		
+//		removes shutdown hook because this BaseConsole has already been disposed
 		try {
-			String className = Thread.currentThread().getStackTrace()[2].getClassName(); // gets the class name that called it
-			if (!className.equals(ShutdownHook.class.getName())) {
-				Runtime.getRuntime().removeShutdownHook(shutdownHook);
-			}
-		}catch (Exception e) {
-		}
+			Runtime.getRuntime().removeShutdownHook(shutdownHook);
+		}catch (IllegalStateException ignored) {} // this is ok, because this method should be called from the shutdown hook
+		this.disposed = true;
 		
 	}
 	
@@ -181,7 +177,7 @@ public final class BaseConsole implements Serializable {
 	 * @param colour The colour to print the text in.
 	 */
 	public final void print(Object object, Colour colour) {
-		for (UIContainer gui : guis) {
+		for (UIContainer gui : uiContainers) {
 			gui.print(object, colour);
 		}
 	}
@@ -228,7 +224,7 @@ public final class BaseConsole implements Serializable {
 	 * @param object the object
 	 */
 	public final void sendPluginsObject(Object object) {
-		sendPluginsObject(object, "");
+		sendPluginsObject(object, DEFAULT_OBJECT_PUSH_MESSAGE);
 	}
 	
 	/**
@@ -243,12 +239,18 @@ public final class BaseConsole implements Serializable {
 	}
 	
 	/**
-	 * Push object.
-	 *
-	 * @param object the object
+	 * Pushes an object to the {@link com.n9mtq4.logwindow.listener.ObjectListener}.
+	 * Doesn't keep object in history. If you want history support use
+	 * {@link #sendPluginsObject(Object)} or {@link #sendPluginsObject(Object, String)}.
+	 * The message is set to "" as a default.
+	 * 
+	 * @see #sendPluginsObject(Object)
+	 * @see #sendPluginsObject(Object, String)
+	 * @see #pushObject(Object, String)
+	 * @param object the object to push
 	 */
 	public final void pushObject(Object object) {
-		pushObject(object, "");
+		pushObject(object, DEFAULT_OBJECT_PUSH_MESSAGE);
 	}
 	
 	/**
@@ -259,27 +261,26 @@ public final class BaseConsole implements Serializable {
 	 */
 	public final void pushObject(Object object, String message) {
 		
-		try {
-			SentObjectEvent event = new SentObjectEvent(this, object, message);
-			for (ListenerContainer listenerContainer : listenerContainers) {
-				try {
-					
-					if (listenerContainer.isEnabled() && (!event.isCanceled() || listenerContainer.hasIgnoreDone())) {
-						listenerContainer.pushObject(event);
-					}
-					
-				}catch (Exception e) {
-//					wrap every listener in its own try so the program con continue if there is a crash.
-//					catch anything that happens in a Listener and stop it from
-//					bubbling up and hurting the rest of the program
-					this.printStackTrace(e);
-					e.printStackTrace();
-					println("Listener " + listenerContainer.getAttribute().getClass().getName() + " has an error!");
-					System.out.println("Listener " + listenerContainer.getAttribute().getClass().getName() + " has an error!");
+//		has to clone iterator to prevent concurrent modification
+		SentObjectEvent sentObjectEvent = new SentObjectEvent(this, object, message);
+		ArrayList<ListenerContainer> listenerContainers1 = getListenerContainers();
+		
+		for (ListenerContainer listenerContainer : listenerContainers1) {
+			try {
+				
+				if (listenerContainer.isEnabled() && (!sentObjectEvent.isCanceled() || listenerContainer.hasIgnoreDone())) {
+					listenerContainer.pushObject(sentObjectEvent);
 				}
+				
+			}catch (Exception e) {
+//				wrap every listener in its own try so the program con continue if there is a crash.
+//				catch anything that happens in a Listener and stop it from
+//				bubbling up and hurting the rest of the program
+				this.printStackTrace(e);
+				e.printStackTrace();
+				println("Listener " + listenerContainer.getAttribute().getClass().getName() + " has an error!");
+				System.out.println("Listener " + listenerContainer.getAttribute().getClass().getName() + " has an error!");
 			}
-		}catch (ConcurrentModificationException e1) {
-//			this is expected, so this is just here to stop a fatal crash
 		}
 		
 	}
@@ -292,7 +293,7 @@ public final class BaseConsole implements Serializable {
 	 */
 	public final void sendPluginsString(String text) {
 		history.add(text);
-		for (UIContainer g : guis) {
+		for (UIContainer g : uiContainers) {
 			if (g.getGui() instanceof History) ((History) g.getGui()).historyUpdate();
 		}
 		push(text);
@@ -305,23 +306,27 @@ public final class BaseConsole implements Serializable {
 	 */
 	public final void push(String text) {
 		
-		try {
-			ConsoleCommand command = new ConsoleCommand(text);
-			ConsoleActionEvent event = new ConsoleActionEvent(this, command);
-			for (ListenerContainer listenerContainer : listenerContainers) {
-				try {
-					if (listenerContainer.isEnabled() && (!event.isCanceled() || listenerContainer.hasIgnoreDone())) {
-						listenerContainer.pushString(event);
-					}
-				}catch (Exception e) {
-					this.printStackTrace(e);
-					e.printStackTrace();
-					println("Listener " + listenerContainer.getAttribute().getClass().getName() + " has an error!");
-					System.out.println("Listener " + listenerContainer.getAttribute().getClass().getName() + " has an error!");
+//		has to clone iterator to prevent concurrent modification
+		ConsoleCommand consoleCommand = new ConsoleCommand(text);
+		ConsoleActionEvent consoleActionEvent = new ConsoleActionEvent(this, consoleCommand);
+		ArrayList<ListenerContainer> listenerContainers1 = getListenerContainers();
+		
+		for (ListenerContainer listenerContainer : listenerContainers1) {
+			try {
+				
+				if (listenerContainer.isEnabled() && (!consoleActionEvent.isCanceled() || listenerContainer.hasIgnoreDone())) {
+					listenerContainer.pushString(consoleActionEvent);
 				}
+				
+			}catch (Exception e) {
+//				wrap every listener in its own try so the program con continue if there is a crash.
+//				catch anything that happens in a Listener and stop it from
+//				bubbling up and hurting the rest of the program
+				this.printStackTrace(e);
+				e.printStackTrace();
+				println("Listener " + listenerContainer.getAttribute().getClass().getName() + " has an error!");
+				System.out.println("Listener " + listenerContainer.getAttribute().getClass().getName() + " has an error!");
 			}
-		}catch (ConcurrentModificationException e1) {
-//			its expected, so this is just here to stop it from crashing
 		}
 		
 	}
@@ -585,7 +590,7 @@ public final class BaseConsole implements Serializable {
 	/**
 	 * Gets the listener entries.
 	 *
-	 * @return the listener entries
+	 * @return A clone of the {@link ListenerContainer} array
 	 */
 	public final ArrayList<ListenerContainer> getListenerContainers() {
 		return (ArrayList<ListenerContainer>) listenerContainers.clone();
@@ -594,10 +599,10 @@ public final class BaseConsole implements Serializable {
 	/**
 	 * Gets gui.
 	 *
-	 * @return the gui
+	 * @return A clone of the {@link ConsoleUI} array
 	 */
-	public final ArrayList<UIContainer> getGuiEntries() {
-		return (ArrayList<UIContainer>) guis.clone();
+	public final ArrayList<UIContainer> getUIContainers() {
+		return (ArrayList<UIContainer>) uiContainers.clone();
 	}
 	
 	/**
@@ -607,7 +612,7 @@ public final class BaseConsole implements Serializable {
 	 * has at least one gui attached to it
 	 */
 	public final boolean hasGuiAttached() {
-		return guis.size() > 0;
+		return uiContainers.size() > 0;
 	}
 	
 	/**
@@ -615,8 +620,8 @@ public final class BaseConsole implements Serializable {
 	 *
 	 * @param consoleUI the gui to add
 	 */
-	public final void addGui(ConsoleUI consoleUI) {
-		guis.add(new UIContainer(consoleUI));
+	public final void addConsoleUi(ConsoleUI consoleUI) {
+		uiContainers.add(new UIContainer(consoleUI));
 		consoleUI.init();
 	}
 	
@@ -625,8 +630,8 @@ public final class BaseConsole implements Serializable {
 	 *
 	 * @param UIContainer the gui to remove
 	 */
-	public final void removeGuiEntry(UIContainer UIContainer) {
-		guis.remove(UIContainer);
+	public final void removeUiContainer(UIContainer UIContainer) {
+		uiContainers.remove(UIContainer);
 		UIContainer.getGui().dispose();
 	}
 	
@@ -635,16 +640,16 @@ public final class BaseConsole implements Serializable {
 	 *
 	 * @param consoleUI the gui to remove
 	 */
-	public final void removeGui(ConsoleUI consoleUI) {
+	public final void removeConsoleUi(ConsoleUI consoleUI) {
 //		this prevents a concurrency issue.
 		int ir = 0;
-		for (int i = 0; i < guis.size(); i++) {
-			if (guis.get(i).getGui().equals(consoleUI)) {
+		for (int i = 0; i < uiContainers.size(); i++) {
+			if (uiContainers.get(i).getGui().equals(consoleUI)) {
 				ir = i;
 				break;
 			}
 		}
-		guis.remove(ir);
+		uiContainers.remove(ir);
 		consoleUI.dispose();
 	}
 	
@@ -655,6 +660,11 @@ public final class BaseConsole implements Serializable {
 	 */
 	public final int getId() {
 		return id;
+	}
+	
+	public final boolean isDisposed() {
+		if (disposed) System.out.println("The BaseConsole has been disposed");
+		return disposed;
 	}
 	
 }

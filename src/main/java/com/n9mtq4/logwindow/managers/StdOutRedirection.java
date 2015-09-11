@@ -24,7 +24,6 @@ import com.n9mtq4.logwindow.listener.DisableListener;
 import com.n9mtq4.logwindow.listener.EnableListener;
 
 import java.io.PrintStream;
-import java.io.Serializable;
 import java.text.MessageFormat;
 
 /**
@@ -33,7 +32,7 @@ import java.text.MessageFormat;
  * {@link BaseConsole}
  */
 public final class StdOutRedirection extends PrintStream 
-		implements AdditionListener, EnableListener, DisableListener, Serializable {
+		implements AdditionListener, EnableListener, DisableListener {
 	
 	private static final long serialVersionUID = 9180321456734075207L;
 	public static final boolean SHOW_LOCATION_DEFAULT_VALUE = false;

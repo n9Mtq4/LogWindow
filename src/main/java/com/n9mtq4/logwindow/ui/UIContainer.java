@@ -19,6 +19,7 @@ import com.n9mtq4.logwindow.BaseConsole;
 import com.n9mtq4.logwindow.listener.ListenerAttribute;
 import com.n9mtq4.logwindow.utils.Colour;
 
+import java.io.Serializable;
 import java.util.Random;
 
 /**
@@ -27,7 +28,9 @@ import java.util.Random;
  * @since v5.0
  * @author Will "n9Mtq4" Bresnahan
  */
-public final class UIContainer {
+public final class UIContainer implements Serializable {
+	
+	private static final long serialVersionUID = 3133425796152736253L;
 	
 	private static final Random random = new Random();
 	
