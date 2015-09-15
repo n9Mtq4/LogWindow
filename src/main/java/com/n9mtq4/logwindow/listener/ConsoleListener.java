@@ -18,7 +18,8 @@ package com.n9mtq4.logwindow.listener;
 import java.io.Serializable;
 
 /**
- * Interface for classes that wish to get notified when the listener is enabled.
+ * Interface for classes that wish to get everything.
+ * This interface extends all other {@link ListenerAttribute}s.
  *
  * @see com.n9mtq4.logwindow.listener.AdditionListener
  * @see com.n9mtq4.logwindow.listener.EnableListener

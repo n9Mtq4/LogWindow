@@ -150,6 +150,7 @@ public final class StdOutRedirection extends PrintStream
 	@Override
 	public final void print(String s) {
 		if (baseConsole == null) backup.print(s);
+		if (baseConsole.isDisposed()) return;
 		StackTraceElement element = Thread.currentThread().getStackTrace()[2];
 		if (!element.getMethodName().contains("print")) {
 			if (showLocation) {
@@ -165,6 +166,7 @@ public final class StdOutRedirection extends PrintStream
 	@Override
 	public final void print(Object o) {
 		if (baseConsole == null) backup.print(o);
+		if (baseConsole.isDisposed()) return;
 		StackTraceElement element = Thread.currentThread().getStackTrace()[2];
 		if (!element.getMethodName().contains("print")) {
 			if (showLocation) {
@@ -180,6 +182,7 @@ public final class StdOutRedirection extends PrintStream
 	@Override
 	public final void println(Object x) {
 		if (baseConsole == null) backup.print(x);
+		if (baseConsole.isDisposed()) return;
 		StackTraceElement element = Thread.currentThread().getStackTrace()[2];
 		if (!element.getMethodName().contains("print")) {
 			if (showLocation) {
@@ -195,6 +198,7 @@ public final class StdOutRedirection extends PrintStream
 	@Override
 	public final void println(String x) {
 		if (baseConsole == null) backup.print(x);
+		if (baseConsole.isDisposed()) return;
 		StackTraceElement element = Thread.currentThread().getStackTrace()[2];
 		if (!element.getMethodName().contains("print")) {
 			if (showLocation) {

@@ -22,8 +22,13 @@ import com.n9mtq4.logwindow.ui.attributes.History;
 import com.n9mtq4.logwindow.ui.attributes.Textable;
 import com.n9mtq4.logwindow.utils.Colour;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextField;
+import javax.swing.UIManager;
+import java.awt.BorderLayout;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -175,78 +180,6 @@ public final class GuiJFrame extends SimpleConsoleUI implements Textable, Histor
 	@Override
 	public final void historyUpdate() {
 		this.historyIndex = getParent().getHistory().size();
-	}
-	
-	/**
-	 * Gets no wrap panel.
-	 *
-	 * @return the no wrap panel
-	 */
-	public final JPanel getNoWrapPanel() {
-		return noWrapPanel;
-	}
-	
-	/**
-	 * Sets no wrap panel.
-	 *
-	 * @param noWrapPanel the no wrap panel
-	 */
-	public final void setNoWrapPanel(JPanel noWrapPanel) {
-		this.noWrapPanel = noWrapPanel;
-	}
-	
-	/**
-	 * Gets area.
-	 *
-	 * @return the area
-	 */
-	public final NTextArea getArea() {
-		return area;
-	}
-	
-	/**
-	 * Sets area.
-	 *
-	 * @param area the area
-	 */
-	public final void setArea(NTextArea area) {
-		this.area = area;
-	}
-	
-	/**
-	 * Gets field.
-	 *
-	 * @return the field
-	 */
-	public final JTextField getField() {
-		return field;
-	}
-	
-	/**
-	 * Sets field.
-	 *
-	 * @param field the field
-	 */
-	public final void setField(JTextField field) {
-		this.field = field;
-	}
-	
-	/**
-	 * Gets scroll area.
-	 *
-	 * @return the scroll area
-	 */
-	public final JScrollPane getScrollArea() {
-		return scrollArea;
-	}
-	
-	/**
-	 * Sets scroll area.
-	 *
-	 * @param scrollArea the scroll area
-	 */
-	public final void setScrollArea(JScrollPane scrollArea) {
-		this.scrollArea = scrollArea;
 	}
 	
 	/**

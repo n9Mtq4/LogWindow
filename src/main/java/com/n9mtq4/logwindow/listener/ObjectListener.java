@@ -21,7 +21,7 @@ import com.n9mtq4.logwindow.events.SentObjectEvent;
 import java.io.Serializable;
 
 /**
- * Interface for classes that wish to get notified when the listener is enabled.
+ * Interface for classes that wish to get notified when the listener is sent an object.
  *
  * @see #objectReceived(SentObjectEvent, BaseConsole)
  * @since v5.0

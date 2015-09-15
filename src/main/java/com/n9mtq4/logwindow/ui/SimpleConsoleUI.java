@@ -82,7 +82,7 @@ public abstract class SimpleConsoleUI implements ConsoleUI {
 	@Deprecated
 	@Override
 	public final void print(Object object, Colour colour) {
-		if (colour == null) colour = this.defaultTextColour;
+		if (colour == null) colour = getDefaultTextColour();
 		printObject(object, colour);
 	}
 	

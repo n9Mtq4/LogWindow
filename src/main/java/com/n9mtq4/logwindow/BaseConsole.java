@@ -17,7 +17,12 @@ package com.n9mtq4.logwindow;
 
 import com.n9mtq4.logwindow.command.ConsoleCommand;
 import com.n9mtq4.logwindow.dispose.ShutdownHook;
-import com.n9mtq4.logwindow.events.*;
+import com.n9mtq4.logwindow.events.AdditionActionEvent;
+import com.n9mtq4.logwindow.events.ConsoleActionEvent;
+import com.n9mtq4.logwindow.events.DisableActionEvent;
+import com.n9mtq4.logwindow.events.EnableActionEvent;
+import com.n9mtq4.logwindow.events.RemovalActionEvent;
+import com.n9mtq4.logwindow.events.SentObjectEvent;
 import com.n9mtq4.logwindow.listener.ListenerAttribute;
 import com.n9mtq4.logwindow.listener.ListenerContainer;
 import com.n9mtq4.logwindow.managers.PluginManager;
@@ -35,14 +40,13 @@ import java.io.StringWriter;
 import java.util.ArrayList;
 
 /**
- * Created by Will on 10/20/14.
- */
-
-/**
  * The class that handles all User to Listener interactions.
+ * 
+ * Created by Will on 10/20/14.
  * 
  * @since v0.1
  * @author Will "n9Mtq4" Bresnahan
+ * @version v5.0
  */
 @SuppressWarnings("unused")
 public final class BaseConsole implements Serializable {
@@ -51,12 +55,13 @@ public final class BaseConsole implements Serializable {
 	
 	/**
 	 * When {@link #pushObject(Object)} or {@link #sendPluginsObject(Object)}
-	 * is called the message is set to the DEFAULT_OBJECT_PUSH_MESSAGE.
+	 * is called the message is set to the value of this variable.
 	 */
 	private static final String DEFAULT_OBJECT_PUSH_MESSAGE = "";
 	
 	/**
 	 * Keeps the ids of all {@link BaseConsole}s.
+	 * TODO: remove deprecated field?
 	 * 
 	 * @deprecated Not used, and not necessary, since I discovered {@link Runtime#addShutdownHook(Thread)}
 	 */
@@ -81,7 +86,7 @@ public final class BaseConsole implements Serializable {
 	private final int id;
 	/**
 	 * Contains all {@link ConsoleUI}s attached.
-	 *
+	 * 
 	 * @see BaseConsole#addConsoleUi
 	 * @see BaseConsole#removeUiContainer
 	 */
@@ -97,13 +102,18 @@ public final class BaseConsole implements Serializable {
 	
 	/**
 	 * Constructor for {@link BaseConsole}.
+	 * It initializes everything that the {@link BaseConsole}
+	 * needs.
+	 * 
+	 * @see #BaseConsole(ConsoleUI)
 	 */
 	public BaseConsole() {
+		this.disposed = false;
 		this.listenerContainers = new ArrayList<ListenerContainer>();
 		initMandatoryListeners();
 		this.history = new ArrayList<String>();
+		this.id = globalList.size();
 		globalList.add(this);
-		this.id = globalList.indexOf(this);
 		this.uiContainers = new ArrayList<UIContainer>();
 		this.shutdownHook = new ShutdownHook(this);
 		Runtime.getRuntime().addShutdownHook(shutdownHook);
@@ -114,13 +124,12 @@ public final class BaseConsole implements Serializable {
 	 * a gui. This is equivalent to:<br>
 	 * 
 	 * <code>
-	 *     
 	 *     BaseConsole baseConsole = new BaseConsole();<br>
 	 *     baseConsole.addConsoleUi(consoleUi);
-	 *     
 	 * </code>
-	 *
-	 * @param consoleUI the console gui
+	 * 
+	 * @see #BaseConsole()
+	 * @param consoleUI The {@link ConsoleUI} to add to the {@link BaseConsole}
 	 */
 	public BaseConsole(ConsoleUI consoleUI) {
 		this();
@@ -129,12 +138,13 @@ public final class BaseConsole implements Serializable {
 	
 	/**
 	 * Handles disposing down the {@link ListenerAttribute}s and {@link ConsoleUI}s.<br>
-	 * Note: if overriding make sure to call super to close {@link ListenerAttribute} and {@link ConsoleUI}.<br>
-	 *
+	 * 
 	 * @see ConsoleUI#dispose
 	 * @see com.n9mtq4.logwindow.listener.DisableListener#onDisable(DisableActionEvent)
 	 * @see com.n9mtq4.logwindow.listener.RemovalListener#onRemoval(RemovalActionEvent)
+	 * @deprecated This method should only be called from the {@link ShutdownHook} class.
 	 */
+	@Deprecated
 	public final void dispose() {
 		
 		System.out.println("Disposing of BaseConsole with id of " + getId());
@@ -162,21 +172,26 @@ public final class BaseConsole implements Serializable {
 	/**
 	 * Adds required {@link ListenerAttribute}s to the {@link BaseConsole}.<br>
 	 * This is called in the constructor.
+	 * 
+	 * TODO: remove mandatory listeners?
+	 * @deprecated mandatory listeners shouldn't be mandatory.
 	 */
+	@Deprecated
 	private void initMandatoryListeners() {
 		
-		this.addListenerAttribute(new ModuleListener());
-		this.addListenerAttribute(new ModuleJarLoader());
+		addListenerAttribute(new ModuleListener());
+		addListenerAttribute(new ModuleJarLoader());
 		
 	}
 	
 	/**
 	 * Prints text in colour to the {@link ConsoleUI}s
-	 *
+	 * 
 	 * @param object The object to print.
 	 * @param colour The colour to print the text in.
 	 */
 	public final void print(Object object, Colour colour) {
+		if (isDisposed()) return;
 		for (UIContainer gui : uiContainers) {
 			gui.print(object, colour);
 		}
@@ -184,7 +199,7 @@ public final class BaseConsole implements Serializable {
 	
 	/**
 	 * Prints object in the default colour to the ConsoleGuis
-	 *
+	 * 
 	 * @param object The object to print.
 	 */
 	public final void print(Object object) {
@@ -193,7 +208,7 @@ public final class BaseConsole implements Serializable {
 	
 	/**
 	 * Prints object in colour to the ConsoleGuis.
-	 *
+	 * 
 	 * @param object The object to print.
 	 * @param colour The colour to print the object in.
 	 */
@@ -204,7 +219,7 @@ public final class BaseConsole implements Serializable {
 	
 	/**
 	 * Prints object in the default colour to the ConsoleGuis
-	 *
+	 * 
 	 * @param object The object to print.
 	 */
 	public final void println(Object object) {
@@ -220,7 +235,7 @@ public final class BaseConsole implements Serializable {
 	
 	/**
 	 * Send plugins object.
-	 *
+	 * 
 	 * @param object the object
 	 */
 	public final void sendPluginsObject(Object object) {
@@ -229,7 +244,7 @@ public final class BaseConsole implements Serializable {
 	
 	/**
 	 * Send plugins object.
-	 *
+	 * 
 	 * @param object the object
 	 * @param message the message
 	 */
@@ -255,12 +270,16 @@ public final class BaseConsole implements Serializable {
 	
 	/**
 	 * Push object.
-	 *
-	 * @param object the object
-	 * @param message the message
+	 * 
+	 * @see #pushObject(Object)
+	 * @see #sendPluginsObject(Object)
+	 * @see #sendPluginsObject(Object, String)
+	 * @param object The {@link Object} to push to all the {@link com.n9mtq4.logwindow.listener.ObjectListener}s
+	 * @param message The message to be sent with the {@link Object}
 	 */
 	public final void pushObject(Object object, String message) {
 		
+		if (isDisposed()) return;
 //		has to clone iterator to prevent concurrent modification
 		SentObjectEvent sentObjectEvent = new SentObjectEvent(this, object, message);
 		ArrayList<ListenerContainer> listenerContainers1 = getListenerContainers();
@@ -288,8 +307,8 @@ public final class BaseConsole implements Serializable {
 	/**
 	 * Note: use me to send input when using a custom {@link ConsoleUI}.<br>
 	 * Takes {@link String} and iterates through all {@link ListenerAttribute} on console.
-	 *
-	 * @param text String to send to
+	 * 
+	 * @param text The {@link String} to send to the {@link com.n9mtq4.logwindow.listener.StringListener}s
 	 */
 	public final void sendPluginsString(String text) {
 		history.add(text);
@@ -301,11 +320,12 @@ public final class BaseConsole implements Serializable {
 	
 	/**
 	 * Low level version of {@link BaseConsole#sendPluginsString}.
-	 *
-	 * @param text String to send to the listeners
+	 * 
+	 * @param text The {@link String} to send to the {@link com.n9mtq4.logwindow.listener.StringListener}s
 	 */
 	public final void push(String text) {
 		
+		if (isDisposed()) return;
 //		has to clone iterator to prevent concurrent modification
 		ConsoleCommand consoleCommand = new ConsoleCommand(text);
 		ConsoleActionEvent consoleActionEvent = new ConsoleActionEvent(this, consoleCommand);
@@ -333,7 +353,7 @@ public final class BaseConsole implements Serializable {
 	
 	/**
 	 * Prints the stack trace of a throwable to the {@link BaseConsole} output.
-	 *
+	 * 
 	 * @param throwable Prints the stackTrace.
 	 * @see Throwable#printStackTrace
 	 */
@@ -346,7 +366,7 @@ public final class BaseConsole implements Serializable {
 	
 	/**
 	 * Gets attribute from id.
-	 *
+	 * 
 	 * @param id the id
 	 * @return the attribute from id
 	 */
@@ -357,7 +377,7 @@ public final class BaseConsole implements Serializable {
 	
 	/**
 	 * Gets container from id.
-	 *
+	 * 
 	 * @param id the id
 	 * @return the container from id
 	 */
@@ -387,7 +407,7 @@ public final class BaseConsole implements Serializable {
 	
 	/**
 	 * Gets container from attribute.
-	 *
+	 * 
 	 * @param listenerAttribute the listener attribute
 	 * @return the container from attribute
 	 */
@@ -400,7 +420,7 @@ public final class BaseConsole implements Serializable {
 	
 	/**
 	 * Add listener attribute.
-	 *
+	 * 
 	 * @param listenerAttribute the listener attribute
 	 */
 	public final void addListenerAttribute(ListenerAttribute listenerAttribute) {
@@ -410,7 +430,7 @@ public final class BaseConsole implements Serializable {
 	
 	/**
 	 * Add listener container.
-	 *
+	 * 
 	 * @param listenerContainer the listener container
 	 */
 	public final void addListenerContainer(ListenerContainer listenerContainer) {
@@ -420,7 +440,7 @@ public final class BaseConsole implements Serializable {
 	
 	/**
 	 * Add listener attribute raw.
-	 *
+	 * 
 	 * @param listenerAttribute the listener attribute
 	 */
 	public final void addListenerAttributeRaw(ListenerAttribute listenerAttribute) {
@@ -430,10 +450,11 @@ public final class BaseConsole implements Serializable {
 	
 	/**
 	 * Add listener container raw.
-	 *
+	 * 
 	 * @param listenerContainer the listener container
 	 */
 	public final void addListenerContainerRaw(ListenerContainer listenerContainer) {
+		if (isDisposed()) return;
 		if (!listenerContainers.contains(listenerContainer) || !listenerContainer.getLinkedBaseConsoles().contains(this)) {
 			listenerContainers.add(listenerContainer);
 			listenerContainer.addToConsole(this);
@@ -443,7 +464,7 @@ public final class BaseConsole implements Serializable {
 	
 	/**
 	 * Enable listener attribute.
-	 *
+	 * 
 	 * @param listenerAttribute the listener attribute
 	 */
 	public final void enableListenerAttribute(ListenerAttribute listenerAttribute) {
@@ -452,10 +473,11 @@ public final class BaseConsole implements Serializable {
 	
 	/**
 	 * Enable listener container.
-	 *
+	 * 
 	 * @param listenerContainer the listener container
 	 */
 	public final void enableListenerContainer(ListenerContainer listenerContainer) {
+		if (isDisposed()) return;
 		if (!listenerContainer.isEnabled() || !listenerContainer.hasBeenEnabled()) {
 			listenerContainer.setEnabled(true);
 			listenerContainer.pushEnabled(new EnableActionEvent(this));
@@ -464,7 +486,7 @@ public final class BaseConsole implements Serializable {
 	
 	/**
 	 * Disable listener attribute.
-	 *
+	 * 
 	 * @param listenerAttribute the listener attribute
 	 */
 	public final void disableListenerAttribute(ListenerAttribute listenerAttribute) {
@@ -473,7 +495,7 @@ public final class BaseConsole implements Serializable {
 	
 	/**
 	 * Disable listener container.
-	 *
+	 * 
 	 * @param listenerContainer the listener container
 	 */
 	public final void disableListenerContainer(ListenerContainer listenerContainer) {
@@ -482,7 +504,7 @@ public final class BaseConsole implements Serializable {
 	
 	/**
 	 * Remove listener attribute.
-	 *
+	 * 
 	 * @param listenerAttribute the listener attribute
 	 */
 	public final void removeListenerAttribute(ListenerAttribute listenerAttribute) {
@@ -491,7 +513,7 @@ public final class BaseConsole implements Serializable {
 	
 	/**
 	 * Remove listener container.
-	 *
+	 * 
 	 * @param listenerContainer the listener container
 	 */
 	public final void removeListenerContainer(ListenerContainer listenerContainer) {
@@ -500,7 +522,7 @@ public final class BaseConsole implements Serializable {
 	
 	/**
 	 * Disable listener attribute.
-	 *
+	 * 
 	 * @param listenerAttribute the listener attribute
 	 * @param type the type
 	 */
@@ -510,11 +532,12 @@ public final class BaseConsole implements Serializable {
 	
 	/**
 	 * Disable listener container.
-	 *
+	 * 
 	 * @param listenerContainer the listener container
 	 * @param type the type
 	 */
 	public final void disableListenerContainer(ListenerContainer listenerContainer, int type) {
+		if (isDisposed()) return;
 		if (listenerContainer.isEnabled()) {
 			listenerContainer.setEnabled(false);
 			listenerContainer.pushDisabled(new DisableActionEvent(this, type));
@@ -523,7 +546,7 @@ public final class BaseConsole implements Serializable {
 	
 	/**
 	 * Remove listener attribute.
-	 *
+	 * 
 	 * @param listenerAttribute the listener attribute
 	 * @param type the type
 	 */
@@ -533,7 +556,7 @@ public final class BaseConsole implements Serializable {
 	
 	/**
 	 * Remove listener container.
-	 *
+	 * 
 	 * @param listenerContainer the listener container
 	 * @param type the type
 	 */
@@ -547,6 +570,7 @@ public final class BaseConsole implements Serializable {
 	}
 	
 	private final void removeListenerContainerRaw(ListenerContainer listenerContainer, int type) {
+		if (isDisposed()) return;
 		if (listenerContainers.contains(listenerContainer) || listenerContainer.getLinkedBaseConsoles().contains(this)) {
 			listenerContainers.remove(listenerContainer);
 			listenerContainer.removeFromConsole(this);
@@ -556,31 +580,33 @@ public final class BaseConsole implements Serializable {
 	
 	/**
 	 * Loads plugins to this console from the file path.
-	 *
+	 * 
 	 * @param filePath the file path of the folder to load this plugins from.
 	 */
 	public final void loadPlugins(String filePath) {
 		
+		if (isDisposed()) return;
 		PluginManager.loadPluginsToConsole(this, filePath);
 		
 	}
 	
 	/**
 	 * Loads plugins to this console from "./plugins".<br>
-	 *
+	 * 
 	 * @see BaseConsole#loadPlugins(String)
 	 * @see PluginManager#loadPluginsToConsole(BaseConsole, File)
 	 * @see PluginManager#loadPluginsToConsole(BaseConsole, String)
 	 */
 	public final void loadPlugins() {
 		
+		if (isDisposed()) return;
 		PluginManager.loadPluginsToConsole(this, PluginManager.DEFAULT_PLUGIN_FOLDER);
 		
 	}
 	
 	/**
 	 * Gets history.
-	 *
+	 * 
 	 * @return the history
 	 */
 	public final ArrayList<String> getHistory() {
@@ -597,8 +623,11 @@ public final class BaseConsole implements Serializable {
 	}
 	
 	/**
-	 * Gets gui.
-	 *
+	 * Gets the list of {@link UIContainer}s.
+	 * 
+	 * <br>Note: the list is cloned before being returned.
+	 * 
+	 * @see #uiContainers
 	 * @return A clone of the {@link ConsoleUI} array
 	 */
 	public final ArrayList<UIContainer> getUIContainers() {
@@ -606,28 +635,28 @@ public final class BaseConsole implements Serializable {
 	}
 	
 	/**
-	 * Returns if the console has a gui attached to it.<br>
-	 *
-	 * @return If the
-	 * has at least one gui attached to it
+	 * Returns if the console has a gui attached to it.
+	 * 
+	 * @return If the {@link BaseConsole} has at least one gui attached to it
 	 */
 	public final boolean hasGuiAttached() {
 		return uiContainers.size() > 0;
 	}
 	
 	/**
-	 * Adds a {@link ConsoleUI} to the BaseConsole.
+	 * Adds a {@link ConsoleUI} to the {@link BaseConsole}.
 	 *
 	 * @param consoleUI the gui to add
 	 */
 	public final void addConsoleUi(ConsoleUI consoleUI) {
+		if (isDisposed()) return;
 		uiContainers.add(new UIContainer(consoleUI));
 		consoleUI.init();
 	}
 	
 	/**
-	 * Removes a {@link UIContainer} from the BaseConsole.
-	 *
+	 * Removes a {@link UIContainer} from the {@link BaseConsole}.
+	 * 
 	 * @param UIContainer the gui to remove
 	 */
 	public final void removeUiContainer(UIContainer UIContainer) {
@@ -636,9 +665,9 @@ public final class BaseConsole implements Serializable {
 	}
 	
 	/**
-	 * Removes a {@link ConsoleUI} from the BaseConsole.
-	 *
-	 * @param consoleUI the gui to remove
+	 * Removes a {@link ConsoleUI} from the {@link BaseConsole}.
+	 * 
+	 * @param consoleUI The {@link ConsoleUI} to add.
 	 */
 	public final void removeConsoleUi(ConsoleUI consoleUI) {
 //		this prevents a concurrency issue.
@@ -656,7 +685,7 @@ public final class BaseConsole implements Serializable {
 	/**
 	 * Gets the global id of this {@link BaseConsole}.
 	 *
-	 * @return the global ID for this
+	 * @return the global ID for this {@link BaseConsole}
 	 */
 	public final int getId() {
 		return id;

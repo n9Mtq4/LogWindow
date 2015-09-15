@@ -20,7 +20,11 @@ import com.n9mtq4.logwindow.events.DisableActionEvent;
 import java.io.Serializable;
 
 /**
- * Created by will on 8/13/15 at 2:24 PM.
+ * Interface for classes that wish to get notified when the listener is disabled.
+ *
+ * @see #onDisable(DisableActionEvent)
+ * @since v5.0
+ * @author Will "n9Mtq4" Bresnahan
  */
 public interface DisableListener extends Serializable, ListenerAttribute {
 	
