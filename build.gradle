@@ -11,4 +11,5 @@ repositories {
 
 dependencies {
 //    compile 'com.intellij:annotations:+@jar'
+    testCompile group: 'junit', name: 'junit', version: '4.11'
 }
