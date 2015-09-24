@@ -18,13 +18,12 @@ package com.n9mtq4.logwindow.listener;
 /**
  * Created by will on 8/13/15 at 3:42 PM.<br>
  * This interface is extended by {@link AdditionListener},
- * {@link EnableListener}, {@link ObjectListener}, {@link StringListener},
+ * {@link EnableListener}, {@link ObjectListener},
  * {@link DisableListener}, and {@link RemovalListener}.
  * This interface's only job is to allow multiple types to be passed to a method.
  * 
  * @see AdditionListener
  * @see EnableListener
- * @see StringListener
  * @see ObjectListener
  * @see DisableListener
  * @see RemovalListener

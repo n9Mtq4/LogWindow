@@ -16,10 +16,11 @@
 package com.n9mtq4.logwindow.modules;
 
 import com.n9mtq4.logwindow.BaseConsole;
-import com.n9mtq4.logwindow.events.ConsoleActionEvent;
-import com.n9mtq4.logwindow.listener.StringListener;
+import com.n9mtq4.logwindow.events.SentObjectEvent;
+import com.n9mtq4.logwindow.listener.ObjectListener;
 import com.n9mtq4.logwindow.utils.Colour;
 import com.n9mtq4.logwindow.utils.JarLoader;
+import com.n9mtq4.logwindow.utils.StringParser;
 
 import java.io.File;
 import java.io.IOException;
@@ -34,14 +35,17 @@ import java.io.IOException;
  * @since v0.2
  * @author Will "n9Mtq4" Bresnahan
  */
-public final class ModuleJarLoader implements StringListener {
+public final class ModuleJarLoader implements ObjectListener {
 	
 	@Override
-	public final void actionPerformed(ConsoleActionEvent e, BaseConsole baseConsole) {
+	public void objectReceived(SentObjectEvent sentObjectEvent, BaseConsole baseConsole) {
 		
-		if (e.getCommand().trim().toLowerCase().startsWith("jarloader ") && e.getCommand().getLength() >= 2) {
+		if (!sentObjectEvent.isUserInputString()) return;
+		StringParser stringParser = new StringParser(sentObjectEvent);
+		
+		if (stringParser.trim().toLowerCase().startsWith("jarloader ") && stringParser.getLength() >= 2) {
 			
-			String filePath = e.getCommand().getText().substring(e.getCommand().getText().indexOf("jarloader ") + "jarloader ".length());
+			String filePath = stringParser.getText().substring(stringParser.getText().indexOf("jarloader ") + "jarloader ".length());
 			File jarFile = new File(filePath);
 			if (!jarFile.exists()) {
 				baseConsole.println("[ERROR]: " + jarFile.getPath() + " doesn't exist");
@@ -58,5 +62,4 @@ public final class ModuleJarLoader implements StringListener {
 		}
 		
 	}
-	
 }

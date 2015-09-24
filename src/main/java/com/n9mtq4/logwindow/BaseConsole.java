@@ -15,10 +15,8 @@
 
 package com.n9mtq4.logwindow;
 
-import com.n9mtq4.logwindow.command.ConsoleCommand;
 import com.n9mtq4.logwindow.dispose.ShutdownHook;
 import com.n9mtq4.logwindow.events.AdditionActionEvent;
-import com.n9mtq4.logwindow.events.ConsoleActionEvent;
 import com.n9mtq4.logwindow.events.DisableActionEvent;
 import com.n9mtq4.logwindow.events.EnableActionEvent;
 import com.n9mtq4.logwindow.events.RemovalActionEvent;
@@ -30,7 +28,6 @@ import com.n9mtq4.logwindow.modules.ModuleJarLoader;
 import com.n9mtq4.logwindow.modules.ModuleListener;
 import com.n9mtq4.logwindow.ui.ConsoleUI;
 import com.n9mtq4.logwindow.ui.UIContainer;
-import com.n9mtq4.logwindow.ui.attributes.History;
 import com.n9mtq4.logwindow.utils.Colour;
 
 import java.io.File;
@@ -54,10 +51,13 @@ public final class BaseConsole implements Serializable {
 	private static final long serialVersionUID = 992050290203752760L;
 	
 	/**
-	 * When {@link #pushObject(Object)} or {@link #sendPluginsObject(Object)}
-	 * is called the message is set to the value of this variable.
-	 */
-	private static final String DEFAULT_OBJECT_PUSH_MESSAGE = "";
+	 * This is the message that is sent with a string that is sent
+	 * from text.
+	 * 
+	 * @see #sendPluginsString(String)
+	 * @see #pushString(String)
+	 * */
+	public static final String STRING_OBJECT_MESSAGE = "text";
 	
 	/**
 	 * Keeps the ids of all {@link BaseConsole}s.
@@ -99,6 +99,8 @@ public final class BaseConsole implements Serializable {
 	 * Has this BaseConsole been disposed?
 	 * */
 	private boolean disposed;
+	private int pushing;
+	private final ArrayList<SentObjectEvent> pushQueue;
 	
 	/**
 	 * Constructor for {@link BaseConsole}.
@@ -116,6 +118,8 @@ public final class BaseConsole implements Serializable {
 		globalList.add(this);
 		this.uiContainers = new ArrayList<UIContainer>();
 		this.shutdownHook = new ShutdownHook(this);
+		this.pushing = 0;
+		this.pushQueue = new ArrayList<SentObjectEvent>();
 		Runtime.getRuntime().addShutdownHook(shutdownHook);
 	}
 	
@@ -233,123 +237,6 @@ public final class BaseConsole implements Serializable {
 		print("\n");
 	}
 	
-	/**
-	 * Send plugins object.
-	 * 
-	 * @param object the object
-	 */
-	public final void sendPluginsObject(Object object) {
-		sendPluginsObject(object, DEFAULT_OBJECT_PUSH_MESSAGE);
-	}
-	
-	/**
-	 * Send plugins object.
-	 * 
-	 * @param object the object
-	 * @param message the message
-	 */
-	public final void sendPluginsObject(Object object, String message) {
-		history.add(object.getClass().getName() + " : " + message);
-		pushObject(object, message);
-	}
-	
-	/**
-	 * Pushes an object to the {@link com.n9mtq4.logwindow.listener.ObjectListener}.
-	 * Doesn't keep object in history. If you want history support use
-	 * {@link #sendPluginsObject(Object)} or {@link #sendPluginsObject(Object, String)}.
-	 * The message is set to "" as a default.
-	 * 
-	 * @see #sendPluginsObject(Object)
-	 * @see #sendPluginsObject(Object, String)
-	 * @see #pushObject(Object, String)
-	 * @param object the object to push
-	 */
-	public final void pushObject(Object object) {
-		pushObject(object, DEFAULT_OBJECT_PUSH_MESSAGE);
-	}
-	
-	/**
-	 * Push object.
-	 * 
-	 * @see #pushObject(Object)
-	 * @see #sendPluginsObject(Object)
-	 * @see #sendPluginsObject(Object, String)
-	 * @param object The {@link Object} to push to all the {@link com.n9mtq4.logwindow.listener.ObjectListener}s
-	 * @param message The message to be sent with the {@link Object}
-	 */
-	public final void pushObject(Object object, String message) {
-		
-		if (isDisposed()) return;
-//		has to clone iterator to prevent concurrent modification
-		SentObjectEvent sentObjectEvent = new SentObjectEvent(this, object, message);
-		ArrayList<ListenerContainer> listenerContainers1 = getListenerContainers();
-		
-		for (ListenerContainer listenerContainer : listenerContainers1) {
-			try {
-				
-				if (listenerContainer.isEnabled() && (!sentObjectEvent.isCanceled() || listenerContainer.hasIgnoreDone())) {
-					listenerContainer.pushObject(sentObjectEvent);
-				}
-				
-			}catch (Exception e) {
-//				wrap every listener in its own try so the program con continue if there is a crash.
-//				catch anything that happens in a Listener and stop it from
-//				bubbling up and hurting the rest of the program
-				this.printStackTrace(e);
-				e.printStackTrace();
-				println("Listener " + listenerContainer.getAttribute().getClass().getName() + " has an error!");
-				System.out.println("Listener " + listenerContainer.getAttribute().getClass().getName() + " has an error!");
-			}
-		}
-		
-	}
-	
-	/**
-	 * Note: use me to send input when using a custom {@link ConsoleUI}.<br>
-	 * Takes {@link String} and iterates through all {@link ListenerAttribute} on console.
-	 * 
-	 * @param text The {@link String} to send to the {@link com.n9mtq4.logwindow.listener.StringListener}s
-	 */
-	public final void sendPluginsString(String text) {
-		history.add(text);
-		for (UIContainer g : uiContainers) {
-			if (g.getGui() instanceof History) ((History) g.getGui()).historyUpdate();
-		}
-		push(text);
-	}
-	
-	/**
-	 * Low level version of {@link BaseConsole#sendPluginsString}.
-	 * 
-	 * @param text The {@link String} to send to the {@link com.n9mtq4.logwindow.listener.StringListener}s
-	 */
-	public final void push(String text) {
-		
-		if (isDisposed()) return;
-//		has to clone iterator to prevent concurrent modification
-		ConsoleCommand consoleCommand = new ConsoleCommand(text);
-		ConsoleActionEvent consoleActionEvent = new ConsoleActionEvent(this, consoleCommand);
-		ArrayList<ListenerContainer> listenerContainers1 = getListenerContainers();
-		
-		for (ListenerContainer listenerContainer : listenerContainers1) {
-			try {
-				
-				if (listenerContainer.isEnabled() && (!consoleActionEvent.isCanceled() || listenerContainer.hasIgnoreDone())) {
-					listenerContainer.pushString(consoleActionEvent);
-				}
-				
-			}catch (Exception e) {
-//				wrap every listener in its own try so the program con continue if there is a crash.
-//				catch anything that happens in a Listener and stop it from
-//				bubbling up and hurting the rest of the program
-				this.printStackTrace(e);
-				e.printStackTrace();
-				println("Listener " + listenerContainer.getAttribute().getClass().getName() + " has an error!");
-				System.out.println("Listener " + listenerContainer.getAttribute().getClass().getName() + " has an error!");
-			}
-		}
-		
-	}
 	
 	/**
 	 * Prints the stack trace of a throwable to the {@link BaseConsole} output.
@@ -363,6 +250,98 @@ public final class BaseConsole implements Serializable {
 		throwable.printStackTrace(pw);
 		this.println(sw.toString(), Colour.RED);
 	}
+	
+//	STRING PUSHING START
+	public final void sendPluginsString(final String text) {
+		history.add(text);
+		pushString(text);
+	}
+	
+	public final void sendPluginsStringNow(final String text) {
+		history.add(text);
+		pushStringNow(text);
+	}
+	
+	public final void pushString(final String text) {
+		pushEvent(SentObjectEvent.createTextEvent(this, text));
+	}
+	
+	public final void pushStringNow(final String text) {
+		pushEventNow(SentObjectEvent.createTextEvent(this, text));
+	}
+	
+//	STRING PUSHING END
+	
+//	OBJECT PUSHING START
+	public final void pushEventNow(final SentObjectEvent sentObjectEvent) {
+		
+		if (isDisposed()) return; // if disposed stop running
+		startPushing(); // pushing started
+		
+//		push the event to the listeners
+		ArrayList<ListenerContainer> listenerClones = getListenerContainers();
+		for (ListenerContainer listenerContainer : listenerClones) {
+			try {
+				
+//				make sure we can push to the listeners
+				if (listenerContainer.isEnabled() && (!sentObjectEvent.isCanceled() || listenerContainer.hasIgnoreDone())) {
+					listenerContainer.pushObject(sentObjectEvent);
+				}
+				
+			}catch (Exception e) {
+//				wrap every listener in its own try so the program con continue if there is a crash.
+//				catch anything that happens in a Listener and stop it from
+//				bubbling up and hurting the rest of the program
+//				print some information
+				this.printStackTrace(e);
+				e.printStackTrace();
+				println("Listener " + listenerContainer.getAttribute().getClass().getName() + " has an error!");
+				System.out.println("Listener " + listenerContainer.getAttribute().getClass().getName() + " has an error!");
+			}
+		}
+		
+		stopPushing(); // pushing ended
+		
+	}
+	
+	public final void pushEvent(final SentObjectEvent sentObjectEvent) {
+		addToQueue(sentObjectEvent);
+		requestNextPush();
+	}
+	
+	public final void pushNow(final Object object, final String message) {
+		pushEventNow(SentObjectEvent.createSentObjectEvent(this, object, message));
+	}
+	
+	public final void push(final Object object, final String message) {
+		pushEvent(SentObjectEvent.createSentObjectEvent(this, object, message));
+	}
+	
+	private void addToQueue(final SentObjectEvent sentObjectEvent) {
+		pushQueue.add(sentObjectEvent);
+	}
+	
+	private void requestNextPush() {
+		if (pushing > 0) return; // already pushing, so stop
+		if (pushQueue.size() <= 0) return; // nothing to push, so stop
+		SentObjectEvent event = pushQueue.get(0); // retrieve the next in line
+		pushQueue.remove(0); // remove it from the line
+		pushEventNow(event); // push it
+	}
+	
+	private void startPushing() {
+		pushing++; // add a current pushing
+	}
+	
+	private void stopPushing() {
+		pushing--; // remove a current pushing
+		if (pushing == 0) {
+//			if there are no current pushing events;
+			requestNextPush(); // try to add a push from queue;
+		}
+	}
+	
+//	OBJECT PUSHING END
 	
 	/**
 	 * Gets attribute from id.

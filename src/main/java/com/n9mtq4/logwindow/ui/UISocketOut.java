@@ -16,12 +16,17 @@
 package com.n9mtq4.logwindow.ui;
 
 import com.n9mtq4.logwindow.BaseConsole;
-import com.n9mtq4.logwindow.events.ConsoleActionEvent;
 import com.n9mtq4.logwindow.events.DisableActionEvent;
 import com.n9mtq4.logwindow.events.RemovalActionEvent;
-import com.n9mtq4.logwindow.listener.*;
+import com.n9mtq4.logwindow.events.SentObjectEvent;
+import com.n9mtq4.logwindow.listener.DisableListener;
+import com.n9mtq4.logwindow.listener.ListenerAttribute;
+import com.n9mtq4.logwindow.listener.ListenerContainer;
+import com.n9mtq4.logwindow.listener.ObjectListener;
+import com.n9mtq4.logwindow.listener.RemovalListener;
 import com.n9mtq4.logwindow.managers.SocketManager;
 import com.n9mtq4.logwindow.utils.Colour;
+import com.n9mtq4.logwindow.utils.StringParser;
 
 /**
  * A {@link ConsoleUI} that takes any output and
@@ -146,7 +151,7 @@ public class UISocketOut extends SimpleConsoleUI {
 	/**
 	 * A helper class for {@link UISocketOut}
 	 */
-	public static final class SocketInputSender implements StringListener, DisableListener, RemovalListener {
+	public static final class SocketInputSender implements ObjectListener, DisableListener, RemovalListener {
 		
 		private final UISocketOut parent;
 		
@@ -160,26 +165,29 @@ public class UISocketOut extends SimpleConsoleUI {
 		}
 		
 		@Override
-		public void actionPerformed(ConsoleActionEvent e, BaseConsole baseConsole) {
+		public final void objectReceived(final SentObjectEvent e, final BaseConsole baseConsole) {
 			
-			if (e.getCommand().getLength() == 3) {
-				if (e.getCommand().getText().toLowerCase().startsWith("socketsender port")) {
+			if (!e.isUserInputString()) return;
+			StringParser stringParser = new StringParser(e);
+			
+			if (stringParser.getLength() == 3) {
+				if (stringParser.getText().toLowerCase().startsWith("socketsender port")) {
 					try {
-						int port = Integer.parseInt(e.getCommand().getArg(2));
+						int port = Integer.parseInt(stringParser.getArg(2));
 						parent.setPort(port);
 						parent.refresh();
 					}catch (NumberFormatException e1) {
 						baseConsole.print("Error: ", Colour.RED);
 						baseConsole.println(e1.getMessage());
 					}
-				}else if (e.getCommand().getText().toLowerCase().startsWith("socketsender ip")) {
-					String ip = e.getCommand().getArg(2);
+				}else if (stringParser.getText().toLowerCase().startsWith("socketsender ip")) {
+					String ip = stringParser.getArg(2);
 					parent.setIp(ip);
 					parent.refresh();
 				}
 			}
 			
-			parent.print(e.getCommand().getText(), Colour.BLACK);
+			parent.print(stringParser.getText(), Colour.BLACK);
 			
 		}
 		

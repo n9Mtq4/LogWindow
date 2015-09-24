@@ -17,7 +17,11 @@ package com.n9mtq4.logwindow.listener;
 
 import com.n9mtq4.logwindow.BaseConsole;
 import com.n9mtq4.logwindow.annotation.Async;
-import com.n9mtq4.logwindow.events.*;
+import com.n9mtq4.logwindow.events.AdditionActionEvent;
+import com.n9mtq4.logwindow.events.DisableActionEvent;
+import com.n9mtq4.logwindow.events.EnableActionEvent;
+import com.n9mtq4.logwindow.events.RemovalActionEvent;
+import com.n9mtq4.logwindow.events.SentObjectEvent;
 import com.n9mtq4.logwindow.utils.Colour;
 
 import java.io.Serializable;
@@ -82,7 +86,6 @@ public final class ListenerContainer implements Serializable {
 	
 	private boolean isAsyncAddition;
 	private boolean isAsyncEnable;
-	private boolean isAsyncString;
 	private boolean isAsyncObject;
 	private boolean isAsyncDisable;
 	private boolean isAsyncRemoval;
@@ -94,7 +97,6 @@ public final class ListenerContainer implements Serializable {
 		this.hasBeenEnabled = false;
 		this.ignoreDone = false;
 		this.isAsyncAddition = false;
-		this.isAsyncString = false;
 		this.isAsyncObject = false;
 		this.isAsyncEnable = false;
 		this.isAsyncDisable = false;
@@ -121,29 +123,6 @@ public final class ListenerContainer implements Serializable {
 				
 			}else {
 				pushObjectEvent(sentObjectEvent);
-			}
-		}
-	}
-	
-	/**
-	 * Push string.
-	 *
-	 * @param consoleActionEvent the console action event
-	 */
-	public final void pushString(ConsoleActionEvent consoleActionEvent) {
-		if (listener instanceof StringListener) {
-			if (isAsyncString) {
-				
-				final ConsoleActionEvent consoleActionEvent1 = consoleActionEvent;
-				new Thread(new Runnable() {
-					@Override
-					public void run() {
-						pushStringEvent(consoleActionEvent1);
-					}
-				}).start();
-				
-			}else {
-				pushStringEvent(consoleActionEvent);
 			}
 		}
 	}
@@ -251,16 +230,6 @@ public final class ListenerContainer implements Serializable {
 		}
 	}
 	
-	private void pushStringEvent(ConsoleActionEvent consoleActionEvent) {
-		try {
-			for (BaseConsole c : linkedBaseConsoles) {
-				((StringListener) listener).actionPerformed(consoleActionEvent, c);
-			}
-		}catch (ConcurrentModificationException e) {
-//			this is expected sometimes, and isn't a big deal
-		}
-	}
-	
 	private void pushAddedEvent(AdditionActionEvent additionActionEvent) {
 		((AdditionListener) listener).onAddition(additionActionEvent);
 	}
@@ -284,9 +253,6 @@ public final class ListenerContainer implements Serializable {
 		}
 		if (listener instanceof EnableListener) {
 			this.isAsyncEnable = shouldBeAsync("onEnable", EnableActionEvent.class);
-		}
-		if (listener instanceof StringListener) {
-			this.isAsyncString = shouldBeAsync("actionPerformed", ConsoleActionEvent.class, BaseConsole.class);
 		}
 		if (listener instanceof ObjectListener) {
 			this.isAsyncObject = shouldBeAsync("objectReceived", SentObjectEvent.class, BaseConsole.class);
@@ -390,26 +356,6 @@ public final class ListenerContainer implements Serializable {
 	}
 	
 	/**
-	 * Is async string.
-	 *
-	 * @return the boolean
-	 */
-	public final boolean isAsyncString() {
-		return isAsyncString;
-	}
-	
-	/**
-	 * Sets is async string.
-	 *
-	 * @param isAsyncString the is async string
-	 * @return the is async string
-	 */
-	public final ListenerContainer setIsAsyncString(boolean isAsyncString) {
-		this.isAsyncString = isAsyncString;
-		return this;
-	}
-	
-	/**
 	 * Is async object.
 	 *
 	 * @return the boolean
@@ -463,24 +409,6 @@ public final class ListenerContainer implements Serializable {
 	 */
 	public final boolean hasIgnoreDone() {
 		return ignoreDone;
-	}
-	
-	/**
-	 * Has async string.
-	 *
-	 * @return the boolean
-	 */
-	public final boolean hasAsyncString() {
-		return isAsyncString;
-	}
-	
-	/**
-	 * Has async object.
-	 *
-	 * @return the boolean
-	 */
-	public final boolean hasAsyncObject() {
-		return isAsyncObject;
 	}
 	
 }

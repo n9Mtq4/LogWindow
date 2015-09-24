@@ -16,8 +16,9 @@
 package com.n9mtq4.logwindow.modules;
 
 import com.n9mtq4.logwindow.BaseConsole;
-import com.n9mtq4.logwindow.events.ConsoleActionEvent;
-import com.n9mtq4.logwindow.listener.StringListener;
+import com.n9mtq4.logwindow.events.SentObjectEvent;
+import com.n9mtq4.logwindow.listener.ObjectListener;
+import com.n9mtq4.logwindow.utils.StringParser;
 
 /**
  * Support for typing "exit" and the {@link BaseConsole} being closed.
@@ -25,14 +26,18 @@ import com.n9mtq4.logwindow.listener.StringListener;
  * <p>Created by will on 3/2/15.</p>
  * 
  * @since v4.0
+ * @version v5.0
  * @author Will "n9Mtq4" Bresnahan
  */
-public final class ModuleExit implements StringListener {
+public final class ModuleExit implements ObjectListener {
 	
 	@Override
-	public final void actionPerformed(ConsoleActionEvent e, BaseConsole baseConsole) {
+	public final void objectReceived(final SentObjectEvent sentObjectEvent, final BaseConsole baseConsole) {
 		
-		if (e.getCommand().eqt("exit")) {
+		if (!sentObjectEvent.isUserInputString()) return;
+		StringParser stringParser = new StringParser(sentObjectEvent);
+		
+		if (stringParser.eqt("exit")) {
 			baseConsole.dispose();
 		}
 		

@@ -17,7 +17,6 @@ package com.n9mtq4.logwindow.listener;
 
 import com.n9mtq4.logwindow.BaseConsole;
 import com.n9mtq4.logwindow.events.AdditionActionEvent;
-import com.n9mtq4.logwindow.events.ConsoleActionEvent;
 import com.n9mtq4.logwindow.events.DisableActionEvent;
 import com.n9mtq4.logwindow.events.EnableActionEvent;
 import com.n9mtq4.logwindow.events.RemovalActionEvent;
@@ -58,11 +57,6 @@ public class TestListenerImplementation implements ConsoleListener {
 	@Override
 	public void onRemoval(RemovalActionEvent e) {
 		this.hasBeenRemoved = true;
-	}
-	
-	@Override
-	public void actionPerformed(ConsoleActionEvent e, BaseConsole baseConsole) {
-		
 	}
 	
 }

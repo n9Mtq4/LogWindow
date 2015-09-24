@@ -27,11 +27,48 @@ import java.io.Serializable;
  *
  * @see com.n9mtq4.logwindow.listener.ObjectListener
  * @since v4.1
+ * @version v5.0
  * @author Will "n9Mtq4" Bresnahan
  */
+@SuppressWarnings("unused")
 public final class SentObjectEvent implements Serializable {
 	
 	private static final long serialVersionUID = 1595683797944824474L;
+	
+	/**
+	 * When the {@link SentObjectEvent} is created if no message is provided, then it
+	 * uses this one.
+	 */
+	private static final String DEFAULT_OBJECT_PUSH_MESSAGE = "";
+	/**
+	 * The message to send with the text.
+	 * */
+	private static final String STRING_OBJECT_MESSAGE = "text";
+	
+	/**
+	 * Creates a {@link SentObjectEvent} with the object and the message.
+	 * 
+	 * @since v5.0
+	 * @param baseConsole The {@link BaseConsole} that spawned this event
+	 * @param object The object to create the event around
+	 * @param message The message to go along with the object
+	 * @return The {@link SentObjectEvent} with the object and message
+	 * */
+	public static SentObjectEvent createSentObjectEvent(final BaseConsole baseConsole, final Object object, final String message) {
+		return new SentObjectEvent(baseConsole, object, message == null ? DEFAULT_OBJECT_PUSH_MESSAGE : message);
+	}
+	
+	/**
+	 * Creates a {@link SentObjectEvent} that contains text.
+	 * 
+	 * @since v5.0
+	 * @param baseConsole The {@link BaseConsole} that spawned this event
+	 * @param text The text that was sent
+	 * @return The {@link SentObjectEvent} with the text
+	 * */
+	public static SentObjectEvent createTextEvent(final BaseConsole baseConsole, final String text) {
+		return createSentObjectEvent(baseConsole, text, STRING_OBJECT_MESSAGE);
+	}
 	
 	private final BaseConsole baseConsole;
 	
@@ -63,6 +100,17 @@ public final class SentObjectEvent implements Serializable {
 		//noinspection deprecation
 		this.canceled = false;
 		this.objectType = object == null ? "null" : object.getClass().getName();
+	}
+	
+	/**
+	 * Returns true if the inputed {@link SentObjectEvent} was inputed by the user.
+	 * Returns false otherwise.
+	 *
+	 * @since v5.0
+	 * @return If this {@link SentObjectEvent} was inputed by the user
+	 * */
+	public boolean isUserInputString() {
+		return this.getMessage().equals(STRING_OBJECT_MESSAGE) && this.getObject() instanceof String;
 	}
 	
 	/**

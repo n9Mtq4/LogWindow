@@ -24,13 +24,12 @@ import java.io.Serializable;
  * @see com.n9mtq4.logwindow.listener.AdditionListener
  * @see com.n9mtq4.logwindow.listener.EnableListener
  * @see com.n9mtq4.logwindow.listener.ObjectListener
- * @see com.n9mtq4.logwindow.listener.StringListener
  * @see com.n9mtq4.logwindow.listener.DisableListener
  * @see com.n9mtq4.logwindow.listener.RemovalListener
  * @since v5.0
  * @author Will "n9Mtq4" Bresnahan
  */
 public interface ConsoleListener extends AdditionListener, EnableListener, 
-		StringListener, ObjectListener, DisableListener, RemovalListener, Serializable {
+		ObjectListener, DisableListener, RemovalListener, Serializable {
 	
 }

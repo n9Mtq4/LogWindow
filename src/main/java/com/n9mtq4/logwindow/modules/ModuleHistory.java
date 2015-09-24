@@ -16,11 +16,12 @@
 package com.n9mtq4.logwindow.modules;
 
 import com.n9mtq4.logwindow.BaseConsole;
-import com.n9mtq4.logwindow.events.ConsoleActionEvent;
-import com.n9mtq4.logwindow.listener.StringListener;
+import com.n9mtq4.logwindow.events.SentObjectEvent;
+import com.n9mtq4.logwindow.listener.ObjectListener;
 import com.n9mtq4.logwindow.ui.UIContainer;
 import com.n9mtq4.logwindow.ui.attributes.History;
 import com.n9mtq4.logwindow.utils.Colour;
+import com.n9mtq4.logwindow.utils.StringParser;
 
 /**
  * A module for getting a list of the history and clearing the history.
@@ -30,21 +31,24 @@ import com.n9mtq4.logwindow.utils.Colour;
  * @since v0.1
  * @author Will "n9Mtq4" Bresnahan
  */
-public final class ModuleHistory implements StringListener {
+public final class ModuleHistory implements ObjectListener {
 	
 	@Override
-	public final void actionPerformed(ConsoleActionEvent e, BaseConsole baseConsole) {
+	public final void objectReceived(final SentObjectEvent sentObjectEvent, final BaseConsole baseConsole) {
 		
-		if (e.getCommand().contains("history")) {
+		if (!sentObjectEvent.isUserInputString()) return;
+		StringParser stringParser = new StringParser(sentObjectEvent);
+		
+		if (stringParser.contains("history")) {
 			
-			if (e.getCommand().getLength() == 1) {
-				if (e.getCommand().getArg(0).equalsIgnoreCase("history")) {
+			if (stringParser.getLength() == 1) {
+				if (stringParser.getArg(0).equalsIgnoreCase("history")) {
 					for (String s : baseConsole.getHistory()) {
 						baseConsole.println(s, Colour.MAGENTA);
 					}
 				}
-			}else if (e.getCommand().getLength() == 2) {
-				if (e.getCommand().getArg(1).equalsIgnoreCase("clear")) {
+			}else if (stringParser.getLength() == 2) {
+				if (stringParser.getArg(1).equalsIgnoreCase("clear")) {
 					while (baseConsole.getHistory().size() > 0) baseConsole.getHistory().remove(0);
 					for (UIContainer g : baseConsole.getUIContainers()) {
 						if (g.getGui() instanceof History) {

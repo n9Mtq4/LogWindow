@@ -16,12 +16,17 @@
 package com.n9mtq4.logwindow.modules;
 
 import com.n9mtq4.logwindow.BaseConsole;
-import com.n9mtq4.logwindow.events.ConsoleActionEvent;
 import com.n9mtq4.logwindow.events.DisableActionEvent;
 import com.n9mtq4.logwindow.events.RemovalActionEvent;
-import com.n9mtq4.logwindow.listener.*;
+import com.n9mtq4.logwindow.events.SentObjectEvent;
+import com.n9mtq4.logwindow.listener.DisableListener;
+import com.n9mtq4.logwindow.listener.ListenerAttribute;
+import com.n9mtq4.logwindow.listener.ListenerContainer;
+import com.n9mtq4.logwindow.listener.ObjectListener;
+import com.n9mtq4.logwindow.listener.RemovalListener;
 import com.n9mtq4.logwindow.utils.Colour;
 import com.n9mtq4.logwindow.utils.ReflectionHelper;
+import com.n9mtq4.logwindow.utils.StringParser;
 
 import java.util.ArrayList;
 
@@ -31,26 +36,30 @@ import java.util.ArrayList;
  * <p>Created by Will on 10/21/14.</p>
  * 
  * @since v0.1
+ * @version v5.0
  * @author Will "n9Mtq4" Bresnahan 
  */
-public class ModuleListener implements StringListener, DisableListener, RemovalListener {
+public class ModuleListener implements ObjectListener, DisableListener, RemovalListener {
 	
 	@Override
-	public void actionPerformed(ConsoleActionEvent e, BaseConsole baseConsole) {
+	public final void objectReceived(final SentObjectEvent e, final BaseConsole baseConsole) {
+		
+		if (!e.isUserInputString()) return;
+		StringParser stringParser = new StringParser(e);
 		
 //		TODO: this is a mess and unorganized, clean it up
-		if (e.getCommand().getArg(0).equalsIgnoreCase("listener")) {
+		if (stringParser.getArg(0).equalsIgnoreCase("listener")) {
 			
-			if (e.getCommand().getLength() == 2) {
+			if (stringParser.getLength() == 2) {
 				
-				if (e.getCommand().getArg(1).equalsIgnoreCase("list")) {
+				if (stringParser.getArg(1).equalsIgnoreCase("list")) {
 					int i = 0;
 					for (ListenerContainer l : baseConsole.getListenerContainers()) {
 						baseConsole.print("[" + i + "]: ");
 						baseConsole.println(l.getAttribute().getClass().getName(), l.isEnabled() ? Colour.GREEN : Colour.RED);
 						i++;
 					}
-				}else if (e.getCommand().getArg(1).equalsIgnoreCase("removeduplicates")) {
+				}else if (stringParser.getArg(1).equalsIgnoreCase("removeduplicates")) {
 					
 					baseConsole.print("[OUT]: ", Colour.BLUE);
 					baseConsole.println("removing duplicates...");
@@ -70,7 +79,7 @@ public class ModuleListener implements StringListener, DisableListener, RemovalL
 					baseConsole.print("[OUT]: ", Colour.BLUE);
 					baseConsole.println("done removing duplicate listeners");
 					
-				}else if (e.getCommand().getArg(1).equalsIgnoreCase("disableduplicates")) {
+				}else if (stringParser.getArg(1).equalsIgnoreCase("disableduplicates")) {
 					
 					baseConsole.print("[OUT]: ", Colour.BLUE);
 					baseConsole.println("disabling duplicates...");
@@ -92,16 +101,16 @@ public class ModuleListener implements StringListener, DisableListener, RemovalL
 					
 				}
 				
-			}else if (e.getCommand().getLength() == 3) {
+			}else if (stringParser.getLength() == 3) {
 				
-				if (e.getCommand().getArg(1).equalsIgnoreCase("add")) {
+				if (stringParser.getArg(1).equalsIgnoreCase("add")) {
 					
 					
 					baseConsole.print("[OUT]: ", Colour.BLUE);
 					baseConsole.println("adding...");
 					
 					try {
-						Class t = ReflectionHelper.getClass(e.getCommand().getArg(2));
+						Class t = ReflectionHelper.getClass(stringParser.getArg(2));
 						ListenerAttribute l1 = (ListenerAttribute) (t.newInstance());
 //					baseConsole.addListener(l1);
 						baseConsole.addListenerAttribute(l1);
@@ -113,9 +122,9 @@ public class ModuleListener implements StringListener, DisableListener, RemovalL
 						e1.printStackTrace();
 					}
 					
-				}else if (e.getCommand().getArg(1).equalsIgnoreCase("remove")) {
+				}else if (stringParser.getArg(1).equalsIgnoreCase("remove")) {
 					
-					String name = e.getCommand().getArg(2);
+					String name = stringParser.getArg(2);
 					
 					baseConsole.print("[OUT]: ", Colour.BLUE);
 					baseConsole.println("removing...");
@@ -137,11 +146,11 @@ public class ModuleListener implements StringListener, DisableListener, RemovalL
 						
 					}
 					
-				}else if (e.getCommand().getArg(1).equalsIgnoreCase("enable")) {
+				}else if (stringParser.getArg(1).equalsIgnoreCase("enable")) {
 					
 					try {
 						
-						String name = e.getCommand().getArg(2);
+						String name = stringParser.getArg(2);
 						
 						baseConsole.print("[OUT]: ", Colour.BLUE);
 						baseConsole.println("enabling...");
@@ -168,9 +177,9 @@ public class ModuleListener implements StringListener, DisableListener, RemovalL
 						baseConsole.println(e1.toString());
 					}
 					
-				}else if (e.getCommand().getArg(1).equalsIgnoreCase("disable")) {
+				}else if (stringParser.getArg(1).equalsIgnoreCase("disable")) {
 					
-					String name = e.getCommand().getArg(2);
+					String name = stringParser.getArg(2);
 					
 					baseConsole.print("[OUT]: ", Colour.BLUE);
 					baseConsole.println("disabling...");
@@ -192,9 +201,9 @@ public class ModuleListener implements StringListener, DisableListener, RemovalL
 						
 					}
 					
-				}else if (e.getCommand().getArg(1).equalsIgnoreCase("listconsoles")) {
+				}else if (stringParser.getArg(1).equalsIgnoreCase("listconsoles")) {
 					
-					String name = e.getCommand().getArg(2);
+					String name = stringParser.getArg(2);
 //					ListenerContainer l = baseConsole.getListenerEntry(name);
 					ListenerContainer l = baseConsole.getContainerFromId(name);
 					for (BaseConsole c : l.getLinkedBaseConsoles()) {

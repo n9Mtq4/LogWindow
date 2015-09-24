@@ -13,7 +13,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.n9mtq4.logwindow.command;
+package com.n9mtq4.logwindow.utils;
+
+import com.n9mtq4.logwindow.events.SentObjectEvent;
 
 import java.io.Serializable;
 
@@ -22,10 +24,11 @@ import java.io.Serializable;
  * as well as some String manipulation methods.
  * 
  * @since v0.1
+ * @version v5.0
  * @author Will "n9Mtq4" Bresnahan
  */
 @SuppressWarnings("unused")
-public final class ConsoleCommand implements Serializable {
+public final class StringParser implements Serializable {
 	
 	private static final long serialVersionUID = 1080818199066420180L;
 	
@@ -41,9 +44,19 @@ public final class ConsoleCommand implements Serializable {
 	 * @since v0.1
 	 * @param text the text
 	 */
-	public ConsoleCommand(String text) {
+	public StringParser(String text) {
 		this.text = text;
 		words = text.split(" ");
+	}
+	
+	/**
+	 * Makes a new {@link StringParser} from a {@link SentObjectEvent}.
+	 * 
+	 * @see StringParser#StringParser(String)
+	 * @param event The {@link SentObjectEvent}
+	 * */
+	public StringParser(SentObjectEvent event) {
+		this((String) event.getObject());
 	}
 	
 	/**
@@ -197,7 +210,7 @@ public final class ConsoleCommand implements Serializable {
 	 * @since v0.1
 	 * @param s The string to compare
 	 * @return if the text inputed has the String given
-	 * @see ConsoleCommand#contains
+	 * @see StringParser#contains
 	 * @see String#contains
 	 */
 	public final boolean containsIgnoreCase(CharSequence s) {
@@ -254,7 +267,7 @@ public final class ConsoleCommand implements Serializable {
 	 * 
 	 * @since v0.1
 	 * @return The array of words
-	 * @see ConsoleCommand#getArg
+	 * @see StringParser#getArg
 	 * */
 	public final String[] getArgs() {
 		return words.clone();
