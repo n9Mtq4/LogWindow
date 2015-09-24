@@ -252,27 +252,90 @@ public final class BaseConsole implements Serializable {
 	}
 	
 //	STRING PUSHING START
+	/**
+	 * Sends {@link ListenerAttribute} a string.
+	 * Does the same thing as {@link #pushString(String)}
+	 * but adds the text to the history.
+	 * 
+	 * @see #sendPluginsStringNow(String)
+	 * @see #pushString(String)
+	 * @see #pushStringNow(String)
+	 * @since v5.0
+	 * @param text The text to send to the {@link ListenerAttribute}s
+	 * */
 	public final void sendPluginsString(final String text) {
 		history.add(text);
 		pushString(text);
 	}
 	
+	/**
+	 * Sends {@link ListenerAttribute} a string.
+	 * Does the same thing as {@link #pushString(String)}
+	 * but adds the text to the history.
+	 * <br>
+	 * I recommend using {@link #sendPluginsString(String)} )} if sending
+	 * the string now isn't ABSOLUTELY necessary.
+	 * 
+	 * @see #sendPluginsString(String)
+	 * @see #pushString(String)
+	 * @see #pushStringNow(String)
+	 * @since v5.0
+	 * @param text The text to send to the {@link ListenerAttribute}s
+	 * */
 	public final void sendPluginsStringNow(final String text) {
 		history.add(text);
 		pushStringNow(text);
 	}
 	
+	/**
+	 * Sends {@link ListenerAttribute}s a string.
+	 * Doesn't add the text to the history like
+	 * {@link #sendPluginsString(String)} does.
+	 * 
+	 * @see #sendPluginsString(String)
+	 * @see #sendPluginsStringNow(String)
+	 * @see #pushStringNow(String)
+	 * @since v5.0
+	 * @param text The text to send to the {@link ListenerAttribute}s
+	 * */
 	public final void pushString(final String text) {
 		pushEvent(SentObjectEvent.createTextEvent(this, text));
 	}
 	
+	/**
+	 * Sends {@link ListenerAttribute}s a string.
+	 * Doesn't add the text to the history like
+	 * {@link #sendPluginsString(String)} does.
+	 * <br>
+	 * Does not wait for other pushes to finish.
+	 * I recommend using {@link #pushString(String)} )} if sending
+	 * the string now isn't ABSOLUTELY necessary.
+	 * 
+	 * @see #sendPluginsString(String)
+	 * @see #sendPluginsStringNow(String)
+	 * @see #pushString(String)
+	 * @since v5.0
+	 * @param text The text to send to the {@link ListenerAttribute}s
+	 * */
 	public final void pushStringNow(final String text) {
 		pushEventNow(SentObjectEvent.createTextEvent(this, text));
 	}
-	
 //	STRING PUSHING END
 	
 //	OBJECT PUSHING START
+	/**
+	 * Pushes a {@link SentObjectEvent} right now. Does not wait for other events
+	 * to finish with the queue system.
+	 * <br>
+	 * I recommend using {@link #pushEvent(SentObjectEvent)} if pushing the event
+	 * now isn't ABSOLUTELY necessary.
+	 * 
+	 * @see #pushEvent(SentObjectEvent)
+	 * @see #pushNow(Object, String)
+	 * @see #push(Object, String)
+	 * @since v5.0
+	 * @param sentObjectEvent The {@link SentObjectEvent} to push to the {@link ListenerAttribute}
+	 * */
 	public final void pushEventNow(final SentObjectEvent sentObjectEvent) {
 		
 		if (isDisposed()) return; // if disposed stop running
@@ -304,15 +367,56 @@ public final class BaseConsole implements Serializable {
 		
 	}
 	
+	/**
+	 * Adds a {@link SentObjectEvent} to the pushing queue. Will then try
+	 * to push the next queue.
+	 * 
+	 * @see #pushEventNow(SentObjectEvent)
+	 * @see #push(Object, String)
+	 * @see #pushNow(Object, String)
+	 * @since v5.0
+	 * @param sentObjectEvent The {@link SentObjectEvent} to push to the {@link ListenerAttribute}s
+	 * */
 	public final void pushEvent(final SentObjectEvent sentObjectEvent) {
 		addToQueue(sentObjectEvent);
 		requestNextPush();
+//		maybe use the following code for better efficiency.
+/*		if (pushing > 0) {
+			addToQueue(sentObjectEvent);
+		}else {
+			pushEventNow(sentObjectEvent);
+		}*/
 	}
 	
+	/**
+	 * Pushes an {@link Object} with a message right now. Does not wait for other events
+	 * to finish with the queue system.
+	 * <br>
+	 * I recommend using {@link #push(Object, String)} if pushing the event
+	 * now isn't ABSOLUTELY necessary.
+	 * 
+	 * @see #push(Object, String)
+	 * @see #pushEvent(SentObjectEvent)
+	 * @see #pushEventNow(SentObjectEvent)
+	 * @since v5.0
+	 * @param object The {@link Object} to send to the {@link ListenerAttribute}s
+	 * @param message The message to send with the object
+	 * */
 	public final void pushNow(final Object object, final String message) {
 		pushEventNow(SentObjectEvent.createSentObjectEvent(this, object, message));
 	}
 	
+	/**
+	 * Adds an {@link Object} with the message to the pushing queue. Will then try
+	 * to push the next queue.
+	 *
+	 * @see #pushNow(Object, String)
+	 * @see #pushEvent(SentObjectEvent)
+	 * @see #pushEventNow(SentObjectEvent)
+	 * @since v5.0
+	 * @param object The {@link Object} to send to the {@link ListenerAttribute}s
+	 * @param message The message to send with the object
+	 * */
 	public final void push(final Object object, final String message) {
 		pushEvent(SentObjectEvent.createSentObjectEvent(this, object, message));
 	}
