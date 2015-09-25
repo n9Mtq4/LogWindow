@@ -16,10 +16,6 @@
 package com.n9mtq4.logwindow.ui.attributes;
 
 /**
- * Created by Will on 1/1/15.
- */
-
-/**
  * An interface that flags a {@link com.n9mtq4.logwindow.ui.ConsoleUI} that it supports
  * the {@link com.n9mtq4.logwindow.BaseConsole}'s history.
  *

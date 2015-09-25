@@ -32,10 +32,10 @@ public interface ObjectListener extends Serializable, ListenerAttribute {
 	/**
 	 * This method will be called when an object is sent to a {@link BaseConsole}.
 	 * 
-	 * @see BaseConsole#pushObjectNow(Object)
-	 * @see BaseConsole#pushObjectNow(Object, String)
-	 * @see BaseConsole#sendPluginsObject(Object)
-	 * @see BaseConsole#sendPluginsObject(Object, String)
+	 * @see BaseConsole#push(Object, String) 
+	 * @see BaseConsole#pushNow(Object, String)  
+	 * @see BaseConsole#sendPluginsString(String)
+	 * @see BaseConsole#sendPluginsStringNow(String)
 	 * @since v5.0
 	 * @param sentObjectEvent The SentObjectEvent, contains the object
 	 * @param baseConsole The {@link BaseConsole} that the listener should use

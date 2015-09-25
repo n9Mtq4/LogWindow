@@ -15,7 +15,7 @@
 
 package com.n9mtq4.logwindow.ui.attributes;
 
-import javax.swing.*;
+import javax.swing.JFrame;
 
 /**
  * An interface that flags a {@link com.n9mtq4.logwindow.ui.ConsoleUI} that it contains a {@link JFrame}.

@@ -38,7 +38,7 @@ public interface Textable {
 	/**
 	 * Gets the current text in a compatible {@link ConsoleUI}.
 	 * 
-	 * @see Textable#setText
+	 * @see #setText
 	 * @since v4.0
 	 * @return The text that the {@link ConsoleUI} has.
 	 */
@@ -47,7 +47,7 @@ public interface Textable {
 	/**
 	 * Sets the current text in a compatible {@link ConsoleUI}.
 	 * 
-	 * @see Textable#getText
+	 * @see #getText
 	 * @since v4.0
 	 * @param text The text to set the {@link ConsoleUI}'s view to.
 	 */

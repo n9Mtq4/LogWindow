@@ -273,7 +273,7 @@ public final class BaseConsole implements Serializable {
 	 * Does the same thing as {@link #pushString(String)}
 	 * but adds the text to the history.
 	 * <br>
-	 * I recommend using {@link #sendPluginsString(String)} )} if sending
+	 * I recommend using {@link #sendPluginsString(String)} if sending
 	 * the string now isn't ABSOLUTELY necessary.
 	 * 
 	 * @see #sendPluginsString(String)
@@ -408,7 +408,8 @@ public final class BaseConsole implements Serializable {
 	
 	/**
 	 * Adds an {@link Object} with the message to the pushing queue. Will then try
-	 * to push the next queue.
+	 * to push the next queue. This will use the default message of
+	 * {@link SentObjectEvent#STRING_OBJECT_MESSAGE}
 	 *
 	 * @see #pushNow(Object, String)
 	 * @see #pushEvent(SentObjectEvent)
@@ -419,6 +420,38 @@ public final class BaseConsole implements Serializable {
 	 * */
 	public final void push(final Object object, final String message) {
 		pushEvent(SentObjectEvent.createSentObjectEvent(this, object, message));
+	}
+	
+	/**
+	 * Pushes an {@link Object} with a message right now. Does not wait for other events
+	 * to finish with the queue system.
+	 * <br>
+	 * I recommend using {@link #push(Object, String)} if pushing the event
+	 * now isn't ABSOLUTELY necessary.
+	 *
+	 * @see #push(Object, String)
+	 * @see #pushEvent(SentObjectEvent)
+	 * @see #pushEventNow(SentObjectEvent)
+	 * @since v5.0
+	 * @param object The {@link Object} to send to the {@link ListenerAttribute}s
+	 * */
+	public final void pushNow(final Object object) {
+		pushNow(object, null);
+	}
+	
+	/**
+	 * Adds an {@link Object} with the message to the pushing queue. Will then try
+	 * to push the next queue. This will use the default message of
+	 * {@link SentObjectEvent#STRING_OBJECT_MESSAGE}
+	 *
+	 * @see #pushNow(Object, String)
+	 * @see #pushEvent(SentObjectEvent)
+	 * @see #pushEventNow(SentObjectEvent)
+	 * @since v5.0
+	 * @param object The {@link Object} to send to the {@link ListenerAttribute}s
+	 * */
+	public final void push(final Object object) {
+		push(object, null);
 	}
 	
 	private void addToQueue(final SentObjectEvent sentObjectEvent) {
@@ -774,6 +807,11 @@ public final class BaseConsole implements Serializable {
 		return id;
 	}
 	
+	/**
+	 * Checks if this {@link BaseConsole} has been disposed.
+	 * 
+	 * @return true if disposed, false otherwise
+	 * */
 	public final boolean isDisposed() {
 		if (disposed) System.out.println("The BaseConsole has been disposed");
 		return disposed;

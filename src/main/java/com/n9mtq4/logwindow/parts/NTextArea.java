@@ -15,9 +15,15 @@
 
 package com.n9mtq4.logwindow.parts;
 
-import javax.swing.*;
-import javax.swing.text.*;
-import java.awt.*;
+import javax.swing.ImageIcon;
+import javax.swing.JTextPane;
+import javax.swing.text.AttributeSet;
+import javax.swing.text.SimpleAttributeSet;
+import javax.swing.text.StyleConstants;
+import javax.swing.text.StyleContext;
+import javax.swing.text.StyledDocument;
+import java.awt.Color;
+import java.awt.Image;
 import java.io.Serializable;
 
 /**

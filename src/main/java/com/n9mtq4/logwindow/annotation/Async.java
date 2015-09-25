@@ -36,7 +36,6 @@ public @interface Async {
 	 * Can only be applied to {@link com.n9mtq4.logwindow.listener.AdditionListener#onAddition(com.n9mtq4.logwindow.events.AdditionActionEvent)},
 	 * {@link com.n9mtq4.logwindow.listener.EnableListener#onEnable(com.n9mtq4.logwindow.events.EnableActionEvent)},
 	 * {@link com.n9mtq4.logwindow.listener.ObjectListener#objectReceived(com.n9mtq4.logwindow.events.SentObjectEvent, com.n9mtq4.logwindow.BaseConsole)},
-	 * {@link com.n9mtq4.logwindow.listener.StringListener#actionPerformed(com.n9mtq4.logwindow.events.ConsoleActionEvent, com.n9mtq4.logwindow.BaseConsole)},
 	 * {@link com.n9mtq4.logwindow.listener.DisableListener#onDisable(com.n9mtq4.logwindow.events.DisableActionEvent)}, and
 	 * {@link com.n9mtq4.logwindow.listener.RemovalListener#onRemoval(com.n9mtq4.logwindow.events.RemovalActionEvent)}
 	 * 
