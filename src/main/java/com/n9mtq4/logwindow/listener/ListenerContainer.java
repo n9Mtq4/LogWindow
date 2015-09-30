@@ -30,6 +30,11 @@ import java.util.ArrayList;
 import java.util.ConcurrentModificationException;
 
 /**
+ * A class that wraps a {@link ListenerAttribute} for use on a
+ * {@link BaseConsole}.
+ * 
+ * @version v5.0
+ * @author Will "n9Mtq4" Bresnahan
  * @since v5.0
  */
 public final class ListenerContainer implements Serializable {

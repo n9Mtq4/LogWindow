@@ -15,10 +15,6 @@
 
 package com.n9mtq4.logwindow.ui.attributes;
 
-/**
- * Created by Will on 1/1/15.
- */
-
 import com.n9mtq4.logwindow.ui.ConsoleUI;
 
 /**

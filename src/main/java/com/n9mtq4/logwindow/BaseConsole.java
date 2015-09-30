@@ -38,26 +38,40 @@ import java.util.ArrayList;
 
 /**
  * The class that handles all User to Listener interactions.
+ * <p>
+ * This class is an internal server with multiple different
+ * components.<br>
+ * There are the {@link ListenerAttribute}s. These receive events
+ * from the {@link BaseConsole}.
+ * {@link AdditionActionEvent},
+ * {@link EnableActionEvent},
+ * {@link SentObjectEvent},
+ * {@link DisableActionEvent}, and 
+ * {@link RemovalActionEvent}.
+ * The {@link BaseConsole} handles the {@link AdditionActionEvent},
+ * {@link EnableActionEvent}, {@link DisableActionEvent},
+ * and the {@link RemovalActionEvent}.
+ * To push an event call {@link #push(Object)} or
+ * {@link #pushNow(Object)}.
+ * <br>
+ * There are also {@link ConsoleUI}s.
+ * These receive output from the {@link BaseConsole}.
+ * The {@link ConsoleUI}s are responsible for displaying
+ * the output, or sending it via packets, etc.
  * 
+ * <p>
  * Created by Will on 10/20/14.
  * 
+ * @see ListenerAttribute
+ * @see ConsoleUI
  * @since v0.1
  * @author Will "n9Mtq4" Bresnahan
  * @version v5.0
  */
 @SuppressWarnings("unused")
-public final class BaseConsole implements Serializable {
+public class BaseConsole implements Serializable {
 	
 	private static final long serialVersionUID = 992050290203752760L;
-	
-	/**
-	 * This is the message that is sent with a string that is sent
-	 * from text.
-	 * 
-	 * @see #sendPluginsString(String)
-	 * @see #pushString(String)
-	 * */
-	public static final String STRING_OBJECT_MESSAGE = "text";
 	
 	/**
 	 * Keeps the ids of all {@link BaseConsole}s.
@@ -99,7 +113,14 @@ public final class BaseConsole implements Serializable {
 	 * Has this BaseConsole been disposed?
 	 * */
 	private boolean disposed;
+	/**
+	 * Contains the number of events being pushed at a given time.
+	 * */
 	private int pushing;
+	/**
+	 * The {@link ArrayList} that stores {@link SentObjectEvent} temporarily
+	 * while they are waiting for {@link #pushing} to be 0.
+	 * */
 	private final ArrayList<SentObjectEvent> pushQueue;
 	
 	/**
@@ -202,7 +223,7 @@ public final class BaseConsole implements Serializable {
 	}
 	
 	/**
-	 * Prints object in the default colour to the ConsoleGuis
+	 * Prints object in the default colour to the {@link ConsoleUI};
 	 * 
 	 * @param object The object to print.
 	 */
@@ -211,7 +232,7 @@ public final class BaseConsole implements Serializable {
 	}
 	
 	/**
-	 * Prints object in colour to the ConsoleGuis.
+	 * Prints object in colour to the {@link ConsoleUI}s.
 	 * 
 	 * @param object The object to print.
 	 * @param colour The colour to print the object in.
