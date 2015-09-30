@@ -16,10 +16,10 @@
 package com.n9mtq4.logwindow.ui;
 
 import com.n9mtq4.logwindow.BaseConsole;
-import com.n9mtq4.logwindow.parts.NTextArea;
 import com.n9mtq4.logwindow.ui.attributes.HasFrame;
 import com.n9mtq4.logwindow.ui.attributes.History;
 import com.n9mtq4.logwindow.ui.attributes.Textable;
+import com.n9mtq4.logwindow.ui.components.NTextArea;
 import com.n9mtq4.logwindow.utils.Colour;
 
 import javax.swing.JFrame;

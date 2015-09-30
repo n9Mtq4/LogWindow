@@ -15,9 +15,9 @@
 
 /**
  * This package contains things that extend {@link java.awt.Component} for the ConsoleUIs.
- * 
+ *
  * @see com.n9mtq4.logwindow.ui.ConsoleUI
  * @see java.awt.Component
  * @author Will "n9Mtq4" Bresnahan
  */
-package com.n9mtq4.logwindow.parts;
+package com.n9mtq4.logwindow.ui.components;

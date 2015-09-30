@@ -13,7 +13,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.n9mtq4.logwindow.parts;
+package com.n9mtq4.logwindow.ui.components;
 
 import javax.swing.ImageIcon;
 import javax.swing.JTextPane;
@@ -33,6 +33,7 @@ import java.io.Serializable;
  * <p>Created by Will on 10/20/14.</p>
  * 
  * @since v0.1
+ * @version v5.0
  * @author Will "n9Mtq4" Bresnahan
  */
 @SuppressWarnings("unused")
