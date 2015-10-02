@@ -16,8 +16,8 @@
 package com.n9mtq4.logwindow.modules;
 
 import com.n9mtq4.logwindow.BaseConsole;
-import com.n9mtq4.logwindow.events.DisableActionEvent;
-import com.n9mtq4.logwindow.events.RemovalActionEvent;
+import com.n9mtq4.logwindow.events.DisableEvent;
+import com.n9mtq4.logwindow.events.RemovalEvent;
 import com.n9mtq4.logwindow.events.SentObjectEvent;
 import com.n9mtq4.logwindow.listener.DisableListener;
 import com.n9mtq4.logwindow.listener.ListenerAttribute;
@@ -73,8 +73,8 @@ public class ModuleListener implements ObjectListener, DisableListener, RemovalL
 						namesAlready.add(name);
 					}
 					for (String s : duplicateNames) {
-//						baseConsole.removeListenerByName(s, RemovalActionEvent.USER_CLOSE);
-						baseConsole.removeListenerContainer(baseConsole.getContainerFromId(s), RemovalActionEvent.USER_CLOSE);
+//						baseConsole.removeListenerByName(s, RemovalEvent.USER_CLOSE);
+						baseConsole.removeListenerContainer(baseConsole.getContainerFromId(s), RemovalEvent.USER_CLOSE);
 					}
 					baseConsole.print("[OUT]: ", Colour.BLUE);
 					baseConsole.println("done removing duplicate listeners");
@@ -93,8 +93,8 @@ public class ModuleListener implements ObjectListener, DisableListener, RemovalL
 						namesAlready.add(name);
 					}
 					for (String s : duplicateNames) {
-//						baseConsole.disableListenerByName(s, DisableActionEvent.USER_CLOSE);
-						baseConsole.disableListenerContainer(baseConsole.getContainerFromId(s), DisableActionEvent.USER_CLOSE);
+//						baseConsole.disableListenerByName(s, DisableEvent.USER_CLOSE);
+						baseConsole.disableListenerContainer(baseConsole.getContainerFromId(s), DisableEvent.USER_CLOSE);
 					}
 					baseConsole.print("[OUT]: ", Colour.BLUE);
 					baseConsole.println("done disabling duplicate listeners");
@@ -133,8 +133,8 @@ public class ModuleListener implements ObjectListener, DisableListener, RemovalL
 					ListenerContainer l = baseConsole.getContainerFromId(name);
 					if (l != null) {
 						
-//						baseConsole.removeListenerEntry(l, RemovalActionEvent.USER_CLOSE);
-						baseConsole.removeListenerContainer(l, RemovalActionEvent.USER_CLOSE);
+//						baseConsole.removeListenerEntry(l, RemovalEvent.USER_CLOSE);
+						baseConsole.removeListenerContainer(l, RemovalEvent.USER_CLOSE);
 						
 						baseConsole.print("[OUT]: ", Colour.BLUE);
 						baseConsole.println("Done removing: " + l.getClass().getName());
@@ -188,8 +188,8 @@ public class ModuleListener implements ObjectListener, DisableListener, RemovalL
 					ListenerContainer l = baseConsole.getContainerFromId(name);
 					if (l != null) {
 						
-//						baseConsole.disableListenerEntry(l, DisableActionEvent.USER_CLOSE);
-						baseConsole.disableListenerContainer(l, DisableActionEvent.USER_CLOSE);
+//						baseConsole.disableListenerEntry(l, DisableEvent.USER_CLOSE);
+						baseConsole.disableListenerContainer(l, DisableEvent.USER_CLOSE);
 						
 						baseConsole.print("[OUT]: ", Colour.BLUE);
 						baseConsole.println("Done disabling: " + l.getClass().getName());
@@ -223,13 +223,13 @@ public class ModuleListener implements ObjectListener, DisableListener, RemovalL
 	}
 	
 	@Override
-	public void onDisable(DisableActionEvent e) {
+	public void onDisable(DisableEvent e) {
 //		stopDisable(e);
 		ListenerContainer.stopDisable(this, e);
 	}
 	
 	@Override
-	public void onRemoval(RemovalActionEvent e) {
+	public void onRemoval(RemovalEvent e) {
 //		stopRemoval(e);
 		ListenerContainer.stopRemoval(this, e);
 	}

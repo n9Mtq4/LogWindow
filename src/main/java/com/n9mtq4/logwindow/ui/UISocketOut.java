@@ -16,8 +16,8 @@
 package com.n9mtq4.logwindow.ui;
 
 import com.n9mtq4.logwindow.BaseConsole;
-import com.n9mtq4.logwindow.events.DisableActionEvent;
-import com.n9mtq4.logwindow.events.RemovalActionEvent;
+import com.n9mtq4.logwindow.events.DisableEvent;
+import com.n9mtq4.logwindow.events.RemovalEvent;
 import com.n9mtq4.logwindow.events.SentObjectEvent;
 import com.n9mtq4.logwindow.listener.DisableListener;
 import com.n9mtq4.logwindow.listener.ListenerAttribute;
@@ -75,7 +75,7 @@ public class UISocketOut extends SimpleConsoleUI {
 	 */
 	@Override
 	public void dispose() {
-		getParent().removeListenerAttribute(helperListener, RemovalActionEvent.CONSOLE_DISPOSE);
+		getParent().removeListenerAttribute(helperListener, RemovalEvent.CONSOLE_DISPOSE);
 		socketManager.close();
 	}
 	
@@ -192,13 +192,13 @@ public class UISocketOut extends SimpleConsoleUI {
 		}
 		
 		@Override
-		public void onDisable(DisableActionEvent e) {
+		public void onDisable(DisableEvent e) {
 //			stopDisable(e);
 			ListenerContainer.stopDisable(this, e);
 		}
 		
 		@Override
-		public void onRemoval(RemovalActionEvent e) {
+		public void onRemoval(RemovalEvent e) {
 //			stopRemoval(e);
 			ListenerContainer.stopRemoval(this, e);
 		}

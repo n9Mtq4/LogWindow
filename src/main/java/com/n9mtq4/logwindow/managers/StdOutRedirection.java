@@ -16,9 +16,9 @@
 package com.n9mtq4.logwindow.managers;
 
 import com.n9mtq4.logwindow.BaseConsole;
-import com.n9mtq4.logwindow.events.AdditionActionEvent;
-import com.n9mtq4.logwindow.events.DisableActionEvent;
-import com.n9mtq4.logwindow.events.EnableActionEvent;
+import com.n9mtq4.logwindow.events.AdditionEvent;
+import com.n9mtq4.logwindow.events.DisableEvent;
+import com.n9mtq4.logwindow.events.EnableEvent;
 import com.n9mtq4.logwindow.listener.AdditionListener;
 import com.n9mtq4.logwindow.listener.DisableListener;
 import com.n9mtq4.logwindow.listener.EnableListener;
@@ -93,15 +93,15 @@ public final class StdOutRedirection extends PrintStream
 	 * {@inheritDoc}
 	 * */
 	@Override
-	public final void onAddition(AdditionActionEvent additionActionEvent) {
-		this.baseConsole = additionActionEvent.getBaseConsole();
+	public final void onAddition(AdditionEvent additionEvent) {
+		this.baseConsole = additionEvent.getBaseConsole();
 	}
 	
 	/**
 	 * {@inheritDoc}
 	 * */
 	@Override
-	public final void onEnable(EnableActionEvent enableActionEvent) {
+	public final void onEnable(EnableEvent enableEvent) {
 		turnOn(showLocation);
 	}
 	
@@ -109,7 +109,7 @@ public final class StdOutRedirection extends PrintStream
 	 * {@inheritDoc}
 	 * */
 	@Override
-	public final void onDisable(DisableActionEvent disableActionEvent) {
+	public final void onDisable(DisableEvent disableEvent) {
 		turnOff();
 	}
 	

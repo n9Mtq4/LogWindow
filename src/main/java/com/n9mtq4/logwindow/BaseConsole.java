@@ -16,10 +16,10 @@
 package com.n9mtq4.logwindow;
 
 import com.n9mtq4.logwindow.dispose.ShutdownHook;
-import com.n9mtq4.logwindow.events.AdditionActionEvent;
-import com.n9mtq4.logwindow.events.DisableActionEvent;
-import com.n9mtq4.logwindow.events.EnableActionEvent;
-import com.n9mtq4.logwindow.events.RemovalActionEvent;
+import com.n9mtq4.logwindow.events.AdditionEvent;
+import com.n9mtq4.logwindow.events.DisableEvent;
+import com.n9mtq4.logwindow.events.EnableEvent;
+import com.n9mtq4.logwindow.events.RemovalEvent;
 import com.n9mtq4.logwindow.events.SentObjectEvent;
 import com.n9mtq4.logwindow.listener.ListenerAttribute;
 import com.n9mtq4.logwindow.listener.ListenerContainer;
@@ -43,14 +43,14 @@ import java.util.ArrayList;
  * components.<br>
  * There are the {@link ListenerAttribute}s. These receive events
  * from the {@link BaseConsole}.
- * {@link AdditionActionEvent},
- * {@link EnableActionEvent},
+ * {@link AdditionEvent},
+ * {@link EnableEvent},
  * {@link SentObjectEvent},
- * {@link DisableActionEvent}, and 
- * {@link RemovalActionEvent}.
- * The {@link BaseConsole} handles the {@link AdditionActionEvent},
- * {@link EnableActionEvent}, {@link DisableActionEvent},
- * and the {@link RemovalActionEvent}.
+ * {@link DisableEvent}, and 
+ * {@link RemovalEvent}.
+ * The {@link BaseConsole} handles the {@link AdditionEvent},
+ * {@link EnableEvent}, {@link DisableEvent},
+ * and the {@link RemovalEvent}.
  * To push an event call {@link #push(Object)} or
  * {@link #pushNow(Object)}.
  * <br>
@@ -165,8 +165,8 @@ public class BaseConsole implements Serializable {
 	 * Handles disposing down the {@link ListenerAttribute}s and {@link ConsoleUI}s.<br>
 	 * 
 	 * @see ConsoleUI#dispose
-	 * @see com.n9mtq4.logwindow.listener.DisableListener#onDisable(DisableActionEvent)
-	 * @see com.n9mtq4.logwindow.listener.RemovalListener#onRemoval(RemovalActionEvent)
+	 * @see com.n9mtq4.logwindow.listener.DisableListener#onDisable(DisableEvent)
+	 * @see com.n9mtq4.logwindow.listener.RemovalListener#onRemoval(RemovalEvent)
 	 * @deprecated This method should only be called from the {@link ShutdownHook} class.
 	 */
 	@Deprecated
@@ -177,7 +177,7 @@ public class BaseConsole implements Serializable {
 //		remove the listeners, while trying to protect against Concurrent Modification
 		ArrayList<ListenerContainer> listenerContainers1 = getListenerContainers();
 		for (ListenerContainer listenerContainer : listenerContainers1) {
-			removeListenerContainer(listenerContainer, RemovalActionEvent.CONSOLE_DISPOSE);
+			removeListenerContainer(listenerContainer, RemovalEvent.CONSOLE_DISPOSE);
 		}
 		
 //		remove the ConsoleUIs, while trying to protect against Concurrent Modification
@@ -479,6 +479,9 @@ public class BaseConsole implements Serializable {
 		pushQueue.add(sentObjectEvent);
 	}
 	
+	/**
+	 * Tries to send the next event in the push queue to the listeners.
+	 * */
 	private void requestNextPush() {
 		if (pushing > 0) return; // already pushing, so stop
 		if (pushQueue.size() <= 0) return; // nothing to push, so stop
@@ -487,10 +490,17 @@ public class BaseConsole implements Serializable {
 		pushEventNow(event); // push it
 	}
 	
+	/**
+	 * Registers that pushing an event has started.
+	 * */
 	private void startPushing() {
 		pushing++; // add a current pushing
 	}
 	
+	/**
+	 * Registers that a pushing event has stoped.
+	 * Tries to push the next event.
+	 * */
 	private void stopPushing() {
 		pushing--; // remove a current pushing
 		if (pushing == 0) {
@@ -595,7 +605,7 @@ public class BaseConsole implements Serializable {
 		if (!listenerContainers.contains(listenerContainer) || !listenerContainer.getLinkedBaseConsoles().contains(this)) {
 			listenerContainers.add(listenerContainer);
 			listenerContainer.addToConsole(this);
-			listenerContainer.pushAdded(new AdditionActionEvent(this));
+			listenerContainer.pushAdded(new AdditionEvent(this));
 		}
 	}
 	
@@ -617,7 +627,7 @@ public class BaseConsole implements Serializable {
 		if (isDisposed()) return;
 		if (!listenerContainer.isEnabled() || !listenerContainer.hasBeenEnabled()) {
 			listenerContainer.setEnabled(true);
-			listenerContainer.pushEnabled(new EnableActionEvent(this));
+			listenerContainer.pushEnabled(new EnableEvent(this));
 		}
 	}
 	
@@ -627,7 +637,7 @@ public class BaseConsole implements Serializable {
 	 * @param listenerAttribute the listener attribute
 	 */
 	public final void disableListenerAttribute(ListenerAttribute listenerAttribute) {
-		disableListenerAttribute(listenerAttribute, DisableActionEvent.NOT_SPECIFIED);
+		disableListenerAttribute(listenerAttribute, DisableEvent.NOT_SPECIFIED);
 	}
 	
 	/**
@@ -636,7 +646,7 @@ public class BaseConsole implements Serializable {
 	 * @param listenerContainer the listener container
 	 */
 	public final void disableListenerContainer(ListenerContainer listenerContainer) {
-		disableListenerContainer(listenerContainer, DisableActionEvent.NOT_SPECIFIED);
+		disableListenerContainer(listenerContainer, DisableEvent.NOT_SPECIFIED);
 	}
 	
 	/**
@@ -645,7 +655,7 @@ public class BaseConsole implements Serializable {
 	 * @param listenerAttribute the listener attribute
 	 */
 	public final void removeListenerAttribute(ListenerAttribute listenerAttribute) {
-		removeListenerAttribute(listenerAttribute, RemovalActionEvent.NOT_SPECIFIED);
+		removeListenerAttribute(listenerAttribute, RemovalEvent.NOT_SPECIFIED);
 	}
 	
 	/**
@@ -654,7 +664,7 @@ public class BaseConsole implements Serializable {
 	 * @param listenerContainer the listener container
 	 */
 	public final void removeListenerContainer(ListenerContainer listenerContainer) {
-		removeListenerContainer(listenerContainer, RemovalActionEvent.NOT_SPECIFIED);
+		removeListenerContainer(listenerContainer, RemovalEvent.NOT_SPECIFIED);
 	}
 	
 	/**
@@ -677,7 +687,7 @@ public class BaseConsole implements Serializable {
 		if (isDisposed()) return;
 		if (listenerContainer.isEnabled()) {
 			listenerContainer.setEnabled(false);
-			listenerContainer.pushDisabled(new DisableActionEvent(this, type));
+			listenerContainer.pushDisabled(new DisableEvent(this, type));
 		}
 	}
 	
@@ -711,7 +721,7 @@ public class BaseConsole implements Serializable {
 		if (listenerContainers.contains(listenerContainer) || listenerContainer.getLinkedBaseConsoles().contains(this)) {
 			listenerContainers.remove(listenerContainer);
 			listenerContainer.removeFromConsole(this);
-			listenerContainer.pushRemoved(new RemovalActionEvent(this, type));
+			listenerContainer.pushRemoved(new RemovalEvent(this, type));
 		}
 	}
 	

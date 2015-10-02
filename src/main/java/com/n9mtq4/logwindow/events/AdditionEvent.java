@@ -25,12 +25,12 @@ import java.io.Serializable;
  * 
  * <p>Created by Will on 11/2/14.</p>
  * 
- * @see EnableActionEvent
+ * @see EnableEvent
  * @see com.n9mtq4.logwindow.listener.AdditionListener
  * @since v1.3
  * @author Will "n9Mtq4" Bresnahan
  */
-public final class AdditionActionEvent extends EnableActionEvent
+public final class AdditionEvent extends EnableEvent
 		implements Serializable {
 	
 	private static final long serialVersionUID = 2242955097552735284L;
@@ -38,9 +38,9 @@ public final class AdditionActionEvent extends EnableActionEvent
 	/**
 	 * Instantiates a new Addition action event.
 	 *
-	 * @param baseConsole The {@link BaseConsole} that sent this {@link AdditionActionEvent}
+	 * @param baseConsole The {@link BaseConsole} that sent this {@link AdditionEvent}
 	 */
-	public AdditionActionEvent(BaseConsole baseConsole) {
+	public AdditionEvent(BaseConsole baseConsole) {
 		super(baseConsole);
 	}
 	

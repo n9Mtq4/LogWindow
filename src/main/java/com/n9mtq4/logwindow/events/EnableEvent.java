@@ -29,7 +29,7 @@ import java.io.Serializable;
  * @since v0.2
  * @author Will "n9Mtq4" Bresnahan
  */
-public class EnableActionEvent implements Serializable {
+public class EnableEvent implements Serializable {
 	
 	private static final long serialVersionUID = 6629615733570224391L;
 	
@@ -38,18 +38,18 @@ public class EnableActionEvent implements Serializable {
 	/**
 	 * Instantiates a new Enable action event.
 	 *
-	 * @param baseConsole The {@link BaseConsole} that sent this {@link EnableActionEvent}
+	 * @param baseConsole The {@link BaseConsole} that sent this {@link EnableEvent}
 	 */
-	public EnableActionEvent(BaseConsole baseConsole) {
+	public EnableEvent(BaseConsole baseConsole) {
 		
 		this.baseConsole = baseConsole;
 		
 	}
 	
 	/**
-	 * Gets the {@link BaseConsole} that sent this {@link EnableActionEvent}.
+	 * Gets the {@link BaseConsole} that sent this {@link EnableEvent}.
 	 *
-	 * @return The {@link BaseConsole} that sent this {@link EnableActionEvent}
+	 * @return The {@link BaseConsole} that sent this {@link EnableEvent}
 	 */
 	public final BaseConsole getBaseConsole() {
 		return baseConsole;

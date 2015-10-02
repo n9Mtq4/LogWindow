@@ -15,6 +15,11 @@
 
 package com.n9mtq4.logwindow.annotation;
 
+import com.n9mtq4.logwindow.events.AdditionEvent;
+import com.n9mtq4.logwindow.events.DisableEvent;
+import com.n9mtq4.logwindow.events.EnableEvent;
+import com.n9mtq4.logwindow.events.RemovalEvent;
+
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -33,11 +38,11 @@ public @interface Async {
 	
 	/**
 	 * If the method should run in another thread.
-	 * Can only be applied to {@link com.n9mtq4.logwindow.listener.AdditionListener#onAddition(com.n9mtq4.logwindow.events.AdditionActionEvent)},
-	 * {@link com.n9mtq4.logwindow.listener.EnableListener#onEnable(com.n9mtq4.logwindow.events.EnableActionEvent)},
+	 * Can only be applied to {@link com.n9mtq4.logwindow.listener.AdditionListener#onAddition(AdditionEvent)},
+	 * {@link com.n9mtq4.logwindow.listener.EnableListener#onEnable(EnableEvent)},
 	 * {@link com.n9mtq4.logwindow.listener.ObjectListener#objectReceived(com.n9mtq4.logwindow.events.SentObjectEvent, com.n9mtq4.logwindow.BaseConsole)},
-	 * {@link com.n9mtq4.logwindow.listener.DisableListener#onDisable(com.n9mtq4.logwindow.events.DisableActionEvent)}, and
-	 * {@link com.n9mtq4.logwindow.listener.RemovalListener#onRemoval(com.n9mtq4.logwindow.events.RemovalActionEvent)}
+	 * {@link com.n9mtq4.logwindow.listener.DisableListener#onDisable(DisableEvent)}, and
+	 * {@link com.n9mtq4.logwindow.listener.RemovalListener#onRemoval(RemovalEvent)}
 	 * 
 	 * @since v4.3
 	 * @return A boolean. true if the method should be in its own thread, false if not.

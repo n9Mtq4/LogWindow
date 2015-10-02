@@ -17,10 +17,10 @@ package com.n9mtq4.logwindow.listener;
 
 import com.n9mtq4.logwindow.BaseConsole;
 import com.n9mtq4.logwindow.annotation.Async;
-import com.n9mtq4.logwindow.events.AdditionActionEvent;
-import com.n9mtq4.logwindow.events.DisableActionEvent;
-import com.n9mtq4.logwindow.events.EnableActionEvent;
-import com.n9mtq4.logwindow.events.RemovalActionEvent;
+import com.n9mtq4.logwindow.events.AdditionEvent;
+import com.n9mtq4.logwindow.events.DisableEvent;
+import com.n9mtq4.logwindow.events.EnableEvent;
+import com.n9mtq4.logwindow.events.RemovalEvent;
 import com.n9mtq4.logwindow.events.SentObjectEvent;
 import com.n9mtq4.logwindow.utils.Colour;
 
@@ -54,13 +54,13 @@ public final class ListenerContainer implements Serializable {
 	/**
 	 * Prevents disabling this listener.<br>
 	 * Call this method in the {@link ConsoleListener#onDisable}
-	 * and give it the {@link DisableActionEvent}
+	 * and give it the {@link DisableEvent}
 	 *
 	 * @param listener the listener
-	 * @param e the DisableActionEvent
+	 * @param e the DisableEvent
 	 */
-	public static void stopDisable(ListenerAttribute listener, DisableActionEvent e) {
-		if (e.getType() != DisableActionEvent.CONSOLE_DISPOSE) {
+	public static void stopDisable(ListenerAttribute listener, DisableEvent e) {
+		if (e.getType() != DisableEvent.CONSOLE_DISPOSE) {
 			e.getBaseConsole().enableListenerAttribute(listener);
 			e.getBaseConsole().print("[ERROR]: ", Colour.RED);
 			e.getBaseConsole().println("you can't disable " + listener.getClass().getName());
@@ -70,13 +70,13 @@ public final class ListenerContainer implements Serializable {
 	/**
 	 * Prevents removal of this listener.<br>
 	 * Call this method in the {@link ConsoleListener#onRemoval}
-	 * and give it the {@link RemovalActionEvent}
+	 * and give it the {@link RemovalEvent}
 	 *
 	 * @param listener the listener
 	 * @param e the e
 	 */
-	public static void stopRemoval(ListenerAttribute listener, RemovalActionEvent e) {
-		if (e.getType() != RemovalActionEvent.CONSOLE_DISPOSE) {
+	public static void stopRemoval(ListenerAttribute listener, RemovalEvent e) {
+		if (e.getType() != RemovalEvent.CONSOLE_DISPOSE) {
 			e.getBaseConsole().addListenerAttributeRaw(listener);
 			e.getBaseConsole().print("[ERROR]: ", Colour.RED);
 			e.getBaseConsole().println("you can't remove " + listener.getClass().getName());
@@ -135,22 +135,22 @@ public final class ListenerContainer implements Serializable {
 	/**
 	 * Push added.
 	 *
-	 * @param additionActionEvent the addition action event
+	 * @param additionEvent the addition action event
 	 */
-	public final void pushAdded(AdditionActionEvent additionActionEvent) {
+	public final void pushAdded(AdditionEvent additionEvent) {
 		if (listener instanceof AdditionListener) {
 			if (isAsyncAddition) {
 				
-				final AdditionActionEvent additionActionEvent1 = additionActionEvent;
+				final AdditionEvent additionEvent1 = additionEvent;
 				new Thread(new Runnable() {
 					@Override
 					public void run() {
-						pushAddedEvent(additionActionEvent1);
+						pushAddedEvent(additionEvent1);
 					}
 				}).start();
 				
 			}else {
-				pushAddedEvent(additionActionEvent);
+				pushAddedEvent(additionEvent);
 			}
 		}
 	}
@@ -158,23 +158,23 @@ public final class ListenerContainer implements Serializable {
 	/**
 	 * Push enabled.
 	 *
-	 * @param enableActionEvent the enable action event
+	 * @param enableEvent the enable action event
 	 */
-	public final void pushEnabled(EnableActionEvent enableActionEvent) {
+	public final void pushEnabled(EnableEvent enableEvent) {
 		this.hasBeenEnabled = true;
 		if (listener instanceof EnableListener) {
 			if (isAsyncEnable) {
 				
-				final EnableActionEvent enableActionEvent1 = enableActionEvent;
+				final EnableEvent enableEvent1 = enableEvent;
 				new Thread(new Runnable() {
 					@Override
 					public void run() {
-						pushEnabledEvent(enableActionEvent1);
+						pushEnabledEvent(enableEvent1);
 					}
 				}).start();
 				
 			}else {
-				pushEnabledEvent(enableActionEvent);
+				pushEnabledEvent(enableEvent);
 			}
 		}
 	}
@@ -182,22 +182,22 @@ public final class ListenerContainer implements Serializable {
 	/**
 	 * Push disabled.
 	 *
-	 * @param disableActionEvent the disable action event
+	 * @param disableEvent the disable action event
 	 */
-	public final void pushDisabled(DisableActionEvent disableActionEvent) {
+	public final void pushDisabled(DisableEvent disableEvent) {
 		if (listener instanceof DisableListener) {
 			if (isAsyncDisable) {
 				
-				final DisableActionEvent disableActionEvent1 = disableActionEvent;
+				final DisableEvent disableEvent1 = disableEvent;
 				new Thread(new Runnable() {
 					@Override
 					public void run() {
-						pushDisabledEvent(disableActionEvent1);
+						pushDisabledEvent(disableEvent1);
 					}
 				}).start();
 				
 			}else {
-				pushDisabledEvent(disableActionEvent);
+				pushDisabledEvent(disableEvent);
 			}
 		}
 	}
@@ -207,11 +207,11 @@ public final class ListenerContainer implements Serializable {
 	 *
 	 * @param removalActionEvent the removal action event
 	 */
-	public final void pushRemoved(RemovalActionEvent removalActionEvent) {
+	public final void pushRemoved(RemovalEvent removalActionEvent) {
 		if (listener instanceof RemovalListener) {
 			if (isAsyncRemoval) {
 				
-				final RemovalActionEvent removalActionEvent1 = removalActionEvent;
+				final RemovalEvent removalActionEvent1 = removalActionEvent;
 				new Thread(new Runnable() {
 					@Override
 					public void run() {
@@ -235,38 +235,38 @@ public final class ListenerContainer implements Serializable {
 		}
 	}
 	
-	private void pushAddedEvent(AdditionActionEvent additionActionEvent) {
-		((AdditionListener) listener).onAddition(additionActionEvent);
+	private void pushAddedEvent(AdditionEvent additionEvent) {
+		((AdditionListener) listener).onAddition(additionEvent);
 	}
 	
-	private void pushEnabledEvent(EnableActionEvent enableActionEvent) {
-		((EnableListener) listener).onEnable(enableActionEvent);
+	private void pushEnabledEvent(EnableEvent enableEvent) {
+		((EnableListener) listener).onEnable(enableEvent);
 	}
 	
-	private void pushDisabledEvent(DisableActionEvent disableActionEvent) {
-		((DisableListener) listener).onDisable(disableActionEvent);
+	private void pushDisabledEvent(DisableEvent disableEvent) {
+		((DisableListener) listener).onDisable(disableEvent);
 	}
 	
-	private void pushRemovedEvent(RemovalActionEvent removalActionEvent) {
+	private void pushRemovedEvent(RemovalEvent removalActionEvent) {
 		((RemovalListener) listener).onRemoval(removalActionEvent);
 	}
 	
 	
 	private void annotations() {
 		if (listener instanceof AdditionListener) {
-			this.isAsyncAddition = shouldBeAsync("onAddition", AdditionActionEvent.class);
+			this.isAsyncAddition = shouldBeAsync("onAddition", AdditionEvent.class);
 		}
 		if (listener instanceof EnableListener) {
-			this.isAsyncEnable = shouldBeAsync("onEnable", EnableActionEvent.class);
+			this.isAsyncEnable = shouldBeAsync("onEnable", EnableEvent.class);
 		}
 		if (listener instanceof ObjectListener) {
 			this.isAsyncObject = shouldBeAsync("objectReceived", SentObjectEvent.class, BaseConsole.class);
 		}
 		if (listener instanceof DisableListener) {
-			this.isAsyncDisable = shouldBeAsync("onDisable", DisableActionEvent.class);
+			this.isAsyncDisable = shouldBeAsync("onDisable", DisableEvent.class);
 		}
 		if (listener instanceof RemovalListener) {
-			this.isAsyncRemoval = shouldBeAsync("onRemoval", RemovalActionEvent.class);
+			this.isAsyncRemoval = shouldBeAsync("onRemoval", RemovalEvent.class);
 		}
 	}
 	

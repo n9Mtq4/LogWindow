@@ -29,7 +29,7 @@ import java.io.Serializable;
  * @since v0.2
  * @author Will "n9Mtq4" Bresnshan
  */
-public class DisableActionEvent implements Serializable {
+public class DisableEvent implements Serializable {
 	
 	private static final long serialVersionUID = 5554200220845774623L;
 	
@@ -80,7 +80,7 @@ public class DisableActionEvent implements Serializable {
 	 * @since v0.2
 	 * @param baseConsole The {@link BaseConsole} that sent this listener
 	 */
-	public DisableActionEvent(BaseConsole baseConsole) {
+	public DisableEvent(BaseConsole baseConsole) {
 		this.baseConsole = baseConsole;
 		this.type = NOT_SPECIFIED;
 	}
@@ -93,7 +93,7 @@ public class DisableActionEvent implements Serializable {
 	 * @param baseConsole The {@link BaseConsole}
 	 * @param type The source of the disabling (type)
 	 */
-	public DisableActionEvent(BaseConsole baseConsole, int type) {
+	public DisableEvent(BaseConsole baseConsole, int type) {
 		
 		this.baseConsole = baseConsole;
 		this.type = type;

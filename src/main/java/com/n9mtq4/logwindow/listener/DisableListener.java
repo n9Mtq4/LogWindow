@@ -15,14 +15,14 @@
 
 package com.n9mtq4.logwindow.listener;
 
-import com.n9mtq4.logwindow.events.DisableActionEvent;
+import com.n9mtq4.logwindow.events.DisableEvent;
 
 import java.io.Serializable;
 
 /**
  * Interface for classes that wish to get notified when the listener is disabled.
  *
- * @see #onDisable(DisableActionEvent)
+ * @see #onDisable(DisableEvent)
  * @since v5.0
  * @author Will "n9Mtq4" Bresnahan
  */
@@ -37,8 +37,8 @@ public interface DisableListener extends Serializable, ListenerAttribute {
 	 * @see com.n9mtq4.logwindow.BaseConsole#disableListenerContainer(ListenerContainer)
 	 * @see com.n9mtq4.logwindow.BaseConsole#disableListenerContainer(ListenerContainer, int)
 	 * @since v5.0
-	 * @param disableActionEvent The disable action event
+	 * @param disableEvent The disable action event
 	 * */
-	void onDisable(DisableActionEvent disableActionEvent);
+	void onDisable(DisableEvent disableEvent);
 	
 }

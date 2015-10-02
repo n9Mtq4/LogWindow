@@ -16,10 +16,10 @@
 package com.n9mtq4.logwindow.listener;
 
 import com.n9mtq4.logwindow.BaseConsole;
-import com.n9mtq4.logwindow.events.AdditionActionEvent;
-import com.n9mtq4.logwindow.events.DisableActionEvent;
-import com.n9mtq4.logwindow.events.EnableActionEvent;
-import com.n9mtq4.logwindow.events.RemovalActionEvent;
+import com.n9mtq4.logwindow.events.AdditionEvent;
+import com.n9mtq4.logwindow.events.DisableEvent;
+import com.n9mtq4.logwindow.events.EnableEvent;
+import com.n9mtq4.logwindow.events.RemovalEvent;
 import com.n9mtq4.logwindow.events.SentObjectEvent;
 
 /**
@@ -35,17 +35,17 @@ public class TestListenerImplementation implements ConsoleListener {
 	public boolean hasBeenRemoved = false;
 	
 	@Override
-	public void onAddition(AdditionActionEvent e) {
+	public void onAddition(AdditionEvent e) {
 		this.hasBeenAdded = true;
 	}
 	
 	@Override
-	public void onDisable(DisableActionEvent e) {
+	public void onDisable(DisableEvent e) {
 		this.hasBeenDisabled = true;
 	}
 	
 	@Override
-	public void onEnable(EnableActionEvent e) {
+	public void onEnable(EnableEvent e) {
 		this.hasBeenEnabled = true;
 	}
 	
@@ -55,7 +55,7 @@ public class TestListenerImplementation implements ConsoleListener {
 	}
 	
 	@Override
-	public void onRemoval(RemovalActionEvent e) {
+	public void onRemoval(RemovalEvent e) {
 		this.hasBeenRemoved = true;
 	}
 	

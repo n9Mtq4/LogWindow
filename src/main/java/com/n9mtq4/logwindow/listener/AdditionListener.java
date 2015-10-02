@@ -15,14 +15,14 @@
 
 package com.n9mtq4.logwindow.listener;
 
-import com.n9mtq4.logwindow.events.AdditionActionEvent;
+import com.n9mtq4.logwindow.events.AdditionEvent;
 
 import java.io.Serializable;
 
 /**
  * Interface for classes that wish to get notified when the listener is added.
  *
- * @see #onAddition(AdditionActionEvent)
+ * @see #onAddition(AdditionEvent)
  * @since v5.0
  * @author Will "n9Mtq4" Bresnahan
  */
@@ -37,8 +37,8 @@ public interface AdditionListener extends Serializable, ListenerAttribute {
 	 * @see com.n9mtq4.logwindow.BaseConsole#addListenerContainer(ListenerContainer)
 	 * @see com.n9mtq4.logwindow.BaseConsole#addListenerContainerRaw(ListenerContainer)
 	 * @since v5.0
-	 * @param additionActionEvent The addition action event
+	 * @param additionEvent The addition action event
 	 * */
-	void onAddition(AdditionActionEvent additionActionEvent);
+	void onAddition(AdditionEvent additionEvent);
 	
 }

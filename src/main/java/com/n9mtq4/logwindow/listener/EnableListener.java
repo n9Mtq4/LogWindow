@@ -15,14 +15,14 @@
 
 package com.n9mtq4.logwindow.listener;
 
-import com.n9mtq4.logwindow.events.EnableActionEvent;
+import com.n9mtq4.logwindow.events.EnableEvent;
 
 import java.io.Serializable;
 
 /**
  * Interface for classes that wish to get notified when the listener is enabled.
  * 
- * @see #onEnable(EnableActionEvent)
+ * @see #onEnable(EnableEvent)
  * @since v5.0
  * @author Will "n9Mtq4" Bresnahan
  */
@@ -36,8 +36,8 @@ public interface EnableListener extends Serializable, ListenerAttribute {
 	 * @see com.n9mtq4.logwindow.BaseConsole#enableListenerAttribute(ListenerAttribute)
 	 * @see com.n9mtq4.logwindow.BaseConsole#enableListenerContainer(ListenerContainer)
 	 * @since v5.0
-	 * @param enableActionEvent The enable action event
+	 * @param enableEvent The enable action event
 	 * */
-	void onEnable(EnableActionEvent enableActionEvent);
+	void onEnable(EnableEvent enableEvent);
 	
 }

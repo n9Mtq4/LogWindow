@@ -21,7 +21,11 @@ import com.n9mtq4.logwindow.listener.ListenerContainer;
 import com.n9mtq4.logwindow.utils.JarLoader;
 import com.n9mtq4.logwindow.utils.ReflectionHelper;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.zip.ZipFile;
@@ -78,7 +82,7 @@ public class PluginManager {
 			
 		}
 		
-//		for (ListenerContainer listener : listeners) listener.pushEnabled(new EnableActionEvent(c));
+//		for (ListenerContainer listener : listeners) listener.pushEnabled(new EnableEvent(c));
 		for (ListenerContainer listener : listeners) c.enableListenerContainer(listener);
 		
 	}

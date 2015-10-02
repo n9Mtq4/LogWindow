@@ -28,12 +28,12 @@ import java.io.Serializable;
  * 
  * <p>Created by Will on 11/2/14.</p>
  * 
- * @see DisableActionEvent
+ * @see DisableEvent
  * @see com.n9mtq4.logwindow.listener.RemovalListener
  * @since v1.3
  * @author Will "n9Mtq4" Bresnahan
  */
-public final class RemovalActionEvent extends DisableActionEvent
+public final class RemovalEvent extends DisableEvent
 		implements Serializable {
 	
 	private static final long serialVersionUID = 7928707744295602780L;
@@ -43,7 +43,7 @@ public final class RemovalActionEvent extends DisableActionEvent
 	 * 
 	 * @param baseConsole The {@link BaseConsole} that sent this listener
 	 */
-	public RemovalActionEvent(BaseConsole baseConsole) {
+	public RemovalEvent(BaseConsole baseConsole) {
 		super(baseConsole);
 	}
 	
@@ -55,7 +55,7 @@ public final class RemovalActionEvent extends DisableActionEvent
 	 * @param baseConsole The {@link BaseConsole}
 	 * @param type The source of the disabling (type)
 	 */
-	public RemovalActionEvent(BaseConsole baseConsole, int type) {
+	public RemovalEvent(BaseConsole baseConsole, int type) {
 		super(baseConsole, type);
 	}
 	
