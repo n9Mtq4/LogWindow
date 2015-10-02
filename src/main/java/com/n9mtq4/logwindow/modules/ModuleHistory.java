@@ -16,7 +16,7 @@
 package com.n9mtq4.logwindow.modules;
 
 import com.n9mtq4.logwindow.BaseConsole;
-import com.n9mtq4.logwindow.events.SentObjectEvent;
+import com.n9mtq4.logwindow.events.ObjectEvent;
 import com.n9mtq4.logwindow.listener.ObjectListener;
 import com.n9mtq4.logwindow.ui.UIContainer;
 import com.n9mtq4.logwindow.ui.attributes.History;
@@ -34,10 +34,10 @@ import com.n9mtq4.logwindow.utils.StringParser;
 public final class ModuleHistory implements ObjectListener {
 	
 	@Override
-	public final void objectReceived(final SentObjectEvent sentObjectEvent, final BaseConsole baseConsole) {
+	public final void objectReceived(final ObjectEvent objectEvent, final BaseConsole baseConsole) {
 		
-		if (!sentObjectEvent.isUserInputString()) return;
-		StringParser stringParser = new StringParser(sentObjectEvent);
+		if (!objectEvent.isUserInputString()) return;
+		StringParser stringParser = new StringParser(objectEvent);
 		
 		if (stringParser.contains("history")) {
 			
@@ -51,8 +51,8 @@ public final class ModuleHistory implements ObjectListener {
 				if (stringParser.getArg(1).equalsIgnoreCase("clear")) {
 					while (baseConsole.getHistory().size() > 0) baseConsole.getHistory().remove(0);
 					for (UIContainer g : baseConsole.getUIContainers()) {
-						if (g.getGui() instanceof History) {
-							((History) g.getGui()).historyUpdate();
+						if (g.getConsoleUI() instanceof History) {
+							((History) g.getConsoleUI()).historyUpdate();
 						}
 					}
 					baseConsole.println("Cleared history", Colour.CYAN);

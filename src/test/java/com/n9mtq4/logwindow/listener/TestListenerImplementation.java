@@ -19,8 +19,8 @@ import com.n9mtq4.logwindow.BaseConsole;
 import com.n9mtq4.logwindow.events.AdditionEvent;
 import com.n9mtq4.logwindow.events.DisableEvent;
 import com.n9mtq4.logwindow.events.EnableEvent;
+import com.n9mtq4.logwindow.events.ObjectEvent;
 import com.n9mtq4.logwindow.events.RemovalEvent;
-import com.n9mtq4.logwindow.events.SentObjectEvent;
 
 /**
  * Created by will on 9/15/15 at 9:21 PM.
@@ -50,7 +50,7 @@ public class TestListenerImplementation implements ConsoleListener {
 	}
 	
 	@Override
-	public void objectReceived(SentObjectEvent e, BaseConsole baseConsole) {
+	public void objectReceived(ObjectEvent e, BaseConsole baseConsole) {
 		
 	}
 	

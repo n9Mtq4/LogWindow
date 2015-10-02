@@ -27,6 +27,7 @@ import java.io.Serializable;
  * a {@link BaseConsole}.
  * 
  * @since v5.0
+ * @version v5.0
  * @author Will "n9Mtq4" Bresnahan
  */
 public interface ConsoleUI extends Serializable {

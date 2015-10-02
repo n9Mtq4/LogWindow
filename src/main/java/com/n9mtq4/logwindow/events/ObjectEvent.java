@@ -31,12 +31,12 @@ import java.io.Serializable;
  * @author Will "n9Mtq4" Bresnahan
  */
 @SuppressWarnings("unused")
-public final class SentObjectEvent implements Serializable {
+public final class ObjectEvent implements Serializable {
 	
 	private static final long serialVersionUID = 1595683797944824474L;
 	
 	/**
-	 * When the {@link SentObjectEvent} is created if no message is provided, then it
+	 * When the {@link ObjectEvent} is created if no message is provided, then it
 	 * uses this one.
 	 */
 	private static final String DEFAULT_OBJECT_PUSH_MESSAGE = "";
@@ -46,27 +46,27 @@ public final class SentObjectEvent implements Serializable {
 	private static final String STRING_OBJECT_MESSAGE = "text";
 	
 	/**
-	 * Creates a {@link SentObjectEvent} with the object and the message.
+	 * Creates a {@link ObjectEvent} with the object and the message.
 	 * 
 	 * @since v5.0
 	 * @param baseConsole The {@link BaseConsole} that spawned this event
 	 * @param object The object to create the event around
 	 * @param message The message to go along with the object
-	 * @return The {@link SentObjectEvent} with the object and message
+	 * @return The {@link ObjectEvent} with the object and message
 	 * */
-	public static SentObjectEvent createSentObjectEvent(final BaseConsole baseConsole, final Object object, final String message) {
-		return new SentObjectEvent(baseConsole, object, message == null ? DEFAULT_OBJECT_PUSH_MESSAGE : message);
+	public static ObjectEvent createSentObjectEvent(final BaseConsole baseConsole, final Object object, final String message) {
+		return new ObjectEvent(baseConsole, object, message == null ? DEFAULT_OBJECT_PUSH_MESSAGE : message);
 	}
 	
 	/**
-	 * Creates a {@link SentObjectEvent} that contains text.
+	 * Creates a {@link ObjectEvent} that contains text.
 	 * 
 	 * @since v5.0
 	 * @param baseConsole The {@link BaseConsole} that spawned this event
 	 * @param text The text that was sent
-	 * @return The {@link SentObjectEvent} with the text
+	 * @return The {@link ObjectEvent} with the text
 	 * */
-	public static SentObjectEvent createTextEvent(final BaseConsole baseConsole, final String text) {
+	public static ObjectEvent createTextEvent(final BaseConsole baseConsole, final String text) {
 		return createSentObjectEvent(baseConsole, text, STRING_OBJECT_MESSAGE);
 	}
 	
@@ -93,7 +93,7 @@ public final class SentObjectEvent implements Serializable {
 	 * @param object The object being sent to the {@link com.n9mtq4.logwindow.listener.ObjectListener}
 	 * @param message The message going along with the object
 	 */
-	public SentObjectEvent(BaseConsole baseConsole, Object object, String message) {
+	public ObjectEvent(BaseConsole baseConsole, Object object, String message) {
 		this.baseConsole = baseConsole;
 		this.object = object;
 		this.message = message;
@@ -103,11 +103,11 @@ public final class SentObjectEvent implements Serializable {
 	}
 	
 	/**
-	 * Returns true if the inputed {@link SentObjectEvent} was inputed by the user.
+	 * Returns true if the inputed {@link ObjectEvent} was inputed by the user.
 	 * Returns false otherwise.
 	 *
 	 * @since v5.0
-	 * @return If this {@link SentObjectEvent} was inputed by the user
+	 * @return If this {@link ObjectEvent} was inputed by the user
 	 * */
 	public boolean isUserInputString() {
 		return this.getMessage().equals(STRING_OBJECT_MESSAGE) && this.getObject() instanceof String;

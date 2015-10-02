@@ -19,13 +19,11 @@ import com.n9mtq4.logwindow.dispose.ShutdownHook;
 import com.n9mtq4.logwindow.events.AdditionEvent;
 import com.n9mtq4.logwindow.events.DisableEvent;
 import com.n9mtq4.logwindow.events.EnableEvent;
+import com.n9mtq4.logwindow.events.ObjectEvent;
 import com.n9mtq4.logwindow.events.RemovalEvent;
-import com.n9mtq4.logwindow.events.SentObjectEvent;
 import com.n9mtq4.logwindow.listener.ListenerAttribute;
 import com.n9mtq4.logwindow.listener.ListenerContainer;
 import com.n9mtq4.logwindow.managers.PluginManager;
-import com.n9mtq4.logwindow.modules.ModuleJarLoader;
-import com.n9mtq4.logwindow.modules.ModuleListener;
 import com.n9mtq4.logwindow.ui.ConsoleUI;
 import com.n9mtq4.logwindow.ui.UIContainer;
 import com.n9mtq4.logwindow.utils.Colour;
@@ -45,7 +43,7 @@ import java.util.ArrayList;
  * from the {@link BaseConsole}.
  * {@link AdditionEvent},
  * {@link EnableEvent},
- * {@link SentObjectEvent},
+ * {@link ObjectEvent},
  * {@link DisableEvent}, and 
  * {@link RemovalEvent}.
  * The {@link BaseConsole} handles the {@link AdditionEvent},
@@ -118,10 +116,10 @@ public class BaseConsole implements Serializable {
 	 * */
 	private int pushing;
 	/**
-	 * The {@link ArrayList} that stores {@link SentObjectEvent} temporarily
+	 * The {@link ArrayList} that stores {@link ObjectEvent} temporarily
 	 * while they are waiting for {@link #pushing} to be 0.
 	 * */
-	private final ArrayList<SentObjectEvent> pushQueue;
+	private final ArrayList<ObjectEvent> pushQueue;
 	
 	/**
 	 * Constructor for {@link BaseConsole}.
@@ -133,14 +131,13 @@ public class BaseConsole implements Serializable {
 	public BaseConsole() {
 		this.disposed = false;
 		this.listenerContainers = new ArrayList<ListenerContainer>();
-		initMandatoryListeners();
 		this.history = new ArrayList<String>();
 		this.id = globalList.size();
 		globalList.add(this);
 		this.uiContainers = new ArrayList<UIContainer>();
 		this.shutdownHook = new ShutdownHook(this);
 		this.pushing = 0;
-		this.pushQueue = new ArrayList<SentObjectEvent>();
+		this.pushQueue = new ArrayList<ObjectEvent>();
 		Runtime.getRuntime().addShutdownHook(shutdownHook);
 	}
 	
@@ -191,21 +188,6 @@ public class BaseConsole implements Serializable {
 			Runtime.getRuntime().removeShutdownHook(shutdownHook);
 		}catch (IllegalStateException ignored) {} // this is ok, because this method should be called from the shutdown hook
 		this.disposed = true;
-		
-	}
-	
-	/**
-	 * Adds required {@link ListenerAttribute}s to the {@link BaseConsole}.<br>
-	 * This is called in the constructor.
-	 * 
-	 * TODO: remove mandatory listeners?
-	 * @deprecated mandatory listeners shouldn't be mandatory.
-	 */
-	@Deprecated
-	private void initMandatoryListeners() {
-		
-		addListenerAttribute(new ModuleListener());
-		addListenerAttribute(new ModuleJarLoader());
 		
 	}
 	
@@ -320,7 +302,7 @@ public class BaseConsole implements Serializable {
 	 * @param text The text to send to the {@link ListenerAttribute}s
 	 * */
 	public final void pushString(final String text) {
-		pushEvent(SentObjectEvent.createTextEvent(this, text));
+		pushEvent(ObjectEvent.createTextEvent(this, text));
 	}
 	
 	/**
@@ -339,25 +321,25 @@ public class BaseConsole implements Serializable {
 	 * @param text The text to send to the {@link ListenerAttribute}s
 	 * */
 	public final void pushStringNow(final String text) {
-		pushEventNow(SentObjectEvent.createTextEvent(this, text));
+		pushEventNow(ObjectEvent.createTextEvent(this, text));
 	}
 //	STRING PUSHING END
 	
 //	OBJECT PUSHING START
 	/**
-	 * Pushes a {@link SentObjectEvent} right now. Does not wait for other events
+	 * Pushes a {@link ObjectEvent} right now. Does not wait for other events
 	 * to finish with the queue system.
 	 * <br>
-	 * I recommend using {@link #pushEvent(SentObjectEvent)} if pushing the event
+	 * I recommend using {@link #pushEvent(ObjectEvent)} if pushing the event
 	 * now isn't ABSOLUTELY necessary.
 	 * 
-	 * @see #pushEvent(SentObjectEvent)
+	 * @see #pushEvent(ObjectEvent)
 	 * @see #pushNow(Object, String)
 	 * @see #push(Object, String)
 	 * @since v5.0
-	 * @param sentObjectEvent The {@link SentObjectEvent} to push to the {@link ListenerAttribute}
+	 * @param objectEvent The {@link ObjectEvent} to push to the {@link ListenerAttribute}
 	 * */
-	public final void pushEventNow(final SentObjectEvent sentObjectEvent) {
+	public final void pushEventNow(final ObjectEvent objectEvent) {
 		
 		if (isDisposed()) return; // if disposed stop running
 		startPushing(); // pushing started
@@ -368,8 +350,8 @@ public class BaseConsole implements Serializable {
 			try {
 				
 //				make sure we can push to the listeners
-				if (listenerContainer.isEnabled() && (!sentObjectEvent.isCanceled() || listenerContainer.hasIgnoreDone())) {
-					listenerContainer.pushObject(sentObjectEvent);
+				if (listenerContainer.isEnabled() && (!objectEvent.isCanceled() || listenerContainer.hasIgnoreDone())) {
+					listenerContainer.pushObject(objectEvent);
 				}
 				
 			}catch (Exception e) {
@@ -389,23 +371,23 @@ public class BaseConsole implements Serializable {
 	}
 	
 	/**
-	 * Adds a {@link SentObjectEvent} to the pushing queue. Will then try
+	 * Adds a {@link ObjectEvent} to the pushing queue. Will then try
 	 * to push the next queue.
 	 * 
-	 * @see #pushEventNow(SentObjectEvent)
+	 * @see #pushEventNow(ObjectEvent)
 	 * @see #push(Object, String)
 	 * @see #pushNow(Object, String)
 	 * @since v5.0
-	 * @param sentObjectEvent The {@link SentObjectEvent} to push to the {@link ListenerAttribute}s
+	 * @param objectEvent The {@link ObjectEvent} to push to the {@link ListenerAttribute}s
 	 * */
-	public final void pushEvent(final SentObjectEvent sentObjectEvent) {
-		addToQueue(sentObjectEvent);
+	public final void pushEvent(final ObjectEvent objectEvent) {
+		addToQueue(objectEvent);
 		requestNextPush();
 //		maybe use the following code for better efficiency.
 /*		if (pushing > 0) {
-			addToQueue(sentObjectEvent);
+			addToQueue(objectEvent);
 		}else {
-			pushEventNow(sentObjectEvent);
+			pushEventNow(objectEvent);
 		}*/
 	}
 	
@@ -417,30 +399,30 @@ public class BaseConsole implements Serializable {
 	 * now isn't ABSOLUTELY necessary.
 	 * 
 	 * @see #push(Object, String)
-	 * @see #pushEvent(SentObjectEvent)
-	 * @see #pushEventNow(SentObjectEvent)
+	 * @see #pushEvent(ObjectEvent)
+	 * @see #pushEventNow(ObjectEvent)
 	 * @since v5.0
 	 * @param object The {@link Object} to send to the {@link ListenerAttribute}s
 	 * @param message The message to send with the object
 	 * */
 	public final void pushNow(final Object object, final String message) {
-		pushEventNow(SentObjectEvent.createSentObjectEvent(this, object, message));
+		pushEventNow(ObjectEvent.createSentObjectEvent(this, object, message));
 	}
 	
 	/**
 	 * Adds an {@link Object} with the message to the pushing queue. Will then try
 	 * to push the next queue. This will use the default message of
-	 * {@link SentObjectEvent#STRING_OBJECT_MESSAGE}
+	 * {@link ObjectEvent#STRING_OBJECT_MESSAGE}
 	 *
 	 * @see #pushNow(Object, String)
-	 * @see #pushEvent(SentObjectEvent)
-	 * @see #pushEventNow(SentObjectEvent)
+	 * @see #pushEvent(ObjectEvent)
+	 * @see #pushEventNow(ObjectEvent)
 	 * @since v5.0
 	 * @param object The {@link Object} to send to the {@link ListenerAttribute}s
 	 * @param message The message to send with the object
 	 * */
 	public final void push(final Object object, final String message) {
-		pushEvent(SentObjectEvent.createSentObjectEvent(this, object, message));
+		pushEvent(ObjectEvent.createSentObjectEvent(this, object, message));
 	}
 	
 	/**
@@ -451,8 +433,8 @@ public class BaseConsole implements Serializable {
 	 * now isn't ABSOLUTELY necessary.
 	 *
 	 * @see #push(Object, String)
-	 * @see #pushEvent(SentObjectEvent)
-	 * @see #pushEventNow(SentObjectEvent)
+	 * @see #pushEvent(ObjectEvent)
+	 * @see #pushEventNow(ObjectEvent)
 	 * @since v5.0
 	 * @param object The {@link Object} to send to the {@link ListenerAttribute}s
 	 * */
@@ -463,11 +445,11 @@ public class BaseConsole implements Serializable {
 	/**
 	 * Adds an {@link Object} with the message to the pushing queue. Will then try
 	 * to push the next queue. This will use the default message of
-	 * {@link SentObjectEvent#STRING_OBJECT_MESSAGE}
+	 * {@link ObjectEvent#STRING_OBJECT_MESSAGE}
 	 *
 	 * @see #pushNow(Object, String)
-	 * @see #pushEvent(SentObjectEvent)
-	 * @see #pushEventNow(SentObjectEvent)
+	 * @see #pushEvent(ObjectEvent)
+	 * @see #pushEventNow(ObjectEvent)
 	 * @since v5.0
 	 * @param object The {@link Object} to send to the {@link ListenerAttribute}s
 	 * */
@@ -475,8 +457,8 @@ public class BaseConsole implements Serializable {
 		push(object, null);
 	}
 	
-	private void addToQueue(final SentObjectEvent sentObjectEvent) {
-		pushQueue.add(sentObjectEvent);
+	private void addToQueue(final ObjectEvent objectEvent) {
+		pushQueue.add(objectEvent);
 	}
 	
 	/**
@@ -485,7 +467,7 @@ public class BaseConsole implements Serializable {
 	private void requestNextPush() {
 		if (pushing > 0) return; // already pushing, so stop
 		if (pushQueue.size() <= 0) return; // nothing to push, so stop
-		SentObjectEvent event = pushQueue.get(0); // retrieve the next in line
+		ObjectEvent event = pushQueue.get(0); // retrieve the next in line
 		pushQueue.remove(0); // remove it from the line
 		pushEventNow(event); // push it
 	}
@@ -808,7 +790,7 @@ public class BaseConsole implements Serializable {
 	 */
 	public final void removeUiContainer(UIContainer UIContainer) {
 		uiContainers.remove(UIContainer);
-		UIContainer.getGui().dispose();
+		UIContainer.getConsoleUI().dispose();
 	}
 	
 	/**
@@ -820,7 +802,7 @@ public class BaseConsole implements Serializable {
 //		this prevents a concurrency issue.
 		int ir = 0;
 		for (int i = 0; i < uiContainers.size(); i++) {
-			if (uiContainers.get(i).getGui().equals(consoleUI)) {
+			if (uiContainers.get(i).getConsoleUI().equals(consoleUI)) {
 				ir = i;
 				break;
 			}

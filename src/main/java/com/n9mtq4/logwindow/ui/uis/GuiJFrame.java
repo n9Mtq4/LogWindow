@@ -13,9 +13,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.n9mtq4.logwindow.ui;
+package com.n9mtq4.logwindow.ui.uis;
 
 import com.n9mtq4.logwindow.BaseConsole;
+import com.n9mtq4.logwindow.modules.ModuleExit;
+import com.n9mtq4.logwindow.modules.ModuleHistory;
+import com.n9mtq4.logwindow.modules.ModuleJarLoader;
+import com.n9mtq4.logwindow.modules.ModuleListener;
+import com.n9mtq4.logwindow.ui.SimpleConsoleUI;
 import com.n9mtq4.logwindow.ui.attributes.HasFrame;
 import com.n9mtq4.logwindow.ui.attributes.History;
 import com.n9mtq4.logwindow.ui.attributes.Textable;
@@ -56,6 +61,11 @@ public final class GuiJFrame extends SimpleConsoleUI implements Textable, Histor
 	@Override
 	public final void init() {
 		
+		getParent().addListenerAttribute(new ModuleListener());
+		getParent().addListenerAttribute(new ModuleJarLoader());
+		getParent().addListenerAttribute(new ModuleExit());
+		getParent().addListenerAttribute(new ModuleHistory());
+		
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		}catch (Exception e) {
@@ -63,7 +73,7 @@ public final class GuiJFrame extends SimpleConsoleUI implements Textable, Histor
 		}
 		setDefaultTextColour(Colour.BLACK);
 		this.historyIndex = getParent().getHistory().size();
-		frame = new JFrame("Console");
+		frame = new JFrame("Console: " + getParent().getId());
 		
 		area = new NTextArea();
 		area.setUserEditable(false);

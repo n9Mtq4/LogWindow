@@ -15,7 +15,7 @@
 
 package com.n9mtq4.logwindow.utils;
 
-import com.n9mtq4.logwindow.events.SentObjectEvent;
+import com.n9mtq4.logwindow.events.ObjectEvent;
 
 import java.io.Serializable;
 
@@ -50,12 +50,12 @@ public final class StringParser implements Serializable {
 	}
 	
 	/**
-	 * Makes a new {@link StringParser} from a {@link SentObjectEvent}.
+	 * Makes a new {@link StringParser} from a {@link ObjectEvent}.
 	 * 
 	 * @see StringParser#StringParser(String)
-	 * @param event The {@link SentObjectEvent}
+	 * @param event The {@link ObjectEvent}
 	 * */
-	public StringParser(SentObjectEvent event) {
+	public StringParser(ObjectEvent event) {
 		this((String) event.getObject());
 	}
 	

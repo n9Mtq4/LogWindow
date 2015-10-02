@@ -16,7 +16,7 @@
 package com.n9mtq4.logwindow.modules;
 
 import com.n9mtq4.logwindow.BaseConsole;
-import com.n9mtq4.logwindow.events.SentObjectEvent;
+import com.n9mtq4.logwindow.events.ObjectEvent;
 import com.n9mtq4.logwindow.listener.ObjectListener;
 import com.n9mtq4.logwindow.utils.Colour;
 import com.n9mtq4.logwindow.utils.JarLoader;
@@ -38,10 +38,10 @@ import java.io.IOException;
 public final class ModuleJarLoader implements ObjectListener {
 	
 	@Override
-	public void objectReceived(SentObjectEvent sentObjectEvent, BaseConsole baseConsole) {
+	public void objectReceived(ObjectEvent objectEvent, BaseConsole baseConsole) {
 		
-		if (!sentObjectEvent.isUserInputString()) return;
-		StringParser stringParser = new StringParser(sentObjectEvent);
+		if (!objectEvent.isUserInputString()) return;
+		StringParser stringParser = new StringParser(objectEvent);
 		
 		if (stringParser.trim().toLowerCase().startsWith("jarloader ") && stringParser.getLength() >= 2) {
 			

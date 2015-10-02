@@ -13,17 +13,27 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.n9mtq4.logwindow.ui;
+package com.n9mtq4.logwindow.ui.uis;
 
 import com.n9mtq4.logwindow.BaseConsole;
+import com.n9mtq4.logwindow.modules.ModuleExit;
+import com.n9mtq4.logwindow.modules.ModuleHistory;
+import com.n9mtq4.logwindow.modules.ModuleJarLoader;
+import com.n9mtq4.logwindow.modules.ModuleListener;
+import com.n9mtq4.logwindow.ui.SimpleConsoleUI;
 import com.n9mtq4.logwindow.ui.attributes.HasFrame;
 import com.n9mtq4.logwindow.ui.attributes.History;
 import com.n9mtq4.logwindow.ui.attributes.Textable;
 import com.n9mtq4.logwindow.utils.Colour;
 
-import javax.swing.*;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.UIManager;
 import javax.swing.text.DefaultCaret;
-import java.awt.*;
+import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -35,7 +45,7 @@ import java.awt.event.KeyListener;
  * @since v5.0
  * @author Will "n9Mtq4" Bresnahan
  */
-public final class GuiJFrameLite extends SimpleConsoleUI implements Textable, History, HasFrame {
+public final class GuiJFrameLightWeight extends SimpleConsoleUI implements Textable, History, HasFrame {
 	
 	private JFrame frame;
 	private JPanel noWrapPanel;
@@ -44,12 +54,17 @@ public final class GuiJFrameLite extends SimpleConsoleUI implements Textable, Hi
 	private JScrollPane scrollArea;
 	private int historyIndex;
 	
-	public GuiJFrameLite(BaseConsole parent) {
+	public GuiJFrameLightWeight(BaseConsole parent) {
 		super(parent);
 	}
 	
 	@Override
 	public final void init() {
+		
+		getParent().addListenerAttribute(new ModuleListener());
+		getParent().addListenerAttribute(new ModuleJarLoader());
+		getParent().addListenerAttribute(new ModuleExit());
+		getParent().addListenerAttribute(new ModuleHistory());
 		
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -58,7 +73,7 @@ public final class GuiJFrameLite extends SimpleConsoleUI implements Textable, Hi
 		}
 		setDefaultTextColour(Colour.BLACK);
 		this.historyIndex = getParent().getHistory().size();
-		frame = new JFrame("Console Lite");
+		frame = new JFrame("Console.min: " + getParent().getId());
 		
 		area = new JTextArea();
 		area.setEditable(false);

@@ -13,34 +13,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.n9mtq4.logwindow.modules;
-
-import com.n9mtq4.logwindow.BaseConsole;
-import com.n9mtq4.logwindow.events.ObjectEvent;
-import com.n9mtq4.logwindow.listener.ObjectListener;
-import com.n9mtq4.logwindow.utils.StringParser;
-
 /**
- * Support for typing "exit" and the {@link BaseConsole} being closed.
+ * This package contains some implementations of {@link com.n9mtq4.logwindow.ui.ConsoleUI}.
+ * These use the helper class {@link com.n9mtq4.logwindow.ui.SimpleConsoleUI} to help.
+ * <p>
+ * Created by will on 10/2/15 at 10:17 AM.
  * 
- * <p>Created by will on 3/2/15.</p>
- * 
- * @since v4.0
- * @version v5.0
  * @author Will "n9Mtq4" Bresnahan
+ * @since v5.0
+ * @version v5.0
  */
-public final class ModuleExit implements ObjectListener {
-	
-	@Override
-	public final void objectReceived(final ObjectEvent objectEvent, final BaseConsole baseConsole) {
-		
-		if (!objectEvent.isUserInputString()) return;
-		StringParser stringParser = new StringParser(objectEvent);
-		
-		if (stringParser.eqt("exit")) {
-			baseConsole.dispose();
-		}
-		
-	}
-	
-}
+package com.n9mtq4.logwindow.ui.uis;

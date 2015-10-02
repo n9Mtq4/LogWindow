@@ -20,8 +20,8 @@ import com.n9mtq4.logwindow.annotation.Async;
 import com.n9mtq4.logwindow.events.AdditionEvent;
 import com.n9mtq4.logwindow.events.DisableEvent;
 import com.n9mtq4.logwindow.events.EnableEvent;
+import com.n9mtq4.logwindow.events.ObjectEvent;
 import com.n9mtq4.logwindow.events.RemovalEvent;
-import com.n9mtq4.logwindow.events.SentObjectEvent;
 import com.n9mtq4.logwindow.utils.Colour;
 
 import java.io.Serializable;
@@ -112,22 +112,22 @@ public final class ListenerContainer implements Serializable {
 	/**
 	 * Push object.
 	 *
-	 * @param sentObjectEvent the sent object event
+	 * @param objectEvent the sent object event
 	 */
-	public final void pushObject(SentObjectEvent sentObjectEvent) {
+	public final void pushObject(ObjectEvent objectEvent) {
 		if (listener instanceof ObjectListener) {
 			if (isAsyncObject) {
 				
-				final SentObjectEvent sentObjectEvent1 = sentObjectEvent;
+				final ObjectEvent objectEvent1 = objectEvent;
 				new Thread(new Runnable() {
 					@Override
 					public void run() {
-						pushObjectEvent(sentObjectEvent1);
+						pushObjectEvent(objectEvent1);
 					}
 				}).start();
 				
 			}else {
-				pushObjectEvent(sentObjectEvent);
+				pushObjectEvent(objectEvent);
 			}
 		}
 	}
@@ -225,10 +225,10 @@ public final class ListenerContainer implements Serializable {
 		}
 	}
 	
-	private void pushObjectEvent(SentObjectEvent sentObjectEvent) {
+	private void pushObjectEvent(ObjectEvent objectEvent) {
 		try {
 			for (BaseConsole c : linkedBaseConsoles) {
-				((ObjectListener) listener).objectReceived(sentObjectEvent, c);
+				((ObjectListener) listener).objectReceived(objectEvent, c);
 			}
 		}catch (ConcurrentModificationException e) {
 //			this is expected sometimes, and isn't a big deal
@@ -260,7 +260,7 @@ public final class ListenerContainer implements Serializable {
 			this.isAsyncEnable = shouldBeAsync("onEnable", EnableEvent.class);
 		}
 		if (listener instanceof ObjectListener) {
-			this.isAsyncObject = shouldBeAsync("objectReceived", SentObjectEvent.class, BaseConsole.class);
+			this.isAsyncObject = shouldBeAsync("objectReceived", ObjectEvent.class, BaseConsole.class);
 		}
 		if (listener instanceof DisableListener) {
 			this.isAsyncDisable = shouldBeAsync("onDisable", DisableEvent.class);

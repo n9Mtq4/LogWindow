@@ -13,18 +13,20 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.n9mtq4.logwindow.ui;
+package com.n9mtq4.logwindow.ui.uis;
 
 import com.n9mtq4.logwindow.BaseConsole;
 import com.n9mtq4.logwindow.events.DisableEvent;
+import com.n9mtq4.logwindow.events.ObjectEvent;
 import com.n9mtq4.logwindow.events.RemovalEvent;
-import com.n9mtq4.logwindow.events.SentObjectEvent;
 import com.n9mtq4.logwindow.listener.DisableListener;
 import com.n9mtq4.logwindow.listener.ListenerAttribute;
 import com.n9mtq4.logwindow.listener.ListenerContainer;
 import com.n9mtq4.logwindow.listener.ObjectListener;
 import com.n9mtq4.logwindow.listener.RemovalListener;
 import com.n9mtq4.logwindow.managers.SocketManager;
+import com.n9mtq4.logwindow.ui.ConsoleUI;
+import com.n9mtq4.logwindow.ui.SimpleConsoleUI;
 import com.n9mtq4.logwindow.utils.Colour;
 import com.n9mtq4.logwindow.utils.StringParser;
 
@@ -165,7 +167,7 @@ public class UISocketOut extends SimpleConsoleUI {
 		}
 		
 		@Override
-		public final void objectReceived(final SentObjectEvent e, final BaseConsole baseConsole) {
+		public final void objectReceived(final ObjectEvent e, final BaseConsole baseConsole) {
 			
 			if (!e.isUserInputString()) return;
 			StringParser stringParser = new StringParser(e);

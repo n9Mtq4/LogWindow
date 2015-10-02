@@ -16,14 +16,14 @@
 package com.n9mtq4.logwindow.listener;
 
 import com.n9mtq4.logwindow.BaseConsole;
-import com.n9mtq4.logwindow.events.SentObjectEvent;
+import com.n9mtq4.logwindow.events.ObjectEvent;
 
 import java.io.Serializable;
 
 /**
  * Interface for classes that wish to get notified when the listener is sent an object.
  *
- * @see #objectReceived(SentObjectEvent, BaseConsole)
+ * @see #objectReceived(ObjectEvent, BaseConsole)
  * @since v5.0
  * @author Will "n9Mtq4" Bresnahan
  */
@@ -37,9 +37,9 @@ public interface ObjectListener extends Serializable, ListenerAttribute {
 	 * @see BaseConsole#sendPluginsString(String)
 	 * @see BaseConsole#sendPluginsStringNow(String)
 	 * @since v5.0
-	 * @param sentObjectEvent The SentObjectEvent, contains the object
+	 * @param objectEvent The ObjectEvent, contains the object
 	 * @param baseConsole The {@link BaseConsole} that the listener should use
 	 */
-	void objectReceived(SentObjectEvent sentObjectEvent, BaseConsole baseConsole);
+	void objectReceived(ObjectEvent objectEvent, BaseConsole baseConsole);
 	
 }

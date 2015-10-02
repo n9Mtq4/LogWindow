@@ -16,7 +16,7 @@
 package com.n9mtq4.logwindow.listener;
 
 import com.n9mtq4.logwindow.BaseConsole;
-import com.n9mtq4.logwindow.events.SentObjectEvent;
+import com.n9mtq4.logwindow.events.ObjectEvent;
 import com.n9mtq4.logwindow.utils.StringParser;
 import org.junit.Test;
 
@@ -50,9 +50,9 @@ public class PushQueueTest {
 	public static class A implements ObjectListener {
 		public String out = "";
 		@Override
-		public void objectReceived(final SentObjectEvent sentObjectEvent, final BaseConsole baseConsole) {
-			if (!sentObjectEvent.isUserInputString()) return;
-			StringParser stringParser = new StringParser(sentObjectEvent);
+		public void objectReceived(final ObjectEvent objectEvent, final BaseConsole baseConsole) {
+			if (!objectEvent.isUserInputString()) return;
+			StringParser stringParser = new StringParser(objectEvent);
 			out += stringParser.getText();
 			if (stringParser.eqt("a")) baseConsole.sendPluginsString("b");
 		}
@@ -61,9 +61,9 @@ public class PushQueueTest {
 	public static class B implements ObjectListener {
 		public String out = "";
 		@Override
-		public void objectReceived(final SentObjectEvent sentObjectEvent, final BaseConsole baseConsole) {
-			if (!sentObjectEvent.isUserInputString()) return;
-			StringParser stringParser = new StringParser(sentObjectEvent);
+		public void objectReceived(final ObjectEvent objectEvent, final BaseConsole baseConsole) {
+			if (!objectEvent.isUserInputString()) return;
+			StringParser stringParser = new StringParser(objectEvent);
 			out += stringParser.getText();
 		}
 	}

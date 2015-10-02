@@ -34,20 +34,20 @@ public final class UIContainer implements Serializable {
 	
 	private static final Random random = new Random();
 	
-	private final ConsoleUI gui;
+	private final ConsoleUI consoleUI;
 	private final String givenName;
 	
-	public UIContainer(ConsoleUI gui) {
-		this.gui = gui;
-		this.givenName = gui.getClass().getName() + ":" + String.valueOf(random.nextInt());
+	public UIContainer(ConsoleUI consoleUI) {
+		this.consoleUI = consoleUI;
+		this.givenName = consoleUI.getClass().getName() + ":" + String.valueOf(random.nextInt());
 	}
 	
 	/**
-	 * Note: Add your gui stuff here when making a custom {@link ConsoleUI}<br>
+	 * Note: Add your consoleUI stuff here when making a custom {@link ConsoleUI}<br>
 	 * Called when {@link ConsoleUI} is added to {@link BaseConsole}.
 	 * */
 	public final void init() {
-		gui.init();
+		consoleUI.init();
 	}
 	
 	/**
@@ -55,7 +55,7 @@ public final class UIContainer implements Serializable {
 	 * Called when {@link BaseConsole} is closing or your {@link ConsoleUI} is removed.
 	 * */
 	public final void dispose() {
-		gui.dispose();
+		consoleUI.dispose();
 	}
 	
 	/**
@@ -67,13 +67,23 @@ public final class UIContainer implements Serializable {
 	 *               defaultTextColour a colour be prepared for colour to be null
 	 */
 	public final void print(Object object, Colour colour) {
-		gui.print(object, colour);
+		consoleUI.print(object, colour);
 	}
 	
-	public final ConsoleUI getGui() {
-		return gui;
+	/**
+	 * Gets the wrapped {@link ConsoleUI}.
+	 * 
+	 * @return the wrapped {@link ConsoleUI} for this {@link UIContainer}
+	 * */
+	public final ConsoleUI getConsoleUI() {
+		return consoleUI;
 	}
 	
+	/**
+	 * Gets the name the {@link ConsoleUI} has been given.
+	 * 
+	 * @return the name the {@link ConsoleUI} has been given.
+	 * */
 	public final String getGivenName() {
 		return givenName;
 	}

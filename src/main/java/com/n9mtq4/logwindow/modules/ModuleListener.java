@@ -17,13 +17,11 @@ package com.n9mtq4.logwindow.modules;
 
 import com.n9mtq4.logwindow.BaseConsole;
 import com.n9mtq4.logwindow.events.DisableEvent;
+import com.n9mtq4.logwindow.events.ObjectEvent;
 import com.n9mtq4.logwindow.events.RemovalEvent;
-import com.n9mtq4.logwindow.events.SentObjectEvent;
-import com.n9mtq4.logwindow.listener.DisableListener;
 import com.n9mtq4.logwindow.listener.ListenerAttribute;
 import com.n9mtq4.logwindow.listener.ListenerContainer;
 import com.n9mtq4.logwindow.listener.ObjectListener;
-import com.n9mtq4.logwindow.listener.RemovalListener;
 import com.n9mtq4.logwindow.utils.Colour;
 import com.n9mtq4.logwindow.utils.ReflectionHelper;
 import com.n9mtq4.logwindow.utils.StringParser;
@@ -39,10 +37,10 @@ import java.util.ArrayList;
  * @version v5.0
  * @author Will "n9Mtq4" Bresnahan 
  */
-public class ModuleListener implements ObjectListener, DisableListener, RemovalListener {
+public class ModuleListener implements ObjectListener {
 	
 	@Override
-	public final void objectReceived(final SentObjectEvent e, final BaseConsole baseConsole) {
+	public final void objectReceived(final ObjectEvent e, final BaseConsole baseConsole) {
 		
 		if (!e.isUserInputString()) return;
 		StringParser stringParser = new StringParser(e);
@@ -220,18 +218,6 @@ public class ModuleListener implements ObjectListener, DisableListener, RemovalL
 			
 		}
 		
-	}
-	
-	@Override
-	public void onDisable(DisableEvent e) {
-//		stopDisable(e);
-		ListenerContainer.stopDisable(this, e);
-	}
-	
-	@Override
-	public void onRemoval(RemovalEvent e) {
-//		stopRemoval(e);
-		ListenerContainer.stopRemoval(this, e);
 	}
 	
 }

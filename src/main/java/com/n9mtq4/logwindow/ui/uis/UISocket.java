@@ -13,10 +13,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.n9mtq4.logwindow.ui;
+package com.n9mtq4.logwindow.ui.uis;
 
 import com.n9mtq4.logwindow.BaseConsole;
 import com.n9mtq4.logwindow.managers.SocketManager;
+import com.n9mtq4.logwindow.ui.SimpleConsoleUI;
 import com.n9mtq4.logwindow.utils.Colour;
 
 /**

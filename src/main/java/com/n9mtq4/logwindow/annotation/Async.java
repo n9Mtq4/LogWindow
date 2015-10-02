@@ -18,6 +18,7 @@ package com.n9mtq4.logwindow.annotation;
 import com.n9mtq4.logwindow.events.AdditionEvent;
 import com.n9mtq4.logwindow.events.DisableEvent;
 import com.n9mtq4.logwindow.events.EnableEvent;
+import com.n9mtq4.logwindow.events.ObjectEvent;
 import com.n9mtq4.logwindow.events.RemovalEvent;
 
 import java.lang.annotation.ElementType;
@@ -40,7 +41,7 @@ public @interface Async {
 	 * If the method should run in another thread.
 	 * Can only be applied to {@link com.n9mtq4.logwindow.listener.AdditionListener#onAddition(AdditionEvent)},
 	 * {@link com.n9mtq4.logwindow.listener.EnableListener#onEnable(EnableEvent)},
-	 * {@link com.n9mtq4.logwindow.listener.ObjectListener#objectReceived(com.n9mtq4.logwindow.events.SentObjectEvent, com.n9mtq4.logwindow.BaseConsole)},
+	 * {@link com.n9mtq4.logwindow.listener.ObjectListener#objectReceived(ObjectEvent, com.n9mtq4.logwindow.BaseConsole)},
 	 * {@link com.n9mtq4.logwindow.listener.DisableListener#onDisable(DisableEvent)}, and
 	 * {@link com.n9mtq4.logwindow.listener.RemovalListener#onRemoval(RemovalEvent)}
 	 * 

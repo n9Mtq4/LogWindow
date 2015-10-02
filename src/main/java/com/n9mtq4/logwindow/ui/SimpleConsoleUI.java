@@ -116,7 +116,7 @@ public abstract class SimpleConsoleUI implements ConsoleUI {
 	 * @return The colour that is the default colour to be used when one isn't specified
 	 * @see SimpleConsoleUI#setDefaultTextColour
 	 */
-	public final Colour getDefaultTextColour() {
+	public Colour getDefaultTextColour() {
 		return defaultTextColour;
 	}
 	

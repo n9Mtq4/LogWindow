@@ -1,10 +1,9 @@
 #LogWindow [![Build Status](https://travis-ci.org/n9Mtq4/LogWindow.svg?branch=gradle)](https://travis-ci.org/n9Mtq4/LogWindow)#
 
 ------------------
-##ReadMe is a WIP
 ##What is it?
 This is a java library for debugging or handling sending events globally through the program or system.
-You can easily create a subclass of BaseConsole, create a custom gui/input interface for it, or make
+You can easily create a subclass of BaseConsole, create a custom consoleUI/input interface for it, or make
 your own modules that can handle input received by it.
 
 - Version numbering guide:
@@ -14,17 +13,25 @@ your own modules that can handle input received by it.
  - The third number is the amount of commits between major releases.
 
 ##Making a plugin##
-- Load LogWindowAPI.jar into your project as a library
-- Make a class and extend ConsoleListener
+- Load LogWindowFramework-5.jar into your project as a library
+- Make a class and implement ObjectListener, AdditionListener, EnableListener, DisableListener, or RemovalListener.
 - ConsoleListener is abstract, so there actionPerformed must be overridden.
+
 ```java
 package me.plugin;
+
 import com.n9mtq4.console.lib.ConsoleListener
 import com.n9mtq4.console.lib.utils.Colour
-public class MyPlugin extends ConsoleListener {
+
+public class MyPlugin implements ObjectListener {
 	@Override
-	public void actionPerformed(ConsoleActionEvent e, BaseConsole baseConsole) {
-		baseConsole.println(e.getCommand().getText(), Colour.RED); //prints what was inputed in red
+	public void objectReceived(final ObjectEvent objectEvent, final BaseConsole baseConsole) {
+		
+		if (!objectEvent.isUserInputString()) return;
+		StringParser stringParser = new StringParser(objectEvent);
+		
+		baseConsole.println(stringParser.getText(), Colour.RED); //prints what was inputed in red
+		
 	}
 }
 ```
