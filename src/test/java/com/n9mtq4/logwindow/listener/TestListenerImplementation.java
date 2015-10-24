@@ -33,6 +33,7 @@ public class TestListenerImplementation implements ConsoleListener {
 	public boolean hasBeenEnabled = false;
 	public boolean hasBeenDisabled = false;
 	public boolean hasBeenRemoved = false;
+	public boolean hasReceivedObject = false;
 	
 	@Override
 	public void onAddition(AdditionEvent e) {
@@ -51,7 +52,7 @@ public class TestListenerImplementation implements ConsoleListener {
 	
 	@Override
 	public void objectReceived(ObjectEvent e, BaseConsole baseConsole) {
-		
+		this.hasReceivedObject = true;
 	}
 	
 	@Override
