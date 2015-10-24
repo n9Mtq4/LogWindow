@@ -31,6 +31,7 @@ import java.lang.annotation.Target;
  * ConsoleListener. Adding this annotation makes the method run in its own thread
  * 
  * @since v4.3
+ * @version v4.3
  * @author Will "n9Mtq4" Bresnahan
  */
 @Target(ElementType.METHOD)

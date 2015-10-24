@@ -15,23 +15,33 @@ your own modules that can handle input received by it.
 ##Making a plugin##
 - Load LogWindowFramework-5.jar into your project as a library
 - Make a class and implement ObjectListener, AdditionListener, EnableListener, DisableListener, or RemovalListener.
-- ConsoleListener is abstract, so there actionPerformed must be overridden.
 
 ```java
-package me.plugin;
+import com.n9mtq4.logwindow.BaseConsole;
+import com.n9mtq4.logwindow.events.ObjectEvent;
+import com.n9mtq4.logwindow.listener.ObjectListener;
+import com.n9mtq4.logwindow.ui.uis.GuiJFrame;
+import com.n9mtq4.logwindow.utils.*;
 
-import com.n9mtq4.console.lib.ConsoleListener
-import com.n9mtq4.console.lib.utils.Colour
-
-public class MyPlugin implements ObjectListener {
-	@Override
-	public void objectReceived(final ObjectEvent objectEvent, final BaseConsole baseConsole) {
+public class EchoListener implements ObjectListener {
+	
+	public static void main(String[] args) {
 		
-		if (!objectEvent.isUserInputString()) return;
-		StringParser stringParser = new StringParser(objectEvent);
-		
-		baseConsole.println(stringParser.getText(), Colour.RED); //prints what was inputed in red
+		BaseConsole baseConsole = new BaseConsole(); // makes a new BaseConsole
+		baseConsole.addConsoleUi(new GuiJFrame(baseConsole)); // adds a new logwindow gui
+		baseConsole.addListenerAttribute(new EchoListener()); // adds our listener
 		
 	}
+	
+	@Override
+	public void objectReceived(ObjectEvent objectEvent, BaseConsole baseConsole) {
+		
+		if (!objectEvent.isUserInputString()) return; // we only want text
+		StringParser stringParser = new StringParser(objectEvent); // get a string parser
+		
+		baseConsole.println(stringParser.getText(), Colour.RED); // prints what was inputed in re
+		
+	}
+	
 }
 ```
