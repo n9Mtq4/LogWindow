@@ -70,7 +70,7 @@ public final class UIScanner extends SimpleConsoleUI {
 				while (UIScanner.this.isShouldScan()) {
 					System.out.print("> ");
 					String s = UIScanner.this.console.readLine();
-					UIScanner.this.getParent().sendPluginsString(s);
+					UIScanner.this.getParent().pushString(s);
 				}
 			}
 		}, "Console Input Listener").start();
@@ -90,7 +90,7 @@ public final class UIScanner extends SimpleConsoleUI {
 				while (UIScanner.this.isShouldScan()) {
 					System.out.print("> ");
 					String s = scan.nextLine();
-					UIScanner.this.getParent().sendPluginsString(s);
+					UIScanner.this.getParent().pushString(s);
 				}
 			}
 		}, "Scanner Input Listener").start();

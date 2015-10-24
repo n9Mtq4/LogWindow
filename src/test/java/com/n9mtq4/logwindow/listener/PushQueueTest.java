@@ -40,7 +40,7 @@ public class PushQueueTest {
 		baseConsole.addListenerAttribute(a);
 		baseConsole.addListenerAttribute(b);
 		
-		baseConsole.sendPluginsString("a");
+		baseConsole.pushString("a");
 		
 		assertEquals("ab", a.out);
 		assertEquals("ab", b.out);
@@ -54,7 +54,7 @@ public class PushQueueTest {
 			if (!objectEvent.isUserInputString()) return;
 			StringParser stringParser = new StringParser(objectEvent);
 			out += stringParser.getText();
-			if (stringParser.eqt("a")) baseConsole.sendPluginsString("b");
+			if (stringParser.eqt("a")) baseConsole.pushString("b");
 		}
 	}
 	

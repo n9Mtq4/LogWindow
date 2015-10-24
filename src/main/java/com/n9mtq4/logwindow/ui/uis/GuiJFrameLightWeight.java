@@ -16,13 +16,8 @@
 package com.n9mtq4.logwindow.ui.uis;
 
 import com.n9mtq4.logwindow.BaseConsole;
-import com.n9mtq4.logwindow.modules.ModuleExit;
-import com.n9mtq4.logwindow.modules.ModuleHistory;
-import com.n9mtq4.logwindow.modules.ModuleJarLoader;
-import com.n9mtq4.logwindow.modules.ModuleListener;
 import com.n9mtq4.logwindow.ui.SimpleConsoleUI;
 import com.n9mtq4.logwindow.ui.attributes.HasFrame;
-import com.n9mtq4.logwindow.ui.attributes.History;
 import com.n9mtq4.logwindow.ui.attributes.Textable;
 import com.n9mtq4.logwindow.utils.Colour;
 
@@ -38,6 +33,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.ArrayList;
 
 /**
  * Created by Will on 12/29/14.
@@ -45,7 +41,7 @@ import java.awt.event.KeyListener;
  * @since v5.0
  * @author Will "n9Mtq4" Bresnahan
  */
-public final class GuiJFrameLightWeight extends SimpleConsoleUI implements Textable, History, HasFrame {
+public final class GuiJFrameLightWeight extends SimpleConsoleUI implements Textable, HasFrame {
 	
 	private JFrame frame;
 	private JPanel noWrapPanel;
@@ -61,18 +57,13 @@ public final class GuiJFrameLightWeight extends SimpleConsoleUI implements Texta
 	@Override
 	public final void init() {
 		
-		getParent().addListenerAttribute(new ModuleListener());
-		getParent().addListenerAttribute(new ModuleJarLoader());
-		getParent().addListenerAttribute(new ModuleExit());
-		getParent().addListenerAttribute(new ModuleHistory());
-		
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
 		setDefaultTextColour(Colour.BLACK);
-		this.historyIndex = getParent().getHistory().size();
+		this.historyIndex = getHistory().size();
 		frame = new JFrame("Console.min: " + getParent().getId());
 		
 		area = new JTextArea();
@@ -98,7 +89,7 @@ public final class GuiJFrameLightWeight extends SimpleConsoleUI implements Texta
 		frame.setSize(360, 240);
 		frame.setLocationRelativeTo(null);
 		
-		field.requestFocus();
+		field.requestFocusInWindow();
 		field.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent actionEvent) {
@@ -115,13 +106,13 @@ public final class GuiJFrameLightWeight extends SimpleConsoleUI implements Texta
 				if (keyEvent.getKeyCode() == KeyEvent.VK_UP) {
 					if (historyIndex > 0) {
 						historyIndex--;
-						field.setText(getParent().getHistory().get(historyIndex));
+						field.setText(getHistory().get(historyIndex));
 						field.setCaretPosition(field.getText().length());
 					}
 				}else if (keyEvent.getKeyCode() == KeyEvent.VK_DOWN) {
-					if (historyIndex < getParent().getHistory().size() - 1) {
+					if (historyIndex < getHistory().size() - 1) {
 						historyIndex++;
-						field.setText(getParent().getHistory().get(historyIndex));
+						field.setText(getHistory().get(historyIndex));
 						field.setCaretPosition(field.getText().length());
 					}
 				}
@@ -142,10 +133,10 @@ public final class GuiJFrameLightWeight extends SimpleConsoleUI implements Texta
 	public final void onFieldEnter(ActionEvent e) {
 		JTextField source = (JTextField) e.getSource();
 		String text = source.getText();
-		historyIndex = getParent().getHistory().size();
+		historyIndex = getHistory().size();
 		if (!text.trim().equals("")) {
 			source.setText("");
-			getParent().sendPluginsString(text);
+			getParent().pushString(text);
 		}
 	}
 	
@@ -172,8 +163,9 @@ public final class GuiJFrameLightWeight extends SimpleConsoleUI implements Texta
 	}
 	
 	@Override
-	public final void historyUpdate() {
-		this.historyIndex = getParent().getHistory().size();
+	public void historyUpdate(ArrayList<String> history) {
+		super.historyUpdate(history);
+		this.historyIndex = history.size();
 	}
 	
 	/**

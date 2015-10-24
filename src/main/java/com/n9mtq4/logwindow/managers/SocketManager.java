@@ -17,7 +17,11 @@ package com.n9mtq4.logwindow.managers;
 
 import com.n9mtq4.logwindow.BaseConsole;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.io.Serializable;
 import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -160,7 +164,7 @@ public class SocketManager implements Serializable {
 									String inputLine;
 									while ((inputLine = in.readLine()) != null) {
 										if (sendToPlugins) {
-											c1.sendPluginsString(inputLine);
+											c1.pushString(inputLine);
 										}else {
 											c1.println(inputLine);
 										}

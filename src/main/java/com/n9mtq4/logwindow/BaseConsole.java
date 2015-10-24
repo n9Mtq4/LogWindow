@@ -85,14 +85,6 @@ public class BaseConsole implements Serializable {
 	 */
 	private final ArrayList<ListenerContainer> listenerContainers;
 	/**
-	 * Keeps a record of the input.
-	 * TODO: remove deprecated field?
-	 * 
-	 * @deprecated Not a necessary feature, may be removed before v5 release
-	 */
-	@Deprecated
-	private final ArrayList<String> history;
-	/**
 	 * Has the local id for the {@link BaseConsole}.
 	 */
 	private final int id;
@@ -131,7 +123,6 @@ public class BaseConsole implements Serializable {
 	public BaseConsole() {
 		this.disposed = false;
 		this.listenerContainers = new ArrayList<ListenerContainer>();
-		this.history = new ArrayList<String>();
 		this.id = globalList.size();
 		globalList.add(this);
 		this.uiContainers = new ArrayList<UIContainer>();
@@ -256,47 +247,8 @@ public class BaseConsole implements Serializable {
 	
 //	STRING PUSHING START
 	/**
-	 * Sends {@link ListenerAttribute} a string.
-	 * Does the same thing as {@link #pushString(String)}
-	 * but adds the text to the history.
-	 * 
-	 * @see #sendPluginsStringNow(String)
-	 * @see #pushString(String)
-	 * @see #pushStringNow(String)
-	 * @since v5.0
-	 * @param text The text to send to the {@link ListenerAttribute}s
-	 * */
-	public final void sendPluginsString(final String text) {
-		history.add(text);
-		pushString(text);
-	}
-	
-	/**
-	 * Sends {@link ListenerAttribute} a string.
-	 * Does the same thing as {@link #pushString(String)}
-	 * but adds the text to the history.
-	 * <br>
-	 * I recommend using {@link #sendPluginsString(String)} if sending
-	 * the string now isn't ABSOLUTELY necessary.
-	 * 
-	 * @see #sendPluginsString(String)
-	 * @see #pushString(String)
-	 * @see #pushStringNow(String)
-	 * @since v5.0
-	 * @param text The text to send to the {@link ListenerAttribute}s
-	 * */
-	public final void sendPluginsStringNow(final String text) {
-		history.add(text);
-		pushStringNow(text);
-	}
-	
-	/**
 	 * Sends {@link ListenerAttribute}s a string.
-	 * Doesn't add the text to the history like
-	 * {@link #sendPluginsString(String)} does.
 	 * 
-	 * @see #sendPluginsString(String)
-	 * @see #sendPluginsStringNow(String)
 	 * @see #pushStringNow(String)
 	 * @since v5.0
 	 * @param text The text to send to the {@link ListenerAttribute}s
@@ -307,15 +259,11 @@ public class BaseConsole implements Serializable {
 	
 	/**
 	 * Sends {@link ListenerAttribute}s a string.
-	 * Doesn't add the text to the history like
-	 * {@link #sendPluginsString(String)} does.
 	 * <br>
 	 * Does not wait for other pushes to finish.
 	 * I recommend using {@link #pushString(String)} )} if sending
 	 * the string now isn't ABSOLUTELY necessary.
 	 * 
-	 * @see #sendPluginsString(String)
-	 * @see #sendPluginsStringNow(String)
 	 * @see #pushString(String)
 	 * @since v5.0
 	 * @param text The text to send to the {@link ListenerAttribute}s
@@ -731,15 +679,6 @@ public class BaseConsole implements Serializable {
 		if (isDisposed()) return;
 		PluginManager.loadPluginsToConsole(this, PluginManager.DEFAULT_PLUGIN_FOLDER);
 		
-	}
-	
-	/**
-	 * Gets history.
-	 * 
-	 * @return the history
-	 */
-	public final ArrayList<String> getHistory() {
-		return history;
 	}
 	
 	/**

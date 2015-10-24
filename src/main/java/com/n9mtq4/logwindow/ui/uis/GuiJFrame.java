@@ -16,13 +16,8 @@
 package com.n9mtq4.logwindow.ui.uis;
 
 import com.n9mtq4.logwindow.BaseConsole;
-import com.n9mtq4.logwindow.modules.ModuleExit;
-import com.n9mtq4.logwindow.modules.ModuleHistory;
-import com.n9mtq4.logwindow.modules.ModuleJarLoader;
-import com.n9mtq4.logwindow.modules.ModuleListener;
 import com.n9mtq4.logwindow.ui.SimpleConsoleUI;
 import com.n9mtq4.logwindow.ui.attributes.HasFrame;
-import com.n9mtq4.logwindow.ui.attributes.History;
 import com.n9mtq4.logwindow.ui.attributes.Textable;
 import com.n9mtq4.logwindow.ui.components.NTextArea;
 import com.n9mtq4.logwindow.utils.Colour;
@@ -38,6 +33,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.ArrayList;
 
 /**
  * Created by Will on 12/29/14.
@@ -45,7 +41,7 @@ import java.awt.event.KeyListener;
  * @since v5.0
  * @author Will "n9Mtq4" Bresnahan
  */
-public final class GuiJFrame extends SimpleConsoleUI implements Textable, History, HasFrame {
+public final class GuiJFrame extends SimpleConsoleUI implements Textable, HasFrame {
 	
 	private JFrame frame;
 	private JPanel noWrapPanel;
@@ -61,10 +57,6 @@ public final class GuiJFrame extends SimpleConsoleUI implements Textable, Histor
 	@Override
 	public final void init() {
 		
-		getParent().addListenerAttribute(new ModuleListener());
-		getParent().addListenerAttribute(new ModuleJarLoader());
-		getParent().addListenerAttribute(new ModuleExit());
-		getParent().addListenerAttribute(new ModuleHistory());
 		
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -72,7 +64,7 @@ public final class GuiJFrame extends SimpleConsoleUI implements Textable, Histor
 			e.printStackTrace();
 		}
 		setDefaultTextColour(Colour.BLACK);
-		this.historyIndex = getParent().getHistory().size();
+		this.historyIndex = getHistory().size();
 		frame = new JFrame("Console: " + getParent().getId());
 		
 		area = new NTextArea();
@@ -95,7 +87,7 @@ public final class GuiJFrame extends SimpleConsoleUI implements Textable, Histor
 		frame.setSize(360, 240);
 		frame.setLocationRelativeTo(null);
 		
-		field.requestFocus();
+		field.requestFocusInWindow();
 		field.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent actionEvent) {
@@ -113,13 +105,13 @@ public final class GuiJFrame extends SimpleConsoleUI implements Textable, Histor
 				if (keyEvent.getKeyCode() == KeyEvent.VK_UP) { // up
 					if (historyIndex > 0) {
 						historyIndex--;
-						field.setText(getParent().getHistory().get(historyIndex));
+						field.setText(getHistory().get(historyIndex));
 						field.setCaretPosition(field.getText().length());
 					}
 				}else if (keyEvent.getKeyCode() == KeyEvent.VK_DOWN) { // down
-					if (historyIndex < getParent().getHistory().size() - 1) {
+					if (historyIndex < getHistory().size() - 1) {
 						historyIndex++;
-						field.setText(getParent().getHistory().get(historyIndex));
+						field.setText(getHistory().get(historyIndex));
 						field.setCaretPosition(field.getText().length());
 					}
 				}
@@ -142,7 +134,7 @@ public final class GuiJFrame extends SimpleConsoleUI implements Textable, Histor
 		String text = source.getText(); // get the text in the JTextField
 		if (!text.trim().equals("")) { // if there's something entered
 			source.setText(""); // clear the field
-			getParent().sendPluginsString(text); // send it to the BaseConsole
+			getParent().pushString(text); // send it to the BaseConsole
 		}
 	}
 	
@@ -160,6 +152,12 @@ public final class GuiJFrame extends SimpleConsoleUI implements Textable, Histor
 			area.append(objectToString(object), colour);
 		}
 		
+	}
+	
+	@Override
+	public void historyUpdate(ArrayList<String> history) {
+		super.historyUpdate(history);
+		this.historyIndex = history.size();
 	}
 	
 	private void printImage(Image image) {
@@ -182,14 +180,6 @@ public final class GuiJFrame extends SimpleConsoleUI implements Textable, Histor
 	@Override
 	public final void setText(String text) {
 		area.setText(text);
-	}
-	
-	/**
-	 * NOTE: Attribute override!<br>
-	 */
-	@Override
-	public final void historyUpdate() {
-		this.historyIndex = getParent().getHistory().size();
 	}
 	
 	/**

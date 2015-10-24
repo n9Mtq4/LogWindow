@@ -39,7 +39,7 @@ public class PushNowTest {
 		baseConsole.addListenerAttribute(a);
 		baseConsole.addListenerAttribute(b);
 		
-		baseConsole.sendPluginsString("a");
+		baseConsole.pushString("a");
 		
 		assertEquals("ab", a.out);
 		assertEquals("ba", b.out);
@@ -53,7 +53,7 @@ public class PushNowTest {
 			if (!objectEvent.isUserInputString()) return;
 			StringParser stringParser = new StringParser(objectEvent);
 			out += stringParser.getText();
-			if (stringParser.eqt("a")) baseConsole.sendPluginsStringNow("b");
+			if (stringParser.eqt("a")) baseConsole.pushStringNow("b");
 		}
 	}
 	

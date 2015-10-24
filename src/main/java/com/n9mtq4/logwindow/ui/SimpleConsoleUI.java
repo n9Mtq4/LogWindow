@@ -16,8 +16,10 @@
 package com.n9mtq4.logwindow.ui;
 
 import com.n9mtq4.logwindow.BaseConsole;
+import com.n9mtq4.logwindow.modules.History;
 import com.n9mtq4.logwindow.utils.Colour;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 
@@ -28,7 +30,7 @@ import java.util.Collection;
  * @since v5.0
  * @author Will "n9Mtq4" Bresnahan
  */
-public abstract class SimpleConsoleUI implements ConsoleUI {
+public abstract class SimpleConsoleUI implements ConsoleUI, History.HistorySupport {
 	
 	/**
 	 * Turns an object into a string.<br>
@@ -49,9 +51,12 @@ public abstract class SimpleConsoleUI implements ConsoleUI {
 	
 	private final BaseConsole parent;
 	private Colour defaultTextColour;
+	@Deprecated
+	private ArrayList<String> history; // see com.n9mtq4.logwindow.modules.History's deprecation
 	
 	public SimpleConsoleUI(BaseConsole parent) {
 		this.parent = parent;
+		this.history = new ArrayList<String>();
 	}
 	
 	/**
@@ -100,6 +105,14 @@ public abstract class SimpleConsoleUI implements ConsoleUI {
 	public abstract void printObject(Object object, Colour colour);
 	
 	/**
+	 * Default history support implementation
+	 * */
+	@Override
+	public void historyUpdate(ArrayList<String> history) {
+		this.history = history;
+	}
+	
+	/**
 	 * Gets the parent {@link BaseConsole}.
 	 *
 	 * @return The base console that the gui is linked to.
@@ -130,6 +143,19 @@ public abstract class SimpleConsoleUI implements ConsoleUI {
 	 */
 	public final void setDefaultTextColour(Colour defaultTextColour) {
 		this.defaultTextColour = defaultTextColour;
+	}
+	
+	/**
+	 * Gets the current history in the form of a String ArrayList
+	 * 
+	 * @return the history (ArrayList String)
+	 * @see History
+	 * @see com.n9mtq4.logwindow.modules.History.HistorySupport
+	 * @deprecated see {@link History}
+	 * */
+	@Deprecated
+	public final ArrayList<String> getHistory() {
+		return history;
 	}
 	
 }
