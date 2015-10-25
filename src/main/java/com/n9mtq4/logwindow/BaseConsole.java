@@ -73,9 +73,10 @@ public class BaseConsole implements Serializable {
 	
 	/**
 	 * Keeps the ids of all {@link BaseConsole}s.
+	 * This is still useful for identifying BasConsoles.
 	 * TODO: remove deprecated field?
 	 * 
-	 * @deprecated Not used, and not necessary, since I discovered {@link Runtime#addShutdownHook(Thread)}
+	 * @deprecated Not used, and not necessary, since the use of {@link Runtime#addShutdownHook(Thread)}
 	 */
 	@Deprecated
 	private static final ArrayList<BaseConsole> globalList = new ArrayList<BaseConsole>();
@@ -129,6 +130,7 @@ public class BaseConsole implements Serializable {
 		this.shutdownHook = new ShutdownHook(this);
 		this.pushing = 0;
 		this.pushQueue = new ArrayList<ObjectEvent>();
+//		TODO: have one global shutdown hook that goes through globalList?
 		Runtime.getRuntime().addShutdownHook(shutdownHook);
 	}
 	
@@ -765,7 +767,7 @@ public class BaseConsole implements Serializable {
 	 * @return true if disposed, false otherwise
 	 * */
 	public final boolean isDisposed() {
-		if (disposed) System.out.println("The BaseConsole has been disposed");
+		if (disposed) System.out.println("The BaseConsole has been disposed!");
 		return disposed;
 	}
 	

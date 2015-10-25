@@ -40,6 +40,7 @@ import java.util.ArrayList;
  */
 @Deprecated
 public final class History implements EnableListener, ObjectListener {
+//	TODO: the job of history should really be a ConsoleUi's task
 	
 	private final ArrayList<String> history;
 	
@@ -134,6 +135,7 @@ public final class History implements EnableListener, ObjectListener {
 		 * Called when {@link com.n9mtq4.logwindow.BaseConsole#push(Object)} is called
 		 * and the {@link BaseConsole} has {@link History} added as a {@link ListenerAttribute}.
 		 * 
+		 * @param history The ArrayList of strings that contains all the history
 		 * @since v4.0
 		 * @deprecated see {@link com.n9mtq4.logwindow.modules.History.HistorySupport}
 		 */

@@ -34,8 +34,6 @@ public interface ObjectListener extends Serializable, ListenerAttribute {
 	 * 
 	 * @see BaseConsole#push(Object, String) 
 	 * @see BaseConsole#pushNow(Object, String)  
-	 * @see BaseConsole#sendPluginsString(String)
-	 * @see BaseConsole#sendPluginsStringNow(String)
 	 * @since v5.0
 	 * @param objectEvent The ObjectEvent, contains the object
 	 * @param baseConsole The {@link BaseConsole} that the listener should use

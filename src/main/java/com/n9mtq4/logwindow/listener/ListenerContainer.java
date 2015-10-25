@@ -290,7 +290,7 @@ public final class ListenerContainer implements Serializable {
 	 * @param baseConsole the
 	 *                    to add this listener to.
 	 * @see BaseConsole#addListenerContainer(ListenerContainer)
-	 * @deprecated use  instead.
+	 * @deprecated use {@link BaseConsole#addListenerContainer(ListenerContainer)} instead.
 	 */
 	@Deprecated
 	public final void addToConsole(BaseConsole baseConsole) {
@@ -308,7 +308,7 @@ public final class ListenerContainer implements Serializable {
 	 *
 	 * @param baseConsole the to remove this listener from.
 	 * @see BaseConsole#removeListenerContainer(ListenerContainer)
-	 * @deprecated use  instead.
+	 * @deprecated use {@link BaseConsole#removeListenerContainer(ListenerContainer)} instead.
 	 */
 	@Deprecated
 	public final void removeFromConsole(BaseConsole baseConsole) {
@@ -357,26 +357,6 @@ public final class ListenerContainer implements Serializable {
 	 */
 	public final ListenerContainer setIgnoreDone(boolean ignoreDone) {
 		this.ignoreDone = ignoreDone;
-		return this;
-	}
-	
-	/**
-	 * Is async object.
-	 *
-	 * @return the boolean
-	 */
-	public final boolean isAsyncObject() {
-		return isAsyncObject;
-	}
-	
-	/**
-	 * Sets is async object.
-	 *
-	 * @param isAsyncObject the is async object
-	 * @return the is async object
-	 */
-	public final ListenerContainer setIsAsyncObject(boolean isAsyncObject) {
-		this.isAsyncObject = isAsyncObject;
 		return this;
 	}
 	
