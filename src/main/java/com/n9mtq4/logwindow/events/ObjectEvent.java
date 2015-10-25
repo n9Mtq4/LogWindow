@@ -109,7 +109,7 @@ public final class ObjectEvent implements Serializable {
 	 * @since v5.0
 	 * @return If this {@link ObjectEvent} was inputed by the user
 	 * */
-	public boolean isUserInputString() {
+	public final boolean isUserInputString() {
 		return this.getMessage().equals(STRING_OBJECT_MESSAGE) && this.getObject() instanceof String;
 	}
 	
@@ -132,6 +132,30 @@ public final class ObjectEvent implements Serializable {
 	 */
 	public final boolean isCanceled() {
 		return canceled;
+	}
+	
+	/**
+	 * Sets if this event has been canceled.
+	 * 
+	 * @see #isCanceled()
+	 * @deprecated No reason to use it, so private. {@link #cancel()}
+	 * */
+	@Deprecated
+	private final void setCanceled(boolean canceled) {
+		this.canceled = canceled;
+	}
+	
+	/**
+	 * Cancels this event.
+	 * Any {@link com.n9mtq4.logwindow.listener.ListenerAttribute}s
+	 * wont receive the event, unless their container has ignoreCanceled
+	 * set to true.
+	 * 
+	 * @see #isCanceled()
+	 * @since v5.0
+	 * */
+	public final void cancel() {
+		setCanceled(true);
 	}
 	
 	/**

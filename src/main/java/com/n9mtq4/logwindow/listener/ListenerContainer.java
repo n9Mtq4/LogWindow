@@ -86,7 +86,7 @@ public final class ListenerContainer implements Serializable {
 	private final ListenerAttribute listener;
 	private ArrayList<BaseConsole> linkedBaseConsoles;
 	private boolean enabled;
-	private boolean ignoreDone;
+	private boolean ignoreCanceled;
 	private boolean hasBeenEnabled;
 	
 	private boolean isAsyncAddition;
@@ -100,7 +100,7 @@ public final class ListenerContainer implements Serializable {
 		this.linkedBaseConsoles = new ArrayList<BaseConsole>();
 		this.enabled = true;
 		this.hasBeenEnabled = false;
-		this.ignoreDone = false;
+		this.ignoreCanceled = false;
 		this.isAsyncAddition = false;
 		this.isAsyncObject = false;
 		this.isAsyncEnable = false;
@@ -345,18 +345,18 @@ public final class ListenerContainer implements Serializable {
 	 *
 	 * @return the boolean
 	 */
-	public final boolean isIgnoreDone() {
-		return ignoreDone;
+	public final boolean isIgnoreCanceled() {
+		return ignoreCanceled;
 	}
 	
 	/**
 	 * Sets ignore done.
 	 *
-	 * @param ignoreDone the ignore done
+	 * @param ignoreCanceled the ignore done
 	 * @return the ignore done
 	 */
-	public final ListenerContainer setIgnoreDone(boolean ignoreDone) {
-		this.ignoreDone = ignoreDone;
+	public final ListenerContainer setIgnoreCanceled(boolean ignoreCanceled) {
+		this.ignoreCanceled = ignoreCanceled;
 		return this;
 	}
 	
@@ -393,7 +393,7 @@ public final class ListenerContainer implements Serializable {
 	 * @return the boolean
 	 */
 	public final boolean hasIgnoreDone() {
-		return ignoreDone;
+		return ignoreCanceled;
 	}
 	
 }
