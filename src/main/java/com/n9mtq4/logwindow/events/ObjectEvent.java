@@ -76,9 +76,7 @@ public final class ObjectEvent implements Serializable {
 	 * Has this event been canceled
 	 * 
 	 * @since v4.1
-	 * @deprecated Not official supported and can be dangerous; only use if you know what you are doing.
 	 * */
-	@Deprecated
 	private boolean canceled;
 	
 	private final Object object;
