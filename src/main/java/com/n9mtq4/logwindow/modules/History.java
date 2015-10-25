@@ -42,9 +42,21 @@ import java.util.ArrayList;
 public final class History implements EnableListener, ObjectListener {
 //	TODO: the job of history should really be a ConsoleUi's task
 	
+	/**
+	 * Adds history support onto the {@link BaseConsole}
+	 * and starts recording it for the BaseConsole and the {@link com.n9mtq4.logwindow.ui.ConsoleUI}s
+	 * to use.
+	 * 
+	 * @since v5.0
+	 * @param baseConsole The {@link BaseConsole} to start recording
+	 * */
+	public static void record(BaseConsole baseConsole) {
+		baseConsole.addListenerAttribute(new History());
+	}
+	
 	private final ArrayList<String> history;
 	
-	public History() {
+	private History() {
 		this.history = new ArrayList<String>();
 	}
 	
