@@ -88,7 +88,7 @@ public class SocketManager implements Serializable {
 			PrintWriter pw = new PrintWriter(socket.getOutputStream());
 			pw.print(string);
 			pw.flush();
-			pw.close();
+//			pw.close();
 			return true;
 			
 		}catch (Exception e) {
