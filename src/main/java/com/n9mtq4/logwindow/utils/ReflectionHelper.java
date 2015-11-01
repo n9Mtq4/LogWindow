@@ -2338,7 +2338,6 @@ public class ReflectionHelper {
 	 * Bobulous @ https://stackoverflow.com/questions/15868914/how-to-get-2d-array-possible-combinations/15869610
 	 */
 	private static List<List<Class>> combinations(ArrayList<ArrayList<Class>> twoDimArray) {
-//		TODO: find a better algorithm
 		// keep track of the size of each inner String array
 		int sizeArray[] = new int[twoDimArray.size()];
 		

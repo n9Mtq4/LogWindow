@@ -56,7 +56,14 @@ public final class History implements EnableListener, ObjectListener {
 	
 	private final ArrayList<String> history;
 	
-	private History() {
+	/**
+	 * The constructor for the {@link BaseConsole} history support.
+	 * 
+	 * @deprecated Use {@link #record(BaseConsole)} instead. 
+	 * This is only here for "listener add History".
+	 * */
+	@Deprecated
+	public History() {
 		this.history = new ArrayList<String>();
 	}
 	

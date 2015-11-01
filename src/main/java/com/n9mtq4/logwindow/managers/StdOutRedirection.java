@@ -70,16 +70,6 @@ public final class StdOutRedirection extends PrintStream
 	private boolean on;
 	
 	/**
-	 * Makes a new StdOutRedirect instance
-	 * */
-	@Deprecated
-	private StdOutRedirection() {
-//		TODO: not being used, so remove in future version
-		super(System.out);
-		this.showLocation = SHOW_LOCATION_DEFAULT_VALUE;
-	}
-	
-	/**
 	 * Makes a new StdOutRedirect instance with show location
 	 * 
 	 * @param showLocation Should it show the location?
