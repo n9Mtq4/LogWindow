@@ -39,7 +39,7 @@ public class EchoListener implements ObjectListener {
 		if (!objectEvent.isUserInputString()) return; // we only want text
 		StringParser stringParser = new StringParser(objectEvent); // get a string parser
 		
-		baseConsole.println(stringParser.getText(), Colour.RED); // prints what was inputed in re
+		baseConsole.println(stringParser.getText(), Colour.RED); // prints what was inputed in red
 		
 	}
 	
