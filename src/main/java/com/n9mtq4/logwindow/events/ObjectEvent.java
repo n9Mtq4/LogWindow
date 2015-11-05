@@ -70,16 +70,10 @@ public final class ObjectEvent implements Serializable {
 		return createSentObjectEvent(baseConsole, text, STRING_OBJECT_MESSAGE);
 	}
 	
-	private final BaseConsole baseConsole;
+	private final BaseConsole initiatingBaseConsole;
 	
-	/**
-	 * Has this event been canceled
-	 * 
-	 * @since v4.1
-	 * */
 	private boolean canceled;
-	
-	private final Object object;
+	private final Object contained;
 	private final String message;
 	private final String objectType;
 	
@@ -88,16 +82,16 @@ public final class ObjectEvent implements Serializable {
 	 * 
 	 * @since v4.1
 	 * @param baseConsole The {@link BaseConsole}
-	 * @param object The object being sent to the {@link com.n9mtq4.logwindow.listener.ObjectListener}
+	 * @param contained The object being sent to the {@link com.n9mtq4.logwindow.listener.ObjectListener}
 	 * @param message The message going along with the object
 	 */
-	public ObjectEvent(BaseConsole baseConsole, Object object, String message) {
-		this.baseConsole = baseConsole;
-		this.object = object;
+	public ObjectEvent(BaseConsole baseConsole, Object contained, String message) {
+		this.initiatingBaseConsole = baseConsole;
+		this.contained = contained;
 		this.message = message;
 		//noinspection deprecation
 		this.canceled = false;
-		this.objectType = object == null ? "null" : object.getClass().getName();
+		this.objectType = contained == null ? "null" : contained.getClass().getName();
 	}
 	
 	/**
@@ -108,7 +102,7 @@ public final class ObjectEvent implements Serializable {
 	 * @return If this {@link ObjectEvent} was inputed by the user
 	 * */
 	public final boolean isUserInputString() {
-		return this.getMessage().equals(STRING_OBJECT_MESSAGE) && this.getObject() instanceof String;
+		return this.getMessage().equals(STRING_OBJECT_MESSAGE) && this.getContained() instanceof String;
 	}
 	
 	/**
@@ -117,8 +111,8 @@ public final class ObjectEvent implements Serializable {
 	 * @since v4.1
 	 * @return The {@link BaseConsole} that called this event
 	 */
-	public final BaseConsole getBaseConsole() {
-		return baseConsole;
+	public final BaseConsole getInitiatingBaseConsole() {
+		return initiatingBaseConsole;
 	}
 	
 	/**
@@ -162,8 +156,8 @@ public final class ObjectEvent implements Serializable {
 	 * @since v4.1
 	 * @return The {@link Object}
 	 */
-	public final Object getObject() {
-		return object;
+	public final Object getContained() {
+		return contained;
 	}
 	
 	/**
