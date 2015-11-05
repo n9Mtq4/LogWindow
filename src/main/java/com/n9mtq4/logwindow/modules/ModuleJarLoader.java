@@ -26,11 +26,9 @@ import java.io.File;
 import java.io.IOException;
 
 /**
- * Created by Will on 10/24/14.
- */
-
-/**
  * A module to load jar files into the class path from a console.
+ * 
+ * <p>Created by Will on 10/24/14.</p>
  * 
  * @since v0.2
  * @author Will "n9Mtq4" Bresnahan
@@ -45,10 +43,10 @@ public final class ModuleJarLoader implements ObjectListener {
 		
 		if (stringParser.trim().toLowerCase().startsWith("jarloader ") && stringParser.getLength() >= 2) {
 			
-			String filePath = stringParser.getText().substring(stringParser.getText().indexOf("jarloader ") + "jarloader ".length());
+			String filePath = stringParser.getWordsStartingFrom(1);
 			File jarFile = new File(filePath);
 			if (!jarFile.exists()) {
-				baseConsole.println("[ERROR]: " + jarFile.getPath() + " doesn't exist");
+				baseConsole.println("[ERROR]: " + jarFile.getPath() + " doesn't exist", Colour.RED);
 				return;
 			}
 			baseConsole.println("Adding jar file: " + jarFile, Colour.BLUE);
