@@ -31,7 +31,7 @@ import java.io.Serializable;
  * @author Will "n9Mtq4" Bresnahan
  */
 @SuppressWarnings("unused")
-public final class ObjectEvent implements Serializable {
+public class ObjectEvent implements Serializable {
 	
 	private static final long serialVersionUID = 1595683797944824474L;
 	
@@ -101,7 +101,7 @@ public final class ObjectEvent implements Serializable {
 	 * @since v5.0
 	 * @return If this {@link ObjectEvent} was inputed by the user
 	 * */
-	public final boolean isUserInputString() {
+	public boolean isUserInputString() {
 		return this.getMessage().equals(STRING_OBJECT_MESSAGE) && this.getContained() instanceof String;
 	}
 	
@@ -130,10 +130,9 @@ public final class ObjectEvent implements Serializable {
 	 * Sets if this event has been canceled.
 	 * 
 	 * @see #isCanceled()
-	 * @deprecated No reason to use it, so private. {@link #cancel()}
+	 * @param canceled If the event should be canceled
 	 * */
-	@Deprecated
-	private final void setCanceled(boolean canceled) {
+	private void setCanceled(boolean canceled) {
 		this.canceled = canceled;
 	}
 	
