@@ -56,7 +56,7 @@ public final class StringParser implements Serializable {
 	 * @param event The {@link ObjectEvent}
 	 * */
 	public StringParser(ObjectEvent event) {
-		this((String) event.getContained());
+		this((String) event.getObj());
 	}
 	
 	/**

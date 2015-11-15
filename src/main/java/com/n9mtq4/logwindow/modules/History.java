@@ -83,7 +83,7 @@ public final class History implements EnableListener, ObjectListener {
 	@Override
 	public final void objectReceived(final ObjectEvent objectEvent, final BaseConsole baseConsole) {
 		
-		history.add(SimpleConsoleUI.objectToString(objectEvent.getContained())); // converts to string and adds
+		history.add(SimpleConsoleUI.objectToString(objectEvent.getObj())); // converts to string and adds
 		
 //		tells all the listeners that want it
 		for (UIContainer g : baseConsole.getUIContainers()) {

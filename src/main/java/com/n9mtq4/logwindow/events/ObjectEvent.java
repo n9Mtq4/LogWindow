@@ -73,7 +73,7 @@ public class ObjectEvent implements Serializable {
 	private final BaseConsole initiatingBaseConsole;
 	
 	private boolean canceled;
-	private final Object contained;
+	private final Object obj;
 	private final String message;
 	private final String objectType;
 	
@@ -82,16 +82,16 @@ public class ObjectEvent implements Serializable {
 	 * 
 	 * @since v4.1
 	 * @param baseConsole The {@link BaseConsole}
-	 * @param contained The object being sent to the {@link com.n9mtq4.logwindow.listener.ObjectListener}
+	 * @param obj The object being sent to the {@link com.n9mtq4.logwindow.listener.ObjectListener}
 	 * @param message The message going along with the object
 	 */
-	public ObjectEvent(BaseConsole baseConsole, Object contained, String message) {
+	public ObjectEvent(BaseConsole baseConsole, Object obj, String message) {
 		this.initiatingBaseConsole = baseConsole;
-		this.contained = contained;
+		this.obj = obj;
 		this.message = message;
 		//noinspection deprecation
 		this.canceled = false;
-		this.objectType = contained == null ? "null" : contained.getClass().getName();
+		this.objectType = obj == null ? "null" : obj.getClass().getName();
 	}
 	
 	/**
@@ -102,7 +102,7 @@ public class ObjectEvent implements Serializable {
 	 * @return If this {@link ObjectEvent} was inputed by the user
 	 * */
 	public boolean isUserInputString() {
-		return this.getMessage().equals(STRING_OBJECT_MESSAGE) && this.getContained() instanceof String;
+		return this.getMessage().equals(STRING_OBJECT_MESSAGE) && this.getObj() instanceof String;
 	}
 	
 	/**
@@ -155,8 +155,8 @@ public class ObjectEvent implements Serializable {
 	 * @since v4.1
 	 * @return The {@link Object}
 	 */
-	public final Object getContained() {
-		return contained;
+	public final Object getObj() {
+		return obj;
 	}
 	
 	/**
