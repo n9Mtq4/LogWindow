@@ -78,6 +78,7 @@ public class PluginManager {
 		ArrayList<ListenerContainer> listeners = new ArrayList<ListenerContainer>();
 		for (File f : children) {
 			
+			if (f.getName().startsWith(".")) continue; // ignore hidden files
 			listeners.addAll(loadPlugin(f, c));
 			
 		}
