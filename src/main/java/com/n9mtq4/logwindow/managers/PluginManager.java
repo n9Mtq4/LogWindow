@@ -127,7 +127,9 @@ public class PluginManager {
 							c.addListenerContainerRaw(le);
 							listeners.add(le);
 						}catch (Exception e1) {
+							System.err.println("Error in listener adding");
 							e1.printStackTrace();
+							c.println("Error in listener adding", Colour.RED);
 							c.printStackTrace(e1);
 						}
 					}
