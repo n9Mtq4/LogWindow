@@ -18,6 +18,7 @@ package com.n9mtq4.logwindow.managers;
 import com.n9mtq4.logwindow.BaseConsole;
 import com.n9mtq4.logwindow.listener.ListenerAttribute;
 import com.n9mtq4.logwindow.listener.ListenerContainer;
+import com.n9mtq4.logwindow.utils.Colour;
 import com.n9mtq4.logwindow.utils.JarLoader;
 import com.n9mtq4.logwindow.utils.ReflectionHelper;
 
@@ -140,8 +141,15 @@ public class PluginManager {
 			}catch (IOException e) {
 				e.printStackTrace();
 				c.printStackTrace(e);
+			}catch (NullPointerException e) {
+				System.err.println("No plugin.txt in jar");
+				e.printStackTrace();
+				c.println("No plugin.txt in jar", Colour.RED);
+				c.printStackTrace(e);
+			}catch (Exception e) {
+				e.printStackTrace();
+				c.printStackTrace(e);
 			}
-			
 			
 		}
 		
