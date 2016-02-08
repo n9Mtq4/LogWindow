@@ -107,13 +107,13 @@ public class PluginManager {
 			
 			try {
 				
+//				add the jar file to the class loader, so we can reference it
+				JarLoader.addFile(f);
+				
 //				read plugin.txt from the plugin jar and set the contents to infoText
 				ZipFile zf = new ZipFile(f);
 				InputStream is = zf.getInputStream(zf.getEntry("plugin.txt"));
 				String infoText = streamToString(is);
-				
-//				add the jar file to the class loader, so we can reference it
-				JarLoader.addFile(f);
 				
 //				for each line in the file
 				String[] lines = infoText.split("\n");
@@ -144,15 +144,26 @@ public class PluginManager {
 				e.printStackTrace();
 				c.printStackTrace(e);
 			}catch (NullPointerException e) {
-				System.err.println("No plugin.txt in jar");
-				e.printStackTrace();
-				c.println("No plugin.txt in jar", Colour.RED);
-				c.printStackTrace(e);
+				System.err.println("No plugin.txt in " + f.getName());
+//				e.printStackTrace();
+				c.println("No plugin.txt in " + f.getName(), Colour.RED);
+//				c.printStackTrace(e);
 			}catch (Exception e) {
 				e.printStackTrace();
 				c.printStackTrace(e);
 			}
 			
+//		add a zip file as a resource
+		}else if (f.getName().trim().toLowerCase().endsWith(".zip")) {
+//			add the zip file to the class loader, so we can reference it
+			try {
+				JarLoader.addFile(f);
+			}catch (IOException e) {
+				System.err.println("Error adding " + f.getName());
+				c.println("Error adding " + f.getName(), Colour.RED);
+				c.printStackTrace(e);
+				e.printStackTrace();
+			}
 		}
 		
 		return listeners;
