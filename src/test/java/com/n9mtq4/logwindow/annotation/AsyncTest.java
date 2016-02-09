@@ -24,7 +24,8 @@ import com.n9mtq4.logwindow.events.RemovalEvent;
 import com.n9mtq4.logwindow.listener.TestListenerImplementation;
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Tests the {@link Async} annotation
@@ -51,21 +52,21 @@ public class AsyncTest {
 //		START non-async behavior
 		NonAsyncListener nonAsyncListener = new NonAsyncListener();
 		
-		assertEquals(false, nonAsyncListener.hasBeenAdded);
-		assertEquals(false, nonAsyncListener.hasBeenEnabled);
+		assertFalse(nonAsyncListener.hasBeenAdded);
+		assertFalse(nonAsyncListener.hasBeenEnabled);
 		baseConsole.addListenerAttribute(nonAsyncListener);
-		assertEquals(true, nonAsyncListener.hasBeenAdded);
-		assertEquals(true, nonAsyncListener.hasBeenEnabled);
+		assertTrue(nonAsyncListener.hasBeenAdded);
+		assertTrue(nonAsyncListener.hasBeenEnabled);
 		
-		assertEquals(false, nonAsyncListener.hasReceivedObject);
+		assertFalse(nonAsyncListener.hasReceivedObject);
 		baseConsole.push("a string");
-		assertEquals(true, nonAsyncListener.hasReceivedObject);
+		assertTrue(nonAsyncListener.hasReceivedObject);
 		
-		assertEquals(false, nonAsyncListener.hasBeenDisabled);
-		assertEquals(false, nonAsyncListener.hasBeenRemoved);
+		assertFalse(nonAsyncListener.hasBeenDisabled);
+		assertFalse(nonAsyncListener.hasBeenRemoved);
 		baseConsole.removeListenerAttribute(nonAsyncListener);
-		assertEquals(true, nonAsyncListener.hasBeenDisabled);
-		assertEquals(true, nonAsyncListener.hasBeenRemoved);
+		assertTrue(nonAsyncListener.hasBeenDisabled);
+		assertTrue(nonAsyncListener.hasBeenRemoved);
 //		END non-async behavior
 		
 		System.out.println("Done with Non-Async Test");
@@ -83,21 +84,21 @@ public class AsyncTest {
 //		START async behavior
 		AsyncListener asyncListener = new AsyncListener();
 		
-		assertEquals(false, asyncListener.hasBeenAdded);
-		assertEquals(false, asyncListener.hasBeenEnabled);
+		assertFalse(asyncListener.hasBeenAdded);
+		assertFalse(asyncListener.hasBeenEnabled);
 		baseConsole.addListenerAttribute(asyncListener);
-		assertEquals(false, asyncListener.hasBeenAdded);
-		assertEquals(false, asyncListener.hasBeenEnabled);
+		assertFalse(asyncListener.hasBeenAdded);
+		assertFalse(asyncListener.hasBeenEnabled);
 		
-		assertEquals(false, asyncListener.hasReceivedObject);
+		assertFalse(asyncListener.hasReceivedObject);
 		baseConsole.push("a string");
-		assertEquals(false, asyncListener.hasReceivedObject);
+		assertFalse(asyncListener.hasReceivedObject);
 		
-		assertEquals(false, asyncListener.hasBeenDisabled);
-		assertEquals(false, asyncListener.hasBeenRemoved);
+		assertFalse(asyncListener.hasBeenDisabled);
+		assertFalse(asyncListener.hasBeenRemoved);
 		baseConsole.removeListenerAttribute(asyncListener);
-		assertEquals(false, asyncListener.hasBeenDisabled);
-		assertEquals(false, asyncListener.hasBeenRemoved);
+		assertFalse(asyncListener.hasBeenDisabled);
+		assertFalse(asyncListener.hasBeenRemoved);
 //		END async behavior
 		
 		System.out.println("Done with Async Test");

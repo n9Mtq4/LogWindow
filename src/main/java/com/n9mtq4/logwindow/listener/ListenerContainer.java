@@ -17,17 +17,21 @@ package com.n9mtq4.logwindow.listener;
 
 import com.n9mtq4.logwindow.BaseConsole;
 import com.n9mtq4.logwindow.annotation.Async;
+import com.n9mtq4.logwindow.annotation.ListensFor;
 import com.n9mtq4.logwindow.events.AdditionEvent;
 import com.n9mtq4.logwindow.events.DisableEvent;
 import com.n9mtq4.logwindow.events.EnableEvent;
+import com.n9mtq4.logwindow.events.GenericEvent;
 import com.n9mtq4.logwindow.events.ObjectEvent;
 import com.n9mtq4.logwindow.events.RemovalEvent;
 import com.n9mtq4.logwindow.utils.Colour;
 
 import java.io.Serializable;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.ConcurrentModificationException;
+import java.util.HashMap;
 
 /**
  * A class that wraps a {@link ListenerAttribute} for use on a
@@ -89,6 +93,9 @@ public final class ListenerContainer implements Serializable {
 	private boolean ignoreCanceled;
 	private boolean hasBeenEnabled;
 	
+	private HashMap<Class<?>, Method> listenerMethodLookup;
+	private HashMap<Class<?>, Boolean> listenerMethodAsync;
+	
 	private boolean isAsyncAddition;
 	private boolean isAsyncEnable;
 	private boolean isAsyncObject;
@@ -106,7 +113,25 @@ public final class ListenerContainer implements Serializable {
 		this.isAsyncEnable = false;
 		this.isAsyncDisable = false;
 		this.isAsyncRemoval = false;
-		annotations();
+		this.listenerMethodLookup = findGenericListeners();
+		asyncAnnotations();
+	}
+	
+	public void pushGeneric(final GenericEvent event) {
+//		listenerMethodLookup.get(event.getClass()).invoke(listener, event, base)
+		if (!(listener instanceof GenericListener)) return;
+		final Method target = listenerMethodLookup.get(event.getClass());
+		boolean isAsync = listenerMethodAsync.get(event.getClass());
+		if (isAsync) {
+			new Thread(new Runnable() {
+				@Override
+				public void run() {
+					pushGenericEvent(event, target);
+				}
+			}).start();
+		}else {
+			pushGenericEvent(event, target);
+		}
 	}
 	
 	/**
@@ -235,6 +260,35 @@ public final class ListenerContainer implements Serializable {
 		}
 	}
 	
+	private void pushGenericEvent(GenericEvent event, Method target) {
+		try {
+			for (BaseConsole c : linkedBaseConsoles) {
+//				((ObjectListener) listener).objectReceived(objectEvent, c);
+				target.invoke(listener, event, c);
+			}
+		}catch (ConcurrentModificationException e) {
+//			this is expected sometimes, and isn't a big deal
+		}catch (InvocationTargetException e) {
+			System.err.println("Make sure the generic method looks something like: " + 
+					target.getName() + "(" + event.getClass().getName() + " " + 
+					event.getClass().getSimpleName().toLowerCase() + ", " + 
+					BaseConsole.class.getName() + " baseConsole)");
+			e.printStackTrace();
+		}catch (IllegalAccessException e) {
+			System.err.println("Make sure the generic listener method " + target.getName() + " is not private and can be accessed");
+			e.printStackTrace();
+		}catch (IllegalArgumentException e) {
+			System.err.println("Make sure the generic method looks something like: " + 
+					target.getName() + "(" + event.getClass().getName() + " " + 
+					event.getClass().getSimpleName().toLowerCase() + ", " + 
+					BaseConsole.class.getName() + " baseConsole)");
+			e.printStackTrace();
+		}catch (Exception e) {
+			System.err.println("Unknown error with generic listener method " + target.getName());
+			e.printStackTrace();
+		}
+	}
+	
 	private void pushAddedEvent(AdditionEvent additionEvent) {
 		((AdditionListener) listener).onAddition(additionEvent);
 	}
@@ -251,8 +305,21 @@ public final class ListenerContainer implements Serializable {
 		((RemovalListener) listener).onRemoval(removalActionEvent);
 	}
 	
+	private HashMap<Class<?>, Method> findGenericListeners() {
+		if (!(listener instanceof GenericListener)) return null;
+		HashMap<Class<?>, Method> hm = new HashMap<Class<?>, Method>();
+		Method[] methods = listener.getClass().getDeclaredMethods();
+		for (Method method : methods) {
+			if (method.isAnnotationPresent(ListensFor.class)) {
+				ListensFor annotation = method.getAnnotation(ListensFor.class);
+				method.setAccessible(true);
+				hm.put(annotation.value(), method);
+			}
+		}
+		return hm;
+	}
 	
-	private void annotations() {
+	private void asyncAnnotations() {
 		if (listener instanceof AdditionListener) {
 			this.isAsyncAddition = shouldBeAsync("onAddition", AdditionEvent.class);
 		}
@@ -267,6 +334,19 @@ public final class ListenerContainer implements Serializable {
 		}
 		if (listener instanceof RemovalListener) {
 			this.isAsyncRemoval = shouldBeAsync("onRemoval", RemovalEvent.class);
+		}
+//		the generic async annotations
+		if (listener instanceof GenericListener) {
+			this.listenerMethodAsync = new HashMap<Class<?>, Boolean>(listenerMethodLookup.size());
+			for (Class<?> clazz : listenerMethodLookup.keySet()) {
+				Method method = listenerMethodLookup.get(clazz);
+				if (method.isAnnotationPresent(Async.class)) {
+					Async annotation = method.getAnnotation(Async.class);
+					listenerMethodAsync.put(clazz, annotation.async());
+				}else {
+					listenerMethodAsync.put(clazz, false);
+				}
+			}
 		}
 	}
 	
@@ -298,7 +378,7 @@ public final class ListenerContainer implements Serializable {
 		if (!linkedBaseConsoles.contains(baseConsole) || !baseConsole.getListenerContainers().contains(this)) {
 			linkedBaseConsoles.add(baseConsole);
 			baseConsole.addListenerContainerRaw(this);
-			annotations();
+			asyncAnnotations();
 		}
 		
 	}

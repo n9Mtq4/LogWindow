@@ -31,7 +31,7 @@ import java.io.Serializable;
  * @author Will "n9Mtq4" Bresnahan
  */
 @SuppressWarnings("unused")
-public class ObjectEvent implements Serializable {
+public class ObjectEvent implements GenericEvent, Serializable {
 	
 	private static final long serialVersionUID = 1595683797944824474L;
 	
@@ -111,6 +111,7 @@ public class ObjectEvent implements Serializable {
 	 * @since v4.1
 	 * @return The {@link BaseConsole} that called this event
 	 */
+	@Override
 	public final BaseConsole getInitiatingBaseConsole() {
 		return initiatingBaseConsole;
 	}

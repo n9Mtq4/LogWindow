@@ -19,6 +19,7 @@ import com.n9mtq4.logwindow.dispose.ShutdownHook;
 import com.n9mtq4.logwindow.events.AdditionEvent;
 import com.n9mtq4.logwindow.events.DisableEvent;
 import com.n9mtq4.logwindow.events.EnableEvent;
+import com.n9mtq4.logwindow.events.GenericEvent;
 import com.n9mtq4.logwindow.events.ObjectEvent;
 import com.n9mtq4.logwindow.events.RemovalEvent;
 import com.n9mtq4.logwindow.listener.ListenerAttribute;
@@ -64,7 +65,7 @@ import java.util.ArrayList;
  * @see ConsoleUI
  * @since v0.1
  * @author Will "n9Mtq4" Bresnahan
- * @version v5.0
+ * @version v5.1
  */
 @SuppressWarnings("unused")
 public class BaseConsole implements Serializable {
@@ -109,10 +110,10 @@ public class BaseConsole implements Serializable {
 	 * */
 	private int pushing;
 	/**
-	 * The {@link ArrayList} that stores {@link ObjectEvent} temporarily
+	 * The {@link ArrayList} that stores {@link GenericEvent} temporarily
 	 * while they are waiting for {@link #pushing} to be 0.
 	 * */
-	private final ArrayList<ObjectEvent> pushQueue;
+	private final ArrayList<GenericEvent> pushQueue;
 	
 	/**
 	 * Constructor for {@link BaseConsole}.
@@ -129,7 +130,7 @@ public class BaseConsole implements Serializable {
 		this.uiContainers = new ArrayList<UIContainer>();
 		this.shutdownHook = new ShutdownHook(this);
 		this.pushing = 0;
-		this.pushQueue = new ArrayList<ObjectEvent>();
+		this.pushQueue = new ArrayList<GenericEvent>();
 //		TODO: have one global shutdown hook that goes through globalList?
 		Runtime.getRuntime().addShutdownHook(shutdownHook);
 	}
@@ -280,16 +281,16 @@ public class BaseConsole implements Serializable {
 	 * Pushes a {@link ObjectEvent} right now. Does not wait for other events
 	 * to finish with the queue system.
 	 * <br>
-	 * I recommend using {@link #pushEvent(ObjectEvent)} if pushing the event
+	 * I recommend using {@link #pushEvent(GenericEvent)} if pushing the event
 	 * now isn't ABSOLUTELY necessary.
 	 * 
-	 * @see #pushEvent(ObjectEvent)
+	 * @see #pushEvent(GenericEvent)
 	 * @see #pushNow(Object, String)
 	 * @see #push(Object, String)
 	 * @since v5.0
-	 * @param objectEvent The {@link ObjectEvent} to push to the {@link ListenerAttribute}
+	 * @param event The {@link ObjectEvent} to push to the {@link ListenerAttribute}
 	 * */
-	public final void pushEventNow(final ObjectEvent objectEvent) {
+	public final void pushEventNow(final GenericEvent event) {
 		
 		if (isDisposed()) return; // if disposed stop running
 		startPushing(); // pushing started
@@ -300,8 +301,11 @@ public class BaseConsole implements Serializable {
 			try {
 				
 //				make sure we can push to the listeners
-				if (listenerContainer.isEnabled() && (!objectEvent.isCanceled() || listenerContainer.hasIgnoreDone())) {
-					listenerContainer.pushObject(objectEvent);
+				if (listenerContainer.isEnabled() && (!event.isCanceled() || listenerContainer.hasIgnoreDone())) {
+//					listenerContainer.pushObject(event);
+//					TODO: keeps the old remains of ObjectEvent
+					if (event instanceof ObjectEvent) listenerContainer.pushObject((ObjectEvent) event);
+					else listenerContainer.pushGeneric(event);
 				}
 				
 			}catch (Exception e) {
@@ -324,16 +328,16 @@ public class BaseConsole implements Serializable {
 	 * Adds a {@link ObjectEvent} to the pushing queue. Will then try
 	 * to push the next queue.
 	 * 
-	 * @see #pushEventNow(ObjectEvent)
+	 * @see #pushEventNow(GenericEvent)
 	 * @see #push(Object, String)
 	 * @see #pushNow(Object, String)
 	 * @since v5.0
 	 * @param objectEvent The {@link ObjectEvent} to push to the {@link ListenerAttribute}s
 	 * */
-	public final void pushEvent(final ObjectEvent objectEvent) {
+	public final void pushEvent(final GenericEvent objectEvent) {
 		addToQueue(objectEvent);
 		requestNextPush();
-//		maybe use the following code for better efficiency.
+//		TODO: maybe use the following code for better efficiency.
 /*		if (pushing > 0) {
 			addToQueue(objectEvent);
 		}else {
@@ -349,8 +353,8 @@ public class BaseConsole implements Serializable {
 	 * now isn't ABSOLUTELY necessary.
 	 * 
 	 * @see #push(Object, String)
-	 * @see #pushEvent(ObjectEvent)
-	 * @see #pushEventNow(ObjectEvent)
+	 * @see #pushEvent(GenericEvent)
+	 * @see #pushEventNow(GenericEvent)
 	 * @since v5.0
 	 * @param object The {@link Object} to send to the {@link ListenerAttribute}s
 	 * @param message The message to send with the object
@@ -365,8 +369,8 @@ public class BaseConsole implements Serializable {
 	 * {@link ObjectEvent#STRING_OBJECT_MESSAGE}
 	 *
 	 * @see #pushNow(Object, String)
-	 * @see #pushEvent(ObjectEvent)
-	 * @see #pushEventNow(ObjectEvent)
+	 * @see #pushEvent(GenericEvent)
+	 * @see #pushEventNow(GenericEvent)
 	 * @since v5.0
 	 * @param object The {@link Object} to send to the {@link ListenerAttribute}s
 	 * @param message The message to send with the object
@@ -383,8 +387,8 @@ public class BaseConsole implements Serializable {
 	 * now isn't ABSOLUTELY necessary.
 	 *
 	 * @see #push(Object, String)
-	 * @see #pushEvent(ObjectEvent)
-	 * @see #pushEventNow(ObjectEvent)
+	 * @see #pushEvent(GenericEvent)
+	 * @see #pushEventNow(GenericEvent)
 	 * @since v5.0
 	 * @param object The {@link Object} to send to the {@link ListenerAttribute}s
 	 * */
@@ -398,8 +402,8 @@ public class BaseConsole implements Serializable {
 	 * {@link ObjectEvent#STRING_OBJECT_MESSAGE}
 	 *
 	 * @see #pushNow(Object, String)
-	 * @see #pushEvent(ObjectEvent)
-	 * @see #pushEventNow(ObjectEvent)
+	 * @see #pushEvent(GenericEvent)
+	 * @see #pushEventNow(GenericEvent)
 	 * @since v5.0
 	 * @param object The {@link Object} to send to the {@link ListenerAttribute}s
 	 * */
@@ -407,7 +411,7 @@ public class BaseConsole implements Serializable {
 		push(object, null);
 	}
 	
-	private void addToQueue(final ObjectEvent objectEvent) {
+	private void addToQueue(final GenericEvent objectEvent) {
 		pushQueue.add(objectEvent);
 	}
 	
@@ -417,7 +421,7 @@ public class BaseConsole implements Serializable {
 	private void requestNextPush() {
 		if (pushing > 0) return; // already pushing, so stop
 		if (pushQueue.size() <= 0) return; // nothing to push, so stop
-		ObjectEvent event = pushQueue.get(0); // retrieve the next in line
+		GenericEvent event = pushQueue.get(0); // retrieve the next in line
 		pushQueue.remove(0); // remove it from the line
 		pushEventNow(event); // push it
 	}
@@ -430,7 +434,7 @@ public class BaseConsole implements Serializable {
 	}
 	
 	/**
-	 * Registers that a pushing event has stoped.
+	 * Registers that a pushing event has stopped.
 	 * Tries to push the next event.
 	 * */
 	private void stopPushing() {
