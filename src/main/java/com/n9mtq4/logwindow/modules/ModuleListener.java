@@ -37,7 +37,7 @@ import java.util.ArrayList;
  * @version v5.0
  * @author Will "n9Mtq4" Bresnahan 
  */
-public class ModuleListener implements ObjectListener {
+public final class ModuleListener implements ObjectListener {
 	
 	@Override
 	public final void objectReceived(final ObjectEvent e, final BaseConsole baseConsole) {

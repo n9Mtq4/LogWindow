@@ -1,7 +1,7 @@
 package com.n9mtq4.logwindow.listener;
 
 import com.n9mtq4.logwindow.BaseConsole;
-import com.n9mtq4.logwindow.annotation.ListensFor;
+import com.n9mtq4.logwindow.annotation.ListenFor;
 import com.n9mtq4.logwindow.events.GenericEvent;
 import org.junit.Test;
 
@@ -30,7 +30,7 @@ public class GenericListenerTest implements GenericListener, GenericEvent {
 	
 	private GenericListenerTest got;
 	
-	@ListensFor(GenericListenerTest.class)
+	@ListenFor(GenericListenerTest.class)
 	public void listenForMe(GenericListenerTest tester, BaseConsole baseConsole) {
 		
 		System.out.println("GOT!");

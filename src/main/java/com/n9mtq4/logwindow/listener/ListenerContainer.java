@@ -17,7 +17,7 @@ package com.n9mtq4.logwindow.listener;
 
 import com.n9mtq4.logwindow.BaseConsole;
 import com.n9mtq4.logwindow.annotation.Async;
-import com.n9mtq4.logwindow.annotation.ListensFor;
+import com.n9mtq4.logwindow.annotation.ListenFor;
 import com.n9mtq4.logwindow.events.AdditionEvent;
 import com.n9mtq4.logwindow.events.DisableEvent;
 import com.n9mtq4.logwindow.events.EnableEvent;
@@ -310,8 +310,8 @@ public final class ListenerContainer implements Serializable {
 		HashMap<Class<?>, Method> hm = new HashMap<Class<?>, Method>();
 		Method[] methods = listener.getClass().getDeclaredMethods();
 		for (Method method : methods) {
-			if (method.isAnnotationPresent(ListensFor.class)) {
-				ListensFor annotation = method.getAnnotation(ListensFor.class);
+			if (method.isAnnotationPresent(ListenFor.class)) {
+				ListenFor annotation = method.getAnnotation(ListenFor.class);
 				method.setAccessible(true);
 				hm.put(annotation.value(), method);
 			}

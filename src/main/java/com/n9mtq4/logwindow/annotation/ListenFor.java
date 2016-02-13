@@ -32,10 +32,12 @@ import java.lang.annotation.Target;
  */
 @Target(ElementType.METHOD)
 @Retention(value = RetentionPolicy.RUNTIME)
-public @interface ListensFor {
+public @interface ListenFor {
 	
 	/**
 	 * The class of the event that this method is receiving.
+	 * 
+	 * @return The class of the event to be listening for
 	 * */
 	Class<?> value();
 	
