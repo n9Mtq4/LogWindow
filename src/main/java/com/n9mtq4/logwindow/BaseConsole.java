@@ -33,7 +33,9 @@ import java.io.File;
 import java.io.PrintWriter;
 import java.io.Serializable;
 import java.io.StringWriter;
+import java.util.ArrayDeque;
 import java.util.ArrayList;
+import java.util.Queue;
 
 /**
  * The class that handles all User to Listener interactions.
@@ -113,7 +115,7 @@ public class BaseConsole implements Serializable {
 	 * The {@link ArrayList} that stores {@link GenericEvent} temporarily
 	 * while they are waiting for {@link #pushing} to be 0.
 	 * */
-	private final ArrayList<GenericEvent> pushQueue;
+	private final Queue<GenericEvent> pushQueue;
 	
 	/**
 	 * Constructor for {@link BaseConsole}.
@@ -130,7 +132,7 @@ public class BaseConsole implements Serializable {
 		this.uiContainers = new ArrayList<UIContainer>();
 		this.shutdownHook = new ShutdownHook(this);
 		this.pushing = 0;
-		this.pushQueue = new ArrayList<GenericEvent>();
+		this.pushQueue = new ArrayDeque<GenericEvent>();
 //		TODO: have one global shutdown hook that goes through globalList?
 		Runtime.getRuntime().addShutdownHook(shutdownHook);
 	}
@@ -421,8 +423,7 @@ public class BaseConsole implements Serializable {
 	private void requestNextPush() {
 		if (pushing > 0) return; // already pushing, so stop
 		if (pushQueue.size() <= 0) return; // nothing to push, so stop
-		GenericEvent event = pushQueue.get(0); // retrieve the next in line
-		pushQueue.remove(0); // remove it from the line
+		GenericEvent event = pushQueue.poll(); // retrieve the next in queue
 		pushEventNow(event); // push it
 	}
 	
