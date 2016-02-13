@@ -45,7 +45,7 @@ import java.util.jar.JarFile;
  */
 @SuppressWarnings("unused")
 @Deprecated
-public class ReflectionHelper {
+public class LWReflectionHelper {
 	
 	/**
 	 * Gets a int.
@@ -2641,7 +2641,7 @@ public class ReflectionHelper {
 	 *
 	 * @param clazz The class to check
 	 * @return If the class given has a primitive version
-	 * @see ReflectionHelper#isPrimitive(Class)
+	 * @see LWReflectionHelper#isPrimitive(Class)
 	 */
 	public static boolean canBePrimitive(Class clazz) {
 		return getPrimitiveClass(clazz) != null;
@@ -2652,7 +2652,7 @@ public class ReflectionHelper {
 	 *
 	 * @param clazz The class to check
 	 * @return If the class is primitive
-	 * @see ReflectionHelper#canBePrimitive(Class)
+	 * @see LWReflectionHelper#canBePrimitive(Class)
 	 */
 	public static boolean isPrimitive(Class clazz) {
 		return getObjectClass(clazz) != null;
@@ -2667,7 +2667,7 @@ public class ReflectionHelper {
 	 *
 	 * @param clazz The Object class to get the primitive version
 	 * @return The Primitive version, or null if there isn't one
-	 * @see ReflectionHelper#getObjectClass(Class)
+	 * @see LWReflectionHelper#getObjectClass(Class)
 	 */
 	public static Class getPrimitiveClass(Class clazz) {
 		if (clazz == Boolean.class) return boolean.class;
@@ -2690,7 +2690,7 @@ public class ReflectionHelper {
 	 *
 	 * @param clazz The primitive class to get the Object version
 	 * @return The Object version, or null if there isn't one
-	 * @see ReflectionHelper#getPrimitiveClass(Class)
+	 * @see LWReflectionHelper#getPrimitiveClass(Class)
 	 */
 	public static Class getObjectClass(Class clazz) {
 		if (clazz == boolean.class) return Boolean.class;

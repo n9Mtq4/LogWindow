@@ -23,7 +23,7 @@ import com.n9mtq4.logwindow.listener.ListenerAttribute;
 import com.n9mtq4.logwindow.listener.ListenerContainer;
 import com.n9mtq4.logwindow.listener.ObjectListener;
 import com.n9mtq4.logwindow.utils.Colour;
-import com.n9mtq4.logwindow.utils.ReflectionHelper;
+import com.n9mtq4.logwindow.utils.LWReflectionHelper;
 import com.n9mtq4.logwindow.utils.StringParser;
 
 import java.util.ArrayList;
@@ -108,7 +108,7 @@ public class ModuleListener implements ObjectListener {
 					baseConsole.println("adding...");
 					
 					try {
-						Class t = ReflectionHelper.getClass(stringParser.getArg(2));
+						Class t = LWReflectionHelper.getClass(stringParser.getArg(2));
 						ListenerAttribute l1 = (ListenerAttribute) (t.newInstance());
 //					baseConsole.addListener(l1);
 						baseConsole.addListenerAttribute(l1);

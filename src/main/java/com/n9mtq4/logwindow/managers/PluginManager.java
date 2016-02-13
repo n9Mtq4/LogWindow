@@ -20,7 +20,7 @@ import com.n9mtq4.logwindow.listener.ListenerAttribute;
 import com.n9mtq4.logwindow.listener.ListenerContainer;
 import com.n9mtq4.logwindow.utils.Colour;
 import com.n9mtq4.logwindow.utils.JarLoader;
-import com.n9mtq4.logwindow.utils.ReflectionHelper;
+import com.n9mtq4.logwindow.utils.LWReflectionHelper;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -122,7 +122,7 @@ public class PluginManager {
 					if (!line.startsWith("#") && !line.trim().equals("")) {
 						try {
 //							try to add this listener to the base console using reflection
-							ListenerAttribute listener = ReflectionHelper.callConstructor(ReflectionHelper.getClassByFullName(line.trim()));
+							ListenerAttribute listener = LWReflectionHelper.callConstructor(LWReflectionHelper.getClassByFullName(line.trim()));
 							ListenerContainer le = ListenerContainer.makeListenerEntry(listener);
 							c.addListenerContainerRaw(le);
 							listeners.add(le);
