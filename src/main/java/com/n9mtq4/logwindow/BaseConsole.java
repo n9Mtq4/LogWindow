@@ -47,8 +47,9 @@ import java.util.Queue;
  * {@link AdditionEvent},
  * {@link EnableEvent},
  * {@link ObjectEvent},
- * {@link DisableEvent}, and 
- * {@link RemovalEvent}.
+ * {@link DisableEvent}, 
+ * {@link RemovalEvent}, and
+ * anything implementing {@link GenericEvent}.
  * The {@link BaseConsole} handles the {@link AdditionEvent},
  * {@link EnableEvent}, {@link DisableEvent},
  * and the {@link RemovalEvent}.
@@ -337,9 +338,14 @@ public class BaseConsole implements Serializable {
 	 * @param objectEvent The {@link ObjectEvent} to push to the {@link ListenerAttribute}s
 	 * */
 	public final void pushEvent(final GenericEvent objectEvent) {
-		addToQueue(objectEvent);
-		requestNextPush();
-//		TODO: maybe use the following code for better efficiency.
+//		addToQueue(objectEvent);
+//		requestNextPush();
+//		TODO: maybe use the following code for better efficiency. - DONE; leaving in case it breaks
+		if (pushing > 0) {
+			addToQueue(objectEvent);
+			requestNextPush();
+		}
+		else pushEventNow(objectEvent);
 /*		if (pushing > 0) {
 			addToQueue(objectEvent);
 		}else {
@@ -747,6 +753,7 @@ public class BaseConsole implements Serializable {
 	public final void removeConsoleUi(ConsoleUI consoleUI) {
 //		this prevents a concurrency issue.
 		int ir = 0;
+//		TODO: find a more efficient way to do this than O(n)
 		for (int i = 0; i < uiContainers.size(); i++) {
 			if (uiContainers.get(i).getConsoleUI().equals(consoleUI)) {
 				ir = i;
