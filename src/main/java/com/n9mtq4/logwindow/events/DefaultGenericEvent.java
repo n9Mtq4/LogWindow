@@ -19,28 +19,40 @@ import com.n9mtq4.logwindow.BaseConsole;
 
 /**
  * Created by will on 2/13/16 at 12:42 AM.
- *
+ * 
+ * A {@link GenericEvent} with initiating base console and 
+ * canceling implemented.
+ * 
  * @author Will "n9Mtq4" Bresnahan
  */
 public class DefaultGenericEvent implements GenericEvent {
 	
-	private BaseConsole initiatingBaseConsole;
+	private final BaseConsole initiatingBaseConsole;
 	private boolean canceled = false;
 	
 	public DefaultGenericEvent(BaseConsole initiatingBaseConsole) {
 		this.initiatingBaseConsole = initiatingBaseConsole;
 	}
 	
+	/**
+	 * @see GenericEvent#getInitiatingBaseConsole() super
+	 * */
 	@Override
 	public BaseConsole getInitiatingBaseConsole() {
 		return initiatingBaseConsole;
 	}
 	
+	/**
+	 * @see GenericEvent#isCanceled() super
+	 * */
 	@Override
 	public boolean isCanceled() {
 		return canceled;
 	}
 	
+	/**
+	 * Sets if this event is canceled.
+	 * */
 	public void setCanceled(boolean canceled) {
 		this.canceled = canceled;
 	}

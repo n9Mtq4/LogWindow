@@ -17,7 +17,7 @@ package com.n9mtq4.logwindow.listener;
 
 import com.n9mtq4.logwindow.BaseConsole;
 import com.n9mtq4.logwindow.annotation.Async;
-import com.n9mtq4.logwindow.annotation.ListenFor;
+import com.n9mtq4.logwindow.annotation.ListensFor;
 import com.n9mtq4.logwindow.events.AdditionEvent;
 import com.n9mtq4.logwindow.events.DisableEvent;
 import com.n9mtq4.logwindow.events.EnableEvent;
@@ -37,7 +37,7 @@ import java.util.HashMap;
  * A class that wraps a {@link ListenerAttribute} for use on a
  * {@link BaseConsole}.
  * 
- * @version v5.0
+ * @version v5.1
  * @author Will "n9Mtq4" Bresnahan
  * @since v5.0
  */
@@ -94,7 +94,8 @@ public final class ListenerContainer implements Serializable {
 	private boolean hasBeenEnabled;
 	
 	private HashMap<Class<?>, Method> listenerMethodLookup;
-	private HashMap<Class<?>, Boolean> listenerMethodAsync;
+	private HashMap<Class<?>, Boolean> listenerMethodAlreadySeen;
+	private HashMap<Method, Boolean> listenerMethodAsync;
 	
 	private boolean isAsyncAddition;
 	private boolean isAsyncEnable;
@@ -114,24 +115,59 @@ public final class ListenerContainer implements Serializable {
 		this.isAsyncDisable = false;
 		this.isAsyncRemoval = false;
 		this.listenerMethodLookup = findGenericListeners();
+		this.listenerMethodAlreadySeen = new HashMap<Class<?>, Boolean>();
 		asyncAnnotations();
 	}
 	
 	public void pushGeneric(final GenericEvent event) {
 //		listenerMethodLookup.get(event.getClass()).invoke(listener, event, base)
 		if (!(listener instanceof GenericListener)) return;
-		final Method target = listenerMethodLookup.get(event.getClass());
-		boolean isAsync = listenerMethodAsync.get(event.getClass());
-		if (isAsync) {
-			new Thread(new Runnable() {
+		final Method target = findTarget(event);
+		if (target == null) return;
+//		boolean isAsync = listenerMethodAsync.get(event.getClass());
+		boolean isAsync = genericFindShouldBeAsync(target);
+		if (isAsync) new Thread(new Runnable() {
 				@Override
 				public void run() {
 					pushGenericEvent(event, target);
 				}
 			}).start();
-		}else {
-			pushGenericEvent(event, target);
+		else pushGenericEvent(event, target);
+		
+	}
+	
+	private final Method findTarget(GenericEvent event) {
+//		simple look up
+		Method target = listenerMethodLookup.get(event.getClass());
+		if (target != null) return target;
+		
+//		already seen
+		Boolean b = listenerMethodAlreadySeen.get(event.getClass());
+		if (b != null) return null;
+		
+//		other processing now
+		for (Class<?> clazz : listenerMethodLookup.keySet()) {
+			if (clazz.isInstance(event)) {
+				Method method = listenerMethodLookup.get(clazz);
+				listenerMethodLookup.put(clazz, method);
+				return method;
+			}
 		}
+		
+//		there is no support for this class
+		listenerMethodAlreadySeen.put(event.getClass(), true);
+		return null;
+		
+	}
+	
+	private final boolean genericFindShouldBeAsync(Method method) {
+//		simple look up
+		Boolean pisAsync = listenerMethodAsync.get(method);
+		if (pisAsync != null) return pisAsync;
+		
+//		error
+		System.err.println("[WARNING]: async annotation for " + method.getName() + " did not work");
+		return false; // default to false
 	}
 	
 	/**
@@ -284,7 +320,8 @@ public final class ListenerContainer implements Serializable {
 					BaseConsole.class.getName() + " baseConsole)");
 			e.printStackTrace();
 		}catch (Exception e) {
-			System.err.println("Unknown error with generic listener method " + target.getName());
+			if (target != null) System.err.println("Unknown error with generic listener method " + target.getName());
+			else System.err.println("Unknown error with generic listener method! Target is null");
 			e.printStackTrace();
 		}
 	}
@@ -310,10 +347,11 @@ public final class ListenerContainer implements Serializable {
 		HashMap<Class<?>, Method> hm = new HashMap<Class<?>, Method>();
 		Method[] methods = listener.getClass().getDeclaredMethods();
 		for (Method method : methods) {
-			if (method.isAnnotationPresent(ListenFor.class)) {
-				ListenFor annotation = method.getAnnotation(ListenFor.class);
+			if (method.isAnnotationPresent(ListensFor.class)) {
+				ListensFor annotation = method.getAnnotation(ListensFor.class);
 				method.setAccessible(true);
-				hm.put(annotation.value(), method);
+				Class<?> annotationValue = (annotation.value() == ListensFor.INHERIT.class) ? method.getParameterTypes()[0] : annotation.value();
+				hm.put(annotationValue, method);
 			}
 		}
 		return hm;
@@ -337,14 +375,14 @@ public final class ListenerContainer implements Serializable {
 		}
 //		the generic async annotations
 		if (listener instanceof GenericListener) {
-			this.listenerMethodAsync = new HashMap<Class<?>, Boolean>(listenerMethodLookup.size());
+			this.listenerMethodAsync = new HashMap<Method, Boolean>(listenerMethodLookup.size());
 			for (Class<?> clazz : listenerMethodLookup.keySet()) {
 				Method method = listenerMethodLookup.get(clazz);
 				if (method.isAnnotationPresent(Async.class)) {
 					Async annotation = method.getAnnotation(Async.class);
-					listenerMethodAsync.put(clazz, annotation.async());
+					listenerMethodAsync.put(method, annotation.async());
 				}else {
-					listenerMethodAsync.put(clazz, false);
+					listenerMethodAsync.put(method, false);
 				}
 			}
 		}

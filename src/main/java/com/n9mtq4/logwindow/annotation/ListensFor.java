@@ -32,13 +32,19 @@ import java.lang.annotation.Target;
  */
 @Target(ElementType.METHOD)
 @Retention(value = RetentionPolicy.RUNTIME)
-public @interface ListenFor {
+public @interface ListensFor {
 	
 	/**
 	 * The class of the event that this method is receiving.
 	 * 
 	 * @return The class of the event to be listening for
 	 * */
-	Class<?> value();
+	Class<?> value() default INHERIT.class;
+	
+	/**
+	 * This class will tell the {@link com.n9mtq4.logwindow.BaseConsole} to
+	 * inherit the type for listening from the first parameter type.
+	 * */
+	final class INHERIT {}
 	
 }
