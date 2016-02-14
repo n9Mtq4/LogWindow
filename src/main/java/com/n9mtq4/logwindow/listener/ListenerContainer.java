@@ -103,6 +103,8 @@ public final class ListenerContainer implements Serializable {
 	private boolean isAsyncDisable;
 	private boolean isAsyncRemoval;
 	
+	private boolean init = false;
+	
 	private ListenerContainer(ListenerAttribute listener) {
 		this.listener = listener;
 		this.linkedBaseConsoles = new ArrayList<BaseConsole>();
@@ -114,6 +116,12 @@ public final class ListenerContainer implements Serializable {
 		this.isAsyncEnable = false;
 		this.isAsyncDisable = false;
 		this.isAsyncRemoval = false;
+//		init();
+	}
+	
+	private final void init() {
+		if (init) return;
+		init = true;
 		this.listenerMethodLookup = findGenericListeners();
 		this.listenerMethodAlreadySeen = new HashMap<Class<?>, Boolean>();
 		asyncAnnotations();
@@ -416,7 +424,7 @@ public final class ListenerContainer implements Serializable {
 		if (!linkedBaseConsoles.contains(baseConsole) || !baseConsole.getListenerContainers().contains(this)) {
 			linkedBaseConsoles.add(baseConsole);
 			baseConsole.addListenerContainerRaw(this);
-			asyncAnnotations();
+			init();
 		}
 		
 	}

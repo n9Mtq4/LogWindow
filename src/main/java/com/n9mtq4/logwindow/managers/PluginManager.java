@@ -77,16 +77,30 @@ public class PluginManager {
 		if (children == null) return;
 		
 		ArrayList<ListenerContainer> listeners = new ArrayList<ListenerContainer>();
+		
 		for (File f : children) {
-			
-			if (f.getName().startsWith(".")) continue; // ignore hidden files
-			listeners.addAll(loadPlugin(f, c));
-			
+			if (!isValidPlugin(f)) continue;
+//			add the jar file to the class loader, so we can reference it
+			try {
+				JarLoader.addFile(f);
+			}catch (IOException e) {
+				e.printStackTrace();
+				c.printStackTrace(e);
+			}
+		}
+		
+		for (File f : children) {
+			if (!isValidPlugin(f)) continue;
+			listeners.addAll(loadPluginListeners(f, c));
 		}
 		
 //		for (ListenerContainer listener : listeners) listener.pushEnabled(new EnableEvent(c));
 		for (ListenerContainer listener : listeners) c.enableListenerContainer(listener);
 		
+	}
+	
+	private static boolean isValidPlugin(File f) {
+		return (!f.getName().startsWith(".") && (f.getAbsolutePath().trim().toLowerCase().endsWith(".jar") || f.getName().trim().toLowerCase().endsWith(".zip")));
 	}
 	
 	/**
@@ -98,7 +112,7 @@ public class PluginManager {
 	 * @param c The {@link BaseConsole}
 	 * @return An ArrayList of all the ListenerContainers that have been added.
 	 */
-	public static ArrayList<ListenerContainer> loadPlugin(File f, BaseConsole c) {
+	public static ArrayList<ListenerContainer> loadPluginListeners(File f, BaseConsole c) {
 		
 		ArrayList<ListenerContainer> listeners = new ArrayList<ListenerContainer>();
 		
@@ -106,9 +120,6 @@ public class PluginManager {
 		if (f.getAbsolutePath().trim().toLowerCase().endsWith(".jar")) {
 			
 			try {
-				
-//				add the jar file to the class loader, so we can reference it
-				JarLoader.addFile(f);
 				
 //				read plugin.txt from the plugin jar and set the contents to infoText
 				ZipFile zf = new ZipFile(f);
@@ -149,21 +160,11 @@ public class PluginManager {
 				c.println("No plugin.txt in " + f.getName(), Colour.RED);
 //				c.printStackTrace(e);
 			}catch (Exception e) {
+				System.err.println("Error in adding listener " + f.getName());
 				e.printStackTrace();
 				c.printStackTrace(e);
 			}
 			
-//		add a zip file as a resource
-		}else if (f.getName().trim().toLowerCase().endsWith(".zip")) {
-//			add the zip file to the class loader, so we can reference it
-			try {
-				JarLoader.addFile(f);
-			}catch (IOException e) {
-				System.err.println("Error adding " + f.getName());
-				c.println("Error adding " + f.getName(), Colour.RED);
-				c.printStackTrace(e);
-				e.printStackTrace();
-			}
 		}
 		
 		return listeners;

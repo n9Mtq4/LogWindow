@@ -52,6 +52,8 @@ public class DefaultGenericEvent implements GenericEvent {
 	
 	/**
 	 * Sets if this event is canceled.
+	 * 
+	 * @param canceled should the event be canceled?
 	 * */
 	public void setCanceled(boolean canceled) {
 		this.canceled = canceled;
