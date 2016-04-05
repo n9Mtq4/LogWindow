@@ -75,15 +75,7 @@ public class BaseConsole implements Serializable {
 	
 	private static final long serialVersionUID = 992050290203752760L;
 	
-	/**
-	 * Keeps the ids of all {@link BaseConsole}s.
-	 * This is still useful for identifying BasConsoles.
-	 * TODO: remove deprecated field?
-	 * 
-	 * @deprecated Not used, and not necessary, since the use of {@link Runtime#addShutdownHook(Thread)}
-	 */
-	@Deprecated
-	private static final ArrayList<BaseConsole> globalList = new ArrayList<BaseConsole>();
+	private static int totalIds = 0;
 	
 	/**
 	 * The array containing all the listeners attached to the {@link BaseConsole}.
@@ -92,7 +84,7 @@ public class BaseConsole implements Serializable {
 	/**
 	 * Has the local id for the {@link BaseConsole}.
 	 */
-	private final int id;
+	private final int id = totalIds++;
 	/**
 	 * Contains all {@link ConsoleUI}s attached.
 	 * 
@@ -128,8 +120,6 @@ public class BaseConsole implements Serializable {
 	public BaseConsole() {
 		this.disposed = false;
 		this.listenerContainers = new ArrayList<ListenerContainer>();
-		this.id = globalList.size();
-		globalList.add(this);
 		this.uiContainers = new ArrayList<UIContainer>();
 		this.shutdownHook = new ShutdownHook(this);
 		this.pushing = 0;
@@ -368,6 +358,7 @@ public class BaseConsole implements Serializable {
 	 * @param message The message to send with the object
 	 * */
 	public final void pushNow(final Object object, final String message) {
+		if (object instanceof GenericEvent) System.out.println("Object pushing, rather than GenericEvent pushing: " + object.toString());
 		pushEventNow(ObjectEvent.createSentObjectEvent(this, object, message));
 	}
 	
