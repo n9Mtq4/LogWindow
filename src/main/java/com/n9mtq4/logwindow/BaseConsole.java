@@ -306,6 +306,9 @@ public class BaseConsole implements Serializable {
 //				catch anything that happens in a Listener and stop it from
 //				bubbling up and hurting the rest of the program
 //				print some information
+//				THIS SHOULD BE CAUGHT BEFORE THE EXCEPTION REACHES THIS POINT
+				this.println("THIS SHOULD NOT HAPPEN");
+				System.err.println("THIS SHOULD NOT HAPPEN");
 				this.printStackTrace(e);
 				e.printStackTrace();
 				println("Listener " + listenerContainer.getAttribute().getClass().getName() + " has an error!");
@@ -334,8 +337,7 @@ public class BaseConsole implements Serializable {
 		if (pushing > 0) {
 			addToQueue(objectEvent);
 			requestNextPush();
-		}
-		else pushEventNow(objectEvent);
+		}else pushEventNow(objectEvent);
 /*		if (pushing > 0) {
 			addToQueue(objectEvent);
 		}else {

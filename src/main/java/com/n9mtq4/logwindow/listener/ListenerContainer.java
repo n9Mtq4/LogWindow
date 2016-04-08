@@ -301,6 +301,13 @@ public final class ListenerContainer implements Serializable {
 			}
 		}catch (ConcurrentModificationException e) {
 //			this is expected sometimes, and isn't a big deal
+		}catch (Exception e) {
+			for (BaseConsole baseConsole : linkedBaseConsoles) {
+				baseConsole.printStackTrace(e);
+				baseConsole.println("Listener " + getAttribute().getClass().getName() + ".objectReceived has an error!");
+			}
+			e.printStackTrace();
+			System.out.println("Listener " + getAttribute().getClass().getName() + ".objectReceived has an error!");
 		}
 	}
 	
@@ -328,26 +335,55 @@ public final class ListenerContainer implements Serializable {
 					BaseConsole.class.getName() + " baseConsole)");
 			e.printStackTrace();
 		}catch (Exception e) {
-			if (target != null) System.err.println("Unknown error with generic listener method " + target.getName());
-			else System.err.println("Unknown error with generic listener method! Target is null");
-			e.printStackTrace();
+			if (target == null) {
+				System.err.println("Unknown error with generic listener method! Target is null");
+				e.printStackTrace();
+			}else {
+//				it wasn't us, so use BaseConsole#pushEventNow exception printing
+				for (BaseConsole baseConsole : linkedBaseConsoles) {
+					baseConsole.printStackTrace(e);
+					baseConsole.println("Listener " + getAttribute().getClass().getName() + "." + target.getName() + " has an error!");
+				}
+				e.printStackTrace();
+				System.out.println("Listener " + getAttribute().getClass().getName() + "." + target.getName() + " has an error!");
+			}
 		}
 	}
 	
 	private void pushAddedEvent(AdditionEvent additionEvent) {
-		((AdditionListener) listener).onAddition(additionEvent);
+		try {
+			((AdditionListener) listener).onAddition(additionEvent);
+		}catch (Exception e) {
+			System.err.println("Error in listener onAddition");
+			e.printStackTrace();
+		}
 	}
 	
 	private void pushEnabledEvent(EnableEvent enableEvent) {
-		((EnableListener) listener).onEnable(enableEvent);
+		try {
+			((EnableListener) listener).onEnable(enableEvent);
+		}catch (Exception e) {
+			System.err.println("Error in listener onEnable");
+			e.printStackTrace();
+		}
 	}
 	
 	private void pushDisabledEvent(DisableEvent disableEvent) {
-		((DisableListener) listener).onDisable(disableEvent);
+		try {
+			((DisableListener) listener).onDisable(disableEvent);
+		}catch (Exception e) {
+			System.err.println("Error in listener onDisable");
+			e.printStackTrace();
+		}
 	}
 	
 	private void pushRemovedEvent(RemovalEvent removalActionEvent) {
-		((RemovalListener) listener).onRemoval(removalActionEvent);
+		try {
+			((RemovalListener) listener).onRemoval(removalActionEvent);
+		}catch (Exception e) {
+			System.err.println("Error in listener onRemoval");
+			e.printStackTrace();
+		}
 	}
 	
 	private HashMap<Class<?>, Method> findGenericListeners() {
