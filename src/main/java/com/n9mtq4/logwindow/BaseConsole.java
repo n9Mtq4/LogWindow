@@ -154,6 +154,8 @@ public class BaseConsole {
 	@Deprecated
 	public final void dispose() {
 		
+		if (disposed) return;
+		
 		System.out.println("Disposing of BaseConsole with id of " + getId());
 		
 //		remove the listeners, while trying to protect against Concurrent Modification
@@ -167,13 +169,13 @@ public class BaseConsole {
 		for (UIContainer uiContainer : uiContainers1) {
 			removeUiContainer(uiContainer);
 		}
-		
+		/*
 //		removes shutdown hook because this BaseConsole has already been disposed
 		try {
 			Runtime.getRuntime().removeShutdownHook(shutdownHook);
 		}catch (IllegalStateException ignored) {} // this is ok, because this method should be called from the shutdown hook
 		this.disposed = true;
-		
+		*/
 	}
 	
 	/**

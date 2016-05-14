@@ -39,6 +39,7 @@ import java.util.ArrayList;
  * Created by Will on 12/29/14.
  * 
  * @since v5.0
+ * @version v5.1
  * @author Will "n9Mtq4" Bresnahan
  */
 public final class GuiJFrame extends SimpleConsoleUI implements Textable, HasFrame {
@@ -140,7 +141,7 @@ public final class GuiJFrame extends SimpleConsoleUI implements Textable, HasFra
 	
 	@Override
 	public final void dispose() {
-		this.getJFrame().dispose();
+//		this.getJFrame().dispose();
 	}
 	
 	@Override

@@ -39,6 +39,7 @@ import java.util.ArrayList;
  * Created by Will on 12/29/14.
  * 
  * @since v5.0
+ * @version v5.1
  * @author Will "n9Mtq4" Bresnahan
  */
 public final class GuiJFrameLightWeight extends SimpleConsoleUI implements Textable, HasFrame {
@@ -149,7 +150,7 @@ public final class GuiJFrameLightWeight extends SimpleConsoleUI implements Texta
 	
 	@Override
 	public final void dispose() {
-		this.frame.dispose();
+//		this.frame.dispose();
 	}
 	
 	@Override
