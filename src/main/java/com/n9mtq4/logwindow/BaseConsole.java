@@ -30,8 +30,8 @@ import com.n9mtq4.logwindow.ui.UIContainer;
 import com.n9mtq4.logwindow.utils.Colour;
 
 import java.io.File;
+import java.io.IOException;
 import java.io.PrintWriter;
-import java.io.Serializable;
 import java.io.StringWriter;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
@@ -71,9 +71,7 @@ import java.util.Queue;
  * @version v5.1
  */
 @SuppressWarnings("unused")
-public class BaseConsole implements Serializable {
-	
-	private static final long serialVersionUID = 992050290203752760L;
+public class BaseConsole {
 	
 	private static int totalIds = 0;
 	
@@ -239,6 +237,12 @@ public class BaseConsole implements Serializable {
 		PrintWriter pw = new PrintWriter(sw);
 		throwable.printStackTrace(pw);
 		this.println(sw.toString(), Colour.RED);
+		pw.close();
+		try {
+			sw.close();
+		}catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 //	STRING PUSHING START
@@ -724,8 +728,9 @@ public class BaseConsole implements Serializable {
 	 */
 	public final void addConsoleUi(ConsoleUI consoleUI) {
 		if (isDisposed()) return;
-		uiContainers.add(new UIContainer(consoleUI));
-		consoleUI.init();
+		UIContainer toAdd = new UIContainer(consoleUI);
+		uiContainers.add(toAdd);
+		toAdd.init();
 	}
 	
 	/**

@@ -31,6 +31,7 @@ import java.io.IOException;
  * <p>Created by Will on 10/24/14.</p>
  * 
  * @since v0.2
+ * @version v5.1
  * @author Will "n9Mtq4" Bresnahan
  */
 public final class ModuleJarLoader implements ObjectListener {
@@ -44,6 +45,11 @@ public final class ModuleJarLoader implements ObjectListener {
 		if (stringParser.trim().toLowerCase().startsWith("jarloader ") && stringParser.getLength() >= 2) {
 			
 			String filePath = stringParser.getWordsStartingFrom(1);
+			if (filePath == null) {
+				baseConsole.println("[ERROR]: There is no such file (null)", Colour.RED);
+				return;
+			}
+			
 			File jarFile = new File(filePath);
 			if (!jarFile.exists()) {
 				baseConsole.println("[ERROR]: " + jarFile.getPath() + " doesn't exist", Colour.RED);

@@ -26,6 +26,7 @@ import java.io.Serializable;
  * 
  * @see Runtime#addShutdownHook
  * @since v4.0
+ * @version v5.1
  * @author Will "n9Mtq4" Bresnahan
  */
 public final class ShutdownHook extends Thread 
@@ -58,7 +59,7 @@ public final class ShutdownHook extends Thread
 	public void run() {
 		
 		parent.dispose();
-		Runtime.getRuntime().halt(0);
+//		Runtime.getRuntime().halt(0);
 //		System.exit(0);
 		
 	}

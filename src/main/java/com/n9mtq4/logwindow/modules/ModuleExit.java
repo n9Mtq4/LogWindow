@@ -26,7 +26,7 @@ import com.n9mtq4.logwindow.utils.StringParser;
  * <p>Created by will on 3/2/15.</p>
  * 
  * @since v4.0
- * @version v5.0
+ * @version v5.1
  * @author Will "n9Mtq4" Bresnahan
  */
 public final class ModuleExit implements ObjectListener {
@@ -37,9 +37,7 @@ public final class ModuleExit implements ObjectListener {
 		if (!objectEvent.isUserInputString()) return;
 		StringParser stringParser = new StringParser(objectEvent);
 		
-		if (stringParser.eqt("exit")) {
-			baseConsole.dispose();
-		}
+		if (stringParser.eqt("exit")) baseConsole.dispose();
 		
 	}
 	
