@@ -15,7 +15,7 @@
 
 package com.n9mtq4.logwindow.utils;
 
-import java.awt.*;
+import java.awt.Color;
 import java.awt.color.ColorSpace;
 
 /**
@@ -24,9 +24,12 @@ import java.awt.color.ColorSpace;
  * <p>Created by Will on 11/24/14.</p>
  * 
  * @since v3.1
+ * @version v5.1
  * @author Will "n9Mtq4" Bresnahan
  */
 public class Colour extends Color {
+	
+	private static final long serialVersionUID = 7273343206919797227L;
 	
 	/**
 	 * The Colour white.
@@ -64,8 +67,6 @@ public class Colour extends Color {
 	 * The Colour magenta.
 	 */
 	public static final Colour MAGENTA = getColour(Color.MAGENTA);
-
-//	ANSI TO COLOUR SEPARATOR
 	/**
 	 * The Colour blue.
 	 */
@@ -82,6 +83,8 @@ public class Colour extends Color {
 	 * The Colour purple.
 	 */
 	public static final Colour PURPLE = new Colour(128, 0, 128);
+	
+//	ANSI TO COLOUR SEPARATOR
 	/**
 	 * The ANSI code for resetting the color.
 	 */
@@ -221,24 +224,24 @@ public class Colour extends Color {
 		return getANSI(this);
 	}
 	
-	private String getANSI(Colour colour) {
-		if (this.getRGB() == Colour.RED.getRGB()) {
+	private static String getANSI(Colour colour) {
+		if (colour.getRGB() == Colour.RED.getRGB()) {
 			return ANSI_RED;
-		}else if (this.getRGB() == Colour.YELLOW.getRGB()) {
+		}else if (colour.getRGB() == Colour.YELLOW.getRGB()) {
 			return ANSI_YELLOW;
-		}else if (this.getRGB() == Colour.GREEN.getRGB()) {
+		}else if (colour.getRGB() == Colour.GREEN.getRGB()) {
 			return ANSI_GREEN;
-		}else if (this.getRGB() == Colour.BLUE.getRGB()) {
+		}else if (colour.getRGB() == Colour.BLUE.getRGB()) {
 			return ANSI_BLUE;
-		}else if (this.getRGB() == Colour.CYAN.getRGB()) {
+		}else if (colour.getRGB() == Colour.CYAN.getRGB()) {
 			return ANSI_CYAN;
-		}else if (this.getRGB() == Colour.BLACK.getRGB()) {
+		}else if (colour.getRGB() == Colour.BLACK.getRGB()) {
 			return ANSI_BLACK;
-		}else if (this.getRGB() == Colour.WHITE.getRGB()) {
+		}else if (colour.getRGB() == Colour.WHITE.getRGB()) {
 			return ANSI_WHITE;
-		}else if (this.getRGB() == Colour.PURPLE.getRGB()) {
+		}else if (colour.getRGB() == Colour.PURPLE.getRGB()) {
 			return ANSI_PURPLE;
-		}else if (this.getRGB() == Colour.MAGENTA.getRGB()) {
+		}else if (colour.getRGB() == Colour.MAGENTA.getRGB()) {
 			return ANSI_PURPLE;
 		}
 		return "";

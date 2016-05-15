@@ -36,7 +36,7 @@ import java.util.ArrayList;
  * @version v5.0
  * @since v0.1
  * @author Will "n9Mtq4" Bresnahan
- * @deprecated should't be necessary and storing and pushing history is an intensive task
+ * @deprecated should't be necessary, storing and pushing history is an intensive task, and only works with strings.
  */
 @Deprecated
 public final class History implements EnableListener, ObjectListener {
@@ -145,7 +145,7 @@ public final class History implements EnableListener, ObjectListener {
 	 * @version v5.0
 	 * @since v4.0
 	 * @author Will "n9Mtq4" Bresnahan
-	 * @deprecated should't be necessary and storing and pushing history is an intensive task
+	 * @deprecated should't be necessary, storing and pushing history is an intensive task, and only works with strings.
 	 */
 	@Deprecated
 	public interface HistorySupport {

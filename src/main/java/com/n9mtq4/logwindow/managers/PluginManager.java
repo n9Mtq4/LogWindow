@@ -35,8 +35,9 @@ import java.util.zip.ZipFile;
 /**
  * Created by Will on 10/26/14.<br>
  * Handles all the loading from plugin jar files into the {@link BaseConsole}.
+ * @since v4.0
+ * @version v5.1
  */
-//TODO: finish javadocs
 public class PluginManager {
 	
 	/**
@@ -94,13 +95,20 @@ public class PluginManager {
 			listeners.addAll(loadPluginListeners(f, c));
 		}
 		
-//		for (ListenerContainer listener : listeners) listener.pushEnabled(new EnableEvent(c));
 		for (ListenerContainer listener : listeners) c.enableListenerContainer(listener);
 		
 	}
 	
+	/**
+	 * Is the plugin a valid file?
+	 * Makes sure it isn't hidden, doesn't start with a "." and 
+	 * is a jar or zip file.
+	 * 
+	 * @param f the File to check
+	 * @return if the plugin is valid
+	 * */
 	private static boolean isValidPlugin(File f) {
-		return (!f.getName().startsWith(".") && (f.getAbsolutePath().trim().toLowerCase().endsWith(".jar") || f.getName().trim().toLowerCase().endsWith(".zip")));
+		return (!f.getName().startsWith(".") && !f.isHidden() && (f.getAbsolutePath().trim().toLowerCase().endsWith(".jar") || f.getName().trim().toLowerCase().endsWith(".zip")));
 	}
 	
 	/**

@@ -79,8 +79,7 @@ public class NTextArea extends JTextPane
 		if (c == null) c = Color.BLACK;
 		boolean edit = super.isEditable();
 		super.setEditable(true);
-//		thanks nIcE cOw @ stackoverflow
-//		https://stackoverflow.com/questions/9650992/how-to-change-text-color-in-the-jtextarea
+//		http://stackoverflow.com/a/9652143/5196460
 		StyleContext sc = StyleContext.getDefaultStyleContext();
 		AttributeSet aset = sc.addAttribute(SimpleAttributeSet.EMPTY, StyleConstants.Foreground, c);
 		

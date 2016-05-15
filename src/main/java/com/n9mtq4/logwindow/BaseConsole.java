@@ -337,18 +337,10 @@ public class BaseConsole {
 	 * @param objectEvent The {@link ObjectEvent} to push to the {@link ListenerAttribute}s
 	 * */
 	public final void pushEvent(final GenericEvent objectEvent) {
-//		addToQueue(objectEvent);
-//		requestNextPush();
-//		TODO: maybe use the following code for better efficiency. - DONE; leaving in case it breaks
 		if (pushing > 0) {
 			addToQueue(objectEvent);
 			requestNextPush();
 		}else pushEventNow(objectEvent);
-/*		if (pushing > 0) {
-			addToQueue(objectEvent);
-		}else {
-			pushEventNow(objectEvent);
-		}*/
 	}
 	
 	/**
@@ -779,7 +771,7 @@ public class BaseConsole {
 	 * @return true if disposed, false otherwise
 	 * */
 	public final boolean isDisposed() {
-		if (disposed) System.out.println("The BaseConsole has been disposed!");
+		if (disposed) System.err.println("The BaseConsole with id " + id + " has been disposed!");
 		return disposed;
 	}
 	
