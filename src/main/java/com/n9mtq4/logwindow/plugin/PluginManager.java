@@ -1,6 +1,6 @@
 /*
  * NOTE: This is added by intellij IDE. Disregard this copyright if there is another copyright later in the file.
- * Copyright (C) 2015  Will (n9Mtq4) Bresnahan
+ * Copyright (C) 2016  Will (n9Mtq4) Bresnahan
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
@@ -13,12 +13,11 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package com.n9mtq4.logwindow.managers;
+package com.n9mtq4.logwindow.plugin;
 
 import com.n9mtq4.logwindow.BaseConsole;
 import com.n9mtq4.logwindow.listener.ListenerAttribute;
 import com.n9mtq4.logwindow.listener.ListenerContainer;
-import com.n9mtq4.logwindow.utils.Colour;
 import com.n9mtq4.logwindow.utils.JarLoader;
 import com.n9mtq4.logwindow.utils.LWReflectionHelper;
 
@@ -28,9 +27,9 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 import java.util.zip.ZipFile;
-
 
 /**
  * Created by Will on 10/26/14.<br>
@@ -100,6 +99,85 @@ public class PluginManager {
 	}
 	
 	/**
+	 * Parses a plugin.txt file and turns it into a data model
+	 * of what plugin classes should be loaded and when.
+	 * 
+	 * @param f the plugin to read the plugins to load from
+	 * @return a list of {@link ListenerToLoad} that corresponds to the input file
+	 * @throws IOException if there is an exception reading the file
+	 * */
+	public static ListenerToLoad[] parsePluginTxt(final File f) throws IOException {
+		
+		// load in files
+		final ZipFile zf = new ZipFile(f);
+		final InputStream is = zf.getInputStream(zf.getEntry("plugin.txt"));
+		final String infoText = streamToString(is);
+		
+		// break into listener chunks
+		final String[] listenerDeclarations = infoText.split(";|}"); // split by ; or }
+		
+		final ArrayList<ListenerToLoad> listenerToLoadsAl = new ArrayList<ListenerToLoad>();
+		
+		for (String listenerDeclaration : listenerDeclarations) {
+			
+			// listener chunks can be multiple lines
+			final String[] lines = listenerDeclaration.split("\n");
+			
+			String name = null;
+			final ArrayList<String> dependencies = new ArrayList<String>();
+			final ArrayList<String> antidependencies = new ArrayList<String>();
+			
+			for (String line : lines) {
+				
+				final String trimmed = line.trim();
+				
+				if (trimmed.startsWith("#")) continue; // comment support
+				if (trimmed.equals("")) continue; // ignore blank lines
+				
+				if (line.startsWith("\t") || line.startsWith(" ")) {
+					// its a dependency
+					if (trimmed.startsWith("!")) {
+						// anti-dependency
+						final String classId = trimmed.substring(1).trim();
+						antidependencies.add(classId);
+					}else {
+						// dependency
+						dependencies.add(trimmed);
+					}
+				}else {
+					// must be the class id of the listener, a single one
+					name = trimmed.endsWith("{") ? trimmed.substring(0, trimmed.length() - 1).trim() : trimmed; // grab the class id
+				}
+				
+			}
+			
+			// make sure we found one to load
+			if (name == null) {
+				System.out.println("Error loading plugin from lines " + Arrays.toString(lines));
+				break; // no name, start over
+			}
+			
+			// copy from array lists to arrays
+			String[] dependenciesArray = new String[dependencies.size()];
+			dependencies.toArray(dependenciesArray);
+			String[] antidependenciesArray = new String[antidependencies.size()];
+			antidependencies.toArray(antidependenciesArray);
+			
+			// add it to our list
+			final ListenerToLoad listenerToLoad = new ListenerToLoad(name, dependenciesArray, antidependenciesArray);
+			listenerToLoadsAl.add(listenerToLoad);
+			
+		}
+		
+		// transform listener to load array list into return type
+		final ListenerToLoad[] loadList = new ListenerToLoad[listenerToLoadsAl.size()];
+		listenerToLoadsAl.toArray(loadList);
+		
+		return loadList;
+		
+	}
+	
+	/**
 	 * Is the plugin a valid file?
 	 * Makes sure it isn't hidden, doesn't start with a "." and 
 	 * is a jar or zip file.
@@ -129,48 +207,30 @@ public class PluginManager {
 			
 			try {
 				
-//				read plugin.txt from the plugin jar and set the contents to infoText
-				ZipFile zf = new ZipFile(f);
-				InputStream is = zf.getInputStream(zf.getEntry("plugin.txt"));
-				String infoText = streamToString(is);
-				
-//				for each line in the file
-				String[] lines = infoText.split("\n");
-				for (String line : lines) {
-//					if the line isn't a comment
-					if (!line.startsWith("#") && !line.trim().equals("")) {
-						try {
-//							try to add this listener to the base console using reflection
-							ListenerAttribute listener = LWReflectionHelper.callConstructor(LWReflectionHelper.getClassByFullName(line.trim()));
-							ListenerContainer le = ListenerContainer.makeListenerEntry(listener);
-							c.addListenerContainerRaw(le);
-							listeners.add(le);
-						}catch (Exception e1) {
-							System.err.println("Error in listener adding");
-							e1.printStackTrace();
-							c.println("Error in listener adding", Colour.RED);
-							c.printStackTrace(e1);
-						}
-					}
+				// read the plugin.txt info
+				final ListenerToLoad[] listenersToLoad = parsePluginTxt(f);
+				for (ListenerToLoad potentialListener : listenersToLoad) {
+					
+					// make sure we should load it
+					if (!potentialListener.shouldLoad() && !potentialListener.isForceLoad()) continue;
+					
+					// try to add this listener to the base console using reflection
+					ListenerAttribute listener = LWReflectionHelper.callConstructor(LWReflectionHelper.getClassByFullName(potentialListener.getClassIdentifier()));
+					ListenerContainer le = ListenerContainer.makeListenerEntry(listener);
+					c.addListenerContainerRaw(le);
+					listeners.add(le);
+					
 				}
 				
-				zf.close(); //the input stream should close the zip file
-				is.close();
-				
-				return listeners;
-				
 			}catch (IOException e) {
+				// something has gone horribly wrong
 				e.printStackTrace();
 				c.printStackTrace(e);
-			}catch (NullPointerException e) {
-				System.err.println("No plugin.txt in " + f.getName());
-//				e.printStackTrace();
-				c.println("No plugin.txt in " + f.getName(), Colour.RED);
-//				c.printStackTrace(e);
 			}catch (Exception e) {
-				System.err.println("Error in adding listener " + f.getName());
 				e.printStackTrace();
 				c.printStackTrace(e);
+				System.out.println("Error loading listener: " + f.getName());
+				c.println("Error loading listener: " + f.getName());
 			}
 			
 		}
@@ -198,7 +258,7 @@ public class PluginManager {
 	 * @param filePath The path of the file
 	 * @return the String of the file
 	 */
-	private static String loadStringFromFile(String filePath) {
+	private static String silentLoadStringFromFile(String filePath) {
 		try {
 			BufferedReader br = new BufferedReader(new FileReader(filePath));
 			StringBuilder sb = new StringBuilder();
