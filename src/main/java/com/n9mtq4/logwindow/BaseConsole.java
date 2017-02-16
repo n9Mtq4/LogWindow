@@ -24,7 +24,7 @@ import com.n9mtq4.logwindow.events.ObjectEvent;
 import com.n9mtq4.logwindow.events.RemovalEvent;
 import com.n9mtq4.logwindow.listener.ListenerAttribute;
 import com.n9mtq4.logwindow.listener.ListenerContainer;
-import com.n9mtq4.logwindow.managers.PluginManager;
+import com.n9mtq4.logwindow.plugin.PluginManager;
 import com.n9mtq4.logwindow.ui.ConsoleUI;
 import com.n9mtq4.logwindow.ui.UIContainer;
 import com.n9mtq4.logwindow.utils.Colour;
