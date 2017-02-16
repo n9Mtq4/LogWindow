@@ -1,4 +1,4 @@
-#LogWindow [![Build Status](https://travis-ci.org/n9Mtq4/LogWindow.svg?branch=master)](https://travis-ci.org/n9Mtq4/LogWindow)
+#LogWindow [![Build Status](https://travis-ci.org/n9Mtq4/LogWindow.svg?branch=develop)](https://travis-ci.org/n9Mtq4/LogWindow)
 
 ------------------
 ##What is it?
